@@ -453,6 +453,11 @@
               <FileType>1</FileType>
               <FilePath>.\keys.c</FilePath>
             </File>
+            <File>
+              <FileName>keys_old.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\keys_old.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -512,6 +517,11 @@
               <FileName>keys.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\keys.h</FilePath>
+            </File>
+            <File>
+              <FileName>keys_old.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\keys_old.h</FilePath>
             </File>
           </Files>
         </Group>

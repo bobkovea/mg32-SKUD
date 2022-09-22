@@ -22,9 +22,9 @@ void IAP_Init(uint32_t IAPSize)
 //----------------------------------------------------------------------------------------
 void IAP_Erase_OnePage (uint16_t PageNumber) {
 	// Если обращаемся за пределы выделенной памяти
-	if (PageNumber >= (MEM_GetIAPSize() / PAGE_SIZE))
+	if (PageNumber >= (MEM_GetIAPSize() / IAP_PAGE_SIZE))
 		return;
-	IAP_Erase_Page(IAP_START_ADDRESS + (PAGE_SIZE * PageNumber), 1);
+	IAP_Erase_Page(IAP_START_ADDRESS + (IAP_PAGE_SIZE * PageNumber), 1);
 }
 
 //----------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ void IAP_Erase_OnePage (uint16_t PageNumber) {
 //----------------------------------------------------------------------------------------
 void IAP_FullErase(void)
 {
-	IAP_Erase_Page(IAP_START_ADDRESS, MEM_GetIAPSize() / PAGE_SIZE);
+	IAP_Erase_Page(IAP_START_ADDRESS, MEM_GetIAPSize() / IAP_PAGE_SIZE);
 }
 
 
@@ -138,7 +138,7 @@ uint32_t IAP_IsFullEmpty(void)
 //----------------------------------------------------------------------------------------
 uint32_t IAP_GetPageNumberOfByte(uint32_t ByteIndexInIAP)
 {
-	return ByteIndexInIAP / PAGE_SIZE;
+	return ByteIndexInIAP / IAP_PAGE_SIZE;
 } 
 
 //----------------------------------------------------------------------------------------
@@ -146,7 +146,7 @@ uint32_t IAP_GetPageNumberOfByte(uint32_t ByteIndexInIAP)
 //----------------------------------------------------------------------------------------
 uint32_t IAP_GetNumberOfPages()
 {
-	return MEM_GetIAPSize() / PAGE_SIZE;
+	return MEM_GetIAPSize() / IAP_PAGE_SIZE;
 } 
 
 //----------------------------------------------------------------------------------------
@@ -180,7 +180,7 @@ DRV_Return IAP_Erase_Page(uint32_t StartPageAddress, uint32_t PageQuantity)
         return DRV_Failure;
 
 	// проверка на кратность адреса начала стирания 512 или 1024 (в зависимости от МК)
-	if((StartPageAddress & (PAGE_SIZE - 1)) != 0)
+	if((StartPageAddress & (IAP_PAGE_SIZE - 1)) != 0)
 			return DRV_Failure;      
 	// Не выходим ли мы за края IAP-памяти?
     if(((StartPageAddress) < 0x1A000000) || ((StartPageAddress) >= 0x1C000000))

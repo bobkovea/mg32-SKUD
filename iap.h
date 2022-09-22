@@ -8,7 +8,7 @@
 #define IAP_SIZE_2048 2048UL 
 #define IAP_SIZE_3072 3072UL
 #define IAP_SIZE_4096 4096UL
-#define PAGE_SIZE 1024UL
+#define IAP_PAGE_SIZE 1024UL
 #endif
 
 #if defined(MG32_3RD) || defined(MG32_4TH) // MG32F02x128, MG32F02x064, MG32F02V032
@@ -20,10 +20,10 @@
 #define IAP_SIZE_3072 3072UL
 #define IAP_SIZE_3584 3584UL
 #define IAP_SIZE_4096 4096UL
-#define PAGE_SIZE 512UL
+#define IAP_PAGE_SIZE 512UL
 #endif
 // минимальный размер выделяемой IAP  (флеша для переменных) равен размеру одной страницы
-#define MIN_IAP_SIZE PAGE_SIZE
+#define MIN_IAP_SIZE IAP_PAGE_SIZE
 // начальный адрес IAP
 #define IAP_START_ADDRESS 0x1A000000UL
  	

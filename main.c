@@ -5,114 +5,13 @@
 extern uint8_t koncevik;
 extern uint8_t alarm;
 	
-	
-uint32_t key_count = 5;
-//uint8_t arr[PAGE_SIZE];
-	
-	
-typedef union  
-{
-	uint8_t arrByte[PAGE_SIZE];
-	uint32_t arrWord[PAGE_SIZE / 4];
-	uint8_t arr2DByte[PAGE_SIZE / 8][8];
-} u_t;
-	
-u_t flashBlock;
-	
-uint32_t CheckTruthEco(uint8_t *key)
-{
-	uint8_t truth = 0;
-		
-	for (uint32_t i = 0; i < key_count; i++)
-	{
-		truth = 1;
-		for (uint8_t j = 0; j < 8; j++)
-        {
-			if (key[j] != IAP_ReadByte(8 + 8 * i + j)) // переделать на ReadWord 
-			{
-				truth = 0;
-				break;
-			}
-        }
-		
-		if (truth) return i;
-	}
-	return UINT32_MAX;
-
-}
-
-
-	// if >= 62
-		
-	
-uint8_t RemoveKeyEco(uint8_t *newKey)
-{
-	uint32_t keyNumber = CheckTruthEco(newKey);
-	
-	if (keyNumber == UINT32_MAX) // если ключа нет в базе
-		return 4;  // то ничего не делаем
-	
-	if (IAP_ReadWord(1) <= 62)
-	{
-		
-	}
-	for (uint32_t i = 1 + keyNumber; i < IAP_ReadWord(1); i++)
-	{
-		for (uint8_t j = 0; j < 8; j++)
-		{
-			flashBlock.arr2DByte[i][j] = IAP_ReadByte(8 * i + j);
-		}
-	}
-	
-	
-
-	if (IAP_GetNumberOfPages() - IAP_GetPageNumberOfByte(8 + 8 * keyNumber))
-	{
-		IAP_CopyIAPInRAM(i * PAGE_SIZE, arr, sizeof(arr));
-		IAP_Erase_OnePage(0);
-		
-		for (uint32_t i = 8 + 8 * keyNumber; i < flashBlock.arrWord[1]; i++)
-        {
-			flashBlock.arrWord[i] = flashBlock.arrWord[i + 8];
-        }
-		
-		flashBlock.arrWord[1]--; // --cntkeys
-	}
-	
-	for (uint32_t i = 0; i < MEM_GetIAPSize() / PAGE_SIZE; i++)
-    {
-		IAP_CopyIAPInRAM(i * PAGE_SIZE, arr, sizeof(arr));
-		IAP_Erase_OnePage(0);
-    }
-	
-	
-	
-
-	
-	for (uint32_t i = 0; i < MEM_GetIAPSize() / PAGE_SIZE; i++)
-    {
-		IAP_CopyIAPInRAM(0, arr, sizeof(arr));
-		IAP_Erase_OnePage(0);
-    }
-	
-	
-	KeysData.keysCount--;
-	KeysData.nWrite++;
-	KeysData.checksum = Do_CRC((uint8_t *)&KeysData, sizeof(KeysData) - 4); // считаем CRC;
-	IAP_FullErase(); // полностью очищаем выделенную IAP
-	IAP_CopyRAMInIAP(0, &KeysData, sizeof(KeysData));
-	
-	return 3;
-}
-	
-	
 int main()
 {
 	__disable_irq();
 
     ChipInit();
 	wdt_disable();
-	IAP_Init(IAP_SIZE_4096 /*MIN_IAP_SIZE*/);
+	IAP_Init(IAP_SIZE_2048);
 //	FlashStartupHandle();  
 	
 	TM_Timer_Cmd(TM01, DISABLE); // выключаем таймер 1 (не даем включиться ранее положенного)
@@ -168,46 +67,50 @@ int main()
 
 //	URT_Write(CRCisWrong(mas, 13));
 	
+	for (uint32_t i = 0; i < 2048; i += 4)
+	{
+		URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
+	}
 	
 	
-	
-	
-	
+	 
 	
     while(1) 
 	{ 
 		
-	uint32_t *kdp = (uint32_t *)&KeysData;
+//	uint32_t *kdp = (uint32_t *)&KeysData;
+//	
+//	for (uint8_t i = 0; i < 15; i++)
+//    {
+//		URT_WriteWord(*kdp++);
+//    }
+//	delay_ms(10000);
 	
-	for (uint8_t i = 0; i < 15; i++)
-    {
-		URT_WriteWord(*kdp++);
-    }
-	delay_ms(10000);
-	
-//		if (DS1990_GetID())
-//		{
+		
+		if (DS1990_GetID())
+		{
 //			uint8_t s = AddKey(keyCurrent);
 //			URT_Write(s);
 //			if (s)
 //				PE13 = 0;
 			
-
-//			RemoveKey(keyCurrent); // удалить ключ
-
+//			URT_WriteWord(CheckTruthEco(keyCurrent)); // удалить ключ 
+			URT_WriteWord(RemoveKey(keyCurrent)); // удалить ключ 
 			
-//			delay_ms(100);
-
+			for (uint32_t i = 0; i < 2048; i += 4)
+			{
+				URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
+			}
 			
-//			for (uint32_t i = 0; i < 255; i += 4)
-//			{
-//				URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
-//			}
 //			while(1);
 			
+			delay_ms(2000);
+
+
 			
 			
-//		}
+			
+		}
 		
 //		if (DS1990_GetID())
 //		{
