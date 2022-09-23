@@ -32,24 +32,41 @@ void FillFlash(void)
 {
 	
 	uint32_t sWord = 0xABABABAB;
-	uint32_t kCnt = (IAP_SIZE - 16) / 8;
+	uint32_t kCnt = 0 /*(IAP_SIZE - 16) / 8*/;
 	uint32_t nWrite = 0x01;
 	uint32_t crc = 0xCCCCCCCC;
 	
-	IAP_CopyRAMInIAP(0, &sWord, sizeof(sWord));
-	IAP_CopyRAMInIAP(4, &kCnt, sizeof(kCnt));
+	
+	
+
+	
+//	IAP_CopyRAMInIAP(8, key1, sizeof(key1));
+//	IAP_CopyRAMInIAP(16, key2, sizeof(key2));
+//	IAP_CopyRAMInIAP(24, key3, sizeof(key3));
+//	IAP_CopyRAMInIAP(32, key4, sizeof(key4));
+//	IAP_CopyRAMInIAP(40, key5, sizeof(key5));
+	
 	IAP_CopyRAMInIAP(IAP_SIZE - 8, &nWrite, sizeof(nWrite));
 	IAP_CopyRAMInIAP(IAP_SIZE - 4, &crc, sizeof(crc));
 
-	
-	for (uint32_t i = 8; i < 1024 - 24; i += 8)
+//	
+	for (uint32_t i = 8; i < 2048 - 24; i += 8)
     {
+		kCnt++;
 		IAP_CopyRAMInIAP(i, key1, sizeof(key1));
     }
 	
-	IAP_CopyRAMInIAP(1024 - 24, key2, sizeof(key2));
-	IAP_CopyRAMInIAP(1024 - 16, key3, sizeof(key3));
-	IAP_CopyRAMInIAP(1024 - 8, key3, sizeof(key3));
+	IAP_CopyRAMInIAP(2048 - 24, key2, sizeof(key2));
+	kCnt++;
+	
+	IAP_CopyRAMInIAP(0, &sWord, sizeof(sWord));
+	IAP_CopyRAMInIAP(4, &kCnt, sizeof(kCnt));
+	
+
+//	
+//	IAP_CopyRAMInIAP(1024 - 24, key2, sizeof(key2));
+//	IAP_CopyRAMInIAP(1024 - 16, key3, sizeof(key3));
+//	IAP_CopyRAMInIAP(1024 - 8, key3, sizeof(key3));
 }
 
 void CopyFlash(void)
@@ -74,7 +91,7 @@ uint32_t CheckTruth(uint8_t *keyToCheck)
 {
 	uint8_t truth = 0;
 		
-	for (uint32_t i = 1; i <= (256 - 2) /*IAP_ReadWord(4)*/; i++) // со смещением на служебные
+	for (uint32_t i = 1; i <=  (256 - 2) /*IAP_ReadWord(4)*/; i++) // со смещением на служебные
 	{
 		truth = 1;
 		for (uint8_t j = 0; j < 8; j++)
@@ -95,24 +112,42 @@ uint32_t CheckTruth(uint8_t *keyToCheck)
 
 uint8_t AddKey(uint8_t *keyToAdd)
 {
-//	if (CheckTruth(newKey) != UINT32_MAX) // если ключ уже есть в базе
-//		return 1;  // не добавляем новый ключ (можно вернуть порядковый номер ключа в базе)
-//	if (KeysData.keysCount >= MAX_KEYS_COUNT) // если память ключей заполнена
-//		return 2; // не добавляем новый ключ
-//	
-//	for (uint8_t i = 0; i < 8; i++) // копируем новый ключ в конец базы
-//    {
-//		KeysData.keys[KeysData.keysCount][i] = newKey[i];
-//	}
+	if (CheckTruth(keyToAdd) != UINT32_MAX) // если ключ уже есть в базе
+		return 1;  // не добавляем новый ключ (можно вернуть порядковый номер ключа в базе)
+	
+	uint32_t keyCount = IAP_ReadWord(4);
+	if (keyCount >= MAX_KEYS_COUNT) // если память ключей заполнена
+		return 2; // не добавляем новый ключ
+	
+	uint32_t newKeyBytePos =  8 + keyCount * 8;
+	uint8_t pageNumberOfKey = IAP_GetPageNumberOfByte(newKeyBytePos);
 
-//	KeysData.keysCount++;
-//	KeysData.nWrite++;
-//		
-//	KeysData.checksum = Do_CRC((uint8_t *)&KeysData, sizeof(KeysData) - 4); // считаем CRC;
-//		
-//	IAP_FullErase(); // полностью очищаем выделенную IAP
-//	IAP_CopyRAMInIAP(0, &KeysData, sizeof(KeysData));
+	for (uint8_t i = IAP_FIRST_PAGE; i < IAP_PAGE_COUNT; i++)
+    {
+		if  (i != pageNumberOfKey && i != IAP_FIRST_PAGE && i != IAP_LAST_PAGE) // если страница не первая или последняя и на ней нет ключа
+			continue; // то страница не изменяется
 
+		IAP_CopyIAPInRAM(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // копируем текущую страницу флеша в ОЗУ
+		
+		if (i == IAP_FIRST_PAGE) // если страница первая
+			flashBlock.arrWord[KEYSCNT_WORD_POS]++; // увеличиваем счетчик ключей
+		
+		if (i == IAP_LAST_PAGE) // если страница последняя
+		{	
+			flashBlock.arrWord[NWRITE_WORD_POS]++; // увеличиваем количество стираний флеша
+			flashBlock.arrWord[CRC_WORD_POS] = 0xAB /*Do_CRC((uint8_t *)flashBlock.arrByte, sizeof(flashBlock.arrByte) - 4)*/ ; // считаем CRC (мб всей памяти? но как?)
+		}
+	
+		if (i == pageNumberOfKey) // если на текущей странице будет ключ
+		{
+			for (uint32_t j = 0, k = newKeyBytePos - pageNumberOfKey * IAP_PAGE_SIZE; j < 8; j++, k++)
+				flashBlock.arrByte[k] = keyCurrent[j]; 
+		}
+		
+		IAP_Erase_OnePage(i); // стираем текущую страницу флеша
+		IAP_CopyRAMInIAP(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // перезаписываем блок
+	}
+	
 	return 0;
 }
 
@@ -130,8 +165,10 @@ uint8_t RemoveKey(uint8_t *keyToRemove)
 	for (uint8_t i = IAP_FIRST_PAGE; i < IAP_PAGE_COUNT; i++)
     {
 
-		IAP_CopyIAPInRAM(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // копируем текущую страницу флеша в ОЗУ
+		if  (i < pageNumberOfKey && i != IAP_FIRST_PAGE) // если на странице только ключи и только ДО удаляемого
+			continue; // страница не изменяется
 		
+		IAP_CopyIAPInRAM(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // копируем текущую страницу флеша в ОЗУ
 		
 		if (i == IAP_FIRST_PAGE) // если страница первая
 			flashBlock.arrWord[KEYSCNT_WORD_POS]--; // уменьшаем счетчик ключей
@@ -140,16 +177,13 @@ uint8_t RemoveKey(uint8_t *keyToRemove)
 		{
 			lastByteNumber = IAP_PAGE_SIZE  + IAP_PAGE_SIZE * i - 16; // последний ключ и служебные не трогаем
 			flashBlock.arrWord[NWRITE_WORD_POS]++; // увеличиваем количество стираний флеша
-//			flashBlock.arrWord[CRC_WORD_POS] =  Do_CRC((uint8_t *)flashBlock.arrByte, sizeof(flashBlock.arrByte) - 4); // считаем CRC (мб всей памяти? но как?)
-			flashBlock.arrWord[CRC_WORD_POS] = 0xAB;
+			flashBlock.arrWord[CRC_WORD_POS] = 0xAB /* Do_CRC((uint8_t *)flashBlock.arrByte, sizeof(flashBlock.arrByte) - 4)*/ ; // считаем CRC (мб всей памяти? но как?)
 		}
 		else // если страница не последняя
 			lastByteNumber = IAP_PAGE_SIZE  + IAP_PAGE_SIZE * i; // меняем последний ключ на первый ключ следующей страницы
 						
-		if  (i < pageNumberOfKey && i != IAP_FIRST_PAGE) // если на странице только ключи и только ДО удаляемого
-			continue; // страница не изменяется
-		
-		else if (i == pageNumberOfKey)
+
+		if (i == pageNumberOfKey) // если на текущей странице находится удаляемый ключ
 		{
 			for (uint32_t j = keyBytePos /* +8 */; j < lastByteNumber; j++)
 				flashBlock.arrByte[j - pageNumberOfKey * IAP_PAGE_SIZE] = IAP_ReadByte(j + 8 /* j */); 
@@ -200,7 +234,9 @@ uint8_t DS1990_GetID (void)
 			keyCurrent[i] = OneWire_Read();
 //			URT_Write(keyCurrent[i]);
 		}
-		return 1;
+		if (keyCurrent[7] == Do_CRC(keyCurrent, 7))
+			return 1;
+		
 	}
 	return 0;
 

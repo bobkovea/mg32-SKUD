@@ -12,7 +12,6 @@ int main()
     ChipInit();
 	wdt_disable();
 	IAP_Init(IAP_SIZE_2048);
-//	FlashStartupHandle();  
 	
 	TM_Timer_Cmd(TM01, DISABLE); // выключаем таймер 1 (не даем включиться ранее положенного)
 	TM_IT_Config(TM01, TMx_TIE_IE, ENABLE); // включаем прерывание таймера 1 по переполнению
@@ -72,9 +71,6 @@ int main()
 		URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
 	}
 	
-	
-	 
-	
     while(1) 
 	{ 
 		
@@ -89,13 +85,10 @@ int main()
 		
 		if (DS1990_GetID())
 		{
-//			uint8_t s = AddKey(keyCurrent);
-//			URT_Write(s);
-//			if (s)
-//				PE13 = 0;
 			
 //			URT_WriteWord(CheckTruthEco(keyCurrent)); // удалить ключ 
-			URT_WriteWord(RemoveKey(keyCurrent)); // удалить ключ 
+//			URT_WriteWord(RemoveKey(keyCurrent)); // удалить ключ 
+			URT_WriteWord(AddKey(keyCurrent)); // удалить ключ 
 			
 			for (uint32_t i = 0; i < 2048; i += 4)
 			{
