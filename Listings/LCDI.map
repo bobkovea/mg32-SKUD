@@ -4359,7 +4359,7 @@ Image component sizes
          0          0          0          0          4       1536   gpio.o
        550         24          0          0          0      12650   iap.o
        684         32          0         16        520       3899   keys.o
-       312         20          0          0          0      15005   main.o
+       312         20          0          0          0      15003   main.o
         36          8          0          0          4       4938   mg32x02z__common_drv.o
         58          4          0          0          0      12201   mg32x02z__irqhandler.o
        150          8          0          0          0       2448   mg32x02z_chipinit.o
@@ -4385,7 +4385,7 @@ Image component sizes
         60          4          0          0          0       1947   wdt.o
 
     ----------------------------------------------------------------------
-      5708        550        730         20       1640     263252   Object Totals
+      5708        550        730         20       1640     263250   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         22          0          3          0         11          0   (incl. Padding)
 
@@ -4434,8 +4434,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      6842        618        730         24       1640     263320   Grand Totals
-      6842        618        730         24       1640     263320   ELF Image Totals
+      6842        618        730         24       1640     263318   Grand Totals
+      6842        618        730         24       1640     263318   ELF Image Totals
       6842        618        730         24          0          0   ROM Totals
 
 ==============================================================================

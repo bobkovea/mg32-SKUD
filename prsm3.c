@@ -153,10 +153,10 @@ void PRSM3ReceiveLineComplete(void)
         switch (RecBytes[3])
 		{
         case 0: // 
-			RecBytes[3] = AddKey(keyCurrent); // 0 - ключ был добавлен; 1 - ключ уже есть; 2 - место закончилось
+			RecBytes[3] = AddKey(keyCurrent); // 0 - ключ успешно добавлен; 1 - ключ уже есть; 2 - место закончилось
             break;
 		case 1:
-			RecBytes[3] = RemoveKey(keyCurrent); // 3 - ключ был удален; 4 - такого ключа нет
+			RecBytes[3] = RemoveKey(keyCurrent); // 3 - ключ успешно удален; 4 - такого ключа нет
 			break;
         default:
 			for (uint8_t i = 3; i < 13; i++) RecBytes[i] = 0;
