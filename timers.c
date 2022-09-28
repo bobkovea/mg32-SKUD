@@ -97,10 +97,10 @@ void delay_ms(uint32_t time_ms) {
 void delay_one_us(void) {
 	__NOP(); 
 	__NOP();
-//	__NOP(); 
-//	__NOP();
-//	__NOP(); 
-//	__NOP();
+	__NOP(); 
+	__NOP();
+	__NOP(); 
+	__NOP();
 //	__NOP(); 
 //	__NOP();
 }

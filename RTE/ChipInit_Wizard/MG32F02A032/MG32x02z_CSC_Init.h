@@ -65,7 +65,7 @@
 #define CONF_CSC_XOSC_GN                  0x00010000  // 3  [17:16] XOSC Gain
 
 //      <q.4> Disable MCD(Missing Clock Detector)
-#define CONF_CSC_MCD_DIS                  0x00000010  // 4  [4] MCD Disable
+#define CONF_CSC_MCD_DIS                  0x00000000  // 4  [4] MCD Disable
 //      <o.22..23> Select Missing Clock Detection Duration <0=> 125us
 //                                                         <1=> 250us
 //                                                         <2=> 500us

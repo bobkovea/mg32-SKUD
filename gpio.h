@@ -13,13 +13,8 @@
 #define REDE_PIN PB11 
 
 // настроить на DI
-#define ONEWIRE_PIN  PB0
+#define ONEWIRE_PIN PB0
 #define GERKON_PIN PB3
-
-
-
-
-
 
 extern uint8_t ModInpVar[16];
 extern uint8_t mn;
