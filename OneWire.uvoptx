@@ -119,13 +119,13 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>DbgCM</Key>
-          <Name>-U-O206 -O206 -S0 -C0 -TO65554 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO31 -FD20000000 -FC1000 -FN1 -FF0MG32F02A128_FLM.FLM -FS00 -FL020000 -FP0($$Device:MG32F02A128$Flash\MG32F02A128_FLM.FLM)</Name>
+          <Key>UL2CM3</Key>
+          <Name>UL2CM3(-S0 -C0 -P0 )  -FN1 -FC1000 -FD20000000 -FF0MG32F02A032_FLM -FL08000 -FS00 -FP0($$Device:MG32F02A032$Flash\MG32F02A032_FLM.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>UL2CM3</Key>
-          <Name>UL2CM3(-S0 -C0 -P0 ) -FN1 -FC1000 -FD20000000 -FF0MG32F02A128_FLM -FL020000 -FS00 -FP0($$Device:MG32F02A128$Flash\MG32F02A128_FLM.FLM)</Name>
+          <Key>DbgCM</Key>
+          <Name>-UMLink -O718 -S0 -C0 -TO65554 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO31 -FD20000000 -FC1000 -FN1 -FF0MG32F02A032_FLM.FLM -FS00 -FL08000 -FP0($$Device:MG32F02A032$Flash\MG32F02A032_FLM.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>

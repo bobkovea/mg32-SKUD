@@ -61,8 +61,8 @@ void TIM16_Callback (void) {
 //	if (pisk_cnt < pisk_max)
 //	{
 		
-		PE13 = !PE13;
-		PIN_ZUMER = !PIN_ZUMER;
+//		PE13 = !PE13;
+//		PIN_ZUMER = !PIN_ZUMER;
 		pisk_cnt++;
 //	}
 }

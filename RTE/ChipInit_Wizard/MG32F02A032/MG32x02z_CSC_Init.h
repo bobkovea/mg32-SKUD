@@ -78,7 +78,7 @@
 //                                     <2=> CK_ILRCO
 //                                     <3=> CK_EXT
 //      <i> When Select CK_HS Source = CK_XOSC, MG32x02z_GPIO_Init.h Wizard PC13 configutaion and PC14 configutaion must disable.
-#define CONF_CSC_HS_SEL                   0x00000000  // 6  [11:10] CK_HS Select
+#define CONF_CSC_HS_SEL                   0x00000400  // 6  [11:10] CK_HS Select
 
 //      <h> Configure PLL
 //          <o.0..1> Select CK_PLLI Divider <0=> CK_HSx/1
@@ -137,7 +137,7 @@
 
 //            <q.31> XOSC_EN
 //            <i> Crystal Oscillator and XIN/XOUT pins enable
-#define CONF_CFG_XOSC_EN                  0x00000000  // 20  [31] XOSC_EN
+#define CONF_CFG_XOSC_EN                  0x80000000  // 20  [31] XOSC_EN
 
 
 //            <q.31> EXTCK_EN

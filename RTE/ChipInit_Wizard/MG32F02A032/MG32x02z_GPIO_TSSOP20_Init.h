@@ -194,7 +194,7 @@
         #define CONF_GPIOAInit_EN           1
         #define CONF_PA_OUTPUT_DEFAULT      0x0000
         #define CONF_PA_FILTER_CLK          0
-        #define CONF_GPIOAInit_Mask         0x0400
+        #define CONF_GPIOAInit_Mask         0x0000
         #define CONF_PA0_CR                 0x00000000
         #define CONF_PA1_CR                 0x00000000
         #define CONF_PA2_CR                 0x00000000
@@ -446,10 +446,10 @@
         #define CONF_PB_OUTPUT_DEFAULT      0x0000
         #define CONF_PB_FILTER_CLK          0
         #define CONF_GPIOBInit_Mask         0x0F0F
-        #define CONF_PB0_CR                 0x00000002
+        #define CONF_PB0_CR                 0x00000003
         #define CONF_PB1_CR                 0x00000002
-        #define CONF_PB2_CR                 0x00002002
-        #define CONF_PB3_CR                 0x00002002
+        #define CONF_PB2_CR                 0x00000002
+        #define CONF_PB3_CR                 0x00000003
         #define CONF_PB4_CR                 0x00000000
         #define CONF_PB5_CR                 0x00000000
         #define CONF_PB6_CR                 0x00000000

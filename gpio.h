@@ -3,21 +3,18 @@
 #include "MG32x02z_DRV.h"
 #include "timers.h"
 
-#define REDE_PIN PB10 
-#define PIN_ZUMER PB2
-
 // настроить на push-pull
 
-//#define BACKL_PIN PB1
-//#define INDLED_PIN PB2
-//#define DO_PIN PB8
-//#define STALED_PIN PB9
-//#define BUZZER_PIN PB10
-//#define REDE_PIN PB11 
+#define BACKL_PIN PB1
+#define INDLED_PIN PB2
+#define DO_PIN PB8
+#define STALED_PIN PB9
+#define BUZZER_PIN PB10
+#define REDE_PIN PB11 
 
 // настроить на DI
-//#define ONEWIRE_PIN  PB0
-//#define GERKON_PIN PB3
+#define ONEWIRE_PIN  PB0
+#define GERKON_PIN PB3
 
 
 

@@ -10,7 +10,7 @@ int main()
 	__disable_irq();
 
     ChipInit();
-	wdt_disable();
+//	wdt_disable();
 	IAP_Init(IAP_SIZE_2048);
 	
 	TM_Timer_Cmd(TM01, DISABLE); // выключаем таймер 1 (не даем включиться ранее положенного)
@@ -42,15 +42,15 @@ int main()
 
 	
 
-	PIN_ZUMER = 0;
+
 //	uint8_t alarm = 1;
 	uint8_t start_signal = 0;
 	uint8_t IsRead = 0;
 	
-	if (*(uint32_t *)IAP_START_ADDRESS == UINT32_MAX)  
-		FillFlash();
-	else
-		CopyFlash();
+//	if (*(uint32_t *)IAP_START_ADDRESS == UINT32_MAX)  
+//		FillFlash();
+//	else
+//		CopyFlash();
 //	
 //	uint32_t *kdp = (uint32_t *)&KeysData;
 //	
@@ -66,14 +66,14 @@ int main()
 
 //	URT_Write(CRCisWrong(mas, 13));
 	
-	for (uint32_t i = 0; i < 2048; i += 4)
-	{
-		URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
-	}
-	
+//	for (uint32_t i = 0; i < 2048; i += 4)
+//	{
+//		URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
+//	}
+
     while(1) 
 	{ 
-		
+
 //	uint32_t *kdp = (uint32_t *)&KeysData;
 //	
 //	for (uint8_t i = 0; i < 15; i++)
@@ -85,15 +85,15 @@ int main()
 		
 		if (DS1990_GetID())
 		{
-			
+			BUZZER_PIN = !BUZZER_PIN;
 //			URT_WriteWord(CheckTruthEco(keyCurrent)); // удалить ключ 
 //			URT_WriteWord(RemoveKey(keyCurrent)); // удалить ключ 
-			URT_WriteWord(AddKey(keyCurrent)); // удалить ключ 
-			
-			for (uint32_t i = 0; i < 2048; i += 4)
-			{
-				URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
-			}
+//			URT_WriteWord(AddKey(keyCurrent)); // удалить ключ 
+		
+//			for (uint32_t i = 0; i < 2048; i += 4)
+//			{
+//				URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
+//			}
 			
 //			while(1);
 			

@@ -773,22 +773,22 @@
 //          <o18.12..15>    AFS : Alternate function select             <0=> GPB14 <1=> DMA_TRG0 <2=> TM00_TRGO <3=> URT0_RTS <6=> TM36_BK0
 //          <i> Default: AFS = GPB14
 //      </e> 
-        #define CONF_GPIOBInit_EN           0
+        #define CONF_GPIOBInit_EN           1
         #define CONF_PB_OUTPUT_DEFAULT      0xFFFF
         #define CONF_PB_FILTER_CLK          0
-        #define CONF_GPIOBInit_Mask         0x0000
-        #define CONF_PB0_CR                 0x00000000
-        #define CONF_PB1_CR                 0x00000000
-        #define CONF_PB2_CR                 0x00000000
-        #define CONF_PB3_CR                 0x00000000
+        #define CONF_GPIOBInit_Mask         0x0F0F
+        #define CONF_PB0_CR                 0x00000003
+        #define CONF_PB1_CR                 0x00000002
+        #define CONF_PB2_CR                 0x00000002
+        #define CONF_PB3_CR                 0x00000003
         #define CONF_PB4_CR                 0x00000000
         #define CONF_PB5_CR                 0x00000000
         #define CONF_PB6_CR                 0x00000000
         #define CONF_PB7_CR                 0x00000000
-        #define CONF_PB8_CR                 0x00000000
-        #define CONF_PB9_CR                 0x00000000
-        #define CONF_PB10_CR                0x00000000
-        #define CONF_PB11_CR                0x00000000
+        #define CONF_PB8_CR                 0x00000002
+        #define CONF_PB9_CR                 0x00000002
+        #define CONF_PB10_CR                0x00000002
+        #define CONF_PB11_CR                0x00000002
         #define CONF_PB12_CR                0x00000000
         #define CONF_PB13_CR                0x00000000
         #define CONF_PB14_CR                0x00000000
@@ -1166,12 +1166,12 @@
 //          <o18.12..15>    AFS : Alternate function select             <0=> GPC14 <1=> XOUT <2=> URT1_TMO <3=> URT0_RTS <5=> TM10_CKO <7=> TM36_OC10
 //          <i> Default: AFS = GPC14
 //      </e> 
-        #define CONF_GPIOCInit_EN           0
+        #define CONF_GPIOCInit_EN           1
         #define CONF_PC_OUTPUT_DEFAULT      0x7FFF
         #define CONF_PC_FILTER_CLK          0
-        #define CONF_GPIOCInit_Mask         0x0000
-        #define CONF_PC0_CR                 0x00000000
-        #define CONF_PC1_CR                 0x00000000
+        #define CONF_GPIOCInit_Mask         0x0003
+        #define CONF_PC0_CR                 0x0000A022
+        #define CONF_PC1_CR                 0x0000A021
         #define CONF_PC2_CR                 0x00000000
         #define CONF_PC3_CR                 0x00000000
         #define CONF_PC4_CR                 0x80000024

@@ -14,16 +14,16 @@
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>MG32F02A128</Device>
+          <Device>MG32F02A032</Device>
           <Vendor>Megawin</Vendor>
           <PackID>Megawin.CM0_DFP.3.2.1</PackID>
           <PackURL>http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/</PackURL>
-          <Cpu>IRAM(0x20000000,0x3800) IRAM2(0x20003800,0x800) IROM(0x00000000,0x20000) CPUTYPE("Cortex-M0") CLOCK(12000000) ELITTLE</Cpu>
+          <Cpu>IRAM(0x20000000,0x1000) IROM(0x00000000,0x8000) CPUTYPE("Cortex-M0") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0MG32F02A128_FLM -FS00 -FL020000 -FP0($$Device:MG32F02A128$Flash\MG32F02A128_FLM.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0MG32F02A032_FLM -FS00 -FL08000 -FP0($$Device:MG32F02A032$Flash\MG32F02A032_FLM.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:MG32F02A128$Device\MG32x02z\MG32F02A128\Include\MG32x02z.h</RegisterFile>
+          <RegisterFile>$$Device:MG32F02A032$Device\MG32x02z\MG32F02A032\Include\MG32x02z.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:MG32F02A128$SVD\MG32F02A128\MG32x02z__SVD.svd</SFDFile>
+          <SFDFile>$$Device:MG32F02A032$SVD\MG32F02A032\MG32x02z__SVD.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -186,7 +186,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <hadIRAM2>1</hadIRAM2>
+            <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
             <useUlib>1</useUlib>
@@ -194,7 +194,7 @@
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
             <RoSelD>3</RoSelD>
-            <RwSelD>4</RwSelD>
+            <RwSelD>3</RwSelD>
             <CodeSel>0</CodeSel>
             <OptFeed>0</OptFeed>
             <NoZi1>0</NoZi1>
@@ -246,12 +246,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x3800</Size>
+                <Size>0x1000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x8000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -276,7 +276,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x8000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -301,12 +301,12 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x3800</Size>
+                <Size>0x1000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
-                <StartAddress>0x20003800</StartAddress>
-                <Size>0x800</Size>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
               </OCR_RVCT10>
             </OnChipMemories>
             <RvctStartVector></RvctStartVector>
@@ -568,19 +568,19 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="ChipInit_Wizard" Cgroup="CSC" Cvendor="Megawin" Cversion="1.0.4" condition="CSC_INIT_MG32F02A128">
+      <component Cclass="ChipInit_Wizard" Cgroup="CSC" Cvendor="Megawin" Cversion="1.0.4" condition="CSC_INIT_MG32F02A032">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="ChipInit_Wizard" Cgroup="GPIO" Cvariant="LQFP80" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_A128_GPIO">
+      <component Cclass="ChipInit_Wizard" Cgroup="GPIO" Cvariant="TSSOP20" Cvendor="Megawin" Cversion="1.0.2" condition="ChipInit_032_GPIO">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="ChipInit_Wizard" Cgroup="IRQ handler" Cvendor="Megawin" Cversion="1.0.5" condition="ChipInit_128_IRQ">
+      <component Cclass="ChipInit_Wizard" Cgroup="IRQ handler" Cvendor="Megawin" Cversion="1.0.5" condition="ChipInit_032_IRQ">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
@@ -592,25 +592,25 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="ChipInit_Wizard" Cgroup="Timer" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_128_TM">
+      <component Cclass="ChipInit_Wizard" Cgroup="Timer" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_032_TM">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_128_URT">
+      <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_032_URT">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="Startup" Cvendor="Megawin" Cversion="1.0.4" condition="DNAME_A128 CMSIS">
+      <component Cclass="Device" Cgroup="Startup" Cvendor="Megawin" Cversion="1.0.4" condition="DNAME_032 CMSIS">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="Driver" Cgroup="Driver-All" Cvendor="Megawin" Cversion="1.0.1" condition="DNAME_DRIVER_128">
+      <component Cclass="Driver" Cgroup="Driver-All" Cvendor="Megawin" Cversion="1.0.2" condition="DNAME_DRIVER_032">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
@@ -643,34 +643,44 @@
     </components>
     <files>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_CSC_Init.c" version="1.0.8">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_CSC_Init.c</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_CSC_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="CSC" Cvendor="Megawin" Cversion="1.0.4" condition="CSC_INIT_MG32F02A032"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Package\MG32F02A032\MG32x02z_CSC_Init.h" version="1.0.5">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_CSC_Init.h</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_CSC_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="CSC" Cvendor="Megawin" Cversion="1.0.4" condition="CSC_INIT_MG32F02A032"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c" version="1.0.8">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_ChipInit.c</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_ChipInit.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_032_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h" version="1.0.4">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_ChipInit.h</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_ChipInit.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_032_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_GPIO_Init.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_GPIO_Init.c</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_GPIO_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="GPIO" Cvariant="TSSOP20" Cvendor="Megawin" Cversion="1.0.2" condition="ChipInit_032_GPIO"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Package\MG32F02A032\LQFP48\MG32x02z_GPIO_LQFP48_Init.h" version="1.0.0">
         <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_GPIO_LQFP48_Init.h</instance>
@@ -679,52 +689,68 @@
         <targetInfos/>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Package\MG32F02A032\TSSOP20\MG32x02z_GPIO_TSSOP20_Init.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_GPIO_TSSOP20_Init.h</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_GPIO_TSSOP20_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="GPIO" Cvariant="TSSOP20" Cvendor="Megawin" Cversion="1.0.2" condition="ChipInit_032_GPIO"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_RST_Init.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_RST_Init.c</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_RST_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="RST" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_ALLMCU_RST"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Common\Initial\Include\MG32x02z_RST_Init.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_RST_Init.h</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_RST_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="RST" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_ALLMCU_RST"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Source\MG32x02z_TM_Init.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_TM_Init.c</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_TM_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="Timer" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_032_TM"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_TM_Init.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_TM_Init.h</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_TM_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="Timer" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_032_TM"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Source\MG32x02z_URT_Init.c" version="1.0.1">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_URT_Init.c</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_URT_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_032_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_URT_Init.h" version="1.0.1">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_URT_Init.h</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_URT_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_032_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z__IRQHandler.c" version="1.0.8">
-        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z__IRQHandler.c</instance>
+        <instance index="0">RTE\ChipInit_Wizard\MG32F02A032\MG32x02z__IRQHandler.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="IRQ handler" Cvendor="Megawin" Cversion="1.0.5" condition="ChipInit_032_IRQ"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\MG32F02A128\MG32x02z_ConfigerWizard\Source\MG32x02z_APB_Init.c" version="1.0.0">
         <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_APB_Init.c</instance>
@@ -739,36 +765,28 @@
         <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_CSC_Init.c" version="1.0.8">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_CSC_Init.c</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_CSC_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="CSC" Cvendor="Megawin" Cversion="1.0.4" condition="CSC_INIT_MG32F02A128"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Package\MG32F02A128\MG32x02z_CSC_Init.h" version="1.0.5">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_CSC_Init.h</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_CSC_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="CSC" Cvendor="Megawin" Cversion="1.0.4" condition="CSC_INIT_MG32F02A128"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c" version="1.0.8">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_ChipInit.c</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_ChipInit.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_128_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h" version="1.0.4">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_ChipInit.h</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_ChipInit.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_128_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_EXIC_Init.c" version="1.0.1">
         <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_EXIC_Init.c</instance>
@@ -783,20 +801,16 @@
         <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_GPIO_Init.c" version="1.0.0">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_GPIO_Init.c</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_GPIO_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="GPIO" Cvariant="LQFP80" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_A128_GPIO" isDefaultVariant="1"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Package\MG32F02A128\LQFP80\MG32x02z_GPIO_LQFP80_Init.h" version="1.0.0">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_GPIO_LQFP80_Init.h</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_GPIO_LQFP80_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="GPIO" Cvariant="LQFP80" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_A128_GPIO" isDefaultVariant="1"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\MG32F02A128\MG32x02z_ConfigerWizard\Source\MG32x02z_MEM_Init.c" version="1.0.0">
         <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_MEM_Init.c</instance>
@@ -811,88 +825,74 @@
         <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z_RST_Init.c" version="1.0.0">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_RST_Init.c</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_RST_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="RST" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_ALLMCU_RST"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\Common\Initial\Include\MG32x02z_RST_Init.h" version="1.0.0">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_RST_Init.h</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_RST_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="RST" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_ALLMCU_RST"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\MG32F02A128\MG32x02z_ConfigerWizard\Source\MG32x02z_TM_Init.c" version="1.0.0">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_TM_Init.c</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_TM_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="Timer" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_128_TM"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\MG32F02A128\MG32x02z_ConfigerWizard\Include\MG32x02z_TM_Init.h" version="1.0.0">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_TM_Init.h</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_TM_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="Timer" Cvendor="Megawin" Cversion="1.0.0" condition="ChipInit_128_TM"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\MG32F02A128\MG32x02z_ConfigerWizard\Source\MG32x02z_URT_Init.c" version="1.0.1">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_URT_Init.c</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_URT_Init.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_128_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="Device\MG32x02z\MG32F02A128\MG32x02z_ConfigerWizard\Include\MG32x02z_URT_Init.h" version="1.0.1">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_URT_Init.h</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z_URT_Init.h</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="URT" Cvendor="Megawin" Cversion="1.0.1" condition="ChipInit_128_URT"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\MG32x02z\Common\Initial\Source\MG32x02z__IRQHandler.c" version="1.0.8">
-        <instance index="0">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z__IRQHandler.c</instance>
+        <instance index="0" removed="1">RTE\ChipInit_Wizard\MG32F02A128\MG32x02z__IRQHandler.c</instance>
         <component Cclass="ChipInit_Wizard" Cgroup="IRQ handler" Cvendor="Megawin" Cversion="1.0.5" condition="ChipInit_128_IRQ"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceAsm" condition="DNAME_032_ARMCC" name="Device\MG32x02z\Common\Startup\startup_MG32x02z.s" version="1.0.1">
-        <instance index="0" removed="1">RTE\Device\MG32F02A032\startup_MG32x02z.s</instance>
+        <instance index="0">RTE\Device\MG32F02A032\startup_MG32x02z.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Megawin" Cversion="1.0.4" condition="DNAME_032 CMSIS"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="sourceC" condition="DNAME_032_ARMCC" name="Device\MG32x02z\Common\Startup\system_MG32x02z.c" version="1.0.1">
-        <instance index="0" removed="1">RTE\Device\MG32F02A032\system_MG32x02z.c</instance>
+        <instance index="0">RTE\Device\MG32F02A032\system_MG32x02z.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Megawin" Cversion="1.0.4" condition="DNAME_032 CMSIS"/>
+        <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceAsm" condition="DNAME_A128_ARMCC" name="Device\MG32x02z\Common\Startup\startup_MG32x02z.s" version="1.0.1">
+        <instance index="0" removed="1">RTE\Device\MG32F02A128\startup_MG32x02z.s</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Megawin" Cversion="1.0.4" condition="DNAME_A128 CMSIS"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos/>
       </file>
-      <file attr="config" category="sourceAsm" condition="DNAME_A128_ARMCC" name="Device\MG32x02z\Common\Startup\startup_MG32x02z.s" version="1.0.1">
-        <instance index="0">RTE\Device\MG32F02A128\startup_MG32x02z.s</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Megawin" Cversion="1.0.4" condition="DNAME_A128 CMSIS"/>
-        <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
-      </file>
       <file attr="config" category="sourceC" condition="DNAME_A128_ARMCC" name="Device\MG32x02z\Common\Startup\system_MG32x02z.c" version="1.0.1">
-        <instance index="0">RTE\Device\MG32F02A128\system_MG32x02z.c</instance>
+        <instance index="0" removed="1">RTE\Device\MG32F02A128\system_MG32x02z.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Megawin" Cversion="1.0.4" condition="DNAME_A128 CMSIS"/>
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
     </files>
   </RTE>
