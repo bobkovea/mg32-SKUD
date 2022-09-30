@@ -1,17 +1,25 @@
 #include "onewire.h" 
 #include "timers.h" 
 #include "gpio.h" 
+
+#define __CONCAT(a,b) a##b
+#define _CONCAT(P) __CONCAT(PB,PIN)
+#define ONEWIRE_PN _CONCAT(PB)
+
+#define ONEWIRE_PORT PINB
+#define ONEWIRE_PINNUM 0
+
 //----------------------------------------------------------------------------------------
 // Функция инициирует обмен данными с устройством 1-wire
 //----------------------------------------------------------------------------------------
 uint8_t OneWire_Start (void)
 {
 	uint8_t Response = 0;
-	GPIO_PinMode_Select(PIND(0), PINX_Mode_PushPull_O); // настройка на выход
+	GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_PushPull_O); // настройка на выход
 	ONEWIRE_PIN = 0;  // устанановка "0"
 	delay_us(480);   // задержка в соответствии с даташитом
 
-	GPIO_PinMode_Select(PIND(0), PINX_Mode_Digital_I);    // настройка на вход
+	GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_Digital_I);    // настройка на вход
 	delay_us(80);    // задержка в соответствии с даташитом
 
 	if (!ONEWIRE_PIN) 
@@ -27,7 +35,7 @@ uint8_t OneWire_Start (void)
 //----------------------------------------------------------------------------------------
 void OneWire_Write (uint8_t data)
 {
-	//	GPIO_PinMode_Select(PIND(0), PINX_Mode_PushPull_O);    // set as output
+	//	GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_PushPull_O);    // set as output
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -36,11 +44,11 @@ void OneWire_Write (uint8_t data)
 		{
 			// записываем 1
 
-			GPIO_PinMode_Select(PIND(0), PINX_Mode_PushPull_O);   // настройка на выход
+			GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_PushPull_O);   // настройка на выход
 			ONEWIRE_PIN = 0; 
 			delay_us(1);  // по даташиту
 
-			GPIO_PinMode_Select(PIND(0), PINX_Mode_Digital_I);  // настройка на вход
+			GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_Digital_I);  // настройка на вход
 			delay_us(60);  // по даташиту
 		}
 
@@ -48,11 +56,11 @@ void OneWire_Write (uint8_t data)
 		{
 			// записываем 0
 
-			GPIO_PinMode_Select(PIND(0), PINX_Mode_PushPull_O); // настройка на выход
+			GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_PushPull_O); // настройка на выход
 			ONEWIRE_PIN = 0; 
 			delay_us (60); // по даташиту
 
-			GPIO_PinMode_Select(PIND(0), PINX_Mode_Digital_I); // настройка на вход
+			GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_Digital_I); // настройка на вход
 		}
 	}
 }
@@ -61,16 +69,16 @@ uint8_t OneWire_Read (void)
 {
 	uint8_t value = 0;
 	
-//	GPIO_PinMode_Select(PIND(0), PINX_Mode_Digital_I);  // настройка на вход
+	GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_Digital_I);  // настройка на вход
 
 	for (int i = 0; i < 8; i++)
 	{
-		GPIO_PinMode_Select(PIND(0), PINX_Mode_PushPull_O);   // настройка на выход
+		GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_PushPull_O);   // настройка на выход
 
 		ONEWIRE_PIN = 0; 
 		delay_us (2);  // по даташиту
 
-		GPIO_PinMode_Select(PIND(0), PINX_Mode_Digital_I);  // настройка на вход
+		GPIO_PinMode_Select(ONEWIRE_PORT(ONEWIRE_PINNUM), PINX_Mode_Digital_I);  // настройка на вход
 		if (ONEWIRE_PIN)  // если бит = 1
 		{
 			value |= 1 << i;  // прочитанный бит = 1

@@ -17,7 +17,7 @@ uint8_t key_test[8] = { 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE };
 
 uint8_t *keys[5] = { key1, key2, key3, key4, key5 };
 
-#define IAP_PAGE_COUNT 4
+#define IAP_PAGE_COUNT 2
 #define IAP_FIRST_PAGE 0
 #define IAP_LAST_PAGE IAP_PAGE_COUNT - 1
 #define IAP_SIZE IAP_PAGE_COUNT * IAP_PAGE_SIZE
@@ -236,6 +236,7 @@ uint8_t DS1990_GetID (void)
 		}
 		if (keyCurrent[7] == Do_CRC(keyCurrent, 7))
 			return 1;
+		// несколько считываний подряд
 		
 	}
 	return 0;

@@ -71,12 +71,12 @@ void TIM16_Callback (void) {
 // Блокирующая задержка на 1 мс (предварительно настроить таймер)
 //----------------------------------------------------------------------------------------
 void delay_one_ms(void) {
-//	TM_ClearFlag(TM00, TMx_TOF); 
-//	TM_Timer_Cmd(TM00, ENABLE);
+	TM_ClearFlag(TM00, TMx_TOF); 
+	TM_Timer_Cmd(TM00, ENABLE);
 	
 	while(TM_GetSingleFlagStatus(TM00, TMx_TOF) == DRV_UnHappened)
 		;
-//	TM_Timer_Cmd(TM00, DISABLE);
+	TM_Timer_Cmd(TM00, DISABLE);
 	TM_ClearFlag(TM00, TMx_TOF); 
 }
 
@@ -97,10 +97,10 @@ void delay_ms(uint32_t time_ms) {
 void delay_one_us(void) {
 	__NOP(); 
 	__NOP();
-	__NOP(); 
-	__NOP();
-	__NOP(); 
-	__NOP();
+//	__NOP(); 
+//	__NOP();
+//	__NOP(); 
+//	__NOP();
 //	__NOP(); 
 //	__NOP();
 }
