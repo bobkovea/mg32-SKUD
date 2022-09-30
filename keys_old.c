@@ -127,7 +127,7 @@
 //}
 
 
-//uint8_t DS1990_GetID (void)	
+//uint8_t DS1990A_GetID (void)	
 //{	
 //	uint8_t Presence = OneWire_Start();
 //	delay_ms(1);

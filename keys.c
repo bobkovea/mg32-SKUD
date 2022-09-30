@@ -17,16 +17,7 @@ uint8_t key_test[8] = { 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE };
 
 uint8_t *keys[5] = { key1, key2, key3, key4, key5 };
 
-#define IAP_PAGE_COUNT 2
-#define IAP_FIRST_PAGE 0
-#define IAP_LAST_PAGE IAP_PAGE_COUNT - 1
-#define IAP_SIZE IAP_PAGE_COUNT * IAP_PAGE_SIZE
-#define KEYS_COUNT (IAP_SIZE - 16) / 8
 
-
-#define NWRITE_WORD_POS IAP_PAGE_SIZE / 4 - 2
-#define CRC_WORD_POS IAP_PAGE_SIZE / 4 - 1
-#define KEYSCNT_WORD_POS 1
 
 void FillFlash(void)
 {
@@ -36,9 +27,6 @@ void FillFlash(void)
 	uint32_t nWrite = 0x01;
 	uint32_t crc = 0xCCCCCCCC;
 	
-	
-	
-
 	
 //	IAP_CopyRAMInIAP(8, key1, sizeof(key1));
 //	IAP_CopyRAMInIAP(16, key2, sizeof(key2));
@@ -91,12 +79,12 @@ uint32_t CheckTruth(uint8_t *keyToCheck)
 {
 	uint8_t truth = 0;
 		
-	for (uint32_t i = 1; i <=  (256 - 2) /*IAP_ReadWord(4)*/; i++) // со смещением на служебные
+	for (uint32_t i = 1; i <=  IAP_ReadWord(KEYCNT_BYTE_POS); i++) // со смещением на служебные
 	{
 		truth = 1;
 		for (uint8_t j = 0; j < 8; j++)
         {
-			if (keyToCheck[j] != IAP_ReadByte(8 * i + j)) // переделать на ReadWord 
+			if (keyToCheck[j] != IAP_ReadByte(8 * i + j))
 			{
 				truth = 0;
 				break;
@@ -130,7 +118,7 @@ uint8_t AddKey(uint8_t *keyToAdd)
 		IAP_CopyIAPInRAM(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // копируем текущую страницу флеша в ОЗУ
 		
 		if (i == IAP_FIRST_PAGE) // если страница первая
-			flashBlock.arrWord[KEYSCNT_WORD_POS]++; // увеличиваем счетчик ключей
+			flashBlock.arrWord[KEYCNT_WORD_POS]++; // увеличиваем счетчик ключей
 		
 		if (i == IAP_LAST_PAGE) // если страница последняя
 		{	
@@ -171,7 +159,7 @@ uint8_t RemoveKey(uint8_t *keyToRemove)
 		IAP_CopyIAPInRAM(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // копируем текущую страницу флеша в ОЗУ
 		
 		if (i == IAP_FIRST_PAGE) // если страница первая
-			flashBlock.arrWord[KEYSCNT_WORD_POS]--; // уменьшаем счетчик ключей
+			flashBlock.arrWord[KEYCNT_WORD_POS]--; // уменьшаем счетчик ключей
 		
 		if (i == IAP_LAST_PAGE) // если страница последняя
 		{
@@ -196,19 +184,10 @@ uint8_t RemoveKey(uint8_t *keyToRemove)
 				flashBlock.arrByte[j] = IAP_ReadByte(k + 8 /* k */); 
 		}
 		
-		
-//		if (i == 3) {
-//			
-//			for (uint32_t j = 0; j < 512 / 4; j++)
-//			{
-//				URT_WriteWord(flashBlock.arrWord[j]);
-//			}
-//		
-//		}
+
 		IAP_Erase_OnePage(i); // стираем текущую страницу флеша
 		IAP_CopyRAMInIAP(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // перезаписываем блок
 		
-
 	}
 
 	return 3;
@@ -217,12 +196,11 @@ uint8_t RemoveKey(uint8_t *keyToRemove)
 void ChangeKey(uint8_t keyNumber)
 {
 
-	
 
 }
 
 
-uint8_t DS1990_GetID (void)	
+uint8_t DS1990A_GetID (void)	
 {	
 	uint8_t Presence = OneWire_Start();
 	delay_ms(1);
@@ -241,5 +219,4 @@ uint8_t DS1990_GetID (void)
 	}
 	return 0;
 
-	
 }

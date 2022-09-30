@@ -443,7 +443,7 @@
 //          <i> Default: AFS = GPB11
 //      </e> 
         #define CONF_GPIOBInit_EN           1
-        #define CONF_PB_OUTPUT_DEFAULT      0xFFFF
+        #define CONF_PB_OUTPUT_DEFAULT      0x0000
         #define CONF_PB_FILTER_CLK          0
         #define CONF_GPIOBInit_Mask         0x0F0F
         #define CONF_PB0_CR                 0x00000003

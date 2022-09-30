@@ -18,7 +18,7 @@
 //} flash_t;
 //#pragma pack(pop)
 
-//uint8_t DS1990_GetID (void);
+//uint8_t DS1990A_GetID (void);
 //uint8_t IsKeyTrue(void);
 
 //void FillFlash(void);
