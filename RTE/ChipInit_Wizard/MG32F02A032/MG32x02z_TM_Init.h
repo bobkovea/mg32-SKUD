@@ -225,8 +225,8 @@
 #define CONF_TM16_CR0           0x00000000
 #define CONF_TM16_CKO           0x00000008
 #define CONF_TM16_TRG           0x00000000
-#define CONF_TM16_ARR           8000
-#define CONF_TM16_PSARR         1000
+#define CONF_TM16_ARR           19999
+#define CONF_TM16_PSARR         39
 
 
 //  <e0.0> Configure TM36 Module
@@ -376,13 +376,13 @@
 //          <o13.18> Enable Break signal from  CPU LOCKUP event input.
 //      </h>
 //  </e>
-#define CONF_TM36_ENABLE_OPTION 0x00000000  
+#define CONF_TM36_ENABLE_OPTION 0x00000001  
 #define CONF_TM36_CLK           0x00000000  
 #define CONF_TM36_CR0           0x00000000
 #define CONF_TM36_CKO           0x00000008
 #define CONF_TM36_TRG           0x00000000
-#define CONF_TM36_ARR           120
-#define CONF_TM36_PSARR         10
+#define CONF_TM36_ARR           19999
+#define CONF_TM36_PSARR         3
 #define CONF_TM36_RCNT          0
 #define CONF_TM36_CCMDS         0x00000000
 #define CONF_TM36_ICCR          0x00000000

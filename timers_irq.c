@@ -5,7 +5,8 @@
  void TM01_IRQ(void);
  void TM10_IRQ(void);
  void TM16_IRQ(void);
- 
+ void TM36_IRQ(void);
+  
 __weak void TIM00_Callback(void) {
  
  }
@@ -19,6 +20,10 @@ __weak void TIM10_Callback(void) {
  }
 
  __weak void TIM16_Callback(void) {
+ 
+ }
+ 
+  __weak void TIM36_Callback(void) {
  
  }
  
@@ -184,6 +189,44 @@ void TM16_IRQ(void)
         // To do...
         
         TM_ClearFlag (TM16, TMx_EXF);
+    }
+    
+
+}
+
+void TM36_IRQ(void)
+{
+
+    // 2nd / Main counter
+    if (TM_GetSingleFlagStatus(TM36, TMx_TUF2) == DRV_Happened)
+    {
+        // 2nd Timer underflow flag
+        // To do...
+        
+        TM_ClearFlag (TM36, TMx_TUF2);
+    }
+    if (TM_GetSingleFlagStatus(TM36, TMx_TOF2) == DRV_Happened)
+    {
+        // 2nd Timer overflow flag
+        // To do...
+        
+        TM_ClearFlag (TM36, TMx_TOF2);
+    }
+    if (TM_GetSingleFlagStatus(TM36, TMx_TOF) == DRV_Happened)
+    {
+        // Main Timer overflow flag
+		
+        TIM36_Callback();
+        TM_ClearFlag (TM36, TMx_TOF);
+    }
+
+    // external trigger
+    if (TM_GetSingleFlagStatus(TM36, TMx_EXF) == DRV_Happened)
+    {
+        // Timer external trigger flag
+        // To do...
+        
+        TM_ClearFlag (TM36, TMx_EXF);
     }
     
 

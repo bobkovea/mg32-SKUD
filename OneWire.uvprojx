@@ -622,13 +622,19 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
-      <component Cclass="IRQ_Handler" Cgroup="Enable TM10 NVIC" Cvariant="Level-1" Cvendor="Megawin" Cversion="1.0.0" condition="MG32x02z_MCU">
+      <component Cclass="IRQ_Handler" Cgroup="Enable TM10 NVIC" Cvariant="Level-0 (High)" Cvendor="Megawin" Cversion="1.0.0" condition="MG32x02z_MCU">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
       <component Cclass="IRQ_Handler" Cgroup="Enable TM1x NVIC" Cvariant="Level-0 (High)" Cvendor="Megawin" Cversion="1.0.0" condition="MG32x02z_MCU">
+        <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="IRQ_Handler" Cgroup="Enable TM3x NVIC" Cvariant="Level-0 (High)" Cvendor="Megawin" Cversion="1.0.0" condition="MG32x02z_MCU">
         <package name="CM0_DFP" schemaVersion="1.2" url="http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/" vendor="Megawin" version="3.2.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>

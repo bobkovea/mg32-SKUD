@@ -4,8 +4,13 @@
 #include "usart.h"
 #include "gpio.h"
 
-uint8_t alarm;
-uint8_t koncevik;
+
+uint8_t access = 0;
+uint32_t alarmCnt = 0;
+uint32_t alarmCntMax = 50;
+uint32_t buzzerCnt;
+uint32_t buzzerCntMax;
+uint32_t buzzerFreq;
 
 // Посылка принята целиком - пришло время её разобрать
 void TIM01_Callback (void) {
@@ -15,10 +20,6 @@ void TIM01_Callback (void) {
 
 // Вызывается каждые 5 мс, считывает значения входов
 void TIM10_Callback (void) {
-	
-//	PE15 = !PD4;
-//	
-//	koncevik = !PD4;
 	
 	
 //		uint8_t i = 0;
@@ -57,15 +58,43 @@ void TIM10_Callback (void) {
 		}
 }
 
+// T = 100 ms
 void TIM16_Callback (void) {
+	alarmCnt++;
+	if (DS1990A_GetID())
+	{
+
+		access = 1;
+	}
+
+	
 //	if (pisk_cnt < pisk_max)
 //	{
 		
 //		PE13 = !PE13;
 //		PIN_ZUMER = !PIN_ZUMER;
-		pisk_cnt++;
+//		pisk_cnt++;
 //	}
 }
+
+void TIM36_Callback (void) {
+	
+	
+	if (!(buzzerCnt++ % buzzerFreq))
+	{
+		BUZZER_PIN = !BUZZER_PIN;
+	}
+	
+	if (buzzerCnt >= buzzerCntMax)
+	{
+		buzzerCnt = 0;
+		BUZZER_PIN = 0;
+		TM_Timer_Cmd(TM36, DISABLE);
+
+	}
+
+}
+
 
 //----------------------------------------------------------------------------------------
 // Блокирующая задержка на 1 мс (предварительно настроить таймер)

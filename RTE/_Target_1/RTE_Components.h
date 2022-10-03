@@ -37,12 +37,15 @@
 /* Megawin::IRQ_Handler:Enable TM0x NVIC:_TM01:1.0.0 */
 #define MG32x02z_TM0x_IRQ_
 		#define MG32x02z_TM0x_TM01_IRQ_
-/* Megawin::IRQ_Handler:Enable TM10 NVIC:Level-1:1.0.0 */
+/* Megawin::IRQ_Handler:Enable TM10 NVIC:Level-0 (High):1.0.0 */
 #define MG32x02z_TM10_IRQ_
-		#define MG32x02z_TM10_IRQ_Priority1
+		#define MG32x02z_TM10_IRQ_Priority0
 /* Megawin::IRQ_Handler:Enable TM1x NVIC:Level-0 (High):1.0.0 */
 #define MG32x02z_TM1x_IRQ_
 		#define MG32x02z_TM1x_IRQ_Priority0
+/* Megawin::IRQ_Handler:Enable TM3x NVIC:Level-0 (High):1.0.0 */
+#define MG32x02z_TM3x_IRQ_
+		#define MG32x02z_TM3x_IRQ_Priority0
 /* Megawin::IRQ_Handler:Enable URT0 NVIC:Level-0 (High):1.0.0 */
 #define MG32x02z_URT0_IRQ_
 		#define MG32x02z_URT0_IRQ_Priority0

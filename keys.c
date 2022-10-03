@@ -210,7 +210,7 @@ uint8_t DS1990A_GetID (void)
 		for (uint8_t i = 0; i < 8; i++)
 		{
 			keyCurrent[i] = OneWire_Read();
-			URT_Write(keyCurrent[i]);
+//			URT_Write(keyCurrent[i]);
 		}
 		if (keyCurrent[7] == Do_CRC(keyCurrent, 7))
 			return 1;
