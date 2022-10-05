@@ -3,14 +3,8 @@
 #include "MG32x02z_GPIO_DRV.h"
 #include "usart.h"
 #include "gpio.h"
+#include "skud.h"
 
-
-uint8_t access = 0;
-uint32_t alarmCnt = 0;
-uint32_t alarmCntMax = 50;
-uint32_t buzzerCnt;
-uint32_t buzzerCntMax;
-uint32_t buzzerFreq;
 
 // Посылка принята целиком - пришло время её разобрать
 void TIM01_Callback (void) {
@@ -61,37 +55,88 @@ void TIM10_Callback (void) {
 // T = 100 ms
 void TIM16_Callback (void) {
 	alarmCnt++;
-	if (DS1990A_GetID())
+	if (DS1990A_GetID()) // если считан ключ DS1990A
 	{
-
-		access = 1;
+		if (CheckTruth(keyCurrent) == UINT32_MAX)
+			access = 2; // not valid id
+		else 
+			access = 1; // valid id
 	}
-
-	
-//	if (pisk_cnt < pisk_max)
-//	{
-		
-//		PE13 = !PE13;
-//		PIN_ZUMER = !PIN_ZUMER;
-//		pisk_cnt++;
-//	}
 }
 
 void TIM36_Callback (void) {
 	
-	
+	switch (GetCurEvent())
+	{
+		case EventNull:
+			break;
+		
+		case EventOpened:
+			buzzerCntMax = UINT32_MAX;
+			buzzerFreq = 100;
+			break;
+		
+		case EventValidKey:
+			buzzerCnt = 0;
+			buzzerCntMax = 1000;
+			buzzerFreq = 25;
+			break;		
+		
+		case EventNotValidKey:
+			buzzerCnt = 0;
+			buzzerCntMax = 1000;
+			buzzerFreq = 10;
+			break;	
+		
+		case EventTimeout:
+			buzzerCntMax = UINT32_MAX;
+			buzzerFreq = 50;
+			break;
+	}
+
 	if (!(buzzerCnt++ % buzzerFreq))
 	{
 		BUZZER_PIN = !BUZZER_PIN;
 	}
 	
-	if (buzzerCnt >= buzzerCntMax)
+	if (buzzerCnt > buzzerCntMax)
 	{
-		buzzerCnt = 0;
-		BUZZER_PIN = 0;
-		TM_Timer_Cmd(TM36, DISABLE);
+		switch (CurState)
+		{
+			// если ключ неверный, возаращаемся к аларм-писку
+			case StateOpenedAlarm:
+				buzzerCnt = 0;
+				buzzerFreq = 100;
+				buzzerCntMax = UINT32_MAX;
+				return;
+			
+			// если ключ верный, то замолкаем
+			case StateOpenedValidOk:
+				buzzerCnt = 0;
+				BUZZER_PIN = 0;
+				TM_Timer_Cmd(TM36, DISABLE);
+				return;	
+		}
+	
 
+		
+		
+
+		
+//		switch (CurState)
+//		{
+//			case StateOpenedAlarm:
+//				break;
+//			
+//			case StateOpenedValidOk:
+//				
+//				break;
+//			
+//			case StateOpenedAlarmTimeout:
+//				break;
+//		}
 	}
+
 
 }
 

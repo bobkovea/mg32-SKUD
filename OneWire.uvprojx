@@ -458,6 +458,11 @@
               <FileType>1</FileType>
               <FilePath>.\keys_old.c</FilePath>
             </File>
+            <File>
+              <FileName>skud.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\skud.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -522,6 +527,11 @@
               <FileName>keys_old.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\keys_old.h</FilePath>
+            </File>
+            <File>
+              <FileName>skud.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\skud.h</FilePath>
             </File>
           </Files>
         </Group>

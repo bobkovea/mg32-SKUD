@@ -1,67 +1,8 @@
 #include "main.h"
 #include "onewire.h"
 #include "keys.h"
+#include "skud.h"
 
-extern uint8_t access;
-extern uint32_t alarmCnt;
-extern uint32_t alarmCntMax;
-
-extern uint32_t buzzerFreq;
-extern uint32_t buzzerCnt;
-extern uint32_t buzzerCntMax;
-
-
-typedef enum {
-	StateClosed = 0x00,
-	StateOpenedAlarm = 0x01,
-	StateOpenedAccess = 0x02,
-	StateOpenedAlarmTimeout = 0x03,
-} State;
-
-typedef enum {
-	NoRing,
-	LongRing,
-	MediumRing,
-	FastRing,
-	FastFastRing,
-} RingType;
-
-uint8_t CurState = StateClosed;
-
-
-void StartRing(uint8_t rtype, uint32_t duration_ms)
-{
-	TM_Timer_Cmd(TM36, DISABLE);
-	buzzerCnt = 0;
-	
-	switch (rtype)
-	{
-		case LongRing:
-			buzzerFreq = 100;
-			break;
-		
-		case MediumRing:
-			buzzerFreq = 50;
-			break;
-		
-		case FastRing:
-			buzzerFreq = 10;
-			break;	
-		
-		case FastFastRing:
-			buzzerFreq = 5;
-			break;	
-	}
-	buzzerCntMax = duration_ms / 10; // при T = 100 ms
-	TM_Timer_Cmd(TM36, ENABLE);
-}
-
-void StopRing(void)
-{
-	TM_Timer_Cmd(TM36, DISABLE);
-	buzzerCnt = 0;
-	BUZZER_PIN = 0;
-}
 	
 
 int main()
@@ -110,9 +51,6 @@ int main()
 
 	REDE_PIN = 1;
 	
-//	uint8_t alarm = 1;
-	uint8_t start_signal = 0;
-	uint8_t IsRead = 0;
 	
 //	if (*(uint32_t *)IAP_START_ADDRESS == UINT32_MAX)  
 //		FillFlash();
@@ -139,7 +77,7 @@ int main()
     while(1) 
 	{ 
 
-		
+		MonitorKey();
 
 //	uint32_t *kdp = (uint32_t *)&KeysData;
 //	
@@ -156,81 +94,6 @@ int main()
 //		4) сняли сигналку и закрыли дверь (gerkon = 0)
 //		5) просрочили сигналку и дверь открыта (gerkon = 1)
 //		6) просрочили сигналку и дверь закрыли (gerkon = 0)
-		
-		
-		switch (CurState)
-		{
-			case StateClosed:
-		
-				if (!GERKON_PIN)
-				{
-					delay_ms(100); // антидребезг
-					if (!GERKON_PIN)
-					{
-						StartRing(MediumRing, UINT32_MAX);
-						CurState = StateOpenedAlarm;
-						TM_Timer_Cmd(TM16, ENABLE); 
-						URT_Write(CurState);
-					}
-				}
-				
-				break;
-				
-			case StateOpenedAlarm:
-				// запуск тревоги единократный 
-				// и мониторим ключ
-				
-				if (access)	
-				{
-					StartRing(FastRing, 500);
-//					StopRing(); // троекратный сигнал, а потом стоп
-					TM_Timer_Cmd(TM16, DISABLE); // сделать отдельные функции
-					alarmCnt = 0;
-					CurState = StateOpenedAccess;
-
-					URT_Write(CurState);
-					access = 0;
-				}
-				
-				else if (alarmCnt >= alarmCntMax)
-				{
-					CurState = StateOpenedAlarmTimeout;
-					URT_Write(CurState);
-				}
-				
-				break;
-				
-				
-					
-			case StateOpenedAccess:
-				if (GERKON_PIN)
-				{
-					delay_ms(100);
-					if (GERKON_PIN)
-					{
-						CurState = StateClosed;
-						URT_Write(CurState);
-					}
-				}
-				break;
-				
-			case StateOpenedAlarmTimeout:
-				if (access)
-				{
-					
-					TM_Timer_Cmd(TM16, DISABLE); 
-					access = 0;
-					alarmCnt = 0;
-					CurState = StateOpenedAccess;	
-					URT_Write(CurState);
-				}
-				break;
-				
-			default:
-				break;
-		}
-		
-		
 		
 		
 		
@@ -257,99 +120,6 @@ int main()
 		
 		
 		
-//		if (DS1990A_GetID())
-//		{
-//			
-////				for (uint32_t i = 0; i < 8; i++)
-////                {
-////					URT_Write(keyCurrent[i]);
-////                }
-//		}
-		
-//			IsKeyTrue(); 
-		
-//		if (koncevik)
-//		{
-//			delay_ms(2000);
-//			if (koncevik) {
-//				alarm = 1;
-//				start_signal = 0;
-//			}
-//		}
-//	
-//		if (alarm) // если сигнализация горит
-//		{
-//			if (!start_signal)
-//			{
-//				start_signal = 1;
-
-//				TM_Timer_Cmd(TM16, DISABLE);
-//				TM_Prescaler_Config(TM16, 0, 999);
-//				TM_Counter_Config(TM16, 0, 3999);
-//				TM_Timer_Cmd(TM16, ENABLE);
-//			}
-//			
-//			pisk_cnt = 0; // сбрасываем для постоянных 
-//			
-//			
-//		// 
-//	//	TM_Timer_Cmd(TM16, DISABLE);
-
-//			if (DS1990A_GetID()) // если ключ поднесли, то считываем его id
-//			{
-//				
-//				for (uint8_t i = 0; i < 8; i++)
-//				{
-//					URT_Write(keyCurrent[i]);
-//				}
-//					
-//				if (!IsRead) // если до этого ключ не был считан
-//				{
-//					IsRead = 1; // отметка об однократном считывании
-//					
-//					if (IsKeyTrue()) // если ключ подошел, короткий сигнал и выключаем сигнализацию
-//					{
-//						
-//						TM_Timer_Cmd(TM16, DISABLE); 
-//						TM_Prescaler_Config(TM16, 0, 999);
-//						TM_Counter_Config(TM16, 0, 999);
-//						TM_Timer_Cmd(TM16, ENABLE);
-//						pisk_cnt = 0;
-//						while(pisk_cnt < pisk_max)
-//							delay_ms(100);
-//						TM_Timer_Cmd(TM16, DISABLE); 
-//						alarm = 0;
-//						PIN_ZUMER = 0;
-//						PE13 = 1;
-//					}
-//					
-//					else // если ключ не подошел, то иной короткий сигнал, сигнализация работает
-//					{
-//						TM_Timer_Cmd(TM16, DISABLE);
-//						TM_Prescaler_Config(TM16, 0, 999);
-//						TM_Counter_Config(TM16, 0, 399);
-//						TM_Timer_Cmd(TM16, ENABLE);
-//						pisk_cnt = 0;
-//						while(pisk_cnt < pisk_max)
-//							delay_ms(100);
-//						start_signal = 0;
-//					}
-//				}
-//			}
-
-//			else  // если ключа нет
-//				if (IsRead) 
-//					IsRead = 0; // можно считывать опять	
-//				
-//			delay_ms(100);
-//				
-//		}
-
-//			delay_ms(1000);
-
-
-
-
 
 //		wdt_reset();
     }

@@ -15,9 +15,6 @@
 #define CRC_WORD_POS IAP_PAGE_SIZE / 4 - 1
 
 
-
-
-
 uint8_t DS1990A_GetID (void);
 
 void FillFlash(void);

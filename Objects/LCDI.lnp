@@ -14,6 +14,7 @@
 ".\objects\ds18b20.o"
 ".\objects\keys.o"
 ".\objects\keys_old.o"
+".\objects\skud.o"
 ".\objects\mg32x02z_csc_init.o"
 ".\objects\mg32x02z_chipinit.o"
 ".\objects\mg32x02z_gpio_init.o"
