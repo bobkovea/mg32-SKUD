@@ -17,6 +17,11 @@ uint8_t key_test[8] = { 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE };
 
 uint8_t *keys[5] = { key1, key2, key3, key4, key5 };
 
+boolean AlarmManual = 1;
+boolean SendEventPackages = 1;
+boolean AnyKeyAccess = 0;
+boolean ManualAddMode = 0;
+boolean NoNetworkPackages = 1;
 
 
 void FillFlash(void)
@@ -78,7 +83,7 @@ u_t flashBlock;
 uint32_t CheckTruth(uint8_t *keyToCheck)
 {
 	uint8_t truth = 0;
-		
+
 	for (uint32_t i = 1; i <=  IAP_ReadWord(KEYCNT_BYTE_POS); i++) // со смещением на служебные
 	{
 		truth = 1;

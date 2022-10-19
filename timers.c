@@ -57,10 +57,18 @@ void TIM16_Callback (void) {
 	alarmCnt++;
 	if (DS1990A_GetID()) // если считан ключ DS1990A
 	{
+		
+		// если ключа нет в базе
 		if (CheckTruth(keyCurrent) == UINT32_MAX)
+		{
+			URT_Write(0xFE);
 			access = 2; // not valid id
-		else 
+		}
+			
+		else {
+			URT_Write(0xDC);
 			access = 1; // valid id
+		}
 	}
 }
 
@@ -72,28 +80,29 @@ void TIM36_Callback (void) {
 			break;
 		
 		case EventOpened:
+			buzzerCnt = 0;
 			buzzerCntMax = UINT32_MAX;
 			buzzerFreq = 100;
 			break;
 		
 		case EventValidKey:
 			buzzerCnt = 0;
-			buzzerCntMax = 1000;
-			buzzerFreq = 25;
+			buzzerCntMax = 100;
+			buzzerFreq = 20;
 			break;		
 		
 		case EventNotValidKey:
 			buzzerCnt = 0;
-			buzzerCntMax = 1000;
-			buzzerFreq = 10;
+			buzzerCntMax = 100;
+			buzzerFreq = 5;
 			break;	
 		
-		case EventTimeout:
-			buzzerCntMax = UINT32_MAX;
-			buzzerFreq = 50;
-			break;
+//		case EventTimeout:
+//			buzzerCntMax = UINT32_MAX;
+//			buzzerFreq = 50;
+//			break;
 	}
-
+	
 	if (!(buzzerCnt++ % buzzerFreq))
 	{
 		BUZZER_PIN = !BUZZER_PIN;
@@ -117,24 +126,7 @@ void TIM36_Callback (void) {
 				TM_Timer_Cmd(TM36, DISABLE);
 				return;	
 		}
-	
 
-		
-		
-
-		
-//		switch (CurState)
-//		{
-//			case StateOpenedAlarm:
-//				break;
-//			
-//			case StateOpenedValidOk:
-//				
-//				break;
-//			
-//			case StateOpenedAlarmTimeout:
-//				break;
-//		}
 	}
 
 

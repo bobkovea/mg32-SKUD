@@ -8,11 +8,13 @@ uint8_t RecBytes[RX_BUFFER_SIZE];
 // длина посылки (полученная при приеме и расшифрованная)
 uint8_t	MessLen = 0;
 // массив с длинами посылок
-uint8_t PosylkaLen[4] = { 4, 13, 9, 22 };
+uint8_t PosylkaLen[4] = { 4, 6, 9, 22 };
 // длина посылки (фактическая)
 uint8_t	CommandSize;
 // счетчик ожидания очистки буфера после приема последнего байта посылки
 uint16_t usUsart = 0; 
+
+
 
 //----------------------------------------------------------------------------------------
 // Функция вызывается при приеме каждого нового байта
@@ -20,20 +22,27 @@ uint16_t usUsart = 0;
 void PRSM3AddNewByte(void) // вызывается когда пришел очередной байт
 {
 	// после конца посылки вычитываем приходящие "лишние байты"
-    if (MessLen == TIMERWAITING) { 
+    if (MessLen == TIMERWAITING)
+	{ 
 		URT_GetRXData(URT0);
         return;
     }
 	// пока массив-буфер не переполнен, кладем туда по байту
-    if (iptr < RX_BUFFER_SIZE) {
+    if (iptr < RX_BUFFER_SIZE)
+	{
         RecBytes[iptr] = URT_GetRXData(URT0);
         iptr++;
     } else
         URT_GetRXData(URT0);
 
 	// в третьем байте зашифрована длина посылки
-    if (iptr == 3) {
-		MessLen = 13 /*PosylkaLen[(RecBytes[iptr - 1] >> 3) & 3]*/; //  т.е. PosylkaLen[1] == 13;
+    if (iptr == 3)
+	{
+		MessLen = PosylkaLen[(RecBytes[iptr - 1] >> 3) & 3];
+//		a1 = RecBytes[iptr - 1];
+//		a2 = RecBytes[iptr - 1] >> 3;
+//		a3 = (RecBytes[iptr - 1] >> 3) & 3;
+//		while(1);
     }
 
 	// дошли по конца посылки, переходим к её парсингу
@@ -70,56 +79,60 @@ void PRSM3ReceiveLineComplete(void)
     delay_ms(2);
 	
 	// Проверка адреса 
-	if ((RecBytes[0] != DEVICE_ADDRESS_H)|| (RecBytes[1] != DEVICE_ADDRESS_L)) {
+	if ((RecBytes[0] != DEVICE_ADDRESS_H) || (RecBytes[1] != DEVICE_ADDRESS_L)) {
 		return;
 	}
 	
 	// Расшифровываем код функции
-	FunctionCode = RecBytes[2] & 0x1F; // == RecBytes[2]
+	FunctionCode = RecBytes[2] & 0x1F; // == RecBytes[2], ибо < 0x1F
 
 	// Если код функции 0x0A
 	if (FunctionCode == 0x0A)
 		{
-		// Если длина команды вдруг не 13, то все пропало
-		if (CommandSize != 13)
+		// Если длина команды вдруг не 6, то все пропало
+		if (CommandSize != 6)
 			return;
 		
-		// Если контрольная посылки неверна, то все пропало
-		if (CRCisWrong(RecBytes, 13))
-		{
-			ReturnReply(LOAD_SNERR | 0x13); // == ReturnReply(0xF3)
-            return;
-		}
-		
-		RecBytes[0] = DEVICE_ADDRESS_H;
-        RecBytes[1] = DEVICE_ADDRESS_L;
+//		// Если контрольная посылки неверна, то все пропало
+//		if (CRCisWrong(RecBytes, 6))
+//		{
+//			ReturnReply(LOAD_SNERR | 0x13); // == ReturnReply(0xF3)
+//            return;
+//		}
 		
 		// Отправляем параметр, соответствующий типу пришедшего запроса
 		switch (RecBytes[3])
 		{
-		#ifdef DEBUG 
+
 			uint16_t blocksLeft; 
-		#endif
 			
 		case 0x00: 
-            RecBytes[5] = (uint8_t) ModInp;
-			RecBytes[6] = (uint8_t) (ModInp >> 8);
+            RecBytes[5] = (uint8_t)(IAP_ReadWord(4) >> 8);
+			RecBytes[6] = (uint8_t)(IAP_ReadWord(4));
 			break;
 		case 0x01: 
-			RecBytes[5] = InpWasChange; 
+			RecBytes[5] = (uint8_t)(MAX_KEYS_COUNT >> 8); 
+			RecBytes[6] = (uint8_t)(MAX_KEYS_COUNT) ; 
 			break;
-		
-		#ifdef DEBUG
-		case 0x04:
-			RecBytes[5] = (uint8_t) (cfg.NWrite >> 8);
-            RecBytes[6] = (uint8_t) cfg.NWrite;
+		case 0x02:
+			RecBytes[5] = 0x00;
+            RecBytes[6] = AlarmManual;
             break;
+		case 0x03:
+			RecBytes[5] = 0x00;
+            RecBytes[6] = AlarmManual;
+            break;
+		case 0x04
+			RecBytes[5] = 0x00;
+            RecBytes[6] = AlarmManual;
+            break;
+		
 		case 0x05:
 			blocksLeft = GetBlocksLeft(CurLastBlockPos, sizeof(cfg));
 			RecBytes[5] = (uint8_t) (blocksLeft >> 8);
             RecBytes[6] = (uint8_t) blocksLeft;
             break;
-		#endif
+
 		
 		default: 
 			RecBytes[5] = 0; break;
@@ -130,25 +143,26 @@ void PRSM3ReceiveLineComplete(void)
         ReturnReply(0x13);
         return;
     }
-	
-    if (FunctionCode == 0x14) // Установка значения переменной
+
+    if (FunctionCode == 0x1C) // Запись ключей
     {
-//		for (uint32_t i = 0; i < 13; i++)
-//       {
-//			URT_Write(RecBytes[i]);
-//       }
+
+
+		// Проверка длины команды
+		if (CommandSize != 22)
+			return;
 		
+		// раскомментить потом
         // Проверка контрольной суммы
-        if (CRCisWrong(RecBytes, 13))
-		{
-            ReturnReply(LOAD_SNERR | 0x05); // == ReturnReply(0xE5)
-            return;
-        }
+//        if (CRCisWrong(RecBytes, CommandSize))
+//		{
+//            ReturnReply(LOAD_SNERR | 0x05); // == ReturnReply(0xE5)
+//            return;
+//        }
 		
 		for (uint8_t i = 0; i < 8; i++)
 		{
-				keyCurrent[i] = RecBytes[i + 4]; // и можно без этого
-//				URT_Write(keyCurrent[i]);
+			keyCurrent[i] = RecBytes[i + 5]; // для понятности
 		}
         switch (RecBytes[3])
 		{
@@ -159,14 +173,56 @@ void PRSM3ReceiveLineComplete(void)
 			RecBytes[3] = RemoveKey(keyCurrent); // 3 - ключ успешно удален; 4 - такого ключа нет
 			break;
         default:
-			for (uint8_t i = 3; i < 13; i++) RecBytes[i] = 0;
+			for (uint8_t i = 3; i < CommandSize; i++) RecBytes[i] = 0;
             break;
         }
-        CommandSize = 13;
-			
-        ReturnReply(0x05);
+		
+		RecBytes[4] = 0x00;
+        CommandSize = 6;
+        ReturnReply(0x0A);
         return;
     }
+	
+	if (FunctionCode == 0x14)
+	{
+		if (CommandSize != 9)
+		return;
+		// раскомментить потом
+        // Проверка контрольной суммы
+//        if (CRCisWrong(RecBytes, CommandSize))
+//		{
+//            ReturnReply(LOAD_SNERR | 0x05); // == ReturnReply(0xE5)
+//            return;
+//        }
+		
+		switch (RecBytes[3])
+		{
+        case 3:
+			AlarmManual = RecBytes[5]; 
+            break;
+		case 4:
+			SendEventPackages = RecBytes[5];
+			break;
+		case 5:
+			AnyKeyAccess = RecBytes[5];
+			break;
+		case 6:
+			ManualAddMode = RecBytes[5];
+			break;
+		case 7:
+			NoNetworkPackages = RecBytes[5];
+			break;
+        default:
+			for (uint8_t i = 3; i < CommandSize; i++) RecBytes[i] = 0;
+            break;
+        }
+		RecBytes[3] = 0xFF;
+		RecBytes[4] = 0x00;
+        CommandSize = 6;
+        ReturnReply(0x0A);
+        return;
+
+	}
 	
 	// Если код функции неправильный, то такой ответ
 	ReturnReply(0xA0);

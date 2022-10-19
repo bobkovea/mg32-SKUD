@@ -25,83 +25,88 @@ uint8_t GetCurEvent (void)
 
 void MonitorKey(void)
 {
-switch (CurState)
-		{
-			case StateClosed:
-		
+	switch (CurState)
+	{
+		case StateClosed:
+	
+			if (!GERKON_PIN)
+			{
+				delay_ms(100); // антидребезг
 				if (!GERKON_PIN)
 				{
-					delay_ms(100); // антидребезг
-					if (!GERKON_PIN)
-					{
-						StartRing(MediumRing, UINT32_MAX);
-						CurState = StateOpenedAlarm;
-						TM_Timer_Cmd(TM16, ENABLE); 
-						URT_Write(CurState);
-					}
-				}
-				
-				break;
-				
-			case StateOpenedAlarm:
-				// запуск тревоги
-				// и мониторим ключ
-				
-				if (access == 1)	
-				{
-					StartRing(FastRing, 700); // вместо секунд сколько раз пищит
-//					StopRing(); // троекратный сигнал, а потом стоп
-					TM_Timer_Cmd(TM16, DISABLE); // сделать отдельные функции
-					alarmCnt = 0;
-					access = 0;
-					
-					CurState = StateOpenedValidOk;
+//					StartRing(MediumRing, UINT32_MAX);
+					CurState = StateOpenedAlarm;
+					CurEvent = EventOpened;
+					TM_Timer_Cmd(TM36, ENABLE); 
+					TM_Timer_Cmd(TM16, ENABLE); 
 					URT_Write(CurState);
 				}
+			}
+			
+			break;
+			
+		case StateOpenedAlarm:
+			// запуск тревоги
+			// и мониторим ключ
+			
+			if (access == 1)	
+			{
 				
-				else if (access == 2)	
-				{
-					StartRing(FastFastRing, 500);
-					access = 0;
-				}
+//				StartRing(FastRing, 700); // вместо секунд сколько раз пищит
+//				StopRing(); // троекратный сигнал, а потом стоп
+				TM_Timer_Cmd(TM16, DISABLE); // сделать отдельные функции
+//				alarmCnt = 0;
+				access = 0;
+				CurState = StateOpenedValidOk;
+				URT_Write(CurState);
+				CurEvent = EventValidKey;
 				
-				
-				else if (alarmCnt >= alarmCntMax)
-				{
-					CurState = StateOpenedAlarmTimeout;
-					URT_Write(CurState);
-				}
-				
-				break;
-				
-		
-			case StateOpenedValidOk:
+			}
+//			
+			else if (access == 2)	
+			{
+				CurEvent = EventNotValidKey;
+//					StartRing(FastFastRing, 500);
+				access = 0;
+			}
+			
+			
+//			else if (alarmCnt >= alarmCntMax)
+//			{
+//				CurState = StateOpenedAlarmTimeout;
+//				URT_Write(CurState);
+//			}
+			
+			break;
+			
+	
+		case StateOpenedValidOk:
+			if (GERKON_PIN)
+			{
+				delay_ms(100);
 				if (GERKON_PIN)
 				{
-					delay_ms(100);
-					if (GERKON_PIN)
-					{
-						CurState = StateClosed;
-						URT_Write(CurState);
-					}
-				}
-				break;
-				
-			case StateOpenedAlarmTimeout:
-				if (access)
-				{
-					
-					TM_Timer_Cmd(TM16, DISABLE); 
-					access = 0;
-					alarmCnt = 0;
-					CurState = StateOpenedValidOk;	
+					CurState = StateClosed;
 					URT_Write(CurState);
 				}
-				break;
+			}
+			break;
+			
+		case StateOpenedAlarmTimeout:
+			if (access)
+			{
 				
-			default:
-				break;
-		}
+				TM_Timer_Cmd(TM16, DISABLE); 
+				access = 0;
+				alarmCnt = 0;
+				CurState = StateOpenedValidOk;	
+				URT_Write(CurState);
+			}
+			break;
+			
+		default:
+			break;
+	}
 
 };
 
