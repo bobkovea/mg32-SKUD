@@ -12,21 +12,21 @@ OKc3
 OKd
 
 Addr
-
-FCode
-
-CRC
-
-M10
 get param
-OKc0
+Get0
 $43$10$0A$00$00$F5
-OKc1
+Get1
 $43$10$0A$01$00$31
-OKc2
+Get2
 $43$10$0A$02$00$64
-OKc3
+Get3
 $43$10$0A$03$00$A0
+Get4
+$43$10$0A$04$00$CC
+Get5
+$43$10$0A$05$00$CC
+Get6
+$43$10$0A$06$00$CC
 M15
 // скуд add
 k1

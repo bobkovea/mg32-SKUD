@@ -104,8 +104,6 @@ void PRSM3ReceiveLineComplete(void)
 		switch (RecBytes[3])
 		{
 
-			uint16_t blocksLeft; 
-			
 		case 0x00: 
             RecBytes[5] = (uint8_t)(IAP_ReadWord(4) >> 8);
 			RecBytes[6] = (uint8_t)(IAP_ReadWord(4));
@@ -120,25 +118,29 @@ void PRSM3ReceiveLineComplete(void)
             break;
 		case 0x03:
 			RecBytes[5] = 0x00;
-            RecBytes[6] = AlarmManual;
+            RecBytes[6] = SendEventPackages;
             break;
-		case 0x04
+		case 0x04:
 			RecBytes[5] = 0x00;
-            RecBytes[6] = AlarmManual;
+            RecBytes[6] = AnyKeyAccess;
             break;
-		
 		case 0x05:
-			blocksLeft = GetBlocksLeft(CurLastBlockPos, sizeof(cfg));
-			RecBytes[5] = (uint8_t) (blocksLeft >> 8);
-            RecBytes[6] = (uint8_t) blocksLeft;
+			RecBytes[5] = 0x00;
+            RecBytes[6] = NoNetworkPackages;
+            break;
+		case 0x06:
+			
+			RecBytes[5] = (uint8_t) (IAP_ReadWord(IAP_SIZE - 8) >> 8);
+            RecBytes[6] = (uint8_t) IAP_ReadWord(IAP_SIZE - 8 );
             break;
 
-		
 		default: 
-			RecBytes[5] = 0; break;
+			RecBytes[5] = 0;
+			RecBytes[6] = 0; break;
         }
 		
-
+		RecBytes[7] = 0x00;
+		
         CommandSize = 9;
         ReturnReply(0x13);
         return;
@@ -237,7 +239,6 @@ void PRSM3ReceiveLineComplete(void)
 //----------------------------------------------------------------------------------------
 void ReturnReply(uint8_t RetCode)
 {
-	// Если какая либо ошибка приема
     REDE_PIN = 1; // ADM485 на передачу
 	
 	// Кладем код ответа в посылку-ответ 

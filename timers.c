@@ -54,25 +54,29 @@ void TIM10_Callback (void) {
 
 // T = 100 ms
 void TIM16_Callback (void) {
-	alarmCnt++;
-	if (DS1990A_GetID()) // если считан ключ DS1990A
-	{
-		
-		// если ключа нет в базе
-		if (CheckTruth(keyCurrent) == UINT32_MAX)
-		{
-			URT_Write(0xFE);
-			access = 2; // not valid id
-		}
-			
-		else {
-			URT_Write(0xDC);
-			access = 1; // valid id
-		}
-	}
+
 }
 
+// T = 10 ms
 void TIM36_Callback (void) {
+	
+	alarmCnt++;
+
+	if (waitBitch) // рано подносишь ключ!
+	{
+		if (waitBitchCnt == waitBitchMax)
+		{
+
+			waitBitchCnt = 0;
+			waitBitch = FALSE;
+			
+		}
+		else
+		{
+			waitBitchCnt++;
+		}
+			
+	}
 	
 	switch (GetCurEvent())
 	{
@@ -81,55 +85,66 @@ void TIM36_Callback (void) {
 		
 		case EventOpened:
 			buzzerCnt = 0;
-			buzzerCntMax = UINT32_MAX;
+			piskNumMax = UINT16_MAX; // бесконечно пищим
 			buzzerFreq = 100;
 			break;
 		
 		case EventValidKey:
+			alarmCnt = 0;
+			alarmCntMax = 500;
+
 			buzzerCnt = 0;
-			buzzerCntMax = 100;
 			buzzerFreq = 20;
+		
+			piskNumCnt = 0;
+			piskNumMax = 4;
 			break;		
 		
 		case EventNotValidKey:
+
 			buzzerCnt = 0;
-			buzzerCntMax = 100;
-			buzzerFreq = 5;
+			buzzerFreq = 10;
+		
+			piskNumCnt = 0;
+			piskNumMax = 3;
 			break;	
 		
-//		case EventTimeout:
-//			buzzerCntMax = UINT32_MAX;
+		case EventTimeout:
+			alarmCntMax = UINT32_MAX; //  это событие срабатывает единожды (до снятия тревоги)
 //			buzzerFreq = 50;
-//			break;
+			break;
 	}
-	
+			
 	if (!(buzzerCnt++ % buzzerFreq))
 	{
 		BUZZER_PIN = !BUZZER_PIN;
-	}
-	
-	if (buzzerCnt > buzzerCntMax)
-	{
-		switch (CurState)
+		if (piskNumCnt++ == piskNumMax * 2) // криво, оптимизировать
 		{
-			// если ключ неверный, возаращаемся к аларм-писку
-			case StateOpenedAlarm:
+//			if (CurState == StateOpenedAlarm)
+//			{
+//				
+//			}
+//			
+//			else if (CurState == StateOpenedValidOk)
+//			{
+//			
+//			}
+				
+			if (waitBitch)
+			{
+				BUZZER_PIN = 0; 
 				buzzerCnt = 0;
+				piskNumCnt = 0;
+				piskNumMax = UINT16_MAX; // бесконечно пищим
 				buzzerFreq = 100;
-				buzzerCntMax = UINT32_MAX;
-				return;
-			
-			// если ключ верный, то замолкаем
-			case StateOpenedValidOk:
-				buzzerCnt = 0;
-				BUZZER_PIN = 0;
+			}
+			else
+			{
 				TM_Timer_Cmd(TM36, DISABLE);
-				return;	
+				BUZZER_PIN = 0; 
+			}
 		}
-
 	}
-
-
 }
 
 

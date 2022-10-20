@@ -37,7 +37,16 @@ extern uint32_t alarmCntMax;
 
 extern uint32_t buzzerFreq;
 extern uint32_t buzzerCnt;
-extern uint32_t buzzerCntMax;
+//extern uint32_t buzzerCntMax;
+
+extern uint8_t piskNumCnt;
+extern uint32_t piskNumMax;
+
+extern boolean waitBitch;
+extern uint32_t waitBitchCnt;
+extern uint32_t waitBitchMax;
+
+
 
 void StartRing(uint8_t rtype, uint32_t duration_ms);
 void StopRing(void);

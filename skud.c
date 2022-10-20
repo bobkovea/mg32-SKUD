@@ -7,12 +7,18 @@ uint8_t CurEvent = EventNull;
 
 uint8_t access = 0;
 uint32_t alarmCnt = 0;
-uint32_t alarmCntMax = 50;
+uint32_t alarmCntMax = 300;
 
 uint32_t buzzerFreq = 0;
 uint32_t buzzerCnt = 0;
 uint32_t buzzerCntMax = 0;
 
+boolean waitBitch = FALSE;
+uint32_t waitBitchCnt = 0;
+uint32_t waitBitchMax = 200;
+
+uint8_t piskNumCnt = 0;
+uint32_t piskNumMax = 4;
 
 uint8_t GetCurEvent (void)
 {
@@ -28,18 +34,16 @@ void MonitorKey(void)
 	switch (CurState)
 	{
 		case StateClosed:
+
 	
 			if (!GERKON_PIN)
 			{
 				delay_ms(100); // антидребезг
 				if (!GERKON_PIN)
 				{
-//					StartRing(MediumRing, UINT32_MAX);
 					CurState = StateOpenedAlarm;
 					CurEvent = EventOpened;
-					TM_Timer_Cmd(TM36, ENABLE); 
-					TM_Timer_Cmd(TM16, ENABLE); 
-					URT_Write(CurState);
+					TM_Timer_Cmd(TM36, ENABLE);  
 				}
 			}
 			
@@ -48,60 +52,57 @@ void MonitorKey(void)
 		case StateOpenedAlarm:
 			// запуск тревоги
 			// и мониторим ключ
-			
-			if (access == 1)	
+
+			if (!waitBitch && DS1990A_GetID()) // если считан ключ DS1990A
 			{
+				// если ключа нет в базе
+				if (CheckTruth(keyCurrent) == UINT32_MAX)
+				{
+					CurEvent = EventNotValidKey;
+					waitBitch = TRUE;
+				}
+
+				else 
+				{	
 				
-//				StartRing(FastRing, 700); // вместо секунд сколько раз пищит
-//				StopRing(); // троекратный сигнал, а потом стоп
-				TM_Timer_Cmd(TM16, DISABLE); // сделать отдельные функции
-//				alarmCnt = 0;
-				access = 0;
-				CurState = StateOpenedValidOk;
-				URT_Write(CurState);
-				CurEvent = EventValidKey;
-				
-			}
-//			
-			else if (access == 2)	
-			{
-				CurEvent = EventNotValidKey;
-//					StartRing(FastFastRing, 500);
-				access = 0;
+					CurState = StateOpenedValidOk;
+					CurEvent = EventValidKey;
+				}
 			}
 			
-			
-//			else if (alarmCnt >= alarmCntMax)
-//			{
+	
+			else if (alarmCnt >= alarmCntMax)
+			{
 //				CurState = StateOpenedAlarmTimeout;
-//				URT_Write(CurState);
-//			}
+				CurEvent = EventTimeout;
+			}
 			
 			break;
 			
 	
 		case StateOpenedValidOk:
-			if (GERKON_PIN)
-			{
-				delay_ms(100);
-				if (GERKON_PIN)
-				{
-					CurState = StateClosed;
-					URT_Write(CurState);
-				}
-			}
+		
+//			if (GERKON_PIN)
+//			{
+//				delay_ms(100);
+//				if (GERKON_PIN)
+//				{
+//					CurState = StateClosed;
+//					URT_Write(CurState);
+//				}
+//			}
 			break;
 			
 		case StateOpenedAlarmTimeout:
-			if (access)
-			{
-				
-				TM_Timer_Cmd(TM16, DISABLE); 
-				access = 0;
-				alarmCnt = 0;
-				CurState = StateOpenedValidOk;	
-				URT_Write(CurState);
-			}
+//			if (access)
+//			{
+//				
+//				TM_Timer_Cmd(TM16, DISABLE); 
+//				access = 0;
+//				alarmCnt = 0;
+//				CurState = StateOpenedValidOk;	
+//				URT_Write(CurState);
+//			}
 			break;
 			
 		default:
