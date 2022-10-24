@@ -61,22 +61,10 @@ void TIM16_Callback (void) {
 void TIM36_Callback (void) {
 	
 	alarmCnt++;
-
-	if (waitBitch) // рано подносишь ключ!
-	{
-		if (waitBitchCnt == waitBitchMax)
-		{
-
-			waitBitchCnt = 0;
-			waitBitch = FALSE;
-			
-		}
-		else
-		{
-			waitBitchCnt++;
-		}
-			
-	}
+	
+	if (waitBitch) // ожидание после поднесения неправильного ключа
+		if (waitBitchCnt++ == waitBitchMax)
+			CurEvent = EventReadyForNewKey;
 	
 	switch (GetCurEvent())
 	{
@@ -107,43 +95,42 @@ void TIM36_Callback (void) {
 		
 			piskNumCnt = 0;
 			piskNumMax = 3;
+		
+			waitBitch = TRUE;
 			break;	
 		
 		case EventTimeout:
 			alarmCntMax = UINT32_MAX; //  это событие срабатывает единожды (до снятия тревоги)
 //			buzzerFreq = 50;
 			break;
+		
+		case EventReadyForNewKey:
+			waitBitchCnt = 0;
+			waitBitch = FALSE;
+		
+			buzzerCnt = 0;
+			piskNumMax = UINT16_MAX; // бесконечно пищим
+			buzzerFreq = 100;
+			break;
 	}
 			
 	if (!(buzzerCnt++ % buzzerFreq))
 	{
 		BUZZER_PIN = !BUZZER_PIN;
+		
 		if (piskNumCnt++ == piskNumMax * 2) // криво, оптимизировать
 		{
-//			if (CurState == StateOpenedAlarm)
-//			{
-//				
-//			}
-//			
-//			else if (CurState == StateOpenedValidOk)
-//			{
-//			
-//			}
-				
+			BUZZER_PIN = 0;
 			if (waitBitch)
 			{
-				BUZZER_PIN = 0; 
-				buzzerCnt = 0;
-				piskNumCnt = 0;
-				piskNumMax = UINT16_MAX; // бесконечно пищим
-				buzzerFreq = 100;
+				buzzerFreq = UINT32_MAX;
 			}
 			else
 			{
 				TM_Timer_Cmd(TM36, DISABLE);
-				BUZZER_PIN = 0; 
 			}
 		}
+
 	}
 }
 

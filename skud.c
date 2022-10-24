@@ -59,12 +59,10 @@ void MonitorKey(void)
 				if (CheckTruth(keyCurrent) == UINT32_MAX)
 				{
 					CurEvent = EventNotValidKey;
-					waitBitch = TRUE;
 				}
 
 				else 
 				{	
-				
 					CurState = StateOpenedValidOk;
 					CurEvent = EventValidKey;
 				}

@@ -17,6 +17,7 @@ typedef enum {
 	EventValidKey = 0x02,
 	EventNotValidKey = 0x03,
 	EventTimeout = 0x04,
+	EventReadyForNewKey = 0x05
 } Event;
 
 

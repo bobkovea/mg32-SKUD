@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\LCDI.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\LCDI.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Thu Oct 20 22:21:37 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Fri Oct 21 14:09:04 2022
 <BR><P>
 <H3>Maximum Stack Usage =        136 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -451,7 +451,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Init
 </UL>
 
-<P><STRONG><a name="[54]"></a>MonitorKey</STRONG> (Thumb, 148 bytes, Stack size 16 bytes, skud.o(.text.MonitorKey))
+<P><STRONG><a name="[54]"></a>MonitorKey</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, skud.o(.text.MonitorKey))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = MonitorKey &rArr; DS1990A_GetID &rArr; OneWire_Write &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
@@ -585,8 +585,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM16_IRQ
 </UL>
 
-<P><STRONG><a name="[64]"></a>TIM36_Callback</STRONG> (Thumb, 284 bytes, Stack size 24 bytes, timers.o(.text.TIM36_Callback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = TIM36_Callback &rArr; __aeabi_uidivmod
+<P><STRONG><a name="[64]"></a>TIM36_Callback</STRONG> (Thumb, 292 bytes, Stack size 16 bytes, timers.o(.text.TIM36_Callback))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = TIM36_Callback &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetCurEvent
@@ -647,7 +647,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_mg32x02z.o(RESET)
 </UL>
 <P><STRONG><a name="[6d]"></a>TM36_IRQ</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, timers_irq.o(.text.TM36_IRQ))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = TM36_IRQ &rArr; TIM36_Callback &rArr; __aeabi_uidivmod
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = TM36_IRQ &rArr; TIM36_Callback &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
@@ -657,7 +657,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[15]"></a>TM3x_IRQHandler</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, mg32x02z__irqhandler.o(.text.TM3x_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = TM3x_IRQHandler &rArr; TM36_IRQ &rArr; TIM36_Callback &rArr; __aeabi_uidivmod
+<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = TM3x_IRQHandler &rArr; TM36_IRQ &rArr; TIM36_Callback &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM36_IRQ
 </UL>
