@@ -75,8 +75,6 @@ void TIM36_Callback (void) {
 			buzzerCnt = 1;
 			piskNumMax = UINT16_MAX; // бесконечно пищим (настроить, чтоб не совсем бесконечно)
 			buzzerFreq = 100;
-		
-//			alarmTimeoutCnt = 0;
 			break;
 	
 		case EventValidKey:

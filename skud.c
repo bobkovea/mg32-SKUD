@@ -6,21 +6,20 @@ volatile uint8_t CurState = StateClosed;
 volatile uint8_t CurEvent = EventNull;
 
 volatile uint32_t alarmTimeoutCnt = 0;
-volatile uint32_t alarmTimeoutCntMax = 50;
+volatile uint32_t alarmTimeoutCntMax = 50; // длительность интервала до отправки сигнала аларма (cек * 10)
 
 volatile uint32_t alarmReloadCnt = 0;
-volatile uint32_t alarmReloadCntMax = 50;
-
-volatile uint32_t buzzerFreq = UINT32_MAX;
-volatile uint32_t buzzerCnt = 1;
-
+volatile uint32_t alarmReloadCntMax = 50; // длительность интервала до автоматической активации сигналки после её снятия (cек * 10)
 
 //boolean waitBitch = FALSE;
 volatile uint32_t waitBitchCnt = 0;
-volatile uint32_t waitBitchCntMax = 20;
+volatile uint32_t waitBitchCntMax = 20; // длительность интервала до разрешения повторного поднесения ключа (cек * 10)
+
+volatile uint32_t buzzerFreq = UINT32_MAX; // период следования "писков" зумера (сек / 100)
+volatile uint32_t buzzerCnt = 1;
 
 volatile uint8_t piskNumCnt = 0;
-volatile uint32_t piskNumMax = 4;
+volatile uint32_t piskNumMax = UINT16_MAX; // количество "писков" зумера
 
 uint8_t GetCurEvent (void)
 {
@@ -37,14 +36,14 @@ void MonitorKey(void)
 	{
 		case StateClosed:
 
-			if (!GERKON_PIN)
+		if (!GERKON_PIN) // можно опрос геркона с антидребезгом в прерывание
 			{
-//				delay_ms(100); // антидребезг
-//				if (!GERKON_PIN)
-//				{
+				delay_ms(100); // антидребезг
+				if (!GERKON_PIN)
+				{
 					CurState = StateOpenedAlarm;
 					CurEvent = EventOpened;
-//				}
+				}
 			}
 			
 			break;
@@ -71,7 +70,6 @@ void MonitorKey(void)
 
 				else 
 				{
-					
 					CurState = StateOpenedValidOk;
 					CurEvent = EventValidKey;
 					alarmReloadCnt = 0;
