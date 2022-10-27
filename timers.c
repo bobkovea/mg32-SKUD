@@ -6,6 +6,7 @@
 #include "skud.h"
 
 
+
 // Посылка принята целиком - пришло время её разобрать
 void TIM01_Callback (void) {
 	
@@ -54,17 +55,14 @@ void TIM10_Callback (void) {
 
 // T = 100 ms
 void TIM16_Callback (void) {
-
+	
+		alarmReloadCnt++;
+		alarmTimeoutCnt++;
+		waitBitchCnt++;
 }
 
 // T = 10 ms
 void TIM36_Callback (void) {
-	
-	alarmCnt++;
-	
-	if (waitBitch) // ожидание после поднесения неправильного ключа
-		if (waitBitchCnt++ == waitBitchMax)
-			CurEvent = EventReadyForNewKey;
 	
 	switch (GetCurEvent())
 	{
@@ -72,66 +70,72 @@ void TIM36_Callback (void) {
 			break;
 		
 		case EventOpened:
-			buzzerCnt = 0;
-			piskNumMax = UINT16_MAX; // бесконечно пищим
+			alarmTimeoutCnt = 0;
+		
+			buzzerCnt = 1;
+			piskNumMax = UINT16_MAX; // бесконечно пищим (настроить, чтоб не совсем бесконечно)
 			buzzerFreq = 100;
+		
+//			alarmTimeoutCnt = 0;
 			break;
 		
-		case EventValidKey:
-			alarmCnt = 0;
-			alarmCntMax = 500;
 
-			buzzerCnt = 0;
-			buzzerFreq = 20;
 		
+		case EventValidKey:
+
+
+			buzzerCnt = 1;
+			buzzerFreq = 20;
+			
 			piskNumCnt = 0;
 			piskNumMax = 4;
 			break;		
 		
 		case EventNotValidKey:
-
-			buzzerCnt = 0;
+			
+			alarmReloadCnt = 0;
+		
+			buzzerCnt = 1;
 			buzzerFreq = 10;
 		
 			piskNumCnt = 0;
 			piskNumMax = 3;
 		
-			waitBitch = TRUE;
+//			waitBitch = TRUE;
 			break;	
 		
 		case EventTimeout:
-			alarmCntMax = UINT32_MAX; //  это событие срабатывает единожды (до снятия тревоги)
-//			buzzerFreq = 50;
+			alarmTimeoutCntMax = UINT32_MAX; //  это событие срабатывает единожды (до снятия тревоги)
 			break;
 		
 		case EventReadyForNewKey:
+			
 			waitBitchCnt = 0;
-			waitBitch = FALSE;
+//			waitBitch = FALSE;
 		
-			buzzerCnt = 0;
+			buzzerCnt = 1;
 			piskNumMax = UINT16_MAX; // бесконечно пищим
 			buzzerFreq = 100;
 			break;
+		
+		case EventReactivateAlarm:
+			
+			break;		
 	}
+	
+
 			
 	if (!(buzzerCnt++ % buzzerFreq))
-	{
+	{	
 		BUZZER_PIN = !BUZZER_PIN;
-		
-		if (piskNumCnt++ == piskNumMax * 2) // криво, оптимизировать
+		if (piskNumCnt++ >= piskNumMax * 2) // криво, оптимизировать
 		{
 			BUZZER_PIN = 0;
-			if (waitBitch)
-			{
-				buzzerFreq = UINT32_MAX;
-			}
-			else
-			{
-				TM_Timer_Cmd(TM36, DISABLE);
-			}
+			buzzerFreq = UINT32_MAX; // возможно, стоит сделать buzzerCnt uint16
 		}
-
 	}
+	
+
 }
 
 

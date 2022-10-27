@@ -29,11 +29,11 @@ int main()
 	TM_ITEA_Cmd(TM36, ENABLE); // включаем общие прерывания таймера 36
 	TM_ClearFlag(TM36, TMx_TOF); // очищаем флаг прерывания таймера 36
 
-//	TM_Timer_Cmd(TM16, DISABLE); // выключаем таймер 16 (не даем включиться ранее положенного)
-//	TM_IT_Config(TM16, TMx_TIE_IE, ENABLE); // включаем прерывание таймера 16 по переполнению
-//	TM_ITEA_Cmd(TM16, ENABLE); // включаем общие прерывания таймера 16
-//	TM_ClearFlag(TM16, TMx_TOF); // очищаем флаг прерывания таймера 16
-////	
+	TM_Timer_Cmd(TM16, DISABLE); // выключаем таймер 16 (не даем включиться ранее положенного)
+	TM_IT_Config(TM16, TMx_TIE_IE, ENABLE); // включаем прерывание таймера 16 по переполнению
+	TM_ITEA_Cmd(TM16, ENABLE); // включаем общие прерывания таймера 16
+	TM_ClearFlag(TM16, TMx_TOF); // очищаем флаг прерывания таймера 16
+//	
 	URT_Cmd(URT0, DISABLE); // выключаем UART0
 	URT_IT_Config(URT0, URT_IT_RX, ENABLE); // включаем прерывание UART0 по приему
     URT_ITEA_Cmd(URT0, ENABLE); // включаем общие прерывания UART0
@@ -50,7 +50,6 @@ int main()
 	TM_ClearFlag(TM00, TMx_TOF); 
 
 	REDE_PIN = 0;
-	
 	
 	if (*(uint32_t *)IAP_START_ADDRESS == UINT32_MAX)  
 		FillFlash();
@@ -72,10 +71,12 @@ int main()
 //	DO_PIN = 0;
 	
 
-
 //	URT_Write(CurState);
 
-				REDE_PIN = 1;
+//	REDE_PIN = 1;
+	TM_Timer_Cmd(TM16, ENABLE);  
+	TM_Timer_Cmd(TM36, ENABLE);  
+	
     while(1) 
 	{ 
 

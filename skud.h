@@ -17,7 +17,8 @@ typedef enum {
 	EventValidKey = 0x02,
 	EventNotValidKey = 0x03,
 	EventTimeout = 0x04,
-	EventReadyForNewKey = 0x05
+	EventReadyForNewKey = 0x05,
+	EventReactivateAlarm = 0x06,
 } Event;
 
 
@@ -32,13 +33,16 @@ typedef enum {
 extern uint8_t CurState;
 extern uint8_t CurEvent;
 
-extern uint8_t access;
-extern uint32_t alarmCnt;
-extern uint32_t alarmCntMax;
+extern uint32_t alarmTimeoutCnt;
+extern uint32_t alarmTimeoutCntMax;
+
+extern uint32_t alarmReloadCnt;
+extern uint32_t alarmReloadCntMax;
 
 extern uint32_t buzzerFreq;
 extern uint32_t buzzerCnt;
-//extern uint32_t buzzerCntMax;
+
+extern boolean alarmAuto;
 
 extern uint8_t piskNumCnt;
 extern uint32_t piskNumMax;
@@ -46,8 +50,6 @@ extern uint32_t piskNumMax;
 extern boolean waitBitch;
 extern uint32_t waitBitchCnt;
 extern uint32_t waitBitchMax;
-
-
 
 void StartRing(uint8_t rtype, uint32_t duration_ms);
 void StopRing(void);

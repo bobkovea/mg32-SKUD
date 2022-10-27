@@ -5,20 +5,25 @@
 uint8_t CurState = StateClosed;
 uint8_t CurEvent = EventNull;
 
-uint8_t access = 0;
-uint32_t alarmCnt = 0;
-uint32_t alarmCntMax = 300;
+uint32_t alarmTimeoutCnt = 0;
+uint32_t alarmTimeoutCntMax = 300;
 
-uint32_t buzzerFreq = 0;
-uint32_t buzzerCnt = 0;
-uint32_t buzzerCntMax = 0;
+uint32_t alarmReloadCnt = 0;
+uint32_t alarmReloadCntMax = 1000;
+
+uint32_t buzzerFreq = UINT32_MAX;
+uint32_t buzzerCnt = 1;
+
 
 boolean waitBitch = FALSE;
 uint32_t waitBitchCnt = 0;
-uint32_t waitBitchMax = 200;
+uint32_t waitBitchMax = 20;
 
 uint8_t piskNumCnt = 0;
 uint32_t piskNumMax = 4;
+
+boolean alarmAuto = 1;
+boolean alarmManual = 1;
 
 uint8_t GetCurEvent (void)
 {
@@ -35,16 +40,14 @@ void MonitorKey(void)
 	{
 		case StateClosed:
 
-	
 			if (!GERKON_PIN)
 			{
-				delay_ms(100); // антидребезг
-				if (!GERKON_PIN)
-				{
+//				delay_ms(100); // антидребезг
+//				if (!GERKON_PIN)
+//				{
 					CurState = StateOpenedAlarm;
 					CurEvent = EventOpened;
-					TM_Timer_Cmd(TM36, ENABLE);  
-				}
+//				}
 			}
 			
 			break;
@@ -52,26 +55,34 @@ void MonitorKey(void)
 		case StateOpenedAlarm:
 			// запуск тревоги
 			// и мониторим ключ
-
-			if (!waitBitch && DS1990A_GetID()) // если считан ключ DS1990A
+		
+			// if !waitBitch
+			if (DS1990A_GetID()) // если считан ключ DS1990A
 			{
 				// если ключа нет в базе
 				if (CheckTruth(keyCurrent) == UINT32_MAX)
 				{
+					
 					CurEvent = EventNotValidKey;
+					waitBitchCnt = 0;
+					
+					while(waitBitchCnt < waitBitchMax)
+						;
+					STALED_PIN = 1;
+					
+					CurEvent = EventReadyForNewKey;
 				}
 
 				else 
-				{	
+				{
 					CurState = StateOpenedValidOk;
 					CurEvent = EventValidKey;
 				}
 			}
 			
-	
-			else if (alarmCnt >= alarmCntMax)
+			else if (alarmTimeoutCnt >= alarmTimeoutCntMax)
 			{
-//				CurState = StateOpenedAlarmTimeout;
+				// отправить сообщение
 				CurEvent = EventTimeout;
 			}
 			
@@ -79,7 +90,14 @@ void MonitorKey(void)
 			
 	
 		case StateOpenedValidOk:
-		
+			
+			if (alarmReloadCnt >= alarmReloadCntMax)
+			{
+				CurState = StateClosed;
+				CurEvent = EventReactivateAlarm;
+			}
+			
+			
 //			if (GERKON_PIN)
 //			{
 //				delay_ms(100);
@@ -91,17 +109,12 @@ void MonitorKey(void)
 //			}
 			break;
 			
-		case StateOpenedAlarmTimeout:
-//			if (access)
-//			{
-//				
-//				TM_Timer_Cmd(TM16, DISABLE); 
-//				access = 0;
-//				alarmCnt = 0;
+//		case StateOpenedAlarmTimeout:
+
+
 //				CurState = StateOpenedValidOk;	
-//				URT_Write(CurState);
-//			}
-			break;
+
+//			break;
 			
 		default:
 			break;
@@ -110,37 +123,4 @@ void MonitorKey(void)
 };
 
 
-void StartRing(uint8_t rtype, uint32_t duration_ms)
-{
-	TM_Timer_Cmd(TM36, DISABLE);
-	buzzerCnt = 0;
-	
-	switch (rtype)
-	{
-		case LongRing:
-			buzzerFreq = 100;
-			break;
-		
-		case MediumRing:
-			buzzerFreq = 50;
-			break;
-		
-		case FastRing:
-			buzzerFreq = 10;
-			break;	
-		
-		case FastFastRing:
-			buzzerFreq = 5;
-			break;	
-	}
-	buzzerCntMax = duration_ms / 10; // при T = 100 ms
-	TM_Timer_Cmd(TM36, ENABLE);
-}
-
-void StopRing(void)
-{
-	TM_Timer_Cmd(TM36, DISABLE);
-	buzzerCnt = 0;
-	BUZZER_PIN = 0;
-}
 
