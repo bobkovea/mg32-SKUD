@@ -2,28 +2,25 @@
 #include "gpio.h"
 #include "usart.h"
 
-uint8_t CurState = StateClosed;
-uint8_t CurEvent = EventNull;
+volatile uint8_t CurState = StateClosed;
+volatile uint8_t CurEvent = EventNull;
 
-uint32_t alarmTimeoutCnt = 0;
-uint32_t alarmTimeoutCntMax = 300;
+volatile uint32_t alarmTimeoutCnt = 0;
+volatile uint32_t alarmTimeoutCntMax = 50;
 
-uint32_t alarmReloadCnt = 0;
-uint32_t alarmReloadCntMax = 1000;
+volatile uint32_t alarmReloadCnt = 0;
+volatile uint32_t alarmReloadCntMax = 50;
 
-uint32_t buzzerFreq = UINT32_MAX;
-uint32_t buzzerCnt = 1;
+volatile uint32_t buzzerFreq = UINT32_MAX;
+volatile uint32_t buzzerCnt = 1;
 
 
-boolean waitBitch = FALSE;
-uint32_t waitBitchCnt = 0;
-uint32_t waitBitchMax = 20;
+//boolean waitBitch = FALSE;
+volatile uint32_t waitBitchCnt = 0;
+volatile uint32_t waitBitchCntMax = 20;
 
-uint8_t piskNumCnt = 0;
-uint32_t piskNumMax = 4;
-
-boolean alarmAuto = 1;
-boolean alarmManual = 1;
+volatile uint8_t piskNumCnt = 0;
+volatile uint32_t piskNumMax = 4;
 
 uint8_t GetCurEvent (void)
 {
@@ -66,23 +63,25 @@ void MonitorKey(void)
 					CurEvent = EventNotValidKey;
 					waitBitchCnt = 0;
 					
-					while(waitBitchCnt < waitBitchMax)
+					while(waitBitchCnt < waitBitchCntMax) // сделать на прерываниях
 						;
-					STALED_PIN = 1;
 					
 					CurEvent = EventReadyForNewKey;
 				}
 
 				else 
 				{
+					
 					CurState = StateOpenedValidOk;
 					CurEvent = EventValidKey;
+					alarmReloadCnt = 0;
 				}
 			}
 			
 			else if (alarmTimeoutCnt >= alarmTimeoutCntMax)
 			{
-				// отправить сообщение
+
+				// +отправить сообщение
 				CurEvent = EventTimeout;
 			}
 			
@@ -94,29 +93,9 @@ void MonitorKey(void)
 			if (alarmReloadCnt >= alarmReloadCntMax)
 			{
 				CurState = StateClosed;
-				CurEvent = EventReactivateAlarm;
+				STALED_PIN = 1;
+//				CurEvent = EventReactivateAlarm;
 			}
-			
-			
-//			if (GERKON_PIN)
-//			{
-//				delay_ms(100);
-//				if (GERKON_PIN)
-//				{
-//					CurState = StateClosed;
-//					URT_Write(CurState);
-//				}
-//			}
-			break;
-			
-//		case StateOpenedAlarmTimeout:
-
-
-//				CurState = StateOpenedValidOk;	
-
-//			break;
-			
-		default:
 			break;
 	}
 

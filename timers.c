@@ -56,9 +56,9 @@ void TIM10_Callback (void) {
 // T = 100 ms
 void TIM16_Callback (void) {
 	
-		alarmReloadCnt++;
-		alarmTimeoutCnt++;
-		waitBitchCnt++;
+	alarmReloadCnt++;
+	alarmTimeoutCnt++;
+	waitBitchCnt++;
 }
 
 // T = 10 ms
@@ -78,12 +78,10 @@ void TIM36_Callback (void) {
 		
 //			alarmTimeoutCnt = 0;
 			break;
-		
-
-		
+	
 		case EventValidKey:
-
-
+			
+			BUZZER_PIN = 0;
 			buzzerCnt = 1;
 			buzzerFreq = 20;
 			
@@ -93,8 +91,7 @@ void TIM36_Callback (void) {
 		
 		case EventNotValidKey:
 			
-			alarmReloadCnt = 0;
-		
+			BUZZER_PIN = 0;
 			buzzerCnt = 1;
 			buzzerFreq = 10;
 		
@@ -123,19 +120,17 @@ void TIM36_Callback (void) {
 			break;		
 	}
 	
-
-			
 	if (!(buzzerCnt++ % buzzerFreq))
 	{	
 		BUZZER_PIN = !BUZZER_PIN;
-		if (piskNumCnt++ >= piskNumMax * 2) // криво, оптимизировать
-		{
-			BUZZER_PIN = 0;
-			buzzerFreq = UINT32_MAX; // возможно, стоит сделать buzzerCnt uint16
-		}
+		piskNumCnt++;
 	}
 	
-
+	if (piskNumCnt >= piskNumMax * 2) // криво, оптимизировать
+	{
+		BUZZER_PIN = 0;
+		buzzerFreq = UINT32_MAX; // возможно, стоит сделать buzzerCnt uint16
+	}
 }
 
 

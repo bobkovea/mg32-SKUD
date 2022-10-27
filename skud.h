@@ -30,29 +30,29 @@ typedef enum {
 	FastFastRing,
 } RingType;
 
-extern uint8_t CurState;
-extern uint8_t CurEvent;
+extern volatile uint8_t CurState;
+extern volatile uint8_t CurEvent;
 
-extern uint32_t alarmTimeoutCnt;
-extern uint32_t alarmTimeoutCntMax;
+extern volatile uint32_t alarmTimeoutCnt;
+extern volatile uint32_t alarmTimeoutCntMax;
 
-extern uint32_t alarmReloadCnt;
-extern uint32_t alarmReloadCntMax;
+extern volatile uint32_t alarmReloadCnt;
+extern volatile uint32_t alarmReloadCntMax;
 
-extern uint32_t buzzerFreq;
-extern uint32_t buzzerCnt;
+extern volatile uint32_t buzzerFreq;
+extern volatile uint32_t buzzerCnt;
 
-extern boolean alarmAuto;
+//extern boolean alarmAuto;
 
-extern uint8_t piskNumCnt;
-extern uint32_t piskNumMax;
+extern volatile uint8_t piskNumCnt;
+extern volatile uint32_t piskNumMax;
 
-extern boolean waitBitch;
-extern uint32_t waitBitchCnt;
-extern uint32_t waitBitchMax;
+extern volatile boolean waitBitch;
+extern volatile uint32_t waitBitchCnt;
+extern volatile uint32_t waitBitchCntMax;
 
-void StartRing(uint8_t rtype, uint32_t duration_ms);
-void StopRing(void);
+//void StartRing(uint8_t rtype, uint32_t duration_ms);
+//void StopRing(void);
 void MonitorKey(void);
 uint8_t GetCurEvent (void);
 #endif // SKUD_H
