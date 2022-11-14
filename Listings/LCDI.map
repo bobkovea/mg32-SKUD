@@ -275,6 +275,8 @@ Section Cross References
     skud.o(.text.MonitorKey) refers to skud.o(.bss.alarmTimeoutCnt) for alarmTimeoutCnt
     skud.o(.text.MonitorKey) refers to skud.o(.data.alarmTimeoutCntMax) for alarmTimeoutCntMax
     skud.o(.ARM.exidx.text.MonitorKey) refers to skud.o(.text.MonitorKey) for [Anonymous Symbol]
+    flash_static.o(.text.GetKeyPart) refers to iap.o(.text.IAP_ReadWord) for IAP_ReadWord
+    flash_static.o(.ARM.exidx.text.GetKeyPart) refers to flash_static.o(.text.GetKeyPart) for [Anonymous Symbol]
     mg32x02z_csc_init.o(.ARM.exidx.text.CSC_IHRCO_Enable) refers to mg32x02z_csc_init.o(.text.CSC_IHRCO_Enable) for [Anonymous Symbol]
     mg32x02z_csc_init.o(.ARM.exidx.text.CSC_XOSC_Enable) refers to mg32x02z_csc_init.o(.text.CSC_XOSC_Enable) for [Anonymous Symbol]
     mg32x02z_csc_init.o(.ARM.exidx.text.CSC_EXTCK_Enable) refers to mg32x02z_csc_init.o(.text.CSC_EXTCK_Enable) for [Anonymous Symbol]
@@ -1446,15 +1448,6 @@ Removing Unused input sections from the image.
     Removing usart.o(.ARM.exidx.text.URT_IsTxReady), (8 bytes).
     Removing usart.o(.ARM.exidx.text.URT_IsTxEndTransmission), (8 bytes).
     Removing gpio.o(.text), (0 bytes).
-    Removing gpio.o(.bss.pisk_cnt), (1 bytes).
-    Removing gpio.o(.data.pisk_max), (1 bytes).
-    Removing gpio.o(.bss.mn), (1 bytes).
-    Removing gpio.o(.data.ThrHigh), (1 bytes).
-    Removing gpio.o(.data.ThrLow), (1 bytes).
-    Removing gpio.o(.data.MaxValue), (1 bytes).
-    Removing gpio.o(.bss.InpWasChange), (1 bytes).
-    Removing gpio.o(.bss.ModInpVar), (16 bytes).
-    Removing gpio.o(.bss.ModInp), (2 bytes).
     Removing wdt.o(.text), (0 bytes).
     Removing wdt.o(.ARM.exidx.text.wdt_enable), (8 bytes).
     Removing wdt.o(.text.wdt_reset), (8 bytes).
@@ -1549,6 +1542,9 @@ Removing Unused input sections from the image.
     Removing skud.o(.text), (0 bytes).
     Removing skud.o(.ARM.exidx.text.GetCurEvent), (8 bytes).
     Removing skud.o(.ARM.exidx.text.MonitorKey), (8 bytes).
+    Removing flash_static.o(.text), (0 bytes).
+    Removing flash_static.o(.text.GetKeyPart), (30 bytes).
+    Removing flash_static.o(.ARM.exidx.text.GetKeyPart), (8 bytes).
     Removing mg32x02z_csc_init.o(.text), (0 bytes).
     Removing mg32x02z_csc_init.o(.text.CSC_IHRCO_Enable), (64 bytes).
     Removing mg32x02z_csc_init.o(.ARM.exidx.text.CSC_IHRCO_Enable), (8 bytes).
@@ -3043,7 +3039,7 @@ Removing Unused input sections from the image.
     Removing depilogue.o(.text), (190 bytes).
     Removing depilogue.o(i.__ARM_clz), (46 bytes).
 
-1627 unused section(s) (total 23773 bytes) removed from the image.
+1621 unused section(s) (total 23786 bytes) removed from the image.
 
 ==============================================================================
 
@@ -3130,6 +3126,7 @@ Image Symbol Table
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     ds18b20.c                                0x00000000   Number         0  ds18b20.o ABSOLUTE
     flash.c                                  0x00000000   Number         0  flash.o ABSOLUTE
+    flash_static.c                           0x00000000   Number         0  flash_static.o ABSOLUTE
     gpio.c                                   0x00000000   Number         0  gpio.o ABSOLUTE
     handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
     iap.c                                    0x00000000   Number         0  iap.o ABSOLUTE
@@ -3657,116 +3654,116 @@ Memory Map of the image
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x000000c0   Data   RO          400    RESET               startup_mg32x02z.o
-    0x000000c0   0x000000c0   0x00000000   Code   RO         2055  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x000000c0   0x000000c0   0x00000004   Code   RO         2323    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x000000c4   0x000000c4   0x00000004   Code   RO         2326    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x000000c8   0x000000c8   0x00000000   Code   RO         2328    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x000000c8   0x000000c8   0x00000000   Code   RO         2330    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x000000c8   0x000000c8   0x00000008   Code   RO         2331    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x000000d0   0x000000d0   0x00000000   Code   RO         2333    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x000000d0   0x000000d0   0x00000000   Code   RO         2335    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x000000d0   0x000000d0   0x00000004   Code   RO         2324    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
-    0x000000d4   0x000000d4   0x0000003c   Code   RO          401  * .text               startup_mg32x02z.o
-    0x00000110   0x00000110   0x0000002c   Code   RO         2058    .text               mc_p.l(uidiv.o)
-    0x0000013c   0x0000013c   0x00000024   Code   RO         2060    .text               mc_p.l(memseta.o)
-    0x00000160   0x00000160   0x00000060   Code   RO         2342    .text               mc_p.l(uldiv.o)
-    0x000001c0   0x000001c0   0x00000024   Code   RO         2355    .text               mc_p.l(init.o)
-    0x000001e4   0x000001e4   0x00000000   Code   RO         2357    .text               mc_p.l(semi.o)
-    0x000001e4   0x000001e4   0x00000020   Code   RO         2358    .text               mc_p.l(llshl.o)
-    0x00000204   0x00000204   0x00000022   Code   RO         2360    .text               mc_p.l(llushr.o)
-    0x00000226   0x00000226   0x00000000   Code   RO         2364    .text               mc_p.l(iusesemip.o)
+    0x00000000   0x00000000   0x000000c0   Data   RO          396    RESET               startup_mg32x02z.o
+    0x000000c0   0x000000c0   0x00000000   Code   RO         2051  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x000000c0   0x000000c0   0x00000004   Code   RO         2319    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x000000c4   0x000000c4   0x00000004   Code   RO         2322    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x000000c8   0x000000c8   0x00000000   Code   RO         2324    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x000000c8   0x000000c8   0x00000000   Code   RO         2326    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x000000c8   0x000000c8   0x00000008   Code   RO         2327    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x000000d0   0x000000d0   0x00000000   Code   RO         2329    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x000000d0   0x000000d0   0x00000000   Code   RO         2331    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x000000d0   0x000000d0   0x00000004   Code   RO         2320    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x000000d4   0x000000d4   0x0000003c   Code   RO          397  * .text               startup_mg32x02z.o
+    0x00000110   0x00000110   0x0000002c   Code   RO         2054    .text               mc_p.l(uidiv.o)
+    0x0000013c   0x0000013c   0x00000024   Code   RO         2056    .text               mc_p.l(memseta.o)
+    0x00000160   0x00000160   0x00000060   Code   RO         2338    .text               mc_p.l(uldiv.o)
+    0x000001c0   0x000001c0   0x00000024   Code   RO         2351    .text               mc_p.l(init.o)
+    0x000001e4   0x000001e4   0x00000000   Code   RO         2353    .text               mc_p.l(semi.o)
+    0x000001e4   0x000001e4   0x00000020   Code   RO         2354    .text               mc_p.l(llshl.o)
+    0x00000204   0x00000204   0x00000022   Code   RO         2356    .text               mc_p.l(llushr.o)
+    0x00000226   0x00000226   0x00000000   Code   RO         2360    .text               mc_p.l(iusesemip.o)
     0x00000226   0x00000226   0x00000002   PAD
-    0x00000228   0x00000228   0x000000a4   Code   RO          250    .text.AddKey        keys.o
-    0x000002cc   0x000002cc   0x00000008   Code   RO          765    .text.CSC_ClearFlag  mg32x02z_csc_drv.o
-    0x000002d4   0x000002d4   0x00000014   Code   RO          755    .text.CSC_GetClockSourceState  mg32x02z_csc_drv.o
-    0x000002e8   0x000002e8   0x00000018   Code   RO          709    .text.CSC_IHRCO_Cmd  mg32x02z_csc_drv.o
-    0x00000300   0x00000300   0x000001d0   Code   RO          311    .text.CSC_Init      mg32x02z_csc_init.o
-    0x000004d0   0x000004d0   0x00000064   Code   RO          307    .text.CSC_XOSC_Enable  mg32x02z_csc_init.o
-    0x00000534   0x00000534   0x00000062   Code   RO          248    .text.CheckTruth    keys.o
-    0x00000596   0x00000596   0x0000005e   Code   RO          322    .text.ChipInit      mg32x02z_chipinit.o
-    0x000005f4   0x000005f4   0x00000044   Code   RO          256    .text.DS1990A_GetID  keys.o
+    0x00000228   0x00000228   0x000000a4   Code   RO          237    .text.AddKey        keys.o
+    0x000002cc   0x000002cc   0x00000008   Code   RO          761    .text.CSC_ClearFlag  mg32x02z_csc_drv.o
+    0x000002d4   0x000002d4   0x00000014   Code   RO          751    .text.CSC_GetClockSourceState  mg32x02z_csc_drv.o
+    0x000002e8   0x000002e8   0x00000018   Code   RO          705    .text.CSC_IHRCO_Cmd  mg32x02z_csc_drv.o
+    0x00000300   0x00000300   0x000001d0   Code   RO          307    .text.CSC_Init      mg32x02z_csc_init.o
+    0x000004d0   0x000004d0   0x00000064   Code   RO          303    .text.CSC_XOSC_Enable  mg32x02z_csc_init.o
+    0x00000534   0x00000534   0x00000062   Code   RO          235    .text.CheckTruth    keys.o
+    0x00000596   0x00000596   0x0000005e   Code   RO          318    .text.ChipInit      mg32x02z_chipinit.o
+    0x000005f4   0x000005f4   0x00000044   Code   RO          243    .text.DS1990A_GetID  keys.o
     0x00000638   0x00000638   0x00000020   Code   RO           57    .text.Do_CRC        crc.o
-    0x00000658   0x00000658   0x00000088   Code   RO          244    .text.FillFlash     keys.o
-    0x000006e0   0x000006e0   0x00000018   Code   RO          336    .text.GPIO_Init     mg32x02z_gpio_init.o
-    0x000006f8   0x000006f8   0x00000012   Code   RO          903    .text.GPIO_PinMode_Select  mg32x02z_gpio_drv.o
+    0x00000658   0x00000658   0x00000088   Code   RO          231    .text.FillFlash     keys.o
+    0x000006e0   0x000006e0   0x00000018   Code   RO          332    .text.GPIO_Init     mg32x02z_gpio_init.o
+    0x000006f8   0x000006f8   0x00000012   Code   RO          899    .text.GPIO_PinMode_Select  mg32x02z_gpio_drv.o
     0x0000070a   0x0000070a   0x00000002   PAD
-    0x0000070c   0x0000070c   0x00000010   Code   RO          282    .text.GetCurEvent   skud.o
-    0x0000071c   0x0000071c   0x00000148   Code   RO          412    .text.HardFault_Handler_C  system_mg32x02z.o
-    0x00000864   0x00000864   0x0000001c   Code   RO          197    .text.IAP_CopyIAPInRAM  iap.o
-    0x00000880   0x00000880   0x00000010   Code   RO          193    .text.IAP_CopyRAMInIAP  iap.o
-    0x00000890   0x00000890   0x0000001e   Code   RO          183    .text.IAP_Erase_OnePage  iap.o
+    0x0000070c   0x0000070c   0x00000010   Code   RO          269    .text.GetCurEvent   skud.o
+    0x0000071c   0x0000071c   0x00000148   Code   RO          408    .text.HardFault_Handler_C  system_mg32x02z.o
+    0x00000864   0x00000864   0x0000001c   Code   RO          184    .text.IAP_CopyIAPInRAM  iap.o
+    0x00000880   0x00000880   0x00000010   Code   RO          180    .text.IAP_CopyRAMInIAP  iap.o
+    0x00000890   0x00000890   0x0000001e   Code   RO          170    .text.IAP_Erase_OnePage  iap.o
     0x000008ae   0x000008ae   0x00000002   PAD
-    0x000008b0   0x000008b0   0x000000c4   Code   RO          185    .text.IAP_Erase_Page  iap.o
-    0x00000974   0x00000974   0x00000004   Code   RO          205    .text.IAP_GetPageNumberOfByte  iap.o
-    0x00000978   0x00000978   0x00000038   Code   RO          181    .text.IAP_Init      iap.o
-    0x000009b0   0x000009b0   0x000000d0   Code   RO          195    .text.IAP_Multiple_Write  iap.o
-    0x00000a80   0x00000a80   0x00000018   Code   RO          189    .text.IAP_ReadByte  iap.o
-    0x00000a98   0x00000a98   0x00000018   Code   RO          191    .text.IAP_ReadWord  iap.o
-    0x00000ab0   0x00000ab0   0x0000001c   Code   RO         1061    .text.IWDT_Cmd      mg32x02z_iwdt_drv.o
-    0x00000acc   0x00000acc   0x00000018   Code   RO         1053    .text.IWDT_Divider_Select  mg32x02z_iwdt_drv.o
-    0x00000ae4   0x00000ae4   0x00000010   Code   RO         2031    .text.IncTick       mg32x02z__common_drv.o
-    0x00000af4   0x00000af4   0x00000008   Code   RO         1083    .text.MEM_ClearFlag  mg32x02z_mem_drv.o
-    0x00000afc   0x00000afc   0x00000010   Code   RO         1081    .text.MEM_GetFlagStatus  mg32x02z_mem_drv.o
-    0x00000b0c   0x00000b0c   0x0000000c   Code   RO         1121    .text.MEM_GetIAPSize  mg32x02z_mem_drv.o
-    0x00000b18   0x00000b18   0x0000006c   Code   RO         1123    .text.MEM_SetIAPSize  mg32x02z_mem_drv.o
-    0x00000b84   0x00000b84   0x000000c0   Code   RO          284    .text.MonitorKey    skud.o
-    0x00000c44   0x00000c44   0x00000002   Code   RO          374    .text.NMI_Handler   mg32x02z__irqhandler.o
+    0x000008b0   0x000008b0   0x000000c4   Code   RO          172    .text.IAP_Erase_Page  iap.o
+    0x00000974   0x00000974   0x00000004   Code   RO          192    .text.IAP_GetPageNumberOfByte  iap.o
+    0x00000978   0x00000978   0x00000038   Code   RO          168    .text.IAP_Init      iap.o
+    0x000009b0   0x000009b0   0x000000d0   Code   RO          182    .text.IAP_Multiple_Write  iap.o
+    0x00000a80   0x00000a80   0x00000018   Code   RO          176    .text.IAP_ReadByte  iap.o
+    0x00000a98   0x00000a98   0x00000018   Code   RO          178    .text.IAP_ReadWord  iap.o
+    0x00000ab0   0x00000ab0   0x0000001c   Code   RO         1057    .text.IWDT_Cmd      mg32x02z_iwdt_drv.o
+    0x00000acc   0x00000acc   0x00000018   Code   RO         1049    .text.IWDT_Divider_Select  mg32x02z_iwdt_drv.o
+    0x00000ae4   0x00000ae4   0x00000010   Code   RO         2027    .text.IncTick       mg32x02z__common_drv.o
+    0x00000af4   0x00000af4   0x00000008   Code   RO         1079    .text.MEM_ClearFlag  mg32x02z_mem_drv.o
+    0x00000afc   0x00000afc   0x00000010   Code   RO         1077    .text.MEM_GetFlagStatus  mg32x02z_mem_drv.o
+    0x00000b0c   0x00000b0c   0x0000000c   Code   RO         1117    .text.MEM_GetIAPSize  mg32x02z_mem_drv.o
+    0x00000b18   0x00000b18   0x0000006c   Code   RO         1119    .text.MEM_SetIAPSize  mg32x02z_mem_drv.o
+    0x00000b84   0x00000b84   0x000000c0   Code   RO          271    .text.MonitorKey    skud.o
+    0x00000c44   0x00000c44   0x00000002   Code   RO          370    .text.NMI_Handler   mg32x02z__irqhandler.o
     0x00000c46   0x00000c46   0x00000002   PAD
-    0x00000c48   0x00000c48   0x00000054   Code   RO          225    .text.OneWire_Read  onewire.o
-    0x00000c9c   0x00000c9c   0x0000003c   Code   RO          221    .text.OneWire_Start  onewire.o
-    0x00000cd8   0x00000cd8   0x00000058   Code   RO          223    .text.OneWire_Write  onewire.o
+    0x00000c48   0x00000c48   0x00000054   Code   RO          212    .text.OneWire_Read  onewire.o
+    0x00000c9c   0x00000c9c   0x0000003c   Code   RO          208    .text.OneWire_Start  onewire.o
+    0x00000cd8   0x00000cd8   0x00000058   Code   RO          210    .text.OneWire_Write  onewire.o
     0x00000d30   0x00000d30   0x0000005c   Code   RO           11    .text.PRSM3AddNewByte  prsm3.o
     0x00000d8c   0x00000d8c   0x000001a4   Code   RO           13    .text.PRSM3ReceiveLineComplete  prsm3.o
-    0x00000f30   0x00000f30   0x00000002   Code   RO          378    .text.PendSV_Handler  mg32x02z__irqhandler.o
-    0x00000f32   0x00000f32   0x00000008   Code   RO         2041    .text.ProtectModuleReg  mg32x02z__common_drv.o
+    0x00000f30   0x00000f30   0x00000002   Code   RO          374    .text.PendSV_Handler  mg32x02z__irqhandler.o
+    0x00000f32   0x00000f32   0x00000008   Code   RO         2037    .text.ProtectModuleReg  mg32x02z__common_drv.o
     0x00000f3a   0x00000f3a   0x00000002   PAD
-    0x00000f3c   0x00000f3c   0x00000038   Code   RO          346    .text.RST_Init      mg32x02z_rst_init.o
-    0x00000f74   0x00000f74   0x000000d8   Code   RO          252    .text.RemoveKey     keys.o
+    0x00000f3c   0x00000f3c   0x00000038   Code   RO          342    .text.RST_Init      mg32x02z_rst_init.o
+    0x00000f74   0x00000f74   0x000000d8   Code   RO          239    .text.RemoveKey     keys.o
     0x0000104c   0x0000104c   0x0000005c   Code   RO           15    .text.ReturnReply   prsm3.o
-    0x000010a8   0x000010a8   0x00000002   Code   RO          376    .text.SVC_Handler   mg32x02z__irqhandler.o
-    0x000010aa   0x000010aa   0x00000008   Code   RO          380    .text.SysTick_Handler  mg32x02z__irqhandler.o
+    0x000010a8   0x000010a8   0x00000002   Code   RO          372    .text.SVC_Handler   mg32x02z__irqhandler.o
+    0x000010aa   0x000010aa   0x00000008   Code   RO          376    .text.SysTick_Handler  mg32x02z__irqhandler.o
     0x000010b2   0x000010b2   0x00000002   PAD
-    0x000010b4   0x000010b4   0x00000010   Code   RO          410    .text.SystemInit    system_mg32x02z.o
+    0x000010b4   0x000010b4   0x00000010   Code   RO          406    .text.SystemInit    system_mg32x02z.o
     0x000010c4   0x000010c4   0x00000008   Code   RO           33    .text.TIM01_Callback  timers.o
     0x000010cc   0x000010cc   0x00000020   Code   RO           35    .text.TIM10_Callback  timers.o
     0x000010ec   0x000010ec   0x00000020   Code   RO           37    .text.TIM16_Callback  timers.o
     0x0000110c   0x0000110c   0x000000d8   Code   RO           39    .text.TIM36_Callback  timers.o
-    0x000011e4   0x000011e4   0x00000060   Code   RO          130    .text.TM01_IRQ      timers_irq.o
-    0x00001244   0x00001244   0x00000014   Code   RO          382    .text.TM0x_IRQHandler  mg32x02z__irqhandler.o
-    0x00001258   0x00001258   0x0000005c   Code   RO          132    .text.TM10_IRQ      timers_irq.o
-    0x000012b4   0x000012b4   0x00000008   Code   RO          384    .text.TM10_IRQHandler  mg32x02z__irqhandler.o
-    0x000012bc   0x000012bc   0x00000060   Code   RO          134    .text.TM16_IRQ      timers_irq.o
-    0x0000131c   0x0000131c   0x00000008   Code   RO          386    .text.TM1x_IRQHandler  mg32x02z__irqhandler.o
-    0x00001324   0x00001324   0x00000060   Code   RO          136    .text.TM36_IRQ      timers_irq.o
-    0x00001384   0x00001384   0x00000008   Code   RO          388    .text.TM3x_IRQHandler  mg32x02z__irqhandler.o
-    0x0000138c   0x0000138c   0x00000004   Code   RO         1731    .text.TM_ClearFlag  mg32x02z_tm_drv.o
-    0x00001390   0x00001390   0x0000000a   Code   RO         1727    .text.TM_GetSingleFlagStatus  mg32x02z_tm_drv.o
-    0x0000139a   0x0000139a   0x0000000e   Code   RO         1725    .text.TM_ITEA_Cmd   mg32x02z_tm_drv.o
-    0x000013a8   0x000013a8   0x00000014   Code   RO         1723    .text.TM_IT_Config  mg32x02z_tm_drv.o
-    0x000013bc   0x000013bc   0x000000b4   Code   RO          354    .text.TM_Init       mg32x02z_tm_init.o
-    0x00001470   0x00001470   0x00000016   Code   RO         1461    .text.TM_Timer_Cmd  mg32x02z_tm_drv.o
-    0x00001486   0x00001486   0x0000014a   Code   RO          149    .text.URT0_IRQ      usart_irq.o
-    0x000015d0   0x000015d0   0x00000008   Code   RO          390    .text.URT0_IRQHandler  mg32x02z__irqhandler.o
-    0x000015d8   0x000015d8   0x00000008   Code   RO         1765    .text.URT_ClearITFlag  mg32x02z_urt_drv.o
-    0x000015e0   0x000015e0   0x0000000c   Code   RO         1801    .text.URT_Cmd       mg32x02z_urt_drv.o
-    0x000015ec   0x000015ec   0x000000c4   Code   RO          362    .text.URT_Config    mg32x02z_urt_init.o
-    0x000016b0   0x000016b0   0x00000008   Code   RO         1761    .text.URT_GetITAllFlagStatus  mg32x02z_urt_drv.o
-    0x000016b8   0x000016b8   0x00000004   Code   RO         1757    .text.URT_GetITStatus  mg32x02z_urt_drv.o
-    0x000016bc   0x000016bc   0x00000004   Code   RO         1879    .text.URT_GetRXData  mg32x02z_urt_drv.o
-    0x000016c0   0x000016c0   0x0000000c   Code   RO         1759    .text.URT_ITEA_Cmd  mg32x02z_urt_drv.o
-    0x000016cc   0x000016cc   0x0000000c   Code   RO         1755    .text.URT_IT_Config  mg32x02z_urt_drv.o
-    0x000016d8   0x000016d8   0x0000001c   Code   RO          364    .text.URT_Init      mg32x02z_urt_init.o
+    0x000011e4   0x000011e4   0x00000060   Code   RO          117    .text.TM01_IRQ      timers_irq.o
+    0x00001244   0x00001244   0x00000014   Code   RO          378    .text.TM0x_IRQHandler  mg32x02z__irqhandler.o
+    0x00001258   0x00001258   0x0000005c   Code   RO          119    .text.TM10_IRQ      timers_irq.o
+    0x000012b4   0x000012b4   0x00000008   Code   RO          380    .text.TM10_IRQHandler  mg32x02z__irqhandler.o
+    0x000012bc   0x000012bc   0x00000060   Code   RO          121    .text.TM16_IRQ      timers_irq.o
+    0x0000131c   0x0000131c   0x00000008   Code   RO          382    .text.TM1x_IRQHandler  mg32x02z__irqhandler.o
+    0x00001324   0x00001324   0x00000060   Code   RO          123    .text.TM36_IRQ      timers_irq.o
+    0x00001384   0x00001384   0x00000008   Code   RO          384    .text.TM3x_IRQHandler  mg32x02z__irqhandler.o
+    0x0000138c   0x0000138c   0x00000004   Code   RO         1727    .text.TM_ClearFlag  mg32x02z_tm_drv.o
+    0x00001390   0x00001390   0x0000000a   Code   RO         1723    .text.TM_GetSingleFlagStatus  mg32x02z_tm_drv.o
+    0x0000139a   0x0000139a   0x0000000e   Code   RO         1721    .text.TM_ITEA_Cmd   mg32x02z_tm_drv.o
+    0x000013a8   0x000013a8   0x00000014   Code   RO         1719    .text.TM_IT_Config  mg32x02z_tm_drv.o
+    0x000013bc   0x000013bc   0x000000b4   Code   RO          350    .text.TM_Init       mg32x02z_tm_init.o
+    0x00001470   0x00001470   0x00000016   Code   RO         1457    .text.TM_Timer_Cmd  mg32x02z_tm_drv.o
+    0x00001486   0x00001486   0x0000014a   Code   RO          136    .text.URT0_IRQ      usart_irq.o
+    0x000015d0   0x000015d0   0x00000008   Code   RO          386    .text.URT0_IRQHandler  mg32x02z__irqhandler.o
+    0x000015d8   0x000015d8   0x00000008   Code   RO         1761    .text.URT_ClearITFlag  mg32x02z_urt_drv.o
+    0x000015e0   0x000015e0   0x0000000c   Code   RO         1797    .text.URT_Cmd       mg32x02z_urt_drv.o
+    0x000015ec   0x000015ec   0x000000c4   Code   RO          358    .text.URT_Config    mg32x02z_urt_init.o
+    0x000016b0   0x000016b0   0x00000008   Code   RO         1757    .text.URT_GetITAllFlagStatus  mg32x02z_urt_drv.o
+    0x000016b8   0x000016b8   0x00000004   Code   RO         1753    .text.URT_GetITStatus  mg32x02z_urt_drv.o
+    0x000016bc   0x000016bc   0x00000004   Code   RO         1875    .text.URT_GetRXData  mg32x02z_urt_drv.o
+    0x000016c0   0x000016c0   0x0000000c   Code   RO         1755    .text.URT_ITEA_Cmd  mg32x02z_urt_drv.o
+    0x000016cc   0x000016cc   0x0000000c   Code   RO         1751    .text.URT_IT_Config  mg32x02z_urt_drv.o
+    0x000016d8   0x000016d8   0x0000001c   Code   RO          360    .text.URT_Init      mg32x02z_urt_init.o
     0x000016f4   0x000016f4   0x0000000c   Code   RO           80    .text.URT_IsTxEndTransmission  usart.o
     0x00001700   0x00001700   0x0000000c   Code   RO           78    .text.URT_IsTxReady  usart.o
     0x0000170c   0x0000170c   0x00000010   Code   RO           70    .text.URT_Rx_Callback  usart.o
-    0x0000171c   0x0000171c   0x00000032   Code   RO         1915    .text.URT_SetTXData  mg32x02z_urt_drv.o
-    0x0000174e   0x0000174e   0x00000002   Code   RO          147    .text.URT_Tx_Callback  usart_irq.o
+    0x0000171c   0x0000171c   0x00000032   Code   RO         1911    .text.URT_SetTXData  mg32x02z_urt_drv.o
+    0x0000174e   0x0000174e   0x00000002   Code   RO          134    .text.URT_Tx_Callback  usart_irq.o
     0x00001750   0x00001750   0x0000001a   Code   RO           72    .text.URT_Write     usart.o
     0x0000176a   0x0000176a   0x00000002   PAD
-    0x0000176c   0x0000176c   0x0000000c   Code   RO         2043    .text.UnProtectModuleReg  mg32x02z__common_drv.o
-    0x00001778   0x00001778   0x00000018   Code   RO          324    .text.__NVIC_EnableIRQ  mg32x02z_chipinit.o
-    0x00001790   0x00001790   0x00000038   Code   RO          326    .text.__NVIC_SetPriority  mg32x02z_chipinit.o
+    0x0000176c   0x0000176c   0x0000000c   Code   RO         2039    .text.UnProtectModuleReg  mg32x02z__common_drv.o
+    0x00001778   0x00001778   0x00000018   Code   RO          320    .text.__NVIC_EnableIRQ  mg32x02z_chipinit.o
+    0x00001790   0x00001790   0x00000038   Code   RO          322    .text.__NVIC_SetPriority  mg32x02z_chipinit.o
     0x000017c8   0x000017c8   0x00000020   Code   RO           17    .text.clearBuffer   prsm3.o
     0x000017e8   0x000017e8   0x00000012   Code   RO           43    .text.delay_ms      timers.o
     0x000017fa   0x000017fa   0x00000034   Code   RO           41    .text.delay_one_ms  timers.o
@@ -3774,77 +3771,77 @@ Memory Map of the image
     0x00001834   0x00001834   0x00000012   Code   RO           47    .text.delay_us      timers.o
     0x00001846   0x00001846   0x00000002   PAD
     0x00001848   0x00001848   0x00000110   Code   RO            2    .text.main          main.o
-    0x00001958   0x00001958   0x00000024   Code   RO          104    .text.wdt_enable    wdt.o
-    0x0000197c   0x0000197c   0x00000020   Code   RO         2195    i.__0printf$5       mc_p.l(printf5.o)
-    0x0000199c   0x0000199c   0x0000000e   Code   RO         2371    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x000019aa   0x000019aa   0x00000002   Code   RO         2372    i.__scatterload_null  mc_p.l(handlers.o)
-    0x000019ac   0x000019ac   0x0000000e   Code   RO         2373    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x00001958   0x00001958   0x00000024   Code   RO           91    .text.wdt_enable    wdt.o
+    0x0000197c   0x0000197c   0x00000020   Code   RO         2191    i.__0printf$5       mc_p.l(printf5.o)
+    0x0000199c   0x0000199c   0x0000000e   Code   RO         2367    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x000019aa   0x000019aa   0x00000002   Code   RO         2368    i.__scatterload_null  mc_p.l(handlers.o)
+    0x000019ac   0x000019ac   0x0000000e   Code   RO         2369    i.__scatterload_zeroinit  mc_p.l(handlers.o)
     0x000019ba   0x000019ba   0x00000002   PAD
-    0x000019bc   0x000019bc   0x000002dc   Code   RO         2202    i._printf_core      mc_p.l(printf5.o)
-    0x00001c98   0x00001c98   0x00000012   Code   RO         2337    i.fputc             mc_p.l(fputc.o)
+    0x000019bc   0x000019bc   0x000002dc   Code   RO         2198    i._printf_core      mc_p.l(printf5.o)
+    0x00001c98   0x00001c98   0x00000012   Code   RO         2333    i.fputc             mc_p.l(fputc.o)
     0x00001caa   0x00001caa   0x00000100   Data   RO           61    .rodata.CRC_Table   crc.o
     0x00001daa   0x00001daa   0x00000002   PAD
-    0x00001dac   0x00001dac   0x00000050   Data   RO          313    .rodata.CSC_InitConfig  mg32x02z_csc_init.o
-    0x00001dfc   0x00001dfc   0x00000084   Data   RO          338    .rodata.GPIO_CFG    mg32x02z_gpio_init.o
-    0x00001e80   0x00001e80   0x00000033   Data   RO          423    .rodata.str1.1      system_mg32x02z.o
+    0x00001dac   0x00001dac   0x00000050   Data   RO          309    .rodata.CSC_InitConfig  mg32x02z_csc_init.o
+    0x00001dfc   0x00001dfc   0x00000084   Data   RO          334    .rodata.GPIO_CFG    mg32x02z_gpio_init.o
+    0x00001e80   0x00001e80   0x00000033   Data   RO          419    .rodata.str1.1      system_mg32x02z.o
     0x00001eb3   0x00001eb3   0x00000001   PAD
-    0x00001eb4   0x00001eb4   0x00000020   Data   RO         2370    Region$$Table       anon$$obj.o
+    0x00001eb4   0x00001eb4   0x00000020   Data   RO         2366    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00001ed4, Size: 0x00000038, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00001ed4   0x00000004   Data   RW         2341    .data               mc_p.l(stdout.o)
-    0x20000004   0x00001ed8   0x00000001   Data   RW          265    .data.AlarmManual   keys.o
-    0x20000005   0x00001ed9   0x00000001   Data   RW          269    .data.NoNetworkPackages  keys.o
+    0x20000000   0x00001ed4   0x00000004   Data   RW         2337    .data               mc_p.l(stdout.o)
+    0x20000004   0x00001ed8   0x00000001   Data   RW          252    .data.AlarmManual   keys.o
+    0x20000005   0x00001ed9   0x00000001   Data   RW          256    .data.NoNetworkPackages  keys.o
     0x20000006   0x00001eda   0x00000004   Data   RW           21    .data.PosylkaLen    prsm3.o
-    0x2000000a   0x00001ede   0x00000001   Data   RW          266    .data.SendEventPackages  keys.o
+    0x2000000a   0x00001ede   0x00000001   Data   RW          253    .data.SendEventPackages  keys.o
     0x2000000b   0x00001edf   0x00000001   PAD
-    0x2000000c   0x00001ee0   0x00000004   Data   RW          414    .data.SystemCoreClock  system_mg32x02z.o
-    0x20000010   0x00001ee4   0x00000004   Data   RW          291    .data.alarmReloadCntMax  skud.o
-    0x20000014   0x00001ee8   0x00000004   Data   RW          289    .data.alarmTimeoutCntMax  skud.o
-    0x20000018   0x00001eec   0x00000004   Data   RW          295    .data.buzzerCnt     skud.o
-    0x2000001c   0x00001ef0   0x00000004   Data   RW          294    .data.buzzerFreq    skud.o
-    0x20000020   0x00001ef4   0x00000008   Data   RW          258    .data.key1          keys.o
-    0x20000028   0x00001efc   0x00000008   Data   RW          259    .data.key2          keys.o
-    0x20000030   0x00001f04   0x00000004   Data   RW          297    .data.piskNumMax    skud.o
-    0x20000034   0x00001f08   0x00000004   Data   RW          293    .data.waitBitchCntMax  skud.o
+    0x2000000c   0x00001ee0   0x00000004   Data   RW          410    .data.SystemCoreClock  system_mg32x02z.o
+    0x20000010   0x00001ee4   0x00000004   Data   RW          278    .data.alarmReloadCntMax  skud.o
+    0x20000014   0x00001ee8   0x00000004   Data   RW          276    .data.alarmTimeoutCntMax  skud.o
+    0x20000018   0x00001eec   0x00000004   Data   RW          282    .data.buzzerCnt     skud.o
+    0x2000001c   0x00001ef0   0x00000004   Data   RW          281    .data.buzzerFreq    skud.o
+    0x20000020   0x00001ef4   0x00000008   Data   RW          245    .data.key1          keys.o
+    0x20000028   0x00001efc   0x00000008   Data   RW          246    .data.key2          keys.o
+    0x20000030   0x00001f04   0x00000004   Data   RW          284    .data.piskNumMax    skud.o
+    0x20000034   0x00001f08   0x00000004   Data   RW          280    .data.waitBitchCntMax  skud.o
 
 
     Execution Region ER_ZI (Exec base: 0x20000038, Load base: 0x00001f0c, Size: 0x00000868, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000038        -       0x00000001   Zero   RW          267    .bss.AnyKeyAccess   keys.o
+    0x20000038        -       0x00000001   Zero   RW          254    .bss.AnyKeyAccess   keys.o
     0x20000039        -       0x00000001   Zero   RW           24    .bss.CommandSize    prsm3.o
-    0x2000003a        -       0x00000001   Zero   RW          287    .bss.CurEvent       skud.o
-    0x2000003b        -       0x00000001   Zero   RW          286    .bss.CurState       skud.o
-    0x2000003c        -       0x00000004   Zero   RW          420    .bss.HardFault_Handler_C.stacked_lr  system_mg32x02z.o
-    0x20000040        -       0x00000004   Zero   RW          421    .bss.HardFault_Handler_C.stacked_pc  system_mg32x02z.o
-    0x20000044        -       0x00000004   Zero   RW          422    .bss.HardFault_Handler_C.stacked_psr  system_mg32x02z.o
-    0x20000048        -       0x00000004   Zero   RW          415    .bss.HardFault_Handler_C.stacked_r0  system_mg32x02z.o
-    0x2000004c        -       0x00000004   Zero   RW          416    .bss.HardFault_Handler_C.stacked_r1  system_mg32x02z.o
-    0x20000050        -       0x00000004   Zero   RW          419    .bss.HardFault_Handler_C.stacked_r12  system_mg32x02z.o
-    0x20000054        -       0x00000004   Zero   RW          417    .bss.HardFault_Handler_C.stacked_r2  system_mg32x02z.o
-    0x20000058        -       0x00000004   Zero   RW          418    .bss.HardFault_Handler_C.stacked_r3  system_mg32x02z.o
-    0x2000005c        -       0x00000001   Zero   RW          268    .bss.ManualAddMode  keys.o
+    0x2000003a        -       0x00000001   Zero   RW          274    .bss.CurEvent       skud.o
+    0x2000003b        -       0x00000001   Zero   RW          273    .bss.CurState       skud.o
+    0x2000003c        -       0x00000004   Zero   RW          416    .bss.HardFault_Handler_C.stacked_lr  system_mg32x02z.o
+    0x20000040        -       0x00000004   Zero   RW          417    .bss.HardFault_Handler_C.stacked_pc  system_mg32x02z.o
+    0x20000044        -       0x00000004   Zero   RW          418    .bss.HardFault_Handler_C.stacked_psr  system_mg32x02z.o
+    0x20000048        -       0x00000004   Zero   RW          411    .bss.HardFault_Handler_C.stacked_r0  system_mg32x02z.o
+    0x2000004c        -       0x00000004   Zero   RW          412    .bss.HardFault_Handler_C.stacked_r1  system_mg32x02z.o
+    0x20000050        -       0x00000004   Zero   RW          415    .bss.HardFault_Handler_C.stacked_r12  system_mg32x02z.o
+    0x20000054        -       0x00000004   Zero   RW          413    .bss.HardFault_Handler_C.stacked_r2  system_mg32x02z.o
+    0x20000058        -       0x00000004   Zero   RW          414    .bss.HardFault_Handler_C.stacked_r3  system_mg32x02z.o
+    0x2000005c        -       0x00000001   Zero   RW          255    .bss.ManualAddMode  keys.o
     0x2000005d        -       0x00000001   Zero   RW           20    .bss.MessLen        prsm3.o
     0x2000005e        -       0x00000018   Zero   RW           23    .bss.RecBytes       prsm3.o
     0x20000076   0x00001f0c   0x00000002   PAD
-    0x20000078        -       0x00000004   Zero   RW          290    .bss.alarmReloadCnt  skud.o
-    0x2000007c        -       0x00000004   Zero   RW          288    .bss.alarmTimeoutCnt  skud.o
-    0x20000080        -       0x00000400   Zero   RW          271    .bss.flashBlock     keys.o
+    0x20000078        -       0x00000004   Zero   RW          277    .bss.alarmReloadCnt  skud.o
+    0x2000007c        -       0x00000004   Zero   RW          275    .bss.alarmTimeoutCnt  skud.o
+    0x20000080        -       0x00000400   Zero   RW          258    .bss.flashBlock     keys.o
     0x20000480        -       0x00000001   Zero   RW           19    .bss.iptr           prsm3.o
     0x20000481   0x00001f0c   0x00000007   PAD
-    0x20000488        -       0x00000008   Zero   RW          272    .bss.keyCurrent     keys.o
-    0x20000490        -       0x00000001   Zero   RW          296    .bss.piskNumCnt     skud.o
+    0x20000488        -       0x00000008   Zero   RW          259    .bss.keyCurrent     keys.o
+    0x20000490        -       0x00000001   Zero   RW          283    .bss.piskNumCnt     skud.o
     0x20000491   0x00001f0c   0x00000001   PAD
     0x20000492        -       0x00000002   Zero   RW           22    .bss.usUsart        prsm3.o
-    0x20000494        -       0x00000004   Zero   RW         2047    .bss.uwTick         mg32x02z__common_drv.o
-    0x20000498        -       0x00000004   Zero   RW          292    .bss.waitBitchCnt   skud.o
+    0x20000494        -       0x00000004   Zero   RW         2043    .bss.uwTick         mg32x02z__common_drv.o
+    0x20000498        -       0x00000004   Zero   RW          279    .bss.waitBitchCnt   skud.o
     0x2000049c   0x00001f0c   0x00000004   PAD
-    0x200004a0        -       0x00000400   Zero   RW          398    STACK               startup_mg32x02z.o
+    0x200004a0        -       0x00000400   Zero   RW          394    STACK               startup_mg32x02z.o
 
 
 ==============================================================================
@@ -3856,8 +3853,8 @@ Image component sizes
 
         32          4        256          0          0       1169   crc.o
        586         24          0          0          0      11362   iap.o
-       682         28          0         19       1034       4151   keys.o
-       272         16          0          0          0      14225   main.o
+       682         28          0         19       1034       4152   keys.o
+       272         16          0          0          0      14224   main.o
         36          8          0          0          4       4933   mg32x02z__common_drv.o
         66          4          0          0          0       9022   mg32x02z__irqhandler.o
        174         12          0          0          0       2425   mg32x02z_chipinit.o

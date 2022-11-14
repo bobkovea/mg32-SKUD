@@ -3,7 +3,14 @@
 #include "keys.h"
 #include "skud.h"
 
-extern uint8_t a1, a2, a3;
+#define USER_COUNT 16
+#define KEY_SIZE 8
+
+//uint8_t KeysStatus[16];
+//uint8_t keys[USER_COUNT][KEY_SIZE];
+
+
+//extern uint8_t a1, a2, a3;
 
 int main()
 {
@@ -73,15 +80,18 @@ int main()
 
 //	URT_Write(CurState);
 
-//	REDE_PIN = 1;
+	REDE_PIN = 1;
+
 	TM_Timer_Cmd(TM16, ENABLE);  
 	TM_Timer_Cmd(TM36, ENABLE);  
-	
+
     while(1) 
 	{ 
 
 	MonitorKey();
 
+		
+		
 //	uint32_t *kdp = (uint32_t *)&KeysData;
 //	
 //	for (uint8_t i = 0; i < 15; i++)
@@ -91,14 +101,7 @@ int main()
 
 //	delay_ms(1000);
 	
-//		1) дверь закрыта (gerkon = 0)
-//		2) дверь открывается (gerkon = 1)
-//		3) сняли сигналку, но дверь открыта (gerkon = 1)
-//		4) сняли сигналку и закрыли дверь (gerkon = 0)
-//		5) просрочили сигналку и дверь открыта (gerkon = 1)
-//		6) просрочили сигналку и дверь закрыли (gerkon = 0)
-		
-		
+
 		
 		
 //		if (DS1990A_GetID())

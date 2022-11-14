@@ -12,6 +12,13 @@
 #pragma pack(push)
 #pragma pack(4)
 // структура 
+
+//typedef union
+//{
+//	uint8_t byte[1024];
+//	uint32_t word[128];
+//} flash_page;
+
 typedef struct {
 	uint8_t FlashKey; // флаг чистоты flash, НЕ равен 0xFF!
 	uint8_t ThrHigh; // верхний порог скользящего среднего

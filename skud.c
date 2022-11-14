@@ -51,7 +51,7 @@ void MonitorKey(void)
 		case StateOpenedAlarm:
 			// запуск тревоги
 			// и мониторим ключ
-		
+	
 			// if !waitBitch
 			if (DS1990A_GetID()) // если считан ключ DS1990A
 			{
@@ -78,7 +78,7 @@ void MonitorKey(void)
 			
 			else if (alarmTimeoutCnt >= alarmTimeoutCntMax)
 			{
-
+			
 				// +отправить сообщение
 				CurEvent = EventTimeout;
 			}

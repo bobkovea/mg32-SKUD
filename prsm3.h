@@ -9,7 +9,7 @@
 #include "flash.h"
 #include "keys.h"
 
-#define RX_BUFFER_SIZE 24
+#define RX_BUFFER_SIZE 30
 
 #define DEVICE_ADDRESS_H 0x43
 #define DEVICE_ADDRESS_L 0x10
@@ -17,7 +17,6 @@
 #define TIMERWAITING 0xFF
 #define TYPE_SENS 0x07
 
-#define LOAD_SNERR (7 << 5)
 
 extern uint8_t iptr, MessLen;
 extern uint8_t RecBytes[RX_BUFFER_SIZE], CommandSize;

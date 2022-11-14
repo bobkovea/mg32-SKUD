@@ -5,6 +5,22 @@
 #include "crc.h"
 #include "timers.h"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 uint8_t keyCurrent[8]; // буфер для считанного ключа
 
 uint8_t key1[8] = { 0x01, 0x14, 0xE6, 0x81, 0x0F, 0x00, 0x00, 0xF5 }; // черный без задней крышки
