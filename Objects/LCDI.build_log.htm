@@ -3,125 +3,173 @@
 <pre>
 <h1>�Vision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: �Vision V5.32.0.0
-Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: 123 321sdds, sdf, LIC=UJWP0-BQ2N2-RASDM-X7QYY-TF58V-7QI1L
+IDE-Version: �Vision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: asdf egorb, asdf, LIC=HN0AE-5N6J0-45KT5-GUZ5Z-MU3XS-3Y4YK
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.32.0.0
-Toolchain Path:  E:\Program Files\Keil_v5\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.14.1
-Assembler:       Armasm.exe V6.14.1
-Linker/Locator:  ArmLink.exe V6.14.1
-Library Manager: ArmAr.exe V6.14.1
-Hex Converter:   FromElf.exe V6.14.1
-CPU DLL:         SARMCM3.DLL V5.32.0.0
+Toolchain:       MDK-ARM Plus  Version: 5.36.0.0
+Toolchain Path:  I:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.16
+Assembler:       Armasm.exe V6.16
+Linker/Locator:  ArmLink.exe V6.16
+Library Manager: ArmAr.exe V6.16
+Hex Converter:   FromElf.exe V6.16
+CPU DLL:         SARMCM3.DLL V5.36.0.0
 Dialog DLL:      DARMCM1.DLL V1.19.4.0
 Target DLL:      DbgCM.dll V1.3.2.0
-Dialog DLL:      TARMCM1.DLL V1.14.3.0
+Dialog DLL:      TARMCM1.DLL V1.14.4.0
  
 <h2>Project:</h2>
-E:\IVELSY\mg32-SKUD\OneWire.uvprojx
-Project File Date:  11/11/2022
+E:\Documents\GitHub\mg32-SKUD\OneWire.uvprojx
+Project File Date:  11/14/2022
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.14.1', folder: 'E:\Program Files\Keil_v5\ARM\ARMCLANG\Bin'
+*** Using Compiler 'V6.16', folder: 'I:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-compiling usart.c...
-compiling flash_static.c...
-compiling timers.c...
-compiling prsm3.c...
-Parsing.c(8): error: use of undeclared identifier 'CommandSize'
-        if (CommandSize != 9)
-            ^
-Parsing.c(10): warning: implicit declaration of function 'ReturnReply' is invalid in C99 [-Wimplicit-function-declaration]
-                ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
-                ^
-Parsing.c(21): error: use of undeclared identifier 'RecBytes'
-        switch (RecBytes[SCODE_POS])
-                ^
-Parsing.c(24): warning: implicit declaration of function 'ActivateKey' is invalid in C99 [-Wimplicit-function-declaration]
-                        ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], RecBytes[ACTKEY_KEYINDEX_LSB_POS], RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
-                        ^
-Parsing.c(24): error: use of undeclared identifier 'RecBytes'
-                        ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], RecBytes[ACTKEY_KEYINDEX_LSB_POS], RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
-                                    ^
-Parsing.c(24): error: use of undeclared identifier 'RecBytes'
-                        ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], RecBytes[ACTKEY_KEYINDEX_LSB_POS], RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
-                                                                 ^
-Parsing.c(24): error: use of undeclared identifier 'RecBytes'
-                        ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], RecBytes[ACTKEY_KEYINDEX_LSB_POS], RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
-                                                                                                    ^
-Parsing.c(28): warning: implicit declaration of function 'Writevariable' is invalid in C99 [-Wimplicit-function-declaration]
-                        Writevariable(RecBytes[WRITEVAR1_NUM_POS], RecBytes[WRITEVAR1_VALUE_LSB_POS], RecBytes[WRITEVAR1_VALUE_MSB_POS]);
-                        ^
-Parsing.c(28): error: use of undeclared identifier 'RecBytes'
-                        Writevariable(RecBytes[WRITEVAR1_NUM_POS], RecBytes[WRITEVAR1_VALUE_LSB_POS], RecBytes[WRITEVAR1_VALUE_MSB_POS]);
-                                      ^
-Parsing.c(28): error: use of undeclared identifier 'RecBytes'
-                        Writevariable(RecBytes[WRITEVAR1_NUM_POS], RecBytes[WRITEVAR1_VALUE_LSB_POS], RecBytes[WRITEVAR1_VALUE_MSB_POS]);
-                                                                   ^
-Parsing.c(28): error: use of undeclared identifier 'RecBytes'
-                        Writevariable(RecBytes[WRITEVAR1_NUM_POS], RecBytes[WRITEVAR1_VALUE_LSB_POS], RecBytes[WRITEVAR1_VALUE_MSB_POS]);
-                                                                                                      ^
-Parsing.c(32): warning: implicit declaration of function 'DoCommand' is invalid in C99 [-Wimplicit-function-declaration]
-                        DoCommand(RecBytes[COMM_NUM_POS], RecBytes[COMM_ARG_POS]);
-                        ^
-Parsing.c(32): error: use of undeclared identifier 'RecBytes'
-                        DoCommand(RecBytes[COMM_NUM_POS], RecBytes[COMM_ARG_POS]);
-                                  ^
-Parsing.c(32): error: use of undeclared identifier 'RecBytes'
-                        DoCommand(RecBytes[COMM_NUM_POS], RecBytes[COMM_ARG_POS]);
-                                                          ^
-Parsing.c(36): warning: implicit declaration of function 'ReturnReply' is invalid in C99 [-Wimplicit-function-declaration]
-                        ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
-                        ^
-Parsing.c(39): error: use of undeclared identifier 'CommandSize'
-                CommandSize = 4;
-                ^
-Parsing.c(47): error: use of undeclared identifier 'CommandSize'
-        if (CommandSize != 24)
-            ^
-Parsing.c(49): warning: implicit declaration of function 'ReturnReply' is invalid in C99 [-Wimplicit-function-declaration]
-                ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
-                ^
-Parsing.c(60): error: use of undeclared identifier 'RecBytes'
-        switch (RecBytes[SCODE_POS])
-                ^
-Parsing.c(63): warning: implicit declaration of function 'AddKey' is invalid in C99 [-Wimplicit-function-declaration]
-                        AddKey(RecBytes[ADDKEY_ACT_STAT_POS], RecBytes[ADDKEY_INDEX_LSB_POS], RecBytes[ADDKEY_INDEX_LSB_POS]);
-                        ^
-Parsing.c(63): error: use of undeclared identifier 'RecBytes'
-                        AddKey(RecBytes[ADDKEY_ACT_STAT_POS], RecBytes[ADDKEY_INDEX_LSB_POS], RecBytes[ADDKEY_INDEX_LSB_POS]);
-                               ^
-Parsing.c(63): error: use of undeclared identifier 'RecBytes'
-                        AddKey(RecBytes[ADDKEY_ACT_STAT_POS], RecBytes[ADDKEY_INDEX_LSB_POS], RecBytes[ADDKEY_INDEX_LSB_POS]);
-                                                              ^
-Parsing.c(63): error: use of undeclared identifier 'RecBytes'
-                        AddKey(RecBytes[ADDKEY_ACT_STAT_POS], RecBytes[ADDKEY_INDEX_LSB_POS], RecBytes[ADDKEY_INDEX_LSB_POS]);
-                                                                                              ^
-Parsing.c(67): warning: implicit declaration of function 'WriteVariablePack' is invalid in C99 [-Wimplicit-function-declaration]
-                        WriteVariablePack(RecBytes[WRITEVARM_VALUE_1ST_POS]);
-                        ^
-Parsing.c(67): error: use of undeclared identifier 'RecBytes'
-                        WriteVariablePack(RecBytes[WRITEVARM_VALUE_1ST_POS]);
-                                          ^
-Parsing.c(71): warning: implicit declaration of function 'ReturnReply' is invalid in C99 [-Wimplicit-function-declaration]
-                        ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
-                        ^
-Parsing.c(74): error: use of undeclared identifier 'CommandSize'
-                CommandSize = 4;
-                ^
-Parsing.c(81): error: use of undeclared identifier 'CommandSize'
-        if (CommandSize != 6)
-            ^
-Parsing.c(83): warning: implicit declaration of function 'ReturnReply' is invalid in C99 [-Wimplicit-function-declaration]
-                ReturnReply(ECODE_WRONG_LEN | FCODE_READ9);
-                ^
-fatal error: too many errors emitted, stopping now [-ferror-limit=]
-10 warnings and 20 errors generated.
+compiling aes.c...
+Parsing.c(3): warning: In file included from...
+./flash_static.h(11): error: conflicting types for 'AddKey'
+uint32_t AddKey(uint8_t newStatus, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyMSB);
+         ^
+./keys.h(21): note: previous declaration is here
+uint8_t AddKey(uint8_t* newKey);
+        ^
+Parsing.c(78): error: too many arguments to function call, expected single argument 'newKey', have 4 arguments
+                                   RecBytes[ADDKEY_INDEX_LSB_POS], 
+                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./keys.h(21): note: 'AddKey' declared here
+uint8_t AddKey(uint8_t* newKey);
+        ^
+Parsing.c(117): error: expected ';' after expression
+                        var = GetVariable(RecBytes[READVAR1_NUM_POS])
+                                                                     ^
+                                                                     ;
+Parsing.c(206): error: too few arguments to function call, single argument 'fcode' was not specified
+                        PRSM3ParseReadRequest();
+                        ~~~~~~~~~~~~~~~~~~~~~ ^
+Parsing.c(97): note: 'PRSM3ParseReadRequest' declared here
+void PRSM3ParseReadRequest(uint8_t fcode)
+     ^
+4 errors generated.
 compiling Parsing.c...
-".\Objects\LCDI.axf" - 19 Error(s), 10 Warning(s).
+keys.c(20): warning: incompatible pointer types passing 'uint32_t [2]' to parameter of type 'uint8_t *' (aka 'unsigned char *') [-Wincompatible-pointer-types]
+        EncryptKey(KeyRaw, KeyEncrypted);
+                   ^~~~~~
+keys.c(12): note: passing argument to parameter 'keySrc' here
+uint32_t EncryptKey(uint8_t *keySrc, uint8_t *keyDest)
+                             ^
+keys.c(20): warning: incompatible pointer types passing 'uint32_t [4]' to parameter of type 'uint8_t *' (aka 'unsigned char *') [-Wincompatible-pointer-types]
+        EncryptKey(KeyRaw, KeyEncrypted);
+                           ^~~~~~~~~~~~
+keys.c(12): note: passing argument to parameter 'keyDest' here
+uint32_t EncryptKey(uint8_t *keySrc, uint8_t *keyDest)
+                                              ^
+keys.c(25): error: use of undeclared identifier 'PAGE_NUMBER_KEYSTATUS'
+                if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + i) == KEY_STATUS_ACTIVATED)
+                                 ^
+keys.c(27): error: expected expression
+                        for (uint32_t j = 0; j < ; j++)
+                                                 ^
+keys.c(31): error: use of undeclared identifier 'keyIndex'
+                        IAP_ReadWord((keyIndex % KEYS_COUNT_ON_PAGE) * KEY_SIZE);
+                                      ^
+keys.c(35): error: use of undeclared identifier 'keyStartAddr'
+                for (uint8_t i = 0; i < KEY_SIZE; i++, keyStartAddr++)
+                                                       ^
+keys.c(36): error: use of undeclared identifier 'fpage'
+                fpage.byte[keyPos] = *keyStartAddr;
+                ^
+keys.c(36): error: use of undeclared identifier 'keyStartAddr'
+                fpage.byte[keyPos] = *keyStartAddr;
+                                      ^
+keys.c(40): error: use of undeclared identifier 'PAGE_NUMBER_KEYS_0'
+                KeyEncrypted[i] = PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE;
+                                  ^
+keys.c(44): error: use of undeclared identifier 'i'
+        KeyEncrypted[i] = 
+                     ^
+keys.c(54): error: unexpected type name 'uint8_t': expected expression
+        uint8_t truth = 0;
+        ^
+keys.c(56): error: expected expression
+        for (uint32_t i = 1; i <= ; i++) // со смещением на служебные
+                                  ^
+keys.c(58): error: use of undeclared identifier 'truth'
+                truth = 1;
+                ^
+keys.c(63): error: use of undeclared identifier 'truth'
+                                truth = 0;
+                                ^
+keys.c(68): error: use of undeclared identifier 'truth'
+                if (truth) return 8 * i;
+                    ^
+2 warnings and 13 errors generated.
+compiling keys.c...
+compiling flash_static.c...
+compiling arc4.c...
+compiling aria.c...
+compiling asn1write.c...
+compiling asn1parse.c...
+compiling base64.c...
+compiling camellia.c...
+compiling blowfish.c...
+compiling ccm.c...
+compiling bignum.c...
+compiling chacha20.c...
+compiling chachapoly.c...
+compiling cipher.c...
+compiling ctr_drbg.c...
+compiling cmac.c...
+compiling des.c...
+compiling cipher_wrap.c...
+compiling dhm.c...
+compiling ecdh.c...
+compiling ecdsa.c...
+compiling ecjpake.c...
+compiling ecp.c...
+compiling ecp_curves.c...
+compiling entropy.c...
+compiling entropy_poll.c...
+compiling error.c...
+compiling gcm.c...
+compiling havege.c...
+compiling hkdf.c...
+compiling hmac_drbg.c...
+compiling md.c...
+compiling md2.c...
+compiling md4.c...
+compiling memory_buffer_alloc.c...
+compiling nist_kw.c...
+compiling oid.c...
+compiling pem.c...
+compiling md5.c...
+compiling pk.c...
+compiling pk_wrap.c...
+compiling pkcs12.c...
+compiling pkcs5.c...
+compiling pkwrite.c...
+compiling pkparse.c...
+compiling platform.c...
+compiling platform_util.c...
+compiling poly1305.c...
+compiling psa_crypto.c...
+compiling psa_crypto_se.c...
+compiling psa_crypto_slot_management.c...
+compiling psa_crypto_storage.c...
+compiling psa_its_file.c...
+compiling ripemd160.c...
+compiling rsa.c...
+compiling rsa_internal.c...
+compiling sha1.c...
+compiling sha256.c...
+compiling sha512.c...
+compiling threading.c...
+compiling timing.c...
+compiling version.c...
+compiling version_features.c...
+compiling xtea.c...
+".\Objects\LCDI.axf" - 17 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -130,6 +178,12 @@ Package Vendor: ARM
                 ARM.CMSIS.5.9.0
                 CMSIS (Common Microcontroller Software Interface Standard)
    * Component: CORE Version: 5.6.0
+
+Package Vendor: ARM
+                https://github.com/MDK-Packs/Pack/raw/master/mbedCrypto/ARM.mbedCrypto.3.0.1.pack
+                ARM.mbedCrypto.3.0.1
+                ARM mbed Cryptographic library
+   * Component: mbed Crypto Version: 3.0.1
 
 Package Vendor: Megawin
                 http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/Megawin.CM0_DFP.3.2.1.pack
@@ -151,129 +205,197 @@ Package Vendor: Megawin
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\ChipInit_Wizard\MG32F02A032
+  .\RTE\Security
   .\RTE\_Target_1
-  E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
-  E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\Common\Initial\Include
-  E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\Common\Startup
-  E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include
-  E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include
-  E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include
-  E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Sample\Driver\Include
+  I:\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+  I:\Arm\Packs\ARM\mbedCrypto\3.0.1\include
+  I:\Arm\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\Common\Initial\Include
+  I:\Arm\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\Common\Startup
+  I:\Arm\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include
+  I:\Arm\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include
+  I:\Arm\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include
+  I:\Arm\Packs\Megawin\CM0_DFP\3.2.1\Sample\Driver\Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
+   * Component: ARM::Security:mbed Crypto:3.0.1
+      Source file:   library\threading.c
+      Source file:   library\timing.c
+      Source file:   library\sha256.c
+      Source file:   library\xtea.c
+      Source file:   library\sha512.c
+      Source file:   library\version_features.c
+      Source file:   library\version.c
+      Source file:   library\base64.c
+      Include file:  configs\mbedTLS_config.h
+      Source file:   library\bignum.c
+      Source file:   library\aes.c
+      Source file:   library\arc4.c
+      Source file:   library\asn1write.c
+      Source file:   library\blowfish.c
+      Source file:   library\aria.c
+      Source file:   library\asn1parse.c
+      Source file:   library\error.c
+      Source file:   library\havege.c
+      Source file:   library\md4.c
+      Source file:   library\chacha20.c
+      Source file:   library\md5.c
+      Source file:   library\gcm.c
+      Source file:   library\md2.c
+      Source file:   library\cipher.c
+      Source file:   library\cmac.c
+      Source file:   library\camellia.c
+      Source file:   library\pem.c
+      Source file:   library\hmac_drbg.c
+      Source file:   library\pk.c
+      Source file:   library\des.c
+      Source file:   library\ctr_drbg.c
+      Source file:   library\ecp.c
+      Source file:   library\ecp_curves.c
+      Source file:   library\chachapoly.c
+      Source file:   library\entropy.c
+      Source file:   library\cipher_wrap.c
+      Source file:   library\entropy_poll.c
+      Source file:   library\ecdsa.c
+      Source file:   library\dhm.c
+      Source file:   library\hkdf.c
+      Source file:   library\ecjpake.c
+      Source file:   library\md.c
+      Source file:   library\memory_buffer_alloc.c
+      Source file:   library\nist_kw.c
+      Source file:   library\ccm.c
+      Source file:   library\ecdh.c
+      Source file:   library\oid.c
+      Source file:   library\pk_wrap.c
+      Source file:   library\psa_its_file.c
+      Source file:   library\psa_crypto_se.c
+      Source file:   library\platform.c
+      Source file:   library\pkwrite.c
+      Source file:   library\rsa.c
+      Source file:   library\platform_util.c
+      Source file:   library\poly1305.c
+      Source file:   library\psa_crypto.c
+      Source file:   library\pkcs5.c
+      Source file:   library\ripemd160.c
+      Source file:   library\rsa_internal.c
+      Source file:   library\sha1.c
+      Source file:   library\pkcs12.c
+      Source file:   library\pkparse.c
+      Source file:   library\psa_crypto_slot_management.c
+      Source file:   library\psa_crypto_storage.c
+
    * Component: Megawin::ChipInit_Wizard:CSC:1.0.4
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_CSC_Init.c
-      Include file:  Device\MG32x02z\Package\MG32F02A032\MG32x02z_CSC_Init.h
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
       Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
+      Include file:  Device\MG32x02z\Package\MG32F02A032\MG32x02z_CSC_Init.h
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_CSC_Init.c
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
 
    * Component: Megawin::ChipInit_Wizard:GPIO:TSSOP20:1.0.2
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_GPIO_Init.c
-      Include file:  Device\MG32x02z\Package\MG32F02A032\TSSOP20\MG32x02z_GPIO_TSSOP20_Init.h
       Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_GPIO_Init.c
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
+      Include file:  Device\MG32x02z\Package\MG32F02A032\TSSOP20\MG32x02z_GPIO_TSSOP20_Init.h
 
    * Component: Megawin::ChipInit_Wizard:IRQ handler:1.0.5
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z__IRQHandler.c
-
-   * Component: Megawin::ChipInit_Wizard:RST:1.0.1
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_RST_Init.c
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_RST_Init.h
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
       Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
 
+   * Component: Megawin::ChipInit_Wizard:RST:1.0.1
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_RST_Init.h
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_RST_Init.c
+
    * Component: Megawin::ChipInit_Wizard:Timer:1.0.0
+      Include file:  Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_TM_Init.h
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
       Source file:   Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Source\MG32x02z_TM_Init.c
       Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
-      Include file:  Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_TM_Init.h
 
    * Component: Megawin::ChipInit_Wizard:URT:1.0.1
-      Include file:  Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_URT_Init.h
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
       Source file:   Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Source\MG32x02z_URT_Init.c
+      Include file:  Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_URT_Init.h
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
 
    * Component: Megawin::Device:Startup:1.0.4
-      Source file:   Device\MG32x02z\Common\Startup\system_MG32x02z.c
       Source file:   Device\MG32x02z\Common\Startup\startup_MG32x02z.s
-      Source file:   Sample\Driver\Source\Sample_main_wizard.c
       Source file:   Sample\Driver\Source\Sample_Show_UID.c
+      Source file:   Sample\Driver\Source\Sample_main_wizard.c
+      Source file:   Device\MG32x02z\Common\Startup\system_MG32x02z.c
 
    * Component: Megawin::Driver:Driver-All:1.0.2
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CFG_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_APB_DRV.c
       Source file:   Sample\Driver\Source\Sample_WakeupFromSTOPMode.c
-      Source file:   Sample\Driver\Source\Sample_ADC_Conversion.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CM0_DRV.c
-      Source file:   Sample\Driver\Source\Sample_WakeupFromSLEEPMode.c
+      Source file:   Sample\Driver\Source\Sample_IR_Transmit.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z__Common_DRV.c
       Source file:   Sample\Driver\Source\Sample_Enter_STOP_SLEEP_Mode.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_ADC_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z__Common_DRV.c
+      Source file:   Sample\Driver\Source\Sample_WakeupFromSLEEPMode.c
+      Source file:   Sample\Driver\Source\Sample_ADC_Conversion.c
       Source file:   Sample\Driver\Source\Sample_ADC_GetVrefVoltage.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_APB_DRV.c
-      Source file:   Sample\Driver\Source\Sample_IR_Transmit.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_M2P.c
-      Source file:   Sample\Driver\Source\Sample_SysTick_Init.c
-      Source file:   Sample\Driver\Source\Sample_MEM_FlashAccess.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_EXIC_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CSC_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPL_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RST_DRV.c
-      Source file:   Sample\Driver\Source\Sample_RTC_Init.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RTC_DRV.c
-      Source file:   Sample\Driver\Source\Sample_DMA.c
-      Source file:   Sample\Driver\Source\Sample_GPIO_Init.c
       Source file:   Sample\Driver\Source\Sample_I2C_withDMA.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_IWDT_DRV.c
-      Source file:   Sample\Driver\Source\Sample_CMP_Init.c
-      Source file:   Sample\Driver\Source\Sample_IR_Receive.c
-      Source file:   Sample\Driver\Source\Sample_Retarget.c
-      Source file:   Sample\Driver\Source\Sample_GPL_CRC.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_DMA_DRV.c
-      Source file:   Sample\Driver\Source\Sample_DMA_M2M.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_PW_DRV.c
-      Source file:   Sample\Driver\Source\Sample_I2C_ByteMode.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_I2C_DRV.c
-      Source file:   Sample\Driver\Source\Sample_IWDT_Init.c
-      Source file:   Sample\Driver\Source\Sample_RTC_PerpetualCalendar.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SPI_DRV.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI.c
-      Source file:   Sample\Driver\Source\Sample_EXIC_Init.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CSC_DRV.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPIO_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CMP_DRV.c
+      Source file:   Sample\Driver\Source\Sample_MEM_FlashAccess.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_MEM_DRV.c
       Source file:   Sample\Driver\Source\Sample_SPI_Flash.c
+      Source file:   Sample\Driver\Source\Sample_GPL_CRC.c
+      Source file:   Sample\Driver\Source\Sample_SysTick_Init.c
+      Source file:   Sample\Driver\Source\Sample_IWDT_Init.c
+      Source file:   Sample\Driver\Source\Sample_DMA_M2M.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_EXIC_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_PW_DRV.c
       Source file:   Sample\Driver\Source\Sample_I2C_ByteMode_Simple.c
-      Source file:   Sample\Driver\Source\Sample_UART2_Init.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_P2M.c
-      Source file:   Sample\Driver\Source\Sample_UART3_Init.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_P2M.c
-      Source file:   Sample\Driver\Source\Sample_TM10_ClockOut.c
-      Source file:   Sample\Driver\Source\Sample_TM36_IC3_DMA.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_URT_DRV.c
-      Source file:   Sample\Driver\Source\Sample_UART0_SPIMasterMode_TxRx.c
+      Source file:   Sample\Driver\Source\Sample_GPIO_Init.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RST_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CFG_DRV.c
+      Source file:   Sample\Driver\Source\Sample_DMA.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_I2C_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_DMA_DRV.c
+      Source file:   Sample\Driver\Source\Sample_I2C_ByteMode.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RTC_DRV.c
+      Source file:   Sample\Driver\Source\Sample_CMP_Init.c
+      Source file:   Sample\Driver\Source\Sample_RTC_Init.c
+      Source file:   Sample\Driver\Source\Sample_RTC_PerpetualCalendar.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SPI_DRV.c
+      Source file:   Sample\Driver\Source\Sample_IR_Receive.c
+      Source file:   Sample\Driver\Source\Sample_Retarget.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_IWDT_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPL_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CM0_DRV.c
+      Source file:   Sample\Driver\Source\Sample_EXIC_Init.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CMP_DRV.c
       Source file:   Sample\Driver\Source\Sample_WWDT_Init.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_TM_DRV.c
-      Source file:   Sample\Driver\Source\Sample_UART0_DMA.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_IT_Receive.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI.c
-      Source file:   Sample\Driver\Source\Sample_TM01_TRGO_UEV.c
-      Source file:   Sample\Driver\Source\Sample_TM20_Capture.c
-      Source file:   Sample\Driver\Source\Sample_TM26_OC.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_P2M.c
+      Source file:   Sample\Driver\Source\Sample_TM36_IC3_DMA.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SYS_DRV.c
-      Source file:   Sample\Driver\Source\Sample_URT_SPIFlash.c
+      Source file:   Sample\Driver\Source\Sample_TM20_Capture.c
       Source file:   Sample\Driver\Source\Sample_TM36_PWM.c
-      Source file:   Sample\Driver\Source\Sample_UART1_Init.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_WWDT_DRV.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_M2P.c
       Source file:   Sample\Driver\Source\Sample_UART0_Init.c
-      Source file:   Sample\Driver\Source\Sample_TM16_AutoStop.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_IT_Receive.c
       Source file:   Sample\Driver\Source\Sample_TM00_Delay.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_M2P.c
+      Source file:   Sample\Driver\Source\Sample_TM16_AutoStop.c
+      Source file:   Sample\Driver\Source\Sample_TM10_ClockOut.c
+      Source file:   Sample\Driver\Source\Sample_TM26_OC.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_URT_DRV.c
+      Source file:   Sample\Driver\Source\Sample_TM01_TRGO_UEV.c
+      Source file:   Sample\Driver\Source\Sample_UART0_DMA.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI.c
+      Source file:   Sample\Driver\Source\Sample_UART0_SPIMasterMode_TxRx.c
+      Source file:   Sample\Driver\Source\Sample_UART1_Init.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_P2M.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI.c
+      Source file:   Sample\Driver\Source\Sample_UART2_Init.c
+      Source file:   Sample\Driver\Source\Sample_UART3_Init.c
+      Source file:   Sample\Driver\Source\Sample_URT_SPIFlash.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_TM_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_WWDT_DRV.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_M2P.c
 
    * Component: Megawin::IRQ_Handler:Enable TM0x NVIC:_TM01:1.0.0
       Source file:   Device\MG32x02z\Common\IRQ\MG32x02z_TM01_IRQ.c
@@ -290,7 +412,7 @@ Package Vendor: Megawin
    * Component: Megawin::IRQ_Handler:Enable URT0 NVIC:Level-0 (High):1.0.0
       Source file:   Device\MG32x02z\Common\IRQ\MG32x02z_URT0_IRQ.c
 Target not created.
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

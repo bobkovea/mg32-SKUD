@@ -4,10 +4,44 @@
 #include "iap.h"
 #include "crc.h"
 #include "timers.h"
+#include "packages.h"
+
+uint32_t KeyEncrypted[KEY_ENCRYPTED_SIZE / 4] = {};
+uint32_t KeyRaw[KEY_RAW_SIZE / 4] = {}; 
+	
+uint32_t EncryptKey(uint32_t *keySrc, uint32_t *keyDest)
+{
+	// Шифруем в MD5
+	return 0;
+}
+
+uint32_t CheckKey(void)
+{
+	EncryptKey(KeyRaw, KeyEncrypted);
+	
+	uint8_t keyPos;
+
+	for (uint16_t keyIndex = 0; keyIndex < IAP_PAGE_SIZE; keyIndex++)
+    {	
+		// рассматриваем только активированные ключи в памяти
+		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex) == KEY_STATUS_ACTIVATED)
+		{
+			keyPos = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_SIZE;
 
 
-
-
+			// все 4 части по 4 байта должны совпасть
+			for (uint8_t keyPartNum = 0; keyPartNum < KEY_ENCRYPTED_SIZE / 4; keyPartNum++, keyPos += 4)
+            {
+				if (IAP_ReadWord(keyPos) != KeyEncrypted[keyPartNum])
+					break;
+				
+				if (keyPartNum == KEY_ENCRYPTED_SIZE / 4 - 1) 
+					return KEY_IS_VALID;
+			}
+		}
+	}
+	
+	return KEY_IS_INVALID;
 
 
 
@@ -81,137 +115,6 @@ void FillFlash(void)
 void CopyFlash(void)
 {
 	return; 
-}
-
-uint32_t key_count = 5;
-	
-typedef union  
-{
-	uint8_t arrByte[IAP_PAGE_SIZE];
-	uint32_t arrWord[IAP_PAGE_SIZE / 4];
-	uint64_t arrDword[IAP_PAGE_SIZE / 8];
-} u_t;
-
-
-	
-u_t flashBlock;
-
-uint32_t CheckTruth(uint8_t *keyToCheck)
-{
-	uint8_t truth = 0;
-
-	for (uint32_t i = 1; i <=  IAP_ReadWord(KEYCNT_BYTE_POS); i++) // со смещением на служебные
-	{
-		truth = 1;
-		for (uint8_t j = 0; j < 8; j++)
-        {
-			if (keyToCheck[j] != IAP_ReadByte(8 * i + j))
-			{
-				truth = 0;
-				break;
-			}
-        }
-		
-		if (truth) return 8 * i;
-	}
-	
-	return UINT32_MAX;
-}
-
-
-uint8_t AddKey(uint8_t *keyToAdd)
-{
-	if (CheckTruth(keyToAdd) != UINT32_MAX) // если ключ уже есть в базе
-		return 1;  // не добавляем новый ключ (можно вернуть порядковый номер ключа в базе)
-	
-	uint32_t keyCount = IAP_ReadWord(4);
-	if (keyCount >= MAX_KEYS_COUNT) // если память ключей заполнена
-		return 2; // не добавляем новый ключ
-	
-	uint32_t newKeyBytePos =  8 + keyCount * 8;
-	uint8_t pageNumberOfKey = IAP_GetPageNumberOfByte(newKeyBytePos);
-
-	for (uint8_t i = IAP_FIRST_PAGE; i < IAP_PAGE_COUNT; i++)
-    {
-		if  (i != pageNumberOfKey && i != IAP_FIRST_PAGE && i != IAP_LAST_PAGE) // если страница не первая или последняя и на ней нет ключа
-			continue; // то страница не изменяется
-
-		IAP_CopyIAPInRAM(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // копируем текущую страницу флеша в ОЗУ
-		
-		if (i == IAP_FIRST_PAGE) // если страница первая
-			flashBlock.arrWord[KEYCNT_WORD_POS]++; // увеличиваем счетчик ключей
-		
-		if (i == IAP_LAST_PAGE) // если страница последняя
-		{	
-			flashBlock.arrWord[NWRITE_WORD_POS]++; // увеличиваем количество стираний флеша
-			flashBlock.arrWord[CRC_WORD_POS] = 0xAB /*Do_CRC((uint8_t *)flashBlock.arrByte, sizeof(flashBlock.arrByte) - 4)*/ ; // считаем CRC (мб всей памяти? но как?)
-		}
-	
-		if (i == pageNumberOfKey) // если на текущей странице будет ключ
-		{
-			for (uint32_t j = 0, k = newKeyBytePos - pageNumberOfKey * IAP_PAGE_SIZE; j < 8; j++, k++)
-				flashBlock.arrByte[k] = keyCurrent[j]; 
-		}
-		
-		IAP_Erase_OnePage(i); // стираем текущую страницу флеша
-		IAP_CopyRAMInIAP(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // перезаписываем блок
-	}
-	
-	return 0;
-}
-
-uint8_t RemoveKey(uint8_t *keyToRemove)
-{
-	uint32_t keyBytePos = CheckTruth(keyToRemove);
-
-	if (keyBytePos == UINT32_MAX) // если ключа нет в базе
-		return 4;  // то ничего не делаем
-
-	uint32_t lastByteNumber = 0;
-	
-	uint8_t pageNumberOfKey = IAP_GetPageNumberOfByte(keyBytePos);
-
-	for (uint8_t i = IAP_FIRST_PAGE; i < IAP_PAGE_COUNT; i++)
-    {
-
-		if  (i < pageNumberOfKey && i != IAP_FIRST_PAGE) // если на странице только ключи и только ДО удаляемого
-			continue; // страница не изменяется
-		
-		IAP_CopyIAPInRAM(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // копируем текущую страницу флеша в ОЗУ
-		
-		if (i == IAP_FIRST_PAGE) // если страница первая
-			flashBlock.arrWord[KEYCNT_WORD_POS]--; // уменьшаем счетчик ключей
-		
-		if (i == IAP_LAST_PAGE) // если страница последняя
-		{
-			lastByteNumber = IAP_PAGE_SIZE  + IAP_PAGE_SIZE * i - 16; // последний ключ и служебные не трогаем
-			flashBlock.arrWord[NWRITE_WORD_POS]++; // увеличиваем количество стираний флеша
-			flashBlock.arrWord[CRC_WORD_POS] = 0xAB /* Do_CRC((uint8_t *)flashBlock.arrByte, sizeof(flashBlock.arrByte) - 4)*/ ; // считаем CRC (мб всей памяти? но как?)
-		}
-		else // если страница не последняя
-			lastByteNumber = IAP_PAGE_SIZE  + IAP_PAGE_SIZE * i; // меняем последний ключ на первый ключ следующей страницы
-						
-
-		if (i == pageNumberOfKey) // если на текущей странице находится удаляемый ключ
-		{
-			for (uint32_t j = keyBytePos /* +8 */; j < lastByteNumber; j++)
-				flashBlock.arrByte[j - pageNumberOfKey * IAP_PAGE_SIZE] = IAP_ReadByte(j + 8 /* j */); 
-				
-		}
-		
-		else /* else if i > pageNumberOfKey */ // для страниц после страницы с ключом
-		{
-			for (uint32_t j = 0, k = IAP_PAGE_SIZE * i /* +8 */; k < lastByteNumber; j++, k++)
-				flashBlock.arrByte[j] = IAP_ReadByte(k + 8 /* k */); 
-		}
-		
-
-		IAP_Erase_OnePage(i); // стираем текущую страницу флеша
-		IAP_CopyRAMInIAP(i * IAP_PAGE_SIZE, flashBlock.arrByte, sizeof(flashBlock.arrByte)); // перезаписываем блок
-		
-	}
-
-	return 3;
 }
 
 void ChangeKey(uint8_t keyNumber)

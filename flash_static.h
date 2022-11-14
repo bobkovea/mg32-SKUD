@@ -34,9 +34,8 @@ uint8_t VarsLenMas[READABLE_VAR_COUNT];
 #define PAGE_NUMBER_VARS 0
 #define PAGE_NUMBER_EVENTS 1
 #define PAGE_NUMBER_KEYSTATUS 2
-#define PAGE_NUMBER_KEYS_1 3
-#define PAGE_NUMBER_KEYS_2 4
-
+#define PAGE_NUMBER_KEYS_0 3
+#define PAGE_NUMBER_KEYS_LAST 3
 
 //----------------------------------------------------------------------------------------
 // Позиции переменных в памяти
