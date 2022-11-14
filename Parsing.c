@@ -21,31 +21,39 @@ void PRSM3ParseWriteRequest9(void)
 	
 	switch (RecBytes[SCODE_POS])
 	{
+		uint32_t operStatus;
+		
 		case SCODE_ACTKEY:
-			ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], 
-						RecBytes[ACTKEY_KEYINDEX_LSB_POS], 
-						RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
+			operStatus = ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], 
+									 RecBytes[ACTKEY_KEYINDEX_LSB_POS], 
+									 RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
 			break;
 		
 		case SCODE_WRITEVAR1:
-			Writevariable(RecBytes[WRITEVAR1_NUM_POS], 
-							RecBytes[WRITEVAR1_VALUE_LSB_POS], 
-							RecBytes[WRITEVAR1_VALUE_MSB_POS]);
+			operStatus = SetVariable(RecBytes[WRITEVAR1_NUM_POS], 
+									 RecBytes[WRITEVAR1_VALUE_LSB_POS], 
+									 RecBytes[WRITEVAR1_VALUE_MSB_POS]);
 			break;
 		
 		case SCODE_COMM:
 			
-//			DoCommand(RecBytes[COMM_NUM_POS], RecBytes[COMM_ARG_POS]);
+			DoCommand(RecBytes[COMM_NUM_POS], RecBytes[COMM_ARG_POS]);
 		//	либо цикл ActivateKey();
 		// либо цикл WriteVariable;
 			break;
 		
 		default:
+			CommandSize = 4;
 			ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
 			return;
 		
 		CommandSize = 4;
-		ReturnReply(FCODE_WRITE4);
+		if (operStatus == UINT32_MAX)
+			ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
+		else 
+			ReturnReply(FCODE_WRITE4);
+		return
+
     }
 		
 }

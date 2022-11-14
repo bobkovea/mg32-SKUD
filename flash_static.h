@@ -20,6 +20,9 @@ typedef union
 #define KEY_STATUS_ACTIVATED 0x01
 #define KEY_STATUS_FREE 0xFF
 
+#define COMM_ALLKEYACT
+#define COMM_FACTORY_NUM
+
 #define WRITABLE_VAR_COUNT 6
 #define READABLE_VAR_COUNT 9
 
