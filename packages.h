@@ -3,6 +3,17 @@
 #include "MG32x02z_DRV.h"
 
 
+#define KEY_STATUS_DEACTIVATED 0x00
+#define KEY_STATUS_ACTIVATED 0x01
+#define KEY_STATUS_FREE 0xFF
+
+#define COMM_ALLKEYACT 0x00
+#define COMM_FACTORY_NUM 0x01
+
+#define WRITABLE_VAR_COUNT 7
+#define READABLE_VAR_COUNT 10
+
+
 /* Коды ошибок (ECODE) */
 #define ECODE_OK 0x00 // нет ошибки 
 #define ECODE_READ_WRITE 0x20 // Ошибка установления / чтения параметра
@@ -44,12 +55,13 @@
 #define GERKON_FILT_TIME_NUM 0x00
 #define SEND_ALARM_TIME_NUM 0x01
 #define REACTIVATE_ALARM_TIME_NUM 0x02
-#define SEND_OFFLINE_EVENTS_NUM 0x03
-#define FREE_ACCESS_NUM 0x04
-#define MASTER_SLAVE_NUM 0x05
-#define TOTAL_KEYS_NUM 0x06
-#define ACTIVE_KEYS_NUM 0x07
-#define FLASH_RESOURCE_NUM 0x08
+#define BUZZER_OFF_TIME_NUM 0x03
+#define SEND_OFFLINE_EVENTS_NUM 0x04
+#define FREE_ACCESS_NUM 0x05
+#define MASTER_SLAVE_NUM 0x06
+#define TOTAL_KEYS_NUM 0x07
+#define ACTIVE_KEYS_NUM 0x08
+#define FLASH_RESOURCE_NUM 0x09
 
 
 /* Позиций байтов посылок по протоколу */
@@ -90,11 +102,11 @@
 #define ADDKEY_ACT_STAT_POS 4
 #define ADDKEY_INDEX_LSB_POS 5
 #define ADDKEY_INDEX_MSB_POS 6
-
+#define ADDKEY_KEY_MSB_POS 7
 
 // 5) Установление значения пакета переменных (WRITEVARM)
  
-#define WRITEVARM_VALUE_1ST_POS 5
+#define WRITEVARM_VALUE_1ST_POS 4
   
 
 	/* II Запрос значения переменной */
@@ -112,7 +124,7 @@
 // 2) Запрос значения пакета переменных (READVARM)
 
 // Ответ:
-#define READVARM_VALUE_1ST_POS 5
+#define READVARM_VALUE_1ST_POS 4
 
 	/* III События внутри шкафа (EVENT)*/
 

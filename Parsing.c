@@ -37,9 +37,8 @@ void PRSM3ParseWriteRequest9(void)
 		
 		case SCODE_COMM:
 			
-			DoCommand(RecBytes[COMM_NUM_POS], RecBytes[COMM_ARG_POS]);
-		//	либо цикл ActivateKey();
-		// либо цикл WriteVariable;
+			operStatus = DoCommand(RecBytes[COMM_NUM_POS], 
+								   RecBytes[COMM_ARG_POS]);
 			break;
 		
 		default:
@@ -52,11 +51,10 @@ void PRSM3ParseWriteRequest9(void)
 			ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
 		else 
 			ReturnReply(FCODE_WRITE4);
-		return
-
+		return;
     }
-		
 }
+
 
 void PRSM3ParseWriteRequest24(void)
 {
@@ -76,11 +74,14 @@ void PRSM3ParseWriteRequest24(void)
 	switch (RecBytes[SCODE_POS])
 	{
 		case SCODE_ADDKEY:
-			AddKey(RecBytes[ADDKEY_ACT_STAT_POS], RecBytes[ADDKEY_INDEX_LSB_POS], RecBytes[ADDKEY_INDEX_LSB_POS]);
+			AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
+				   RecBytes[ADDKEY_INDEX_LSB_POS], 
+				   RecBytes[ADDKEY_INDEX_MSB_POS], 
+				   &RecBytes[ADDKEY_KEY_MSB_POS]);
 			break;
 		
 		case SCODE_WRITEVARM:
-			WriteVariablePack(&RecBytes[WRITEVARM_VALUE_1ST_POS]);
+			SetVariablePack(&RecBytes[WRITEVARM_VALUE_1ST_POS]);
 			break;
 
 		default:
