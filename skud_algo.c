@@ -1,4 +1,4 @@
-#include "skud.h"
+#include "skud_algo.h"
 #include "gpio.h"
 #include "usart.h"
 

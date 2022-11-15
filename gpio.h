@@ -5,12 +5,12 @@
 
 // настроить на push-pull
 
-//#define BACKL_PIN PB1
+#define BACKL_PIN /*PB1*/
 #define INDLED_PIN PB2
-#define DO_PIN PB8
+#define DO_PIN 	PB8
 #define STALED_PIN PB9
-//#define BUZZER_PIN PB10
-#define BUZZER_PIN PB1
+#define BUZZER_PIN /*PB10*/ PB1
+
 #define REDE_PIN PB11 
 
 // настроить на DI

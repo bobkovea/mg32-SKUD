@@ -1,131 +1,234 @@
-#include "flash.h"
-#include "crc.h"
+#include "flash_static.h"
+#include "keys.h"
+#include "variables.h"
 
+// отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
+//
 
-// создаем структуру, повторяющую flash
-Config_t cfg = {0};
+flash_block_t fpage;
 
-// текущая позиция начала актуального блока
-uint32_t CurLastBlockPos = 0;
-
-//----------------------------------------------------------------------------------------
-// Функция возвращает начальный индекс  последнего записанного блока в IAP
-// Поиск происходит начиная с индекса StartIndex по индекс EndIndex, Step - размер блока
-// Возвращает UINT32_MAX, если память далее затерта
-// ex: FindLastBlockPos(0, MEM_GetIAPSize(), sizeof(cfg));
-//----------------------------------------------------------------------------------------
-uint32_t FindLastBlockPos(uint32_t StartIndex, uint32_t EndIndex, uint32_t BlockSize) {
-	uint32_t i;
-	for (i = StartIndex; i <= EndIndex - BlockSize; i += BlockSize) {
-		if (IAP_ReadByte(i) == 0xFF) {
-			return i - BlockSize;
-			// Если вся следующая после этого блока память тоже чистая
-			if (IAP_IsAreaEmpty (i, MEM_GetIAPSize() - 1)) {
-				return i - BlockSize; // возвращаем адрес начала актуального блока (все ОК)
-			}
-			return UINT32_MAX; // где-то после этого блока память испорчена
-		}
+void FlashFirstInit(void)
+{
+	InitVariables();
+	
+	if (IAP_ReadWord(FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
+		return;
+	
+	// флаг записи флеша
+	IAP_Single_Write(IAP_START_ADDRESS, __FIRST_WRITE_VALUE);
+	
+	// изменить singlewrite на обертку над ним WriteWord (изменить для одного значения)
+	// добавить функцию WriteMultipleWord
+	for (uint8_t i = 0; i < VAR_COUNT; i++)
+	{
+		IAP_Single_Write(IAP_START_ADDRESS + PAGE_NUMBER_VARS * IAP_PAGE_SIZE + variables[i]->indexOnROMPage * 4,
+						 variables[i]->factoryValue);
 	}
-	return i; // возвращаем адрес начала актуального блока (все ОК, но память уже заполнена)
+	
+
+
+//	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
+//	
+
+//	
+//	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+//	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+	
+	
+} 
+
+uint32_t GetVariable(uint8_t varNumber)
+{
+	if (varNumber > VAR_COUNT) return UINT32_MAX;
+	return IAP_ReadWord(variables[varNumber]->indexOnROMPage);
 }
 
-//----------------------------------------------------------------------------------------
-// Функция заполняет структуру конфигурационных данных значениями по умолчанию
-// ex: FillStructureDefault();
-//----------------------------------------------------------------------------------------
-void FillStructureDefault(void) {
-	// Вносим значения по умолчанию в структуру в RAM
-	cfg.FlashKey = FlashKeyValue;
-	cfg.ThrHigh = ThrHighDefault;
+
+uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
+{
+	if (varNumber > VAR_COUNT_WRITABLE) return UINT32_MAX;
 	
-	cfg.NWrite = 1; // количество записей во flash
-	cfg.CheckSum = Do_CRC((uint8_t *)&cfg, sizeof(cfg) - 4); // считаем CRC
-	
+	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
+	fpage.word[variables[varNumber]->indexOnROMPage] = varValueLSB | (varValueMSB << 8);
+	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
+	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
+	return 0;
 }
+
+uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
+{
+	if (commNum > 0x01) return UINT32_MAX;
 	
-//----------------------------------------------------------------------------------------
-// Начальная инициализация флеш-памяти (IAP)
-// 1) Если память полностью чиста, вносим в начало значения по умолчанию
-// 2) Если в памяти что-то есть, то проверяем данные на корректность
-// 3) Если данные некорректны, то очищаем память и записываем значения по умолчанию; если да - принимаем их как актуальные
-// ex: FlashtStartupHandle()
-//----------------------------------------------------------------------------------------
-FlashStatus FlashStartupHandle(void) {
+	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
 	
-	// Если IAP полностью пуста, то запишем значения по умолчанию
-	if (IAP_IsFullEmpty()) {
-		FillStructureDefault();
-		CurLastBlockPos = 0;
-		IAP_CopyRAMInIAP(CurLastBlockPos, &cfg, sizeof(cfg)); // запишем структуру по умолчанию из RAM в начало IAP
-		return OK_EMPTY;
-	}
-	// Если же в IAP уже что-то есть, то ищем последний записанный (актуальный) блок и проверяем его CRC
-	else {
-		CurLastBlockPos = FindLastBlockPos(0, MEM_GetIAPSize(), sizeof(cfg)); // Получаем индекс начала актуального блока
-		
-		// если память где-то далее затерта
-		if (CurLastBlockPos == UINT32_MAX) {
-			IAP_FullErase(); // полностью очищаем выделенную IAP
-			FillStructureDefault();
-			CurLastBlockPos = 0; // обнулим текущую позицию актуального блока
-			IAP_CopyRAMInIAP(CurLastBlockPos, &cfg, sizeof(cfg)); // запишем структуру по умолчанию из RAM в начало IAP
+	switch (commNum)
+	{
+		case COMM_ALLKEYACT: // (де)активация всех ключей
 			
-			return ERROR_BAD_MEMORY;
-		}
-		// если же память далее чистая и оно цельное
-		else {
-			// Если CRC актуального блока не корректная, то очистим IAP и заполним значениями по умолчанию
-			if (CRCisWrong((uint8_t *)(IAP_START_ADDRESS + CurLastBlockPos), sizeof(cfg) - 3)) { 
-				IAP_FullErase(); // полностью очищаем выделенную IAP
-				FillStructureDefault();
-				CurLastBlockPos = 0; // обнулим текущую позицию актуального блока
-				IAP_CopyRAMInIAP(CurLastBlockPos, &cfg, sizeof(cfg)); // запишем структуру по умолчанию из RAM в начало IAP
-				return ERROR_CRC;
+			for(uint16_t i = 0; i < IAP_PAGE_SIZE; i++)
+			{
+				if (fpage.byte[i] != KEY_STATUS_FREE)
+					fpage.byte[i] = commArg;
 			}
-			// Если CRC корректна, то примем этот блок как актуальный
-			else {
-				IAP_CopyIAPInRAM(CurLastBlockPos, &cfg, sizeof(cfg)); // запишем последний блок из IAP в структуру RAM
-				return OK_NOT_EMPTY;
-			}
+			
+			if (commArg == KEY_STATUS_DEACTIVATED)
+				fpage.word[ACTIVE_KEYS_POS] = 0;
+			else 
+				fpage.word[ACTIVE_KEYS_POS] = fpage.word[TOTAL_KEYS_POS];				
+		break;
+		
+		case COMM_FACTORY_NUM: // к дефолтным значениям
+			
+			for(uint16_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+				fpage.word[variables[i]->indexOnROMPage] = fpage.word[variables[i]->factoryValue];
+		break;
+		
+		default:
+			return UINT32_MAX;
+	}
+	// fpage.word[FLASH_RESOURCE_POS]--;
+	
+	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+			
+	return 0;
+}
+
+uint32_t SetVariablePack(uint8_t *packStartAddr)
+{
+	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
+	
+	for (uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++, packStartAddr++)
+	{
+		if (variables[i]->byteSize == 1)
+		{
+			fpage.word[variables[i]->indexOnROMPage] = *packStartAddr;
 		}
 
+		else if (variables[i]->byteSize == 2)
+		{
+			fpage.word[variables[i]->indexOnROMPage] = *packStartAddr++;
+			fpage.word[variables[i]->indexOnROMPage] |= *packStartAddr << 8;
+		}
 	}
+	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
+	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
+	return 0;
 }
 
-//----------------------------------------------------------------------------------------
-// Функция возвращает количество оставшихся блоков до конца IAP
-// ex: GetBlocksLeft(CurLastBlockPos, sizeof(cfg));
-//----------------------------------------------------------------------------------------
-uint16_t GetBlocksLeft(uint32_t CurLastBlockPos, uint32_t BlockSize) {
-	// предположим, общий размер выделенной IAP <= 64 Кбайт
-	uint16_t totalBlocks = MEM_GetIAPSize() / sizeof(cfg); // максимальное число блоков
-	return totalBlocks - (CurLastBlockPos / BlockSize + 1);
-};
 
 
-//----------------------------------------------------------------------------------------
-// Функция проверяет, есть ли свободное место в IAP для записи нового блока
-// ex: IsEnoughSpace(476, sizeof(cfg));
-//----------------------------------------------------------------------------------------
-uint8_t IsEnoughSpace(uint32_t CurIndex, uint32_t BlockSize) {
-	return CurIndex + BlockSize <= MEM_GetIAPSize();
+uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
+{
+	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
+	
+	if (keyIndex >= IAP_PAGE_SIZE) return UINT32_MAX;
+	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return UINT32_MAX;
+	
+	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
+	fpage.byte[keyIndex] = operationType;
+
+	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+	return 0;
 }
 
-//----------------------------------------------------------------------------------------
-// Функция записывает новый блок данных в IAP
-//----------------------------------------------------------------------------------------
-void FlashUpdate(void) {
+uint32_t GetKeyStatus(uint16_t keyIndex)
+{
+	if (keyIndex > IAP_PAGE_SIZE) return UINT32_MAX;
+	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex);
+}
+
+uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
+{
+	if (activationType > 0x02) return UINT32_MAX;
 	
-	cfg.CheckSum = Do_CRC((uint8_t *)&cfg, sizeof(cfg) - 4); // считаем CRC
-	CurLastBlockPos += sizeof(cfg);
+	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
 	
-	// проверим наличие свободного места в памяти для структуры
-	if (!IsEnoughSpace(CurLastBlockPos, sizeof(cfg))) {
+	if (keyIndex >= IAP_PAGE_SIZE) return UINT32_MAX;
 	
-		IAP_FullErase(); // полностью очищаем выделенную IAP
-		cfg.NWrite++; // инкрементируем количество записей во flash
-		CurLastBlockPos = 0; // обнулим текущую позицию актуального блока
+	uint8_t oldKeyStatus = GetKeyStatus(keyIndex);
+	// изменяем переменные
+	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
+	
+	switch (oldKeyStatus)
+	{
+		case KEY_STATUS_FREE:
+			fpage.word[TOTAL_KEYS_POS]++;
+			if (activationType == ACTKEY_ACTIVATE)
+				fpage.word[ACTIVE_KEYS_POS]++;	
+			break;
+		
+		case KEY_STATUS_DEACTIVATED:
+			if (activationType == ACTKEY_ACTIVATE)
+				fpage.word[ACTIVE_KEYS_POS]++;	
+			break;
+		
+		case KEY_STATUS_ACTIVATED:
+			if (activationType == ACTKEY_DEACTIVATE)
+				fpage.word[ACTIVE_KEYS_POS]--;	
+			break;
+		
+		default:
+			break;
 	}
-	IAP_CopyRAMInIAP(CurLastBlockPos, &cfg, sizeof(cfg)); // запишем структуру из RAM в свободную область IAP	
 
+	
+	fpage.word[FLASH_RESOURCE_POS]++;
+	
+	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
+	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
+	
+	
+	// добавляем/меняем сам ключ
+	uint8_t keyPageNum = PAGE_NUMBER_KEYS_0 + keyIndex / KEYS_COUNT_ON_PAGE; // номер страницы, на которой находится целевой ключ
+	uint8_t keyPos = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_ENCRYPTED_SIZE; // позиция ключа на странице флеша (номер байта)
+	
+	CopyFlashPageToRAM(keyPageNum);
+	
+	for (uint8_t i = 0; i < KEY_ENCRYPTED_SIZE; i++) // memcpy
+		fpage.byte[keyPos] = *keyStartAddr++;
+
+	IAP_Erase_OnePage(keyPageNum);
+	CopyRAMToFlashPage(keyPageNum);
+	
+	// изменяем статус ключа
+	
+	if (activationType == oldKeyStatus)
+		return 0;
+	
+	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
+	
+	if ((activationType == ACTKEY_NOACTION) && (oldKeyStatus == KEY_STATUS_FREE))
+		fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
+	else 
+		fpage.byte[keyIndex] = activationType;
+	
+	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+	
+	return 0;
 }
+
+
+
+//uint32_t CheckValidKey(uint8_t keyIndex)
+//{
+//	if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex) == KEY_STATUS_ACTIVATED)
+//	return 0; // return KEY_OK
+//}
+
+
+uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
+{
+	IAP_CopyIAPInRAM(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
+	return 0;
+}
+
+uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
+{
+	IAP_CopyRAMInIAP(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
+	return 0;
+}
+
+

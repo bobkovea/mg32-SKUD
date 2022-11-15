@@ -8,24 +8,28 @@
 #include "gpio.h"
 #include "flash.h"
 #include "keys.h"
+#include "variables.h"
 
 #define RX_BUFFER_SIZE 30
 
 #define DEVICE_ADDRESS_H 0x43
 #define DEVICE_ADDRESS_L 0x10
 
-#define TIMERWAITING 0xFF
-#define TYPE_SENS 0x07
+#define STATUS_COLLECTING_BYTES 0x00
+#define STATUS_PARSE_WAITING 0x01
 
 
-extern uint8_t iptr, MessLen;
-extern uint8_t RecBytes[RX_BUFFER_SIZE], CommandSize;
-extern uint8_t PosylkaLen[4];
-extern uint16_t usUsart; 
+uint8_t RecBytes[RX_BUFFER_SIZE];
+uint8_t MessageLen[4];
+uint8_t	iptr, DecryptedMessLen, CommandSize, usUsart, parsingStatus;
 
-extern void PRSM3AddNewByte(void);
-extern void PRSM3ReceiveLineComplete(void);
-extern void ReturnReply(uint8_t RetCode);
-extern void clearBuffer(void); 
+void PRSM3_AddNewByte(void);
+void PRSM3_ParseMessage(void);
+void PRSM3_ReturnReply(uint8_t RetCode);
+void PRSM3_clearBuffer(void); 
+
+void PRSM3_ParseWriteRequest9(void);
+void PRSM3_ParseWriteRequest24(void);
+void PRSM3_ParseReadRequest(void);
 #endif // PRSM3_H
 

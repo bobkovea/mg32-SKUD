@@ -10,7 +10,7 @@
 // Посылка принята целиком - пришло время её разобрать
 void TIM01_Callback (void) {
 	
-	PRSM3ReceiveLineComplete();
+	PRSM3_ParseMessage();
 }
 
 // Вызывается каждые 5 мс, считывает значения входов
@@ -48,7 +48,7 @@ void TIM10_Callback (void) {
 		if (usUsart >= 1) {
 			usUsart++;
 			if (usUsart > 16) {
-				clearBuffer();
+				PRSM3_clearBuffer();
 			}
 		}
 }

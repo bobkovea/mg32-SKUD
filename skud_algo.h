@@ -1,5 +1,5 @@
-#ifndef SKUD_H
-#define SKUD_H
+#ifndef SKUD_ALGO_H
+#define SKUD_ALGO_H
 
 #include "keys.h"
 
@@ -55,4 +55,4 @@ extern volatile uint32_t waitBitchCntMax;
 //void StopRing(void);
 void MonitorKey(void);
 uint8_t GetCurEvent (void);
-#endif // SKUD_H
+#endif // SKUD_ALGO_H

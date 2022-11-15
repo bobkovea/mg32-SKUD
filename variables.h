@@ -3,7 +3,7 @@
 #include "MG32x02z_DRV.h"
 
 
-#define WRITABLE_VAR_COUNT 7
+#define VAR_COUNT_WRITABLE 7
 #define VAR_COUNT 10
 
 
