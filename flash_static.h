@@ -12,10 +12,12 @@ uint32_t AddKey(uint8_t newStatus, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uin
 uint32_t SetVariablePack(uint8_t *packStartAddr);
 
 uint32_t GetVariable(uint8_t varNumber);
-
+uint32_t GetKeyStatus(uint16_t keyIndex);
 
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber);
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber);
+
+void FillFlash(void);
 
 
 typedef union 

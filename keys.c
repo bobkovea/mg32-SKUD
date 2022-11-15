@@ -6,10 +6,10 @@
 #include "timers.h"
 #include "packages.h"
 
-uint32_t KeyEncrypted[KEY_ENCRYPTED_SIZE / 4] = {};
-uint32_t KeyRaw[KEY_RAW_SIZE / 4] = {}; 
+uint8_t KeyEncrypted[KEY_ENCRYPTED_SIZE] = {};
+uint8_t KeyRaw[KEY_RAW_SIZE] = {}; 
 	
-uint32_t EncryptKey(uint32_t *keySrc, uint32_t *keyDest)
+uint32_t EncryptKey(uint8_t *keySrc, uint8_t *keyDest)
 {
 	// Шифруем в MD5
 	return 0;
@@ -26,11 +26,11 @@ uint32_t CheckKey(void)
 		// рассматриваем только активированные ключи в памяти
 		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex) == KEY_STATUS_ACTIVATED)
 		{
-			keyPos = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_SIZE;
+			keyPos = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_ENCRYPTED_SIZE;
 
 
 			// все 4 части по 4 байта должны совпасть
-			for (uint8_t keyPartNum = 0; keyPartNum < KEY_ENCRYPTED_SIZE / 4; keyPartNum++, keyPos += 4)
+			for (uint8_t keyPartNum = 0; keyPartNum < KEY_ENCRYPTED_SIZE / 4; keyPartNum++, keyPos ++)
             {
 				if (IAP_ReadWord(keyPos) != KeyEncrypted[keyPartNum])
 					break;

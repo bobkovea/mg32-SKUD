@@ -2,8 +2,6 @@
 #include "prsm3.h"
 #include "flash_static.h"
 
-
-
 void PRSM3ParseWriteRequest9(void)
 {
 	if (CommandSize != 9)

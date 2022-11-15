@@ -2,16 +2,6 @@
 #define PACKAGES_H
 #include "MG32x02z_DRV.h"
 
-// проверка ключа
-#define KEY_IS_INVALID 0
-#define KEY_IS_VALID 1
-
-#define KEY_ENCRYPTED_SIZE 16
-#define KEY_RAW_SIZE 8
-#define KEY_SIZE KEY_ENCRYPTED_SIZE
-#define KEYS_COUNT_ON_PAGE (IAP_PAGE_SIZE / KEY_SIZE)
-#define KEYS_MAX 1024
-
 #define KEY_STATUS_DEACTIVATED 0x00
 #define KEY_STATUS_ACTIVATED 0x01
 #define KEY_STATUS_FREE 0xFF

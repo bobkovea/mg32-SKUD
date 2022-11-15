@@ -1,8 +1,7 @@
 #include "flash_static.h"
-
+#include "keys.h"
 // отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
 //
-
 
 flash_block_t fpage;
 
@@ -63,7 +62,6 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 	
 	switch (commNum)
 	{
-		
 		case COMM_ALLKEYACT: // (де)активация всех ключей
 			
 			for(uint16_t i = 0; i < IAP_PAGE_SIZE; i++)
@@ -78,7 +76,6 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 				fpage.word[ACTIVE_KEYS_POS] = fpage.word[TOTAL_KEYS_POS];				
 		break;
 		
-		
 		case COMM_FACTORY_NUM: // к дефолтным значениям
 			
 			for(uint16_t i = 0; i < WRITABLE_VAR_COUNT; i++)
@@ -88,7 +85,7 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 		default:
 			return UINT32_MAX;
 	}
-	// fpage.word[FLASH_RESOURCE_POS]--; потом добавить на каждую стр? перезаписывать первую?
+	// fpage.word[FLASH_RESOURCE_POS]--;
 		IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
 		CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
 			
@@ -134,7 +131,8 @@ uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyInde
 	return 0;
 }
 
-uint32_t GetKeyStatus(uint16_t keyIndex) {
+uint32_t GetKeyStatus(uint16_t keyIndex)
+{
 	if (keyIndex > IAP_PAGE_SIZE) return UINT32_MAX;
 	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex);
 }
@@ -182,11 +180,11 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	
 	// добавляем/меняем сам ключ
 	uint8_t keyPageNum = PAGE_NUMBER_KEYS_0 + keyIndex / KEYS_COUNT_ON_PAGE; // номер страницы, на которой находится целевой ключ
-	uint8_t keyPos = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_SIZE; // позиция ключа на странице флеша (номер байта)
+	uint8_t keyPos = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_ENCRYPTED_SIZE; // позиция ключа на странице флеша (номер байта)
 	
 	CopyFlashPageToRAM(keyPageNum);
 	
-	for (uint8_t i = 0; i < KEY_SIZE; i++) // memcpy
+	for (uint8_t i = 0; i < KEY_ENCRYPTED_SIZE; i++) // memcpy
 		fpage.byte[keyPos] = *keyStartAddr++;
 
 	IAP_Erase_OnePage(keyPageNum);
@@ -207,7 +205,6 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
 	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
 	
-
 	return 0;
 }
 
@@ -233,4 +230,15 @@ uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
 }
 
 
+void FillFlash(void) {
 
+	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
+	
+	if ((activationType == ACTKEY_NOACTION) && (oldKeyStatus == KEY_STATUS_FREE))
+		fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
+	else 
+		fpage.byte[keyIndex] = activationType;
+	
+	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+}

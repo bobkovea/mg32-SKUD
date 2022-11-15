@@ -2,15 +2,9 @@
 #include "onewire.h"
 #include "keys.h"
 #include "skud.h"
+#include "packages.h"
+#include "flash_static.h"
 
-#define USER_COUNT 16
-#define KEY_SIZE 8
-
-//uint8_t KeysStatus[16];
-//uint8_t keys[USER_COUNT][KEY_SIZE];
-
-
-//extern uint8_t a1, a2, a3;
 
 int main()
 {
@@ -58,7 +52,7 @@ int main()
 
 	REDE_PIN = 0;
 	
-	if (*(uint32_t *)IAP_START_ADDRESS == UINT32_MAX)  
+	if (IAP_ReadWord(FIRST_WRITE_VALUE_POS == UINT32_MAX))  
 		FillFlash();
 
 //	uint8_t mas[13] = { 0x43, 0x10, 0x0A,  };
@@ -127,7 +121,7 @@ int main()
 		
 		
 
-//		wdt_reset();
+		wdt_reset();
     }
 }
 

@@ -10,7 +10,7 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6140001::V6.14.1::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -580,11 +580,6 @@
         <targetInfos/>
       </filter>
       <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0">
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
-      </package>
-      <package name="mbedCrypto" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/mbedCrypto/" vendor="ARM" version="3.0.1">
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
