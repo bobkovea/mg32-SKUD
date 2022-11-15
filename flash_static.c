@@ -1,54 +1,55 @@
 #include "flash_static.h"
 #include "keys.h"
+#include "variables.h"
+
 // отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
 //
 
 flash_block_t fpage;
 
-uint8_t VarsLenMas[READABLE_VAR_COUNT] = { 2, 2, 2, 2, 1, 1, 1, 2, 2, 2 };
-
-// позиции переменных на странице 
-uint8_t VarIndexInROM[READABLE_VAR_COUNT] =
-{ 
-	GERKON_FILT_TIME_POS, // 0x00
-	SEND_ALARM_TIME_POS, // 0x01
-	REACTIVATE_ALARM_TIME_POS, // 0x02
-	BUZZER_OFF_TIME_POS, // 0x03
-	SEND_OFFLINE_EVENTS_POS, // 0x04
-	FREE_ACCESS_POS, // 0x05
-	MASTER_SLAVE_POS, // 0x06
-	TOTAL_KEYS_POS, // 0x07
-	ACTIVE_KEYS_POS, // 0x08
-	FLASH_RESOURCE_POS // 0x09
-};
-
-// позиции дефолтных значений переменных на странице 
-uint8_t __VarIndexInROM[WRITABLE_VAR_COUNT] =
-{ 
-	__GERKON_FILT_TIME_POS, // 0x00
-	__SEND_ALARM_TIME_POS, // 0x01
-	__REACTIVATE_ALARM_TIME_POS, // 0x02
-	__BUZZER_OFF_TIME_POS, // 0x03
-	 __SEND_OFFLINE_EVENTS_POS, // 0x04
-	__FREE_ACCESS_POS, // 0x05
-	__MASTER_SLAVE_POS // 0x06
-};
-
-
-
-uint32_t GetVariable(uint8_t varCode)
+void FlashFirstInit(void)
 {
-	if (varCode > READABLE_VAR_COUNT) return UINT32_MAX;
-	return IAP_ReadWord(VarIndexInROM[varCode]);
+	InitVariables();
+	
+	if (IAP_ReadWord(FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
+		return;
+	
+	// флаг щаписи флеша
+	IAP_Single_Write(IAP_START_ADDRESS, __FIRST_WRITE_VALUE);
+	
+	// изменить singlewrite на обертку над ним WriteWord (изменить для одного значения)
+	// добавить функцию WriteMultipleWord
+	for (uint8_t i = 0; i < VAR_COUNT; i++)
+	{
+		IAP_Single_Write(IAP_START_ADDRESS + PAGE_NUMBER_VARS * IAP_PAGE_SIZE + variables[i]->indexOnROMPage * 4,
+						 variables[i]->factoryValue);
+	}
+	
+
+
+	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
+	
+
+	
+	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+	
+	
+} 
+
+uint32_t GetVariable(uint8_t varNumber)
+{
+	if (varNumber > VAR_COUNT) return UINT32_MAX;
+	return IAP_ReadWord(variables[varNumber]->indexOnROMPage);
 }
 
 
-uint32_t SetVariable(uint8_t varCode, uint8_t varValueLSB, uint8_t varValueMSB)
+uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
 {
-	if (varCode > WRITABLE_VAR_COUNT) return UINT32_MAX;
+	if (varNumber > WRITABLE_VAR_COUNT) return UINT32_MAX;
 	
 	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
-	fpage.word[VarIndexInROM[varCode]] = varValueLSB | (varValueMSB << 8);
+	fpage.word[variables[varNumber]->indexOnROMPage] = varValueLSB | (varValueMSB << 8);
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
 	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
 	return 0;
@@ -79,15 +80,16 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 		case COMM_FACTORY_NUM: // к дефолтным значениям
 			
 			for(uint16_t i = 0; i < WRITABLE_VAR_COUNT; i++)
-				fpage.word[VarIndexInROM[i]] = fpage.word[__VarIndexInROM[i]];
+				fpage.word[variables[i]->indexOnROMPage] = fpage.word[variables[i]->factoryValue];
 		break;
 		
 		default:
 			return UINT32_MAX;
 	}
 	// fpage.word[FLASH_RESOURCE_POS]--;
-		IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
-		CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+	
+	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
 			
 	return 0;
 }
@@ -98,15 +100,15 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 	
 	for (uint8_t i = 0; i < WRITABLE_VAR_COUNT; i++, packStartAddr++)
 	{
-		if (VarsLenMas[i] == 1)
+		if (variables[i]->byteSize == 1)
 		{
-			fpage.word[VarIndexInROM[i]] = *packStartAddr;
+			fpage.word[variables[i]->indexOnROMPage] = *packStartAddr;
 		}
 
-		else if (VarsLenMas[i] == 2)
+		else if (variables[i]->byteSize == 2)
 		{
-			fpage.word[VarIndexInROM[i]] = *packStartAddr++;
-			fpage.word[VarIndexInROM[i]] |= *packStartAddr << 8;
+			fpage.word[variables[i]->indexOnROMPage] = *packStartAddr++;
+			fpage.word[variables[i]->indexOnROMPage] |= *packStartAddr << 8;
 		}
 	}
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
@@ -230,15 +232,3 @@ uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
 }
 
 
-void FillFlash(void) {
-
-	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
-	
-	if ((activationType == ACTKEY_NOACTION) && (oldKeyStatus == KEY_STATUS_FREE))
-		fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
-	else 
-		fpage.byte[keyIndex] = activationType;
-	
-	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
-	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
-}

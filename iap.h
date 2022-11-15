@@ -30,7 +30,8 @@
 void IAP_Init(uint32_t IAPSize);
 void IAP_FullErase(void);
 void IAP_Erase_OnePage (uint16_t PageNumber);
-uint8_t IAP_WriteWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length);
+uint8_t IAP_WriteMultipleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length);
+uint8_t IAP_WriteSingleWord();
 uint8_t IAP_ReadByte(uint32_t ByteIndexInIAP);
 uint32_t IAP_ReadWord(uint32_t WordIndexInIAP);
 uint32_t IAP_GetPageNumberOfByte(uint32_t ByteIndexInIAP);

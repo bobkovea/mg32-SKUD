@@ -27,9 +27,6 @@ Project File Date:  11/15/2022
 <h2>Output:</h2>
 *** Using Compiler 'V6.14.1', folder: 'E:\Program Files\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-compiling usart.c...
-compiling main.c...
-compiling timers.c...
 prsm3.c(112): error: use of undeclared identifier 'MAX_KEYS_COUNT'
                         RecBytes[5] = (uint8_t)(MAX_KEYS_COUNT >> 8); 
                                                 ^
@@ -80,30 +77,54 @@ prsm3.c(215): error: use of undeclared identifier 'NoNetworkPackages'
                         ^
 2 warnings and 14 errors generated.
 compiling prsm3.c...
-keys.c(27): error: use of undeclared identifier 'PAGE_NUMBER_KEYSTATUS'
-                if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex) == KEY_STATUS_ACTIVATED)
+compiling timers.c...
+compiling iap.c...
+compiling main.c...
+compiling usart.c...
+flash_static.c(50): error: use of undeclared identifier 'VarIndexInROM'
+                IAP_Single_Write(IAP_START_ADDRESS + PAGE_NUMBER_VARS * IAP_PAGE_SIZE + VarIndexInROM[i] * 4, VarFactoryValue[i]);
+                                                                                        ^
+flash_static.c(50): error: use of undeclared identifier 'VarFactoryValue'
+                IAP_Single_Write(IAP_START_ADDRESS + PAGE_NUMBER_VARS * IAP_PAGE_SIZE + VarIndexInROM[i] * 4, VarFactoryValue[i]);
+                                                                                                              ^
+flash_static.c(52): error: expected expression
+                IAP_WriteWord( + , (uint32_t)VarFactoryValues, 1)
                                  ^
-keys.c(78): error: function definition is not allowed here
-{
-^
-keys.c(116): error: function definition is not allowed here
-{
-^
-keys.c(121): error: function definition is not allowed here
-{
-^
-keys.c(128): error: function definition is not allowed here
-{       
-^
-keys.c(146): error: expected '}'
-}
- ^
-keys.c(19): note: to match this '{'
-{
-^
-6 errors generated.
-compiling keys.c...
+flash_static.c(52): error: use of undeclared identifier 'VarFactoryValues'
+                IAP_WriteWord( + , (uint32_t)VarFactoryValues, 1)
+                                             ^
+flash_static.c(67): error: use of undeclared identifier 'VarIndexInROM'
+        return IAP_ReadWord(VarIndexInROM[varCode]);
+                            ^
+flash_static.c(76): error: use of undeclared identifier 'VarIndexInROM'
+        fpage.word[VarIndexInROM[varCode]] = varValueLSB | (varValueMSB << 8);
+                   ^
+flash_static.c(107): error: use of undeclared identifier 'VarIndexInROM'
+                                fpage.word[VarIndexInROM[i]] = fpage.word[__VarIndexInROM[i]];
+                                           ^
+flash_static.c(107): error: use of undeclared identifier '__VarIndexInROM'
+                                fpage.word[VarIndexInROM[i]] = fpage.word[__VarIndexInROM[i]];
+                                                                          ^
+flash_static.c(127): error: use of undeclared identifier 'VarsLenMas'
+                if (VarsLenMas[i] == 1)
+                    ^
+flash_static.c(129): error: use of undeclared identifier 'VarIndexInROM'
+                        fpage.word[VarIndexInROM[i]] = *packStartAddr;
+                                   ^
+flash_static.c(132): error: use of undeclared identifier 'VarsLenMas'
+                else if (VarsLenMas[i] == 2)
+                         ^
+flash_static.c(134): error: use of undeclared identifier 'VarIndexInROM'
+                        fpage.word[VarIndexInROM[i]] = *packStartAddr++;
+                                   ^
+flash_static.c(135): error: use of undeclared identifier 'VarIndexInROM'
+                        fpage.word[VarIndexInROM[i]] |= *packStartAddr << 8;
+                                   ^
+13 errors generated.
 compiling flash_static.c...
+skud.c(56): warning: implicit declaration of function 'DS1990A_GetID' is invalid in C99 [-Wimplicit-function-declaration]
+                        if (DS1990A_GetID()) // если считан ключ DS1990A
+                            ^
 skud.c(59): warning: implicit declaration of function 'CheckTruth' is invalid in C99 [-Wimplicit-function-declaration]
                                 if (CheckTruth(keyCurrent) == UINT32_MAX)
                                     ^
@@ -114,21 +135,79 @@ skud.c(59): error: use of undeclared identifier 'keyCurrent'; did you mean 'GetC
 skud.c(24): note: 'GetCurEvent' declared here
 uint8_t GetCurEvent (void)
         ^
-1 warning and 1 error generated.
+2 warnings and 1 error generated.
 compiling skud.c...
+keys.c(27): error: use of undeclared identifier 'PAGE_NUMBER_KEYSTATUS'
+                if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex) == KEY_STATUS_ACTIVATED)
+                                 ^
+keys.c(61): error: function definition is not allowed here
+{       
+^
+keys.c(79): error: expected '}'
+}
+ ^
+keys.c(19): note: to match this '{'
+{
+^
+3 errors generated.
+compiling keys.c...
 Parsing.c(115): error: expected ';' after expression
                         var = GetVariable(RecBytes[READVAR1_NUM_POS])
                                                                      ^
                                                                      ;
+Parsing.c(131): error: use of undeclared identifier 'VarsLenMas'
+                        for (uint8_t i = 0, j = READVARM_VALUE_1ST_POS; i < sizeof(VarsLenMas); i++, j++)
+                                                                                   ^
+Parsing.c(139): error: use of undeclared identifier 'VarsLenMas'
+                                if (VarsLenMas[i] == 1) {
+                                    ^
+Parsing.c(143): error: use of undeclared identifier 'VarsLenMas'
+                                else if (VarsLenMas[i] == 2)
+                                         ^
 Parsing.c(204): error: too few arguments to function call, single argument 'fcode' was not specified
                         PRSM3ParseReadRequest();
                         ~~~~~~~~~~~~~~~~~~~~~ ^
 Parsing.c(95): note: 'PRSM3ParseReadRequest' declared here
 void PRSM3ParseReadRequest(uint8_t fcode)
 ^
-2 errors generated.
+5 errors generated.
 compiling Parsing.c...
-".\Objects\LCDI.axf" - 23 Error(s), 3 Warning(s).
+variables.c(36): error: use of undeclared identifier 'GERKON_FILT_TIME_POS'
+        InitVar(&GerkonFiltTime,                2, __GERKON_FILT_TIME,          GERKON_FILT_TIME_POS);
+                                                                                ^
+variables.c(37): error: use of undeclared identifier 'SEND_ALARM_TIME_POS'
+        InitVar(&SendAlarmTimePos,              2, __SEND_ALARM_TIME,           SEND_ALARM_TIME_POS);
+                                                                                ^
+variables.c(38): error: use of undeclared identifier 'REACTIVATE_ALARM_TIME_POS'
+        InitVar(&ReactivateAlarmTime,   2, __REACTIVATE_ALARM_TIME, REACTIVATE_ALARM_TIME_POS);
+                                                                    ^
+variables.c(39): error: use of undeclared identifier 'BUZZER_OFF_TIME_POS'
+        InitVar(&BuzzerOffTime,                 2, __BUZZER_OFF_TIME,           BUZZER_OFF_TIME_POS);
+                                                                                ^
+variables.c(40): error: use of undeclared identifier 'SEND_OFFLINE_EVENTS_POS'
+        InitVar(&SendOfflineEvents,     1, __SEND_OFFLINE_EVENTS,       SEND_OFFLINE_EVENTS_POS);
+                                                                        ^
+variables.c(41): error: use of undeclared identifier 'FREE_ACCESS_POS'
+        InitVar(&FreeAccess,                    1, __FREE_ACCESS,                       FREE_ACCESS_POS);
+                                                                                        ^
+variables.c(42): error: use of undeclared identifier 'MASTER_SLAVE_POS'
+        InitVar(&MasterSlave,                   1, __MASTER_SLAVE,                      MASTER_SLAVE_POS);
+                                                                                        ^
+variables.c(43): error: use of undeclared identifier 'TOTAL_KEYS_POS'
+        InitVar(&TotalKeys,                     2, __TOTAL_KEYS,                        TOTAL_KEYS_POS);
+                                                                                        ^
+variables.c(44): error: use of undeclared identifier 'ACTIVE_KEYS_POS'
+        InitVar(&ActiveKeys,                    2, __ACTIVE_KEYS,                       ACTIVE_KEYS_POS);
+                                                                                        ^
+variables.c(45): error: use of undeclared identifier 'FLASH_RESOURCE_POS'
+        InitVar(&FlashResourse,                 2, __FLASH_RESOURCE,            FLASH_RESOURCE_POS);
+                                                                                ^
+variables.c(47): error: use of undeclared identifier 'VAR_COUNT'
+Variable_t *variables[VAR_COUNT] =
+                      ^
+11 errors generated.
+compiling variables.c...
+".\Objects\LCDI.axf" - 47 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -173,15 +252,15 @@ Package Vendor: Megawin
 
    * Component: Megawin::ChipInit_Wizard:CSC:1.0.4
       Include file:  Device\MG32x02z\Package\MG32F02A032\MG32x02z_CSC_Init.h
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_CSC_Init.c
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
 
    * Component: Megawin::ChipInit_Wizard:GPIO:TSSOP20:1.0.2
-      Include file:  Device\MG32x02z\Package\MG32F02A032\TSSOP20\MG32x02z_GPIO_TSSOP20_Init.h
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_GPIO_Init.c
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_GPIO_Init.c
+      Include file:  Device\MG32x02z\Package\MG32F02A032\TSSOP20\MG32x02z_GPIO_TSSOP20_Init.h
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
 
    * Component: Megawin::ChipInit_Wizard:IRQ handler:1.0.5
       Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
@@ -189,98 +268,98 @@ Package Vendor: Megawin
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
 
    * Component: Megawin::ChipInit_Wizard:RST:1.0.1
-      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_RST_Init.c
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
+      Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
       Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_RST_Init.h
 
    * Component: Megawin::ChipInit_Wizard:Timer:1.0.0
-      Source file:   Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Source\MG32x02z_TM_Init.c
       Include file:  Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_TM_Init.h
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
+      Source file:   Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Source\MG32x02z_TM_Init.c
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
 
    * Component: Megawin::ChipInit_Wizard:URT:1.0.1
-      Include file:  Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_URT_Init.h
-      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
       Source file:   Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Source\MG32x02z_URT_Init.c
+      Include file:  Device\MG32x02z\MG32F02A032\MG32x02z_ConfigerWizard\Include\MG32x02z_URT_Init.h
       Source file:   Device\MG32x02z\Common\Initial\Source\MG32x02z_ChipInit.c
+      Include file:  Device\MG32x02z\Common\Initial\Include\MG32x02z_ChipInit.h
 
    * Component: Megawin::Device:Startup:1.0.4
-      Source file:   Sample\Driver\Source\Sample_main_wizard.c
-      Source file:   Sample\Driver\Source\Sample_Show_UID.c
-      Source file:   Device\MG32x02z\Common\Startup\system_MG32x02z.c
       Source file:   Device\MG32x02z\Common\Startup\startup_MG32x02z.s
+      Source file:   Device\MG32x02z\Common\Startup\system_MG32x02z.c
+      Source file:   Sample\Driver\Source\Sample_Show_UID.c
+      Source file:   Sample\Driver\Source\Sample_main_wizard.c
 
    * Component: Megawin::Driver:Driver-All:1.0.2
-      Source file:   Sample\Driver\Source\Sample_WakeupFromSTOPMode.c
-      Source file:   Sample\Driver\Source\Sample_Enter_STOP_SLEEP_Mode.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z__Common_DRV.c
       Source file:   Sample\Driver\Source\Sample_WakeupFromSLEEPMode.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPIO_DRV.c
-      Source file:   Sample\Driver\Source\Sample_I2C_ByteMode.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPL_DRV.c
-      Source file:   Sample\Driver\Source\Sample_I2C_withDMA.c
-      Source file:   Sample\Driver\Source\Sample_EXIC_Init.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_I2C_DRV.c
-      Source file:   Sample\Driver\Source\Sample_IWDT_Init.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CM0_DRV.c
-      Source file:   Sample\Driver\Source\Sample_DMA_M2M.c
-      Source file:   Sample\Driver\Source\Sample_IR_Receive.c
-      Source file:   Sample\Driver\Source\Sample_IR_Transmit.c
-      Source file:   Sample\Driver\Source\Sample_MEM_FlashAccess.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_PW_DRV.c
+      Source file:   Sample\Driver\Source\Sample_WakeupFromSTOPMode.c
+      Source file:   Sample\Driver\Source\Sample_Enter_STOP_SLEEP_Mode.c
+      Source file:   Sample\Driver\Source\Sample_ADC_Conversion.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_ADC_DRV.c
       Source file:   Sample\Driver\Source\Sample_ADC_GetVrefVoltage.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CFG_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RST_DRV.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_APB_DRV.c
       Source file:   Sample\Driver\Source\Sample_SysTick_Init.c
-      Source file:   Sample\Driver\Source\Sample_CMP_Init.c
-      Source file:   Sample\Driver\Source\Sample_ADC_Conversion.c
-      Source file:   Sample\Driver\Source\Sample_DMA.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_DMA_DRV.c
       Source file:   Sample\Driver\Source\Sample_GPL_CRC.c
-      Source file:   Sample\Driver\Source\Sample_I2C_ByteMode_Simple.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_IWDT_DRV.c
-      Source file:   Sample\Driver\Source\Sample_GPIO_Init.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_MEM_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_ADC_DRV.c
       Source file:   Sample\Driver\Source\Sample_Retarget.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CMP_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CSC_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_EXIC_DRV.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SYS_DRV.c
-      Source file:   Sample\Driver\Source\Sample_TM36_PWM.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI.c
-      Source file:   Sample\Driver\Source\Sample_UART0_DMA.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_M2P.c
+      Source file:   Sample\Driver\Source\Sample_DMA_M2M.c
+      Source file:   Sample\Driver\Source\Sample_I2C_withDMA.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_PW_DRV.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RTC_DRV.c
-      Source file:   Sample\Driver\Source\Sample_RTC_PerpetualCalendar.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_P2M.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_TM_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CMP_DRV.c
+      Source file:   Sample\Driver\Source\Sample_I2C_ByteMode.c
+      Source file:   Sample\Driver\Source\Sample_I2C_ByteMode_Simple.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CM0_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_MEM_DRV.c
+      Source file:   Sample\Driver\Source\Sample_MEM_FlashAccess.c
       Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SPI_DRV.c
-      Source file:   Sample\Driver\Source\Sample_TM20_Capture.c
-      Source file:   Sample\Driver\Source\Sample_TM10_ClockOut.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI.c
-      Source file:   Sample\Driver\Source\Sample_TM36_IC3_DMA.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_URT_DRV.c
-      Source file:   Sample\Driver\Source\Sample_UART0_SPIMasterMode_TxRx.c
-      Source file:   Sample\Driver\Source\Sample_UART1_Init.c
-      Source file:   Sample\Driver\Source\Sample_UART0_Init.c
-      Source file:   Sample\Driver\Source\Sample_UART2_Init.c
-      Source file:   Sample\Driver\Source\Sample_UART3_Init.c
-      Source file:   Sample\Driver\Source\Sample_TM01_TRGO_UEV.c
-      Source file:   Sample\Driver\Source\Sample_URT_SPIFlash.c
-      Source file:   Sample\Driver\Source\Sample_WWDT_Init.c
-      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_WWDT_DRV.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_P2M.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_IT_Receive.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Flash.c
-      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_M2P.c
-      Source file:   Sample\Driver\Source\Sample_TM16_AutoStop.c
-      Source file:   Sample\Driver\Source\Sample_TM00_Delay.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_I2C_DRV.c
+      Source file:   Sample\Driver\Source\Sample_IR_Transmit.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPIO_DRV.c
+      Source file:   Sample\Driver\Source\Sample_DMA.c
+      Source file:   Sample\Driver\Source\Sample_GPIO_Init.c
+      Source file:   Sample\Driver\Source\Sample_CMP_Init.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CFG_DRV.c
+      Source file:   Sample\Driver\Source\Sample_IR_Receive.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_IWDT_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CSC_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_DMA_DRV.c
+      Source file:   Sample\Driver\Source\Sample_EXIC_Init.c
+      Source file:   Sample\Driver\Source\Sample_IWDT_Init.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RST_DRV.c
       Source file:   Sample\Driver\Source\Sample_RTC_Init.c
+      Source file:   Sample\Driver\Source\Sample_RTC_PerpetualCalendar.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_EXIC_DRV.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPL_DRV.c
+      Source file:   Sample\Driver\Source\Sample_TM00_Delay.c
+      Source file:   Sample\Driver\Source\Sample_TM36_PWM.c
+      Source file:   Sample\Driver\Source\Sample_UART0_Init.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_URT_DRV.c
+      Source file:   Sample\Driver\Source\Sample_UART3_Init.c
+      Source file:   Sample\Driver\Source\Sample_WWDT_Init.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_IT_Receive.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_P2M.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_P2M.c
+      Source file:   Sample\Driver\Source\Sample_TM20_Capture.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI_DMA_M2P.c
+      Source file:   Sample\Driver\Source\Sample_UART0_DMA.c
+      Source file:   Sample\Driver\Source\Sample_TM36_IC3_DMA.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SYS_DRV.c
+      Source file:   Sample\Driver\Source\Sample_UART1_Init.c
+      Source file:   Sample\Driver\Source\Sample_TM01_TRGO_UEV.c
+      Source file:   Sample\Driver\Source\Sample_UART2_Init.c
       Source file:   Sample\Driver\Source\Sample_TM26_OC.c
+      Source file:   Sample\Driver\Source\Sample_UART0_SPIMasterMode_TxRx.c
+      Source file:   Sample\Driver\Source\Sample_TM10_ClockOut.c
+      Source file:   Sample\Driver\Source\Sample_URT_SPIFlash.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Slave_StandardSPI.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_TM_DRV.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Flash.c
+      Source file:   Sample\Driver\Source\Sample_TM16_AutoStop.c
+      Source file:   Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_WWDT_DRV.c
+      Source file:   Sample\Driver\Source\Sample_SPI_Master_StandardSPI_DMA_M2P.c
 
    * Component: Megawin::IRQ_Handler:Enable TM0x NVIC:_TM01:1.0.0
       Source file:   Device\MG32x02z\Common\IRQ\MG32x02z_TM01_IRQ.c
@@ -297,7 +376,7 @@ Package Vendor: Megawin
    * Component: Megawin::IRQ_Handler:Enable URT0 NVIC:Level-0 (High):1.0.0
       Source file:   Device\MG32x02z\Common\IRQ\MG32x02z_URT0_IRQ.c
 Target not created.
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:11
 </pre>
 </body>
 </html>

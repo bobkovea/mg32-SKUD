@@ -4,6 +4,10 @@
 #include "iap.h"
 #include "packages.h"
 
+#define IAP_PAGE_COUNT 19
+#define IAP_SIZE IAP_PAGE_COUNT * IAP_PAGE_SIZE
+
+
 uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB);
 uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB);
 uint32_t DoCommand(uint8_t commNum, uint8_t commArg);
@@ -17,8 +21,9 @@ uint32_t GetKeyStatus(uint16_t keyIndex);
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber);
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber);
 
-void FillFlash(void);
+void FlashFirstInit(void);
 
+void FlashTestFill(void);
 
 typedef union 
 {
@@ -28,7 +33,7 @@ typedef union
 
 
 
-uint8_t VarsLenMas[READABLE_VAR_COUNT];
+//uint8_t VarsLenMas[VAR_COUNT];
 
 //----------------------------------------------------------------------------------------
 // Номера страниц
@@ -46,26 +51,18 @@ uint8_t VarsLenMas[READABLE_VAR_COUNT];
 // Страница 0: Внутренние переменные
 
 #define FIRST_WRITE_VALUE_POS 0
+
 #define FLASH_RESOURCE_POS 1
 
-// заводские значения переменных
-#define __GERKON_FILT_TIME_POS 10
-#define __SEND_ALARM_TIME_POS 11
-#define __REACTIVATE_ALARM_TIME_POS 12
-#define __BUZZER_OFF_TIME_POS 13
-#define __SEND_OFFLINE_EVENTS_POS 14
-#define __FREE_ACCESS_POS 15
-#define __MASTER_SLAVE_POS 16
-
-#define GERKON_FILT_TIME_POS 100
-#define SEND_ALARM_TIME_POS 101
-#define REACTIVATE_ALARM_TIME_POS 102
-#define BUZZER_OFF_TIME_POS 103
-#define SEND_OFFLINE_EVENTS_POS 104
-#define FREE_ACCESS_POS 105
-#define MASTER_SLAVE_POS 106
-#define TOTAL_KEYS_POS 107
-#define ACTIVE_KEYS_POS 108
+#define GERKON_FILT_TIME_POS 10
+#define SEND_ALARM_TIME_POS 11
+#define REACTIVATE_ALARM_TIME_POS 12
+#define BUZZER_OFF_TIME_POS 13
+#define SEND_OFFLINE_EVENTS_POS 14
+#define FREE_ACCESS_POS 15
+#define MASTER_SLAVE_POS 16
+#define TOTAL_KEYS_POS 17
+#define ACTIVE_KEYS_POS 18
 
 // Страница 1: Архив событий
 

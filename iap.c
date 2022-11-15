@@ -152,13 +152,29 @@ uint32_t IAP_GetNumberOfPages()
 //----------------------------------------------------------------------------------------
 // Функция записывает слово (4 байта) по индексу
 // Индекс изменяется от 0 до размера выделенной IAP / 4
-// !объединить с другими функциями чтения
 //----------------------------------------------------------------------------------------
-uint8_t IAP_WriteWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length)
+uint8_t IAP_SingleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length)
 {
 	// Если пишем за пределы выделенной памяти
 	if (WordIndexInIAP * 4 >= MEM_GetIAPSize())
 		return DRV_Failure;
+	
+	return IAP_Multiple_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), DataStartAddress, Length);
+} 
+
+
+//----------------------------------------------------------------------------------------
+// Функция записывает слово (4 байта) по индексу
+// Индекс изменяется от 0 до размера выделенной IAP / 4
+//----------------------------------------------------------------------------------------
+uint8_t IAP_WriteMultipleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length)
+{
+	// Если пишем за пределы выделенной памяти
+	if (WordIndexInIAP * 4 >= MEM_GetIAPSize())
+		return DRV_Failure;
+	
+	DRV_Return IAP_Single_Write(uint32_t IAPStartAddress, uint32_t ProgramData)
+		
 	
 	return IAP_Multiple_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), DataStartAddress, Length);
 } 

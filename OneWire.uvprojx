@@ -419,21 +419,6 @@
               <FilePath>.\wdt.c</FilePath>
             </File>
             <File>
-              <FileName>timers_irq.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\timers_irq.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart_irq.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\usart_irq.c</FilePath>
-            </File>
-            <File>
-              <FileName>flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\flash.c</FilePath>
-            </File>
-            <File>
               <FileName>iap.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\iap.c</FilePath>
@@ -444,19 +429,9 @@
               <FilePath>.\onewire.c</FilePath>
             </File>
             <File>
-              <FileName>ds18b20.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ds18b20.c</FilePath>
-            </File>
-            <File>
               <FileName>keys.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\keys.c</FilePath>
-            </File>
-            <File>
-              <FileName>keys_old.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\keys_old.c</FilePath>
             </File>
             <File>
               <FileName>skud.c</FileName>
@@ -472,6 +447,31 @@
               <FileName>Parsing.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Parsing.c</FilePath>
+            </File>
+            <File>
+              <FileName>events.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\events.c</FilePath>
+            </File>
+            <File>
+              <FileName>variables.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\variables.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart_irq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usart_irq.c</FilePath>
+            </File>
+            <File>
+              <FileName>timers_irq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\timers_irq.c</FilePath>
+            </File>
+            <File>
+              <FileName>ibutton.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ibutton.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -514,11 +514,6 @@
               <FilePath>.\wdt.h</FilePath>
             </File>
             <File>
-              <FileName>flash.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\flash.h</FilePath>
-            </File>
-            <File>
               <FileName>iap.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\iap.h</FilePath>
@@ -534,11 +529,6 @@
               <FilePath>.\keys.h</FilePath>
             </File>
             <File>
-              <FileName>keys_old.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\keys_old.h</FilePath>
-            </File>
-            <File>
               <FileName>skud.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\skud.h</FilePath>
@@ -552,6 +542,21 @@
               <FileName>packages.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\packages.h</FilePath>
+            </File>
+            <File>
+              <FileName>variables.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\variables.h</FilePath>
+            </File>
+            <File>
+              <FileName>events.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\events.h</FilePath>
+            </File>
+            <File>
+              <FileName>ibutton.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ibutton.h</FilePath>
             </File>
           </Files>
         </Group>

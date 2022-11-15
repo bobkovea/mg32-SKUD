@@ -5,6 +5,7 @@
 #include "crc.h"
 #include "timers.h"
 #include "packages.h"
+#include "flash_static.h"
 
 uint8_t KeyEncrypted[KEY_ENCRYPTED_SIZE] = {};
 uint8_t KeyRaw[KEY_RAW_SIZE] = {}; 
@@ -42,21 +43,8 @@ uint32_t CheckKey(void)
 	}
 	
 	return KEY_IS_INVALID;
-
-
-
-
-
-
-
-
-
-
-
-
-
-uint8_t keyCurrent[8]; // буфер для считанного ключа
-
+	
+	
 uint8_t key1[8] = { 0x01, 0x14, 0xE6, 0x81, 0x0F, 0x00, 0x00, 0xF5 }; // черный без задней крышки
 uint8_t key2[8] = { 0x01, 0xD8, 0xD3, 0x73, 0x01, 0x00, 0x00, 0xC3 }; // синий
 uint8_t key3[8] = { 0x01, 0x3A, 0x6F, 0x14, 0x09, 0x00, 0x00, 0xD9 }; // черный с наклейкой
@@ -67,80 +55,4 @@ uint8_t key_test[8] = { 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE };
 
 uint8_t *keys[5] = { key1, key2, key3, key4, key5 };
 
-boolean AlarmManual = 1;
-boolean SendEventPackages = 1;
-boolean AnyKeyAccess = 0;
-boolean ManualAddMode = 0;
-boolean NoNetworkPackages = 1;
 
-
-void FillFlash(void)
-{
-	
-	uint32_t sWord = 0xABABABAB;
-	uint32_t kCnt = 0 /*(IAP_SIZE - 16) / 8*/;
-	uint32_t nWrite = 0x01;
-	uint32_t crc = 0xCCCCCCCC;
-	
-	
-//	IAP_CopyRAMInIAP(8, key1, sizeof(key1));
-//	IAP_CopyRAMInIAP(16, key2, sizeof(key2));
-//	IAP_CopyRAMInIAP(24, key3, sizeof(key3));
-//	IAP_CopyRAMInIAP(32, key4, sizeof(key4));
-//	IAP_CopyRAMInIAP(40, key5, sizeof(key5));
-	
-	IAP_CopyRAMInIAP(IAP_SIZE - 8, &nWrite, sizeof(nWrite));
-	IAP_CopyRAMInIAP(IAP_SIZE - 4, &crc, sizeof(crc));
-
-//	
-	for (uint32_t i = 8; i < 2048 - 24; i += 8)
-    {
-		kCnt++;
-		IAP_CopyRAMInIAP(i, key1, sizeof(key1));
-    }
-	
-	IAP_CopyRAMInIAP(2048 - 24, key2, sizeof(key2));
-	kCnt++;
-	
-	IAP_CopyRAMInIAP(0, &sWord, sizeof(sWord));
-	IAP_CopyRAMInIAP(4, &kCnt, sizeof(kCnt));
-	
-
-//	
-//	IAP_CopyRAMInIAP(1024 - 24, key2, sizeof(key2));
-//	IAP_CopyRAMInIAP(1024 - 16, key3, sizeof(key3));
-//	IAP_CopyRAMInIAP(1024 - 8, key3, sizeof(key3));
-}
-
-void CopyFlash(void)
-{
-	return; 
-}
-
-void ChangeKey(uint8_t keyNumber)
-{
-
-
-}
-
-
-uint8_t DS1990A_GetID (void)	
-{	
-	uint8_t Presence = OneWire_Start();
-	delay_ms(1);
-	if (Presence) 
-	{
-		OneWire_Write (0x33); 
-		for (uint8_t i = 0; i < 8; i++)
-		{
-			keyCurrent[i] = OneWire_Read();
-//			URT_Write(keyCurrent[i]);
-		}
-		if (keyCurrent[7] == Do_CRC(keyCurrent, 7))
-			return 1;
-		// несколько считываний подряд
-		
-	}
-	return 0;
-
-}
