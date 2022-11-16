@@ -55,7 +55,7 @@ void PRSM3_ParseMessage(void)
 	TM_Timer_Cmd(TM01, DISABLE); 
 
 	// Сколько было фактически принято байт
-	CommandSize = iptr; // мб вообще убрать? какой-то костыль.
+	CommandSize = iptr;
 
     // обнуляем всё
     DecryptedMessageLen = 0;
@@ -98,11 +98,11 @@ void PRSM3_ParseMessage(void)
 
 void PRSM3_ParseWriteRequest9(void)
 {
-	if (CommandSize != 9)
-	{
-		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
-		return;
-	}
+//	if (CommandSize != 9) // как это возможно исходя из логики?
+//	{
+//		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
+//		return;
+//	}
 
 // Проверка контрольной суммы
 //	if (CRCisWrong(RecBytes, CommandSize))
@@ -150,11 +150,11 @@ void PRSM3_ParseWriteRequest9(void)
 
 void PRSM3_ParseWriteRequest24(void)
 {
-	if (CommandSize != 24)
-	{
-		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
-		return;
-	}
+//	if (CommandSize != 24)
+//	{
+//		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
+//		return;
+//	}
 
 // Проверка контрольной суммы
 //	if (CRCisWrong(RecBytes, CommandSize))
@@ -188,11 +188,11 @@ void PRSM3_ParseWriteRequest24(void)
 
 void PRSM3_ParseReadRequest(void)
 {
-	if (CommandSize != 6)
-	{
-		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_READ9);
-		return;
-	}
+//	if (CommandSize != 6)
+//	{
+//		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_READ9);
+//		return;
+//	}
 
 // Проверка контрольной суммы
 //	if (CRCisWrong(RecBytes, CommandSize))
@@ -215,7 +215,7 @@ void PRSM3_ParseReadRequest(void)
 			}
 		
 			RecBytes[READVAR1_VALUE_LSB_POS] = (uint8_t) var;
-			RecBytes[READVAR1_VALUE_MSB_POS] = (uint8_t) (var >> 8);
+			RecBytes[READVAR1_VALUE_MSB_POS] = (uint8_t) (var << 8);
 		
 			CommandSize = 9;
 			PRSM3_ReturnReply(FCODE_READ9);
@@ -230,6 +230,7 @@ void PRSM3_ParseReadRequest(void)
 					PRSM3_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
 					return;
 				}
+				
 				if (variables[i]->byteSize == 1) {
 					RecBytes[j] = (uint8_t) var;
 				}

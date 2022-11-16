@@ -53,6 +53,48 @@ uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB
 	return 0;
 }
 
+
+
+uint32_t SetVariablePack(uint8_t *packStartAddr)
+{
+	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
+	uint8_t *tmpAddr = packStartAddr;
+	uint16_t var; 
+	
+	for (uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+	{
+		// отделяем двухбайтные переменные от однобайтных
+		var = 0;
+		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
+			var |= *tmpAddr++ << (8 * byteNum);
+		fpage.word[variables[i]->indexOnPage] = var;
+	}
+
+	fpage.word[FLASH_RESOURCE_POS]++;
+	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
+	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
+	return 0;
+}
+
+uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
+{
+	if (operationType > 0x01) return UINT32_MAX;
+	
+	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
+	
+	if (keyIndex >= IAP_PAGE_SIZE) return UINT32_MAX;
+	
+	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return UINT32_MAX;
+	
+	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
+	fpage.byte[keyIndex] = operationType;
+
+	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
+	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+	return 0;
+}
+
+
 uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 {
 	if (commArg > 0x02) return UINT32_MAX;
@@ -97,51 +139,6 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 			return UINT32_MAX;
 	}	
 	return 0;
-}
-
-uint32_t SetVariablePack(uint8_t *packStartAddr)
-{
-	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
-	uint8_t *tmpAddr = packStartAddr;
-	uint16_t var; 
-	
-	for (uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
-	{
-		// отделяем двухбайтные переменные от однобайтных
-		var = 0;
-		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
-			var |= *tmpAddr++ << (8 * byteNum);
-		fpage.word[variables[i]->indexOnPage] = var;
-	}
-
-	fpage.word[FLASH_RESOURCE_POS]++;
-	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
-	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
-	return 0;
-}
-
-
-uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
-{
-	if (operationType > 0x01) return UINT32_MAX;
-	
-	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
-	
-	if (keyIndex >= IAP_PAGE_SIZE) return UINT32_MAX;
-	
-	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return UINT32_MAX;
-	
-	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
-	fpage.byte[keyIndex] = operationType;
-
-	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
-	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
-	return 0;
-}
-
-uint32_t GetKeyStatus(uint16_t keyIndex)
-{
-	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex);
 }
 
 uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
@@ -213,6 +210,11 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
 	
 	return 0;
+}
+
+uint32_t GetKeyStatus(uint16_t keyIndex)
+{
+	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex);
 }
 
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
