@@ -17,6 +17,15 @@ extern uint8_t KeyRaw[KEY_RAW_SIZE];
 
 uint8_t DS1990A_GetKeyID (void);
 
+extern uint8_t key1[16];
+extern uint8_t key2[16];
+extern uint8_t key3[16];
+extern uint8_t key4[16];
+extern uint8_t key5[16];
+
+extern uint8_t key_test[16];
+
+extern uint8_t *keys[5];
 
 
 

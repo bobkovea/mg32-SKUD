@@ -9,6 +9,11 @@
 #include "gpio.h"
 #include "timers.h"
 #include "crc.h"
+#include "onewire.h"
+#include "keys.h"
+#include "skud_algo.h"
+#include "packages.h"
+#include "prsm3.h"
 
 
 

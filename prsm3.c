@@ -9,10 +9,10 @@ uint8_t	DecryptedMessageLen = 0;
 // массив с длинами посылок
 uint8_t MessageLenArr[4] = { 4, 6, 9, 24 };
 // длина посылки (фактическая)
-uint8_t	CommandSize;
+uint8_t	CommandSize = 0;
 // счетчик ожидания очистки буфера после приема последнего байта посылки
 uint8_t usUsart = 0; 
-// затычка
+// приняли все байты (а посылки) или еще нет
 uint8_t parsingStatus = STATUS_COLLECTING_BYTES; 
 
 //----------------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ void PRSM3_AddNewByte(void) // вызывается когда пришел оч
 	// после конца посылки вычитываем приходящие "лишние байты"
     if ((parsingStatus = STATUS_PARSE_WAITING) || (iptr >= RX_BUFFER_SIZE))
 	{ 
-		URT_GetRXData(URT0);
+		URT_GetRXData(URT0); // проверить, можно ли обойтись без этого
 		return;
     }
 	// пока массив-буфер не переполнен, кладем туда по байту
@@ -42,10 +42,6 @@ void PRSM3_AddNewByte(void) // вызывается когда пришел оч
 			TM_Timer_Cmd(TM01, ENABLE); // запускаем таймер на 1ms // start_parsing
         }
     }
-	
-
-	
-
 }  
 
 //----------------------------------------------------------------------------------------
@@ -62,7 +58,7 @@ void PRSM3_ParseMessage(void)
 	CommandSize = iptr;
 
     // обнуляем всё
-    DecryptedMessLen = 0;
+    DecryptedMessageLen = 0;
     iptr = 0;
 	usUsart = 0;
 	
@@ -71,7 +67,8 @@ void PRSM3_ParseMessage(void)
     delay_ms(2);
 	
 	// Проверка адреса 
-	if ((RecBytes[ADDRMSB_POS] != DEVICE_ADDRESS_H) || (RecBytes[ADDRLSB_POS] != DEVICE_ADDRESS_L)) 
+	if ((RecBytes[ADDRMSB_POS] != DEVICE_ADDRESS_MSB) ||
+		(RecBytes[ADDRLSB_POS] != DEVICE_ADDRESS_LSB)) 
 	{
 		PRSM3_ReturnReply(ECODE_WRONG_ADDR | FCODE_WRITE4);
 		return;
@@ -234,11 +231,11 @@ void PRSM3_ParseReadRequest(void)
 					PRSM3_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
 					return;
 				}
-				if (VarsLenMas[i] == 1) {
+				if (variables[i]->byteSize == 1) {
 					RecBytes[j] = (uint8_t) var;
 				}
 				
-				else if (VarsLenMas[i] == 2)
+				else if (variables[i]->byteSize == 2)
 				{
 					RecBytes[j++] = (uint8_t) var;
 					RecBytes[j] = (uint8_t) (var >> 8);
@@ -266,7 +263,7 @@ void PRSM3_ParseReadRequest(void)
 //----------------------------------------------------------------------------------------
 void PRSM3_ReturnReply(uint8_t RetCode)
 {
-    REDE_PIN = 1; // ADM485 на передачу
+	USART_CONFIG_TRANSMIT(); // ADM485 на передачу
 	
 	// Кладем код ответа в посылку-ответ 
 	RecBytes[2] = RetCode;
@@ -291,7 +288,7 @@ void PRSM3_ReturnReply(uint8_t RetCode)
 void PRSM3_clearBuffer() // что-то непонятное
 {
     iptr = 0;
-    DecryptedMessLen = 0;
+    DecryptedMessageLen = 0;
     usUsart = 0;
 	parsingStatus = STATUS_COLLECTING_BYTES;
 	

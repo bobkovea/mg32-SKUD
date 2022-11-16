@@ -10,18 +10,21 @@
 #include "keys.h"
 #include "variables.h"
 
+#define USART_CONFIG_RECEIVE() REDE_PIN = 0;
+#define USART_CONFIG_TRANSMIT() REDE_PIN = 1;
+
 #define RX_BUFFER_SIZE 30
 
-#define DEVICE_ADDRESS_H 0x43
-#define DEVICE_ADDRESS_L 0x10
+#define DEVICE_ADDRESS_MSB 0x43
+#define DEVICE_ADDRESS_LSB 0x10
 
 #define STATUS_COLLECTING_BYTES 0x00
 #define STATUS_PARSE_WAITING 0x01
 
 
-uint8_t RecBytes[RX_BUFFER_SIZE];
-uint8_t MessageLen[4];
-uint8_t	iptr, DecryptedMessLen, CommandSize, usUsart, parsingStatus;
+extern uint8_t RecBytes[RX_BUFFER_SIZE];
+extern uint8_t MessageLen[4];
+extern uint8_t iptr, DecryptedMessageLen, CommandSize, usUsart, parsingStatus;
 
 void PRSM3_AddNewByte(void);
 void PRSM3_ParseMessage(void);

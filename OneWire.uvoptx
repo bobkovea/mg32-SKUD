@@ -125,7 +125,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DbgCM</Key>
-          <Name>-UMLink -O718 -S0 -C0 -TO65554 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO31 -FD20000000 -FC1000 -FN1 -FF0MG32F02A032_FLM -FS00 -FL08000 -FP0($$Device:MG32F02A032$Flash\MG32F02A032_FLM.FLM)</Name>
+          <Name>-UMLink -O718 -S0 -C0 -TO65554 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO31 -FD20000000 -FC1000 -FN1 -FF0MG32F02A032_FLM.FLM -FS00 -FL08000 -FP0($$Device:MG32F02A032$Flash\MG32F02A032_FLM.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>
@@ -391,8 +391,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Sample_TM00_Delay.c</PathWithFileName>
-      <FilenameWithoutPath>Sample_TM00_Delay.c</FilenameWithoutPath>
+      <PathWithFileName>.\md5.c</PathWithFileName>
+      <FilenameWithoutPath>md5.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -593,6 +593,18 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\ibutton.h</PathWithFileName>
       <FilenameWithoutPath>ibutton.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>2</GroupNumber>
+      <FileNumber>35</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\md5.h</PathWithFileName>
+      <FilenameWithoutPath>md5.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -10,7 +10,7 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6140001::V6.14.1::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>LCDI</OutputName>
+          <OutputName>TMC</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -469,9 +469,9 @@
               <FilePath>.\ibutton.c</FilePath>
             </File>
             <File>
-              <FileName>Sample_TM00_Delay.c</FileName>
+              <FileName>md5.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sample_TM00_Delay.c</FilePath>
+              <FilePath>.\md5.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -557,6 +557,11 @@
               <FileName>ibutton.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ibutton.h</FilePath>
+            </File>
+            <File>
+              <FileName>md5.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\md5.h</FilePath>
             </File>
           </Files>
         </Group>

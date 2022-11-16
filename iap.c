@@ -20,10 +20,8 @@ void IAP_Init(uint32_t IAPSize)
 //----------------------------------------------------------------------------------------
 // Функция очищает одну страницу IAP по её порядковому номеру
 //----------------------------------------------------------------------------------------
-void IAP_Erase_OnePage (uint16_t PageNumber) {
-	// Если обращаемся за пределы выделенной памяти
-	if (PageNumber >= (MEM_GetIAPSize() / IAP_PAGE_SIZE))
-		return;
+void IAP_Erase_OnePage (uint16_t PageNumber)
+{
 	IAP_Erase_Page(IAP_START_ADDRESS + (IAP_PAGE_SIZE * PageNumber), 1);
 }
 
@@ -37,31 +35,43 @@ void IAP_FullErase(void)
 
 
 //----------------------------------------------------------------------------------------
-// Функция читает 1 байт из IAP по индексу
+// Функция читает 1 байт из IAP по индексу байта
 // Индекс изменяется от 0 до размера выделенной IAP
 //----------------------------------------------------------------------------------------
 uint8_t IAP_ReadByte(uint32_t ByteIndexInIAP)
 {
-	// Если пишем за пределы выделенной памяти
-	if (ByteIndexInIAP >= MEM_GetIAPSize())
-		return DRV_Failure;
-
 	return *(uint8_t *)(IAP_START_ADDRESS + ByteIndexInIAP);
 }
 
 
 //----------------------------------------------------------------------------------------
-// Функция читает слово (4 байта) из IAP по индексу
+// Функция читает слово (4 байта) из IAP по индексу байта
 // Индекс изменяется от 0 до размера выделенной IAP
 //----------------------------------------------------------------------------------------
 uint32_t IAP_ReadWord(uint32_t ByteIndexInIAP)
 {
-	// Если читаем за пределы выделенной памяти
-	if (ByteIndexInIAP  >= MEM_GetIAPSize())
-		return DRV_Failure;
-
 	return *(uint32_t *)(IAP_START_ADDRESS + ByteIndexInIAP);
 }
+
+//----------------------------------------------------------------------------------------
+// Функция записывает слово (4 байта) по индексу
+// Индекс изменяется от 0 до размера выделенной IAP / 4
+//----------------------------------------------------------------------------------------
+uint8_t IAP_WriteSingleWord(uint32_t WordIndexInIAP, uint32_t WordValue)
+{
+	return IAP_Single_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), WordValue);
+} 
+
+
+//----------------------------------------------------------------------------------------
+// Функция записывает поток слов (4 байта) начиная с индекса памяти
+// Индекс изменяется от 0 до размера выделенной IAP / 4
+//----------------------------------------------------------------------------------------
+uint8_t IAP_WriteMultipleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length)
+{
+	return IAP_Multiple_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), DataStartAddress, Length);
+} 
+
 
 //----------------------------------------------------------------------------------------
 // Функция копирует данные из структуры в ОЗУ в IAP, возвращает успех (0) или нет (1)
@@ -69,44 +79,38 @@ uint32_t IAP_ReadWord(uint32_t ByteIndexInIAP)
 // StructInRAMPointer - указатель на структуру с данными;
 // StructInRAMSize - размер структуры в байтах (должен быть кратен 4!).
 //----------------------------------------------------------------------------------------
-uint8_t IAP_CopyRAMInIAP(uint32_t StartIndex, void *StructInRAMPointer, uint32_t StructInRAMSize)
+uint8_t IAP_CopyRAMInIAP(uint32_t StartByteIndex, void *StructInRAMPointer, uint32_t StructInRAMSize)
 {
-	return IAP_Multiple_Write(IAP_START_ADDRESS + StartIndex, 
-		(uint32_t)StructInRAMPointer, StructInRAMSize / 4);
-
+	return IAP_Multiple_Write(IAP_START_ADDRESS + StartByteIndex, 
+								(uint32_t)StructInRAMPointer, 
+								StructInRAMSize / 4);
 }
 
 //----------------------------------------------------------------------------------------
 // Функция копирует данные из IAP в структуру ОЗУ
-// StartIndex - стартовый индекс в IAP (должен быть кратен 4!);
-// StructInRAMPointer - указатель на структуру с данными ;
-// StructInRAMSize - размер структуры в байтах (должен быть кратен 4!).
+// StartIndex - стартовый индекс в IAP;
+// StructInRAMPointer - указатель на структуру с данными;
+// StructInRAMSize - размер структуры в байтах.
 //----------------------------------------------------------------------------------------
-void IAP_CopyIAPInRAM(uint32_t StartIndex, void *StructInRAMPointer, uint32_t StructInRAMSize)  
+void IAP_CopyIAPInRAM(uint32_t StartByteIndex, void *StructInRAMPointer, uint32_t StructInRAMSize)  
 { 	
-	uint32_t *tmp = (uint32_t *) StructInRAMPointer;
-
-	for (uint32_t i = StartIndex; i < StartIndex + StructInRAMSize; i += 4)
-		*tmp++ = IAP_ReadWord(i);
+	memcpy(StructInRAMPointer, 
+			(void *) (IAP_START_ADDRESS + StartByteIndex), 
+			StructInRAMSize);
 }
 
 
 //----------------------------------------------------------------------------------------
 // Функция сравнивает состояние структуры в IAP со структурой в ОЗУ
-// StartIndex - стартовый индекс в IAP (должен быть кратен 4!);
+// StartByteIndex - стартовый индекс байта в IAP;
 // StructInRAMPointer - указатель на структуру с данными;
-// StructInRAMSize - размер структуры в байтах (должен быть кратен 4!).
+// StructInRAMSize - размер структуры в байтах.
 //----------------------------------------------------------------------------------------
-uint8_t IAP_IsEqualToRAM(uint32_t StartIndex, void *StructInRAMPointer, uint32_t StructInRAMSize) 
+uint8_t IAP_IsEqualToRAM(uint32_t StartByteIndex, void *StructInRAMPointer, uint32_t StructInRAMSize) 
 {
-	
-	uint32_t *tmp = (uint32_t *)StructInRAMPointer;
-	
-	for (uint32_t i = StartIndex; i < StructInRAMSize; i+=4) {
-		if (*tmp++ != IAP_ReadWord(i))
-			return 0; // Структуры в IAP и RAM НЕ совпадают 
-	}
-	return 1; // Структуры в IAP и RAM совпадают 
+	return !memcmp((void *) (IAP_START_ADDRESS + StartByteIndex), 
+					StructInRAMPointer, 
+					StructInRAMSize);
 }
 
 //----------------------------------------------------------------------------------------
@@ -115,7 +119,6 @@ uint8_t IAP_IsEqualToRAM(uint32_t StartIndex, void *StructInRAMPointer, uint32_t
 //----------------------------------------------------------------------------------------
 uint32_t IAP_IsAreaEmpty(uint32_t StartIndex, uint32_t EndIndex)
 {
-	
 	for (uint32_t i = StartIndex; i <= EndIndex; i++) {
 		if (IAP_ReadByte(i) != 0xFF)
 			return 0;
@@ -149,35 +152,7 @@ uint32_t IAP_GetNumberOfPages()
 	return MEM_GetIAPSize() / IAP_PAGE_SIZE;
 } 
 
-//----------------------------------------------------------------------------------------
-// Функция записывает слово (4 байта) по индексу
-// Индекс изменяется от 0 до размера выделенной IAP / 4
-//----------------------------------------------------------------------------------------
-uint8_t IAP_SingleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length)
-{
-	// Если пишем за пределы выделенной памяти
-	if (WordIndexInIAP * 4 >= MEM_GetIAPSize())
-		return DRV_Failure;
-	
-	return IAP_Multiple_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), DataStartAddress, Length);
-} 
 
-
-//----------------------------------------------------------------------------------------
-// Функция записывает слово (4 байта) по индексу
-// Индекс изменяется от 0 до размера выделенной IAP / 4
-//----------------------------------------------------------------------------------------
-uint8_t IAP_WriteMultipleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length)
-{
-	// Если пишем за пределы выделенной памяти
-	if (WordIndexInIAP * 4 >= MEM_GetIAPSize())
-		return DRV_Failure;
-	
-	DRV_Return IAP_Single_Write(uint32_t IAPStartAddress, uint32_t ProgramData)
-		
-	
-	return IAP_Multiple_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), DataStartAddress, Length);
-} 
 
 //-----------------------------Фундаментальные функции----------------------------------//
 

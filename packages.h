@@ -2,7 +2,7 @@
 #define PACKAGES_H
 #include "MG32x02z_DRV.h"
 
-// макросы разных посылок
+// макросы для разных посылок
 #define KEY_STATUS_DEACTIVATED 0x00
 #define KEY_STATUS_ACTIVATED 0x01
 #define KEY_STATUS_FREE 0xFF
@@ -13,6 +13,17 @@
 
 #define COMM_ALLKEYACT 0x00
 #define COMM_FACTORY_NUM 0x01
+
+#define GERKON_FILT_TIME_CODE 0x00
+#define SEND_ALARM_TIME_CODE 0x01
+#define REACTIVATE_ALARM_TIME_CODE 0x02
+#define BUZZER_OFF_TIME_CODE 0x03
+#define SEND_OFFLINE_EVENTS_CODE 0x04
+#define FREE_ACCESS_CODE 0x05
+#define MASTER_SLAVE_CODE 0x06
+#define TOTAL_KEYS_CODE 0x07
+#define ACTIVE_KEYS_CODE 0x08
+#define FLASH_RESOURCE_CODE 0x09
 
 
 /* Коды ошибок (ECODE) */

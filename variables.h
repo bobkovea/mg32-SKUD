@@ -24,7 +24,7 @@ typedef struct
 {
 	uint8_t byteSize;
 	uint16_t factoryValue;
-	uint8_t indexOnROMPage;
+	uint8_t indexOnPage;
 //	uint16_t lLimit;
 //	uint16_t hLimit;
 } Variable_t;
@@ -41,8 +41,6 @@ extern Variable_t ActiveKeys;
 extern Variable_t FlashResourse;
 
 extern Variable_t *variables[VAR_COUNT];
-
-void InitVariables();
 
 #endif // VARIABLES_H
 

@@ -15,8 +15,7 @@ uint8_t DS1990A_GetKeyID (void)
 		}
 		if (KeyRaw[KEY_RAW_SIZE - 1] == Do_CRC(KeyRaw, KEY_RAW_SIZE - 1))
 			return KEY_ON_LINE;
-		// несколько считываний подряд
-		
+		// несколько считываний подряд (?)
 	}
 	return NO_KEY;
 

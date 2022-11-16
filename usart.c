@@ -9,7 +9,7 @@
 //----------------------------------------------------------------------------------------
 void URT_Rx_Callback(void) {
 	
-	PRSM3AddNewByte();
+	PRSM3_AddNewByte();
 	usUsart = 1;
 }
 

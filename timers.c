@@ -3,7 +3,7 @@
 #include "MG32x02z_GPIO_DRV.h"
 #include "usart.h"
 #include "gpio.h"
-#include "skud.h"
+#include "skud_algo.h"
 
 
 
@@ -29,79 +29,79 @@ void TIM10_Callback (void) {
 // T = 100 ms
 void TIM16_Callback (void) {
 	
-	alarmReloadCnt++;
-	alarmTimeoutCnt++;
-	waitBitchCnt++;
+//	alarmReloadCnt++;
+//	alarmTimeoutCnt++;
+//	waitBitchCnt++;
 }
 
 // T = 10 ms
 void TIM36_Callback (void) {
 	
-	switch (GetCurEvent())
-	{
-		case EventNull:
-			break;
-		
-		case EventOpened:
-			alarmTimeoutCnt = 0;
-		
-			buzzerCnt = 1;
-			piskNumMax = UINT16_MAX; // бесконечно пищим (настроить, чтоб не совсем бесконечно)
-			buzzerFreq = 100;
-			break;
-	
-		case EventValidKey:
-			
-			BUZZER_PIN = 0;
-			buzzerCnt = 1;
-			buzzerFreq = 20;
-			
-			piskNumCnt = 0;
-			piskNumMax = 4;
-			break;		
-		
-		case EventNotValidKey:
-			
-			BUZZER_PIN = 0;
-			buzzerCnt = 1;
-			buzzerFreq = 10;
-		
-			piskNumCnt = 0;
-			piskNumMax = 3;
-		
-//			waitBitch = TRUE;
-			break;	
-		
-		case EventTimeout:
-			alarmTimeoutCntMax = UINT32_MAX; //  это событие срабатывает единожды (до снятия тревоги)
-			break;
-		
-		case EventReadyForNewKey:
-			
-			waitBitchCnt = 0;
-//			waitBitch = FALSE;
-		
-			buzzerCnt = 1;
-			piskNumMax = UINT16_MAX; // бесконечно пищим
-			buzzerFreq = 100;
-			break;
-		
-		case EventReactivateAlarm:
-			
-			break;		
-	}
-	
-	if (!(buzzerCnt++ % buzzerFreq))
-	{	
-		BUZZER_PIN = !BUZZER_PIN;
-		piskNumCnt++;
-	}
-	
-	if (piskNumCnt >= piskNumMax * 2) // криво, оптимизировать
-	{
-		BUZZER_PIN = 0;
-		buzzerFreq = UINT32_MAX; // возможно, стоит сделать buzzerCnt uint16
-	}
+//	switch (GetCurEvent())
+//	{
+//		case EventNull:
+//			break;
+//		
+//		case EventOpened:
+//			alarmTimeoutCnt = 0;
+//		
+//			buzzerCnt = 1;
+//			piskNumMax = UINT16_MAX; // бесконечно пищим (настроить, чтоб не совсем бесконечно)
+//			buzzerFreq = 100;
+//			break;
+//	
+//		case EventValidKey:
+//			
+//			BUZZER_PIN = 0;
+//			buzzerCnt = 1;
+//			buzzerFreq = 20;
+//			
+//			piskNumCnt = 0;
+//			piskNumMax = 4;
+//			break;		
+//		
+//		case EventNotValidKey:
+//			
+//			BUZZER_PIN = 0;
+//			buzzerCnt = 1;
+//			buzzerFreq = 10;
+//		
+//			piskNumCnt = 0;
+//			piskNumMax = 3;
+//		
+////			waitBitch = TRUE;
+//			break;	
+//		
+//		case EventTimeout:
+//			alarmTimeoutCntMax = UINT32_MAX; //  это событие срабатывает единожды (до снятия тревоги)
+//			break;
+//		
+//		case EventReadyForNewKey:
+//			
+//			waitBitchCnt = 0;
+////			waitBitch = FALSE;
+//		
+//			buzzerCnt = 1;
+//			piskNumMax = UINT16_MAX; // бесконечно пищим
+//			buzzerFreq = 100;
+//			break;
+//		
+//		case EventReactivateAlarm:
+//			
+//			break;		
+//	}
+//	
+//	if (!(buzzerCnt++ % buzzerFreq))
+//	{	
+//		BUZZER_PIN = !BUZZER_PIN;
+//		piskNumCnt++;
+//	}
+//	
+//	if (piskNumCnt >= piskNumMax * 2) // криво, оптимизировать
+//	{
+//		BUZZER_PIN = 0;
+//		buzzerFreq = UINT32_MAX; // возможно, стоит сделать buzzerCnt uint16
+//	}
 }
 
 

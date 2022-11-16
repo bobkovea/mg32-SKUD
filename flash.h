@@ -1,12 +1,11 @@
-#ifndef FLASH_STATIC_H
-#define FLASH_STATIC_H
+#ifndef FLASH_H
+#define FLASH_H
 #include "MG32x02z_DRV.h"
 #include "iap.h"
 #include "packages.h"
 
 #define IAP_PAGE_COUNT 19
-#define IAP_SIZE IAP_PAGE_COUNT * IAP_PAGE_SIZE
-
+#define IAP_SIZE (IAP_PAGE_COUNT * IAP_PAGE_SIZE)
 
 uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB);
 uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB);
@@ -32,9 +31,6 @@ typedef union
 } flash_block_t;
 
 
-
-//uint8_t VarsLenMas[VAR_COUNT];
-
 //----------------------------------------------------------------------------------------
 // Номера страниц
 //----------------------------------------------------------------------------------------
@@ -42,7 +38,6 @@ typedef union
 #define PAGE_NUMBER_EVENTS 1
 #define PAGE_NUMBER_KEYSTATUS 2
 #define PAGE_NUMBER_KEYS_0 3
-#define PAGE_NUMBER_KEYS_LAST 3
 
 //----------------------------------------------------------------------------------------
 // Позиции переменных в памяти
@@ -87,4 +82,4 @@ typedef union
 
 // позиции с 0 до 63
 
-#endif // FLASH_STATIC_H
+#endif // FLASH_H
