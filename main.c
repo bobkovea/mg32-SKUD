@@ -1,6 +1,6 @@
 #include "main.h"
 
-uint8_t varPack = { 3, 0, 30, 0, 5, 88, 2, 0, 0, 0, 0, 0 };
+uint8_t varPackage[11] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5};
 
 int main()
 {
@@ -53,20 +53,23 @@ int main()
 	
 	FlashTestFill();
 
-	for (uint32_t i = 0; i < IAP_PAGE_SIZE - 900; i += 4)
-	{
-		URT_WriteWord(IAP_ReadWord(IAP_PAGE_SIZE * PAGE_NUMBER_VARS + i));
-		delay_ms(10);
-	}
+//	for (uint32_t i = 0; i < IAP_PAGE_SIZE - 900; i += 4)
+//	{
+//		URT_WriteWord(IAP_ReadWord(IAP_PAGE_SIZE * PAGE_NUMBER_VARS + i));
+//		delay_ms(10);
+//	}
 
-	SetVariablePack();
 	
-	for (uint32_t i = 0; i < IAP_PAGE_SIZE - 900; i += 4)
-	{
-		URT_WriteWord(IAP_ReadWord(IAP_PAGE_SIZE * PAGE_NUMBER_VARS + i));
-		delay_ms(10);
-	}
+	
 
+//	delay_ms(5000);
+//	for (uint32_t i = 0; i < IAP_PAGE_SIZE - 900; i += 4)
+//	{
+//		URT_WriteWord(IAP_ReadWord(IAP_PAGE_SIZE * PAGE_NUMBER_KEYSTATUS + i));
+//		delay_ms(10);
+//	}
+	
+	
 	
 	
 //	uint8_t mas[13] = { 0x43, 0x10, 0x0A,  };

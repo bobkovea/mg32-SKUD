@@ -55,13 +55,12 @@ void PRSM3_ParseMessage(void)
 	TM_Timer_Cmd(TM01, DISABLE); 
 
 	// Сколько было фактически принято байт
-	CommandSize = iptr;
+	CommandSize = iptr; // мб вообще убрать? какой-то костыль.
 
     // обнуляем всё
     DecryptedMessageLen = 0;
     iptr = 0;
 	usUsart = 0;
-	
 	
 	// Задержка до отправки ответа
     delay_ms(2);
