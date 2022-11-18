@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\TMC.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\TMC.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Wed Nov 16 16:58:07 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Sat Nov 19 00:26:35 2022
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -279,7 +279,7 @@ Global Symbols
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ActivateKey
 </UL>
 
-<P><STRONG><a name="[30]"></a>CopyRAMToFlashPage</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, flash.o(.text.CopyRAMToFlashPage))
+<P><STRONG><a name="[30]"></a>CopyRAMToFlashPage</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, flash.o(.text.CopyRAMToFlashPage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = CopyRAMToFlashPage &rArr; IAP_CopyRAMInIAP &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_CopyRAMInIAP
@@ -494,8 +494,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM01_Callback
 </UL>
 
-<P><STRONG><a name="[5a]"></a>PRSM3_ParseReadRequest</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, prsm3.o(.text.PRSM3_ParseReadRequest))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = PRSM3_ParseReadRequest &rArr; PRSM3_ReturnReply &rArr; wdt_enable
+<P><STRONG><a name="[5a]"></a>PRSM3_ParseReadRequest</STRONG> (Thumb, 116 bytes, Stack size 8 bytes, prsm3.o(.text.PRSM3_ParseReadRequest))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = PRSM3_ParseReadRequest &rArr; PRSM3_ReturnReply &rArr; wdt_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ReturnReply
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetVariable
@@ -503,7 +503,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
 </UL>
 
-<P><STRONG><a name="[5b]"></a>PRSM3_ParseWriteRequest24</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest24))
+<P><STRONG><a name="[5b]"></a>PRSM3_ParseWriteRequest24</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest24))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = PRSM3_ParseWriteRequest24 &rArr; AddKey &rArr; CopyRAMToFlashPage &rArr; IAP_CopyRAMInIAP &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
@@ -513,7 +513,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
 </UL>
 
-<P><STRONG><a name="[58]"></a>PRSM3_ParseWriteRequest9</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest9))
+<P><STRONG><a name="[58]"></a>PRSM3_ParseWriteRequest9</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest9))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = PRSM3_ParseWriteRequest9 &rArr; SetVariable &rArr; CopyRAMToFlashPage &rArr; IAP_CopyRAMInIAP &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable

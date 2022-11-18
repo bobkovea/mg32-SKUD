@@ -14,7 +14,8 @@ uint8_t	CommandSize = 0;
 uint8_t usUsart = 0; 
 // приняли все байты (а посылки) или еще нет
 uint8_t parsingStatus = STATUS_COLLECTING_BYTES; 
-
+// статус успеха операции
+uint32_t operStatus;
 //----------------------------------------------------------------------------------------
 // Функция вызывается при приеме каждого нового байта
 //----------------------------------------------------------------------------------------
@@ -54,7 +55,7 @@ void PRSM3_ParseMessage(void)
 	// Отключаем таймер
 	TM_Timer_Cmd(TM01, DISABLE); 
 
-	// Сколько было фактически принято байт
+	// Сколько было фактически принято байт ???
 	CommandSize = iptr;
 
     // обнуляем всё
@@ -113,8 +114,6 @@ void PRSM3_ParseWriteRequest9(void)
 	
 	switch (RecBytes[SCODE_POS])
 	{
-		uint32_t operStatus;
-		
 		case SCODE_ACTKEY:
 			operStatus = ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], 
 									 RecBytes[ACTKEY_KEYINDEX_LSB_POS], 
@@ -139,7 +138,7 @@ void PRSM3_ParseWriteRequest9(void)
 			return;
 		
 		CommandSize = 4;
-		if (operStatus == UINT32_MAX)
+		if (operStatus == FAILURE)
 			PRSM3_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
 		else 
 			PRSM3_ReturnReply(FCODE_WRITE4);
@@ -163,27 +162,32 @@ void PRSM3_ParseWriteRequest24(void)
 //		return;
 //	}
 	
+	CommandSize = 4;
+	
 	switch (RecBytes[SCODE_POS])
 	{
+		
 		case SCODE_ADDKEY:
-			AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
-				   RecBytes[ADDKEY_INDEX_LSB_POS], 
-				   RecBytes[ADDKEY_INDEX_MSB_POS], 
-				   &RecBytes[ADDKEY_KEY_MSB_POS]);
+			operStatus = AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
+						 RecBytes[ADDKEY_INDEX_LSB_POS], 
+						 RecBytes[ADDKEY_INDEX_MSB_POS], 
+						 &RecBytes[ADDKEY_KEY_MSB_POS]);
 			break;
 		
 		case SCODE_WRITEVARM:
-			SetVariablePack(&RecBytes[WRITEVARM_VALUE_1ST_POS]);
+			operStatus = SetVariablePack(&RecBytes[WRITEVARM_VALUE_1ST_POS]);
 			break;
 
 		default:
-			CommandSize = 4;
 			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
 			return;
 	}
-			
-	CommandSize = 4;
-	PRSM3_ReturnReply(FCODE_WRITE4);
+
+		if (operStatus == FAILURE)
+			PRSM3_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
+		else 
+			PRSM3_ReturnReply(FCODE_WRITE4);
+		return;
 }
 
 void PRSM3_ParseReadRequest(void)
@@ -204,43 +208,44 @@ void PRSM3_ParseReadRequest(void)
 	switch (RecBytes[SCODE_POS])
 	{
 		uint32_t var;
+		uint8_t *tmpAddr;
 		
 		case SCODE_READVAR1:
+			
 			var = GetVariable(RecBytes[READVAR1_NUM_POS]);
-		
-			if (var == UINT32_MAX)
+
+			if (var == FAILURE)
 			{
+				CommandSize = 9;
 				PRSM3_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
 				return;
 			}
 		
-			RecBytes[READVAR1_VALUE_LSB_POS] = (uint8_t) var;
-			RecBytes[READVAR1_VALUE_MSB_POS] = (uint8_t) (var << 8);
+			RecBytes[READVAR1_VALUE_LSB_POS] = var;
+			RecBytes[READVAR1_VALUE_MSB_POS] = var >> 8;
 		
 			CommandSize = 9;
 			PRSM3_ReturnReply(FCODE_READ9);
 			break;
 		
 		case SCODE_READVARM:
-			for (uint8_t i = 0, j = READVARM_VALUE_1ST_POS; i < VAR_COUNT; i++, j++)
+			
+			tmpAddr = &RecBytes[READVARM_VALUE_1ST_POS];
+			
+			for (uint8_t varNum = 0x00; varNum < VAR_COUNT; varNum++)
 			{
-				var = GetVariable(i);
-				if (var == UINT32_MAX)
+				var = GetVariable(varNum);
+				if (var == FAILURE)
 				{
+					CommandSize = 9;
 					PRSM3_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
 					return;
 				}
 				
-				if (variables[i]->byteSize == 1) {
-					RecBytes[j] = (uint8_t) var;
-				}
-				
-				else if (variables[i]->byteSize == 2)
-				{
-					RecBytes[j++] = (uint8_t) var;
-					RecBytes[j] = (uint8_t) (var >> 8);
-				}
-				
+				// отделяем двухбайтные переменные от однобайтных
+				for (uint8_t byteNum = 0; byteNum < variables[varNum]->byteSize; byteNum++)
+					*tmpAddr++ |= var >> (8 * byteNum);
+
 				CommandSize = 24;
 				PRSM3_ReturnReply(FCODE_READ24);
 				break;
@@ -261,7 +266,7 @@ void PRSM3_ParseReadRequest(void)
 // |Байт адреса1|Байт адреса2|Код команды с ошибкой| Команда | CRC |
 // CommandSize должна содержать полное число байт посылки
 //----------------------------------------------------------------------------------------
-void PRSM3_ReturnReply(uint8_t RetCode)
+void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизировать
 {
 	USART_CONFIG_TRANSMIT(); // ADM485 на передачу
 	
@@ -275,14 +280,14 @@ void PRSM3_ReturnReply(uint8_t RetCode)
     wdt_enable(WDTO_1S);
 	
 	// Отправляем посылку-ответ
-    for (uint8_t i = 0; i < CommandSize; i++) {
+    for (uint8_t i = 0; i < CommandSize; i++)
 		URT_Write(RecBytes[i]);
-    };
+		
 	// Дожидаемся завершения передачи
 	while(URT_IsTxEndTransmission() == TxBusy)	
 		;
 	
-	REDE_PIN = 0; // ADM485 на прием
+	USART_CONFIG_RECEIVE(); // ADM485 на прием
 }
 
 void PRSM3_clearBuffer() // что-то непонятное

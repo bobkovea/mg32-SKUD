@@ -4,8 +4,6 @@
 #include "usart.h"
 // отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
 //
-#define FAILURE UINT32_MAX
-#define SUCCESS 0
 
 flash_block_t fpage;
 

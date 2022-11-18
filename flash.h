@@ -4,6 +4,9 @@
 #include "iap.h"
 #include "packages.h"
 
+#define FAILURE UINT32_MAX
+#define SUCCESS 0
+
 #define IAP_PAGE_COUNT 19
 #define IAP_SIZE (IAP_PAGE_COUNT * IAP_PAGE_SIZE)
 
@@ -26,8 +29,8 @@ void FlashTestFill(void);
 
 typedef union 
 {
-	uint8_t byte[1024];
-	uint32_t word[128];
+	uint8_t byte[IAP_PAGE_SIZE];
+	uint32_t word[IAP_PAGE_SIZE / 4];
 } flash_block_t;
 
 
