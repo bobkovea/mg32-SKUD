@@ -1,4 +1,5 @@
 #include "prsm3.h"
+#include "events.h"
 
 // текущий номер байта
 uint8_t iptr = 0;
@@ -258,18 +259,24 @@ void PRSM3_ParseReadRequest(void)
     }
 }
 
-void PRSM3_EventResponse(uint8_t event,
-						 uint8_t status, 
-						 uint8_t time, 
-						 uint8_t keyIndexLSB, 
-						 uint8_t keyIndexMSB)
-{
 
-	RecBytes[SCODE_POS] = event;
-	RecBytes[EVENT_STATUS_POS] = status;
-	RecBytes[EVENT_TIME_POS] = time; // days
-	RecBytes[EVENT_KEYINDEX_LSB_POS] = keyIndexLSB;
-	RecBytes[EVENT_KEYINDEX_MSB_POS] = keyIndexMSB;
+
+Event_t* GetEvent(uint8_t eventNum)
+{
+	
+	return events[eventNum];
+};
+
+void PRSM3_EventResponse(uint8_t eventNum)
+{
+//	Event_t event = GetEvent(eventNum);
+	
+	RecBytes[SCODE_POS] = eventNum;
+	RecBytes[EVENT_STATUS_POS] = (events[eventNum]->status << 7) |
+								  events[eventNum]->repetitionCount;
+	RecBytes[EVENT_TIME_POS] = events[eventNum]->time; // days
+	RecBytes[EVENT_KEYINDEX_LSB_POS] = events[eventNum]->keyIndexLSB;
+	RecBytes[EVENT_KEYINDEX_MSB_POS] = events[eventNum]->keyIndexMSB;
 	
 	CommandSize = 9;
 	PRSM3_ReturnReply(FCODE_EVENT9);
