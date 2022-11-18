@@ -4,7 +4,7 @@
 #include "usart.h"
 // отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
 //
-#define FAIL UINT32_MAX
+#define FAILURE UINT32_MAX
 #define SUCCESS 0
 
 flash_block_t fpage;
@@ -49,7 +49,7 @@ void FlashFirstInit(void)
 
 uint32_t GetVariable(uint8_t varNumber)
 {
-	if (varNumber > VAR_COUNT) return FAIL;
+	if (varNumber > VAR_COUNT) return FAILURE;
 	return IAP_ReadWord(PAGE_NUMBER_VARS * IAP_PAGE_SIZE + variables[varNumber]->indexOnPage * 4);
 }
 
@@ -64,7 +64,7 @@ uint32_t GetVariable(uint8_t varNumber)
 
 uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
 {
-	if (varNumber > VAR_COUNT_WRITABLE) return FAIL;
+	if (varNumber > VAR_COUNT_WRITABLE) return FAILURE;
 	
 	uint16_t var = varValueLSB | (varValueMSB << 8);
 	
@@ -116,13 +116,13 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 
 uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
 {
-	if (operationType > 0x01) return FAIL;
+	if (operationType > 0x01) return FAILURE;
 	
 	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
 	
-	if (keyIndex >= IAP_PAGE_SIZE) return FAIL;
+	if (keyIndex >= IAP_PAGE_SIZE) return FAILURE;
 	
-	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return FAIL;
+	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return FAILURE;
 	
 	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
 	fpage.byte[keyIndex] = operationType;
@@ -142,7 +142,7 @@ uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyInde
 
 uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 {
-	if (commArg > 0x02) return FAIL;
+	if (commArg > 0x02) return FAILURE;
 
 	switch (commNum)
 	{
@@ -181,7 +181,7 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 			break;
 		
 		default:
-			return FAIL;
+			return FAILURE;
 	}	
 	return SUCCESS;
 }
@@ -191,7 +191,7 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 // Args:	activationType - новый статус активации ключа после выполнения операции
 // 			keyIndexLSB - младший байт индекса ключа; 
 // 			keyIndexMSB - старший байт индекса ключа;
-//			keyStartAddr - указатель на н
+//			keyStartAddr - указатель на первый байт ключа в массиве
 //			
 // Returns: 0 (успех); 
 //			UINT32_MAX (ошибка)
@@ -200,11 +200,11 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
 {
 	
-	if (activationType > 0x02) return FAIL;
+	if (activationType > 0x02) return FAILURE;
 	
 	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
 	
-	if (keyIndex >= IAP_PAGE_SIZE) return FAIL;
+	if (keyIndex >= IAP_PAGE_SIZE) return FAILURE;
 	
 	uint8_t oldKeyStatus = GetKeyStatus(keyIndex);
 	
@@ -268,10 +268,22 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	return SUCCESS;
 }
 
+//----------------------------------------------------------------------------------------
+// Функция извлекает из IAP статус ключа по его индексу
+// Args: 	keyIndex - индекс ключа
+// Returns: статус активации ключа по протоколу
+//----------------------------------------------------------------------------------------
+
 uint32_t GetKeyStatus(uint16_t keyIndex)
 {
 	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex);
 }
+
+//----------------------------------------------------------------------------------------
+// Функция копирует информацию со страницы IAP в "буфер-копию" страницы в ОЗУ
+// Args:	pageNumber - порядковый номер страницы в IAP
+// Returns: 0 (успех)
+//----------------------------------------------------------------------------------------
 
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
 {
@@ -279,10 +291,16 @@ uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
 	return SUCCESS;
 }
 
+//----------------------------------------------------------------------------------------
+// Функция копирует информацию из "буфера-копии" в ОЗУ на страницу IAP
+// Args:	pageNumber - порядковый номер страницы в IAP
+// Returns: 0 (успех)
+// 			1 (ошибка)
+//----------------------------------------------------------------------------------------
+
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
 {
-	IAP_CopyRAMInIAP(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
-	return SUCCESS;
+	return IAP_CopyRAMInIAP(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
 }
 
 
