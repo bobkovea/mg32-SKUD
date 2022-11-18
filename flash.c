@@ -4,6 +4,8 @@
 #include "usart.h"
 // отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
 //
+#define FAIL UINT32_MAX
+#define SUCCESS 0
 
 flash_block_t fpage;
 
@@ -15,6 +17,11 @@ void FlashTestFill(void)
 	AddKey(ACTKEY_DEACTIVATE, 3, 0, key4);
 	AddKey(ACTKEY_NOACTION, 4, 0, key5);
 }
+
+//----------------------------------------------------------------------------------------
+// Функция единократно вызывается после первого старта микроконтроллера
+// Всем переменным в IAP присваиваются значения по умолчанию
+//----------------------------------------------------------------------------------------
 
 void FlashFirstInit(void)
 {
@@ -33,15 +40,31 @@ void FlashFirstInit(void)
 	}
 } 
 
+//----------------------------------------------------------------------------------------
+// Функция извлекает из IAP значение переменной по её порядковому номеру в протоколе
+// Args: 	varNumber - порядковый номер переменной по протоколу
+// Returns: значение переменной (успех); 
+//			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------
+
 uint32_t GetVariable(uint8_t varNumber)
 {
-	if (varNumber > VAR_COUNT) return UINT32_MAX;
+	if (varNumber > VAR_COUNT) return FAIL;
 	return IAP_ReadWord(PAGE_NUMBER_VARS * IAP_PAGE_SIZE + variables[varNumber]->indexOnPage * 4);
 }
 
+//----------------------------------------------------------------------------------------
+// Функция устанавливает значение одной переменной в IAP по её порядковому номеру в протоколе
+// Args: 	varNumber - порядковый номер переменной по протоколу
+// 			varValueLSB - младший байт значения переменной; 
+// 			varValueMSB - старший байт значения переменной
+// Returns: 0 (успех); 
+//			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------
+
 uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
 {
-	if (varNumber > VAR_COUNT_WRITABLE) return UINT32_MAX;
+	if (varNumber > VAR_COUNT_WRITABLE) return FAIL;
 	
 	uint16_t var = varValueLSB | (varValueMSB << 8);
 	
@@ -50,10 +73,16 @@ uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
 	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
 	
-	return 0;
+	return SUCCESS;
 }
 
 
+//----------------------------------------------------------------------------------------
+// Функция устанавливает значение всех переменных в IAP по протоколу 
+// Args: 	packStartAddr - указатель на начало массива с переменными
+// Returns: 0 (успех); 
+//			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------
 
 uint32_t SetVariablePack(uint8_t *packStartAddr)
 {
@@ -73,31 +102,47 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 	fpage.word[FLASH_RESOURCE_POS]++;
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
 	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
-	return 0;
+	return SUCCESS;
 }
+
+//----------------------------------------------------------------------------------------
+// Функция устанавливает статус ключа в IAP
+// Args:	operationType - тип операции (деактивация или активация)
+// 			keyIndexLSB - младший байт индекса ключа; 
+// 			keyIndexMSB - старший байт индекса ключа
+// Returns: 0 (успех); 
+//			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------
 
 uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
 {
-	if (operationType > 0x01) return UINT32_MAX;
+	if (operationType > 0x01) return FAIL;
 	
 	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
 	
-	if (keyIndex >= IAP_PAGE_SIZE) return UINT32_MAX;
+	if (keyIndex >= IAP_PAGE_SIZE) return FAIL;
 	
-	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return UINT32_MAX;
+	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return FAIL;
 	
 	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
 	fpage.byte[keyIndex] = operationType;
 
 	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
 	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
-	return 0;
+	return SUCCESS;
 }
 
+//----------------------------------------------------------------------------------------
+// Функция реализует выполнение общих команд по протоколу
+// Args:	commNum - порядковый номер команды по протоколу
+// 			commArg - аргумент команды по протоколу; 
+// Returns: 0 (успех); 
+//			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------
 
 uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 {
-	if (commArg > 0x02) return UINT32_MAX;
+	if (commArg > 0x02) return FAIL;
 
 	switch (commNum)
 	{
@@ -136,19 +181,30 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 			break;
 		
 		default:
-			return UINT32_MAX;
+			return FAIL;
 	}	
-	return 0;
+	return SUCCESS;
 }
+
+//----------------------------------------------------------------------------------------
+// Функция реализует операцию добавления/изменения ключей доступа по индексу
+// Args:	activationType - новый статус активации ключа после выполнения операции
+// 			keyIndexLSB - младший байт индекса ключа; 
+// 			keyIndexMSB - старший байт индекса ключа;
+//			keyStartAddr - указатель на н
+//			
+// Returns: 0 (успех); 
+//			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------
 
 uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
 {
 	
-	if (activationType > 0x02) return UINT32_MAX;
+	if (activationType > 0x02) return FAIL;
 	
 	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
 	
-	if (keyIndex >= IAP_PAGE_SIZE) return UINT32_MAX;
+	if (keyIndex >= IAP_PAGE_SIZE) return FAIL;
 	
 	uint8_t oldKeyStatus = GetKeyStatus(keyIndex);
 	
@@ -197,7 +253,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	// изменяем статус ключа
 	
 	if (activationType == oldKeyStatus)
-		return 0;
+		return SUCCESS;
 	
 	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
 	
@@ -209,7 +265,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
 	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
 	
-	return 0;
+	return SUCCESS;
 }
 
 uint32_t GetKeyStatus(uint16_t keyIndex)
@@ -220,13 +276,13 @@ uint32_t GetKeyStatus(uint16_t keyIndex)
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
 {
 	IAP_CopyIAPInRAM(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
-	return 0;
+	return SUCCESS;
 }
 
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
 {
 	IAP_CopyRAMInIAP(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
-	return 0;
+	return SUCCESS;
 }
 
 
