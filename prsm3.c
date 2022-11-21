@@ -17,6 +17,7 @@ uint8_t usUsart = 0;
 uint8_t parsingStatus = STATUS_COLLECTING_BYTES; 
 // статус успеха операции
 uint32_t operStatus;
+
 //----------------------------------------------------------------------------------------
 // Функция вызывается при приеме каждого нового байта
 //----------------------------------------------------------------------------------------
@@ -259,29 +260,18 @@ void PRSM3_ParseReadRequest(void)
     }
 }
 
-
-
-Event_t* GetEvent(uint8_t eventNum)
+void PRSM3_EventResponse(Event_t *event)
 {
-	
-	return events[eventNum];
-};
-
-void PRSM3_EventResponse(uint8_t eventNum)
-{
-//	Event_t event = GetEvent(eventNum);
-	
-	RecBytes[SCODE_POS] = eventNum;
-	RecBytes[EVENT_STATUS_POS] = (events[eventNum]->status << 7) |
-								  events[eventNum]->repetitionCount;
-	RecBytes[EVENT_TIME_POS] = events[eventNum]->time; // days
-	RecBytes[EVENT_KEYINDEX_LSB_POS] = events[eventNum]->keyIndexLSB;
-	RecBytes[EVENT_KEYINDEX_MSB_POS] = events[eventNum]->keyIndexMSB;
+	RecBytes[SCODE_POS] 			 = event->eventNum;
+	RecBytes[EVENT_STATUS_POS] 		 = event->status << 7 |
+									   event->repetitionCount;
+	RecBytes[EVENT_TIME_POS] 		 = event->time;
+	RecBytes[EVENT_KEYINDEX_LSB_POS] = event->keyIndex;
+	RecBytes[EVENT_KEYINDEX_MSB_POS] = event->keyIndex >> 8;
 	
 	CommandSize = 9;
 	PRSM3_ReturnReply(FCODE_EVENT9);
 	return;
-
 }
 
 //----------------------------------------------------------------------------------------

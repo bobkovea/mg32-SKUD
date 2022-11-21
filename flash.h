@@ -20,9 +20,14 @@ uint32_t SetVariablePack(uint8_t *packStartAddr);
 uint32_t GetVariable(uint8_t varNumber);
 uint32_t GetKeyStatus(uint16_t keyIndex);
 
+uint32_t GetMaxFlashResource(void);
+uint32_t IncreaseFlashResource(uint8_t curPageNumber);
+
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber);
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber);
 
+
+	
 void FlashFirstInit(void);
 
 void FlashTestFill(void);
@@ -50,7 +55,7 @@ typedef union
 
 #define FIRST_WRITE_VALUE_POS 0
 
-#define FLASH_RESOURCE_POS 1
+#define FLASH_RESOURCE_POS 255
 
 #define GERKON_FILT_TIME_POS 10
 #define SEND_ALARM_TIME_POS 11
@@ -71,9 +76,10 @@ typedef union
 #define EVENT_ACCESS_STATUS 10
 #define EVENT_ACCESS_TIME 11
 #define EVENT_ACCESS_COUNT 12
+#define EVENT_ACCESS_KEYINDEX 13
 
 #define EVENT_ALARM_STATUS 20
-#define EVENT_ALARM_DOOR_TIME 21
+#define EVENT_ALARM_TIME 21
 #define EVENT_ALARM_COUNT 22
  
 // Страница 2: Статус ключей доступа

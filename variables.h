@@ -22,9 +22,11 @@
 
 typedef struct 
 {
-	uint8_t byteSize;
+	uint16_t value;
 	uint16_t factoryValue;
+	uint8_t byteSize;
 	uint8_t indexOnPage;
+	
 //	uint16_t lLimit;
 //	uint16_t hLimit;
 } Variable_t;
