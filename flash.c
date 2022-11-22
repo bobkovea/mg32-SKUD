@@ -46,26 +46,25 @@ void FlashFirstInit(void)
 	
 	else // если включение первое
 	{
-		URT_Write(0xCF);
 		// количество перезаписей на всех страницах (кроме ключей) = 1
 		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		
 			// копируем значения переменных по умолчанию из ОЗУ во флеш
-		for (uint8_t i = 0; i < VAR_COUNT; i++)
+		for (uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
 			IAP_WriteSingleWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage, variables[i]->factoryValue);
 
 		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, TotalKeys.indexOnPage, TotalKeys.factoryValue);
-		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, TotalKeys.indexOnPage, ActiveKeys.factoryValue);
+		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, ActiveKeys.indexOnPage, ActiveKeys.factoryValue);
 		
-//		// копируем значения событий по умолчанию из ОЗУ во флеш
-//		for (uint8_t i = 0; i < EVENT_COUNT; i++)
-//		{
-//			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 0, events[i]->time); 
-//			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 1, events[i]->status); 
-//			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 2, events[i]->repetitionCount); 
-//		}
+		// копируем значения событий по умолчанию из ОЗУ во флеш
+		for (uint8_t i = 0; i < EVENT_COUNT; i++)
+		{
+			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 0, events[i]->time); 
+			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 1, events[i]->status); 
+			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 2, events[i]->repetitionCount); 
+		}
 		
 		// выставляем флаг первой записи флеша
 		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
@@ -264,11 +263,9 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 
 uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
 {
-	
 	if (activationType > 0x02) return FAILURE;
-	
 	uint16_t keyIndex = keyIndexLSB | keyIndexMSB << 8;
-	
+
 	if (keyIndex > KEYS_MAX_INDEX) return FAILURE;
 	
 	// добавляем/меняем сам ключ

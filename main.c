@@ -50,32 +50,114 @@ int main()
 
 	FlashFirstInit();
 	
-//	FlashTestFill();
+	FlashTestFill();
+	
+//////////////////////////////////////////////////////////////
+// ТЕСТ ЧТЕНИЯ И ЗАПИСИ ПЕРЕМЕННОЙ
+	URT_WriteWord(GetVariable(0));
+	URT_WriteWord(GetVariable(1));
+		
+	URT_WriteWord(SetVariable(0, 0xAA, 0xBB));
+	URT_WriteWord(SetVariable(1, 0xCC, 0xDD));
 //	
-//	URT_WriteWord(IAP_ReadWord(0, 250)); 
-//	URT_WriteWord(IAP_ReadWord(0, 251)); 
-//	URT_WriteWord(IAP_ReadWord(0, 252)); 
-//	URT_WriteWord(IAP_ReadWord(0, 253)); 
-//	URT_WriteWord(IAP_ReadWord(0, 254)); 
-//	URT_WriteWord(IAP_ReadWord(0, 255)); 
-//	URT_WriteWord(IAP_ReadWord(0, 256)); 
-//	URT_WriteWord(IAP_ReadWord(0, 257)); 
+	URT_WriteWord(GetVariable(0));
+	URT_WriteWord(GetVariable(1));
 	
-	for (uint32_t i = 0; i < 256; i++)
-	{
-		URT_WriteWord(IAP_ReadWord(0, i)); 
-	}
+//////////////////////////////////////////////////////////////
+// ТЕСТ ЗАПИСИ ПАКА
 
-	
-	
+//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//		URT_WriteWord(GetVariable(i));
 
-//	delay_ms(5000);
-//	for (uint32_t i = 0; i < IAP_PAGE_SIZE - 900; i += 4)
+//	SetVariablePack(varPackage);
+//	
+//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//		URT_WriteWord(GetVariable(i));
+
+//////////////////////////////////////////////////////////////
+
+// ТЕСТ АКТИВАЦИИ КЛЮЧА
+
+//	for (uint32_t i = 0; i < 20; i++)
 //	{
-//		URT_WriteWord(IAP_ReadWord(IAP_PAGE_SIZE * PAGE_NUMBER_KEYSTATUS + i));
-//		delay_ms(10);
+//		URT_WriteWord(IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, i)); 
 //	}
+
+
+//	URT_WriteWord(ActivateKey(0, 0, 0));
+//	URT_WriteWord(ActivateKey(1, 0, 0));
+//	URT_WriteWord(ActivateKey(1, 10, 0));
+//	URT_WriteWord(ActivateKey(0, 10, 0));
+
+	//	for (uint32_t i = 0; i < 20; i++)
+//	{
+//		URT_WriteWord(IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, i)); 
+//	}
+
+//////////////////////////////////////////////////////////////
+
+// ТЕСТ КОМАНДЫ МАССОВАЯ АКТИВАЦИЯ КЛЮЧЕЙ
+
+//	for (uint32_t i = 0; i < 20; i++)
+//	{
+//		URT_WriteWord(IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, i)); 
+//	}
+
+//	DoCommand(0, 1);
+
+//	for (uint32_t i = 0; i < 20; i++)
+//	{
+//		URT_WriteWord(IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, i)); 
+//	}
+
+//////////////////////////////////////////////////////////////
+
+// ТЕСТ КОМАНДЫ ЗАВОДСКИЕ ЗНАЧЕНИЯ
+
+//	SetVariablePack(varPackage);
+//	
+//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//		URT_WriteWord(GetVariable(i));
+
+//	DoCommand(1, 123);
 	
+//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//		URT_WriteWord(GetVariable(i));
+
+//////////////////////////////////////////////////////////////
+
+// ТЕСТ КОМАНДЫ ДОБАВЛЕНИЕ/ИЗМЕНЕНИЕ КЛЮЧЕЙ
+
+//	for (uint32_t i = 0; i < 255; i++)
+//		URT_WriteWord(IAP_ReadWord(PAGE_NUMBER_KEYS_0, i));
+
+//	AddKey(ACTKEY_DEACTIVATE, 0, 0, key_test);
+//	AddKey(ACTKEY_DEACTIVATE, 1, 0, keys[0]);
+//	AddKey(ACTKEY_NOACTION, 2, 0, key_test);
+//	AddKey(ACTKEY_NOACTION, 3, 0, keys[1]);
+//	
+//	AddKey(ACTKEY_DEACTIVATE, 10, 0, key_test);
+//	AddKey(ACTKEY_ACTIVATE, 20, 0, keys[2]);
+//	AddKey(ACTKEY_NOACTION, 30, 0, key_test);
+//	AddKey(ACTKEY_NOACTION, 40, 0, keys[3]);
+//	
+//	for (uint32_t i = 0; i < 255; i++)
+//		URT_WriteWord(IAP_ReadWord(PAGE_NUMBER_KEYS_0, i));
+
+//	for (uint32_t i = 0; i < 255; i++)
+//		URT_WriteWord(IAP_ReadWord(PAGE_NUMBER_KEYSTATUS, i));
+
+//	for (uint32_t i = 0; i < 255; i++)
+//		URT_WriteWord(IAP_ReadWord(PAGE_NUMBER_VARS, i));
+
+//////////////////////////////////////////////////////////////
+
+
+
+
+		
+//	delay_ms(5000);
+
 	
 	
 	
@@ -84,13 +166,7 @@ int main()
 //	URT_Write(crc);
 
 //	URT_Write(CRCisWrong(mas, 13));
-	
 
-	
-//	for (uint32_t i = 0; i < 2048; i += 4)
-//	{
-//		URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
-//	}
 	
 //	BUZZER_PIN = 0;
 //	DO_PIN = 0;

@@ -80,7 +80,7 @@ uint8_t IAP_WriteSingleWord(uint8_t pageNumber, uint8_t wordIndexOnPage, uint32_
 uint8_t IAP_WriteMultipleWord(uint8_t pageNumber, uint8_t startWordIndexOnPage, void *startAddrInRAM, uint32_t wordsCount)
 {
 	return IAP_Multiple_Write(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
-		+ (startWordIndexOnPage * 4), (uint32_t)startAddrInRAM, wordsCount * 4);
+		+ (startWordIndexOnPage * 4), (uint32_t)startAddrInRAM, wordsCount);
 }
 
 //----------------------------------------------------------------------------------------
@@ -92,8 +92,8 @@ uint8_t IAP_WriteMultipleWord(uint8_t pageNumber, uint8_t startWordIndexOnPage, 
 
 void IAP_CopyFromIAPToRAM(uint8_t pageNumber, uint32_t startByteIndexOnPage, void *startAddrInRAM, uint32_t bytesCount)  
 { 	
-	memcpy(startAddrInRAM, (void *)(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
-		+ startByteIndexOnPage), bytesCount * 4);
+	memcpy(startAddrInRAM, (uint8_t*) (IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
+		+ startByteIndexOnPage), bytesCount);
 }
 
 //----------------------------------------------------------------------------------------

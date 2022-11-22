@@ -15,6 +15,7 @@ Section Cross References
     main.o(.text.main) refers to mg32x02z_urt_drv.o(.text.URT_IT_Config) for URT_IT_Config
     main.o(.text.main) refers to mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd) for URT_ITEA_Cmd
     main.o(.text.main) refers to flash.o(.text.FlashFirstInit) for FlashFirstInit
+    main.o(.text.main) refers to flash.o(.text.FlashTestFill) for FlashTestFill
     main.o(.text.main) refers to iap.o(.text.IAP_ReadWord) for IAP_ReadWord
     main.o(.text.main) refers to usart.o(.text.URT_WriteWord) for URT_WriteWord
     main.o(.text.main) refers to wdt.o(.text.wdt_reset) for wdt_reset
@@ -170,20 +171,16 @@ Section Cross References
     flash.o(.text.AddKey) refers to memcpya.o(.text) for __aeabi_memcpy
     flash.o(.text.AddKey) refers to iap.o(.text.IAP_Erase_OnePage) for IAP_Erase_OnePage
     flash.o(.text.AddKey) refers to flash.o(.text.CopyRAMToFlashPage) for CopyRAMToFlashPage
-    flash.o(.text.AddKey) refers to flash.o(.text.GetKeyStatus) for GetKeyStatus
-    flash.o(.text.AddKey) refers to flash.o(.text.UpdateFlashResource) for UpdateFlashResource
     flash.o(.text.AddKey) refers to flash.o(.bss.fpage) for fpage
-    flash.o(.text.AddKey) refers to variables.o(.data.ActiveKeys) for ActiveKeys
-    flash.o(.text.AddKey) refers to variables.o(.data.TotalKeys) for TotalKeys
-    flash.o(.text.AddKey) refers to variables.o(.data.FlashResourse) for FlashResourse
     flash.o(.ARM.exidx.text.AddKey) refers to flash.o(.text.AddKey) for [Anonymous Symbol]
     flash.o(.text.FlashFirstInit) refers to iap.o(.text.IAP_ReadWord) for IAP_ReadWord
     flash.o(.text.FlashFirstInit) refers to flash.o(.text.GetMaxFlashResource) for GetMaxFlashResource
-    flash.o(.text.FlashFirstInit) refers to usart.o(.text.URT_Write) for URT_Write
     flash.o(.text.FlashFirstInit) refers to iap.o(.text.IAP_WriteSingleWord) for IAP_WriteSingleWord
     flash.o(.text.FlashFirstInit) refers to variables.o(.data.variables) for variables
-    flash.o(.text.FlashFirstInit) refers to variables.o(.data.FlashResourse) for FlashResourse
+    flash.o(.text.FlashFirstInit) refers to variables.o(.data.TotalKeys) for TotalKeys
+    flash.o(.text.FlashFirstInit) refers to variables.o(.data.ActiveKeys) for ActiveKeys
     flash.o(.text.FlashFirstInit) refers to events.o(.data.events) for events
+    flash.o(.text.FlashFirstInit) refers to variables.o(.data.FlashResourse) for FlashResourse
     flash.o(.ARM.exidx.text.FlashFirstInit) refers to flash.o(.text.FlashFirstInit) for [Anonymous Symbol]
     flash.o(.text.GetMaxFlashResource) refers to iap.o(.text.IAP_ReadWord) for IAP_ReadWord
     flash.o(.ARM.exidx.text.GetMaxFlashResource) refers to flash.o(.text.GetMaxFlashResource) for [Anonymous Symbol]
@@ -1498,18 +1495,12 @@ Removing Unused input sections from the image.
     Removing keys.o(.ARM.exidx.text.EncryptKey), (8 bytes).
     Removing keys.o(.text.CheckKey), (64 bytes).
     Removing keys.o(.ARM.exidx.text.CheckKey), (8 bytes).
-    Removing keys.o(.data.key1), (16 bytes).
-    Removing keys.o(.data.key2), (16 bytes).
-    Removing keys.o(.data.key3), (16 bytes).
-    Removing keys.o(.data.key4), (16 bytes).
-    Removing keys.o(.data.key5), (16 bytes).
     Removing keys.o(.data.key_test), (16 bytes).
     Removing keys.o(.data.keys), (20 bytes).
     Removing keys.o(.bss.KeyEncrypted), (16 bytes).
     Removing keys.o(.bss.KeyRaw), (8 bytes).
     Removing skud_algo.o(.text), (0 bytes).
     Removing flash.o(.text), (0 bytes).
-    Removing flash.o(.text.FlashTestFill), (92 bytes).
     Removing flash.o(.ARM.exidx.text.FlashTestFill), (8 bytes).
     Removing flash.o(.ARM.exidx.text.AddKey), (8 bytes).
     Removing flash.o(.ARM.exidx.text.FlashFirstInit), (8 bytes).
@@ -3045,7 +3036,7 @@ Removing Unused input sections from the image.
     Removing depilogue.o(.text), (190 bytes).
     Removing depilogue.o(i.__ARM_clz), (46 bytes).
 
-1616 unused section(s) (total 23593 bytes) removed from the image.
+1610 unused section(s) (total 23421 bytes) removed from the image.
 
 ==============================================================================
 
@@ -3173,233 +3164,237 @@ Image Symbol Table
     .text                                    0x00000204   Section        0  llushr.o(.text)
     .text                                    0x00000226   Section        0  iusesemip.o(.text)
     [Anonymous Symbol]                       0x00000228   Section        0  flash.o(.text.ActivateKey)
-    [Anonymous Symbol]                       0x000002a0   Section        0  flash.o(.text.AddKey)
-    __arm_cp.1_0                             0x00000380   Number         4  flash.o(.text.AddKey)
-    __arm_cp.1_1                             0x00000384   Number         4  flash.o(.text.AddKey)
-    __arm_cp.1_3                             0x00000388   Number         4  flash.o(.text.AddKey)
-    [Anonymous Symbol]                       0x0000038c   Section        0  mg32x02z_csc_drv.o(.text.CSC_ClearFlag)
-    [Anonymous Symbol]                       0x00000394   Section        0  mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState)
-    __arm_cp.23_0                            0x000003a4   Number         4  mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState)
-    [Anonymous Symbol]                       0x000003a8   Section        0  mg32x02z_csc_drv.o(.text.CSC_IHRCO_Cmd)
-    [Anonymous Symbol]                       0x000003c0   Section        0  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_0                             0x0000056c   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_1                             0x00000570   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_2                             0x00000574   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_4                             0x00000578   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_5                             0x0000057c   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_6                             0x00000580   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_8                             0x00000584   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_9                             0x00000588   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    __arm_cp.3_10                            0x0000058c   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
-    [Anonymous Symbol]                       0x00000590   Section        0  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
-    __arm_cp.1_0                             0x000005ec   Number         4  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
-    __arm_cp.1_1                             0x000005f0   Number         4  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
-    [Anonymous Symbol]                       0x000005f4   Section        0  mg32x02z_chipinit.o(.text.ChipInit)
-    [Anonymous Symbol]                       0x00000654   Section        0  flash.o(.text.CopyFlashPageToRAM)
-    [Anonymous Symbol]                       0x00000668   Section        0  flash.o(.text.CopyRAMToFlashPage)
-    __arm_cp.8_0                             0x00000678   Number         4  flash.o(.text.CopyRAMToFlashPage)
-    [Anonymous Symbol]                       0x0000067c   Section        0  flash.o(.text.DoCommand)
-    __arm_cp.12_1                            0x00000720   Number         4  flash.o(.text.DoCommand)
-    __arm_cp.12_2                            0x00000724   Number         4  flash.o(.text.DoCommand)
-    __arm_cp.12_3                            0x00000728   Number         4  flash.o(.text.DoCommand)
-    __arm_cp.12_4                            0x0000072c   Number         4  flash.o(.text.DoCommand)
-    __arm_cp.12_5                            0x00000730   Number         4  flash.o(.text.DoCommand)
-    [Anonymous Symbol]                       0x00000734   Section        0  crc.o(.text.Do_CRC)
-    __arm_cp.0_0                             0x00000750   Number         4  crc.o(.text.Do_CRC)
-    [Anonymous Symbol]                       0x00000754   Section        0  flash.o(.text.FlashFirstInit)
-    __arm_cp.2_1                             0x00000814   Number         4  flash.o(.text.FlashFirstInit)
-    __arm_cp.2_2                             0x00000818   Number         4  flash.o(.text.FlashFirstInit)
-    [Anonymous Symbol]                       0x0000081c   Section        0  mg32x02z_gpio_init.o(.text.GPIO_Init)
-    __arm_cp.0_0                             0x00000830   Number         4  mg32x02z_gpio_init.o(.text.GPIO_Init)
-    [Anonymous Symbol]                       0x00000834   Section        0  flash.o(.text.GetKeyStatus)
-    [Anonymous Symbol]                       0x00000840   Section        0  flash.o(.text.GetMaxFlashResource)
-    [Anonymous Symbol]                       0x00000864   Section        0  flash.o(.text.GetVariable)
-    __arm_cp.4_0                             0x00000878   Number         4  flash.o(.text.GetVariable)
-    [Anonymous Symbol]                       0x0000087c   Section        0  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_0                             0x00000908   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_1                             0x0000090c   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_2                             0x00000910   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_3                             0x00000914   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_4                             0x00000918   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_5                             0x0000091c   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_6                             0x00000920   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_7                             0x00000924   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_8                             0x00000928   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_9                             0x0000092c   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_10                            0x00000930   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    [Anonymous Symbol]                       0x000009c4   Section        0  iap.o(.text.IAP_CopyFromIAPToRAM)
-    [Anonymous Symbol]                       0x000009dc   Section        0  iap.o(.text.IAP_Erase_OnePage)
-    [Anonymous Symbol]                       0x000009f0   Section        0  iap.o(.text.IAP_Erase_Page)
-    __arm_cp.2_1                             0x00000aac   Number         4  iap.o(.text.IAP_Erase_Page)
-    [Anonymous Symbol]                       0x00000ab0   Section        0  iap.o(.text.IAP_Init)
-    __arm_cp.0_0                             0x00000ae4   Number         4  iap.o(.text.IAP_Init)
-    [Anonymous Symbol]                       0x00000ae8   Section        0  iap.o(.text.IAP_Multiple_Write)
-    [Anonymous Symbol]                       0x00000bac   Section        0  iap.o(.text.IAP_ReadByte)
-    [Anonymous Symbol]                       0x00000bb8   Section        0  iap.o(.text.IAP_ReadWord)
-    [Anonymous Symbol]                       0x00000bc8   Section        0  iap.o(.text.IAP_Single_Write)
-    __arm_cp.7_0                             0x00000c5c   Number         4  iap.o(.text.IAP_Single_Write)
-    __arm_cp.7_1                             0x00000c60   Number         4  iap.o(.text.IAP_Single_Write)
-    __arm_cp.7_2                             0x00000c64   Number         4  iap.o(.text.IAP_Single_Write)
-    __arm_cp.7_3                             0x00000c68   Number         4  iap.o(.text.IAP_Single_Write)
-    __arm_cp.7_4                             0x00000c6c   Number         4  iap.o(.text.IAP_Single_Write)
-    [Anonymous Symbol]                       0x00000c70   Section        0  iap.o(.text.IAP_WriteMultipleWord)
-    [Anonymous Symbol]                       0x00000c8a   Section        0  iap.o(.text.IAP_WriteSingleWord)
-    [Anonymous Symbol]                       0x00000ca0   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
-    __arm_cp.4_0                             0x00000cb8   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
-    [Anonymous Symbol]                       0x00000cbc   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
-    __arm_cp.0_0                             0x00000cd0   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
-    [Anonymous Symbol]                       0x00000cd4   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    __arm_cp.2_0                             0x00000cdc   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    __arm_cp.2_1                             0x00000ce0   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    [Anonymous Symbol]                       0x00000ce4   Section        0  mg32x02z__common_drv.o(.text.IncTick)
-    __arm_cp.3_0                             0x00000cf0   Number         4  mg32x02z__common_drv.o(.text.IncTick)
-    [Anonymous Symbol]                       0x00000cf4   Section        0  mg32x02z_mem_drv.o(.text.MEM_ClearFlag)
-    [Anonymous Symbol]                       0x00000cfc   Section        0  mg32x02z_mem_drv.o(.text.MEM_GetFlagStatus)
-    [Anonymous Symbol]                       0x00000d0c   Section        0  mg32x02z_mem_drv.o(.text.MEM_GetIAPSize)
-    __arm_cp.21_0                            0x00000d14   Number         4  mg32x02z_mem_drv.o(.text.MEM_GetIAPSize)
-    [Anonymous Symbol]                       0x00000d18   Section        0  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
-    __arm_cp.22_0                            0x00000d80   Number         4  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
-    [Anonymous Symbol]                       0x00000d84   Section        0  mg32x02z__irqhandler.o(.text.NMI_Handler)
-    [Anonymous Symbol]                       0x00000d88   Section        0  prsm3.o(.text.PRSM3_AddNewByte)
-    [Anonymous Symbol]                       0x00000d9c   Section        0  prsm3.o(.text.PRSM3_ParseMessage)
-    [Anonymous Symbol]                       0x00000e04   Section        0  prsm3.o(.text.PRSM3_ParseReadRequest)
-    [Anonymous Symbol]                       0x00000e84   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest24)
-    [Anonymous Symbol]                       0x00000ecc   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest9)
-    __arm_cp.3_1                             0x00000f14   Number         4  prsm3.o(.text.PRSM3_ParseWriteRequest9)
-    [Anonymous Symbol]                       0x00000f18   Section        0  prsm3.o(.text.PRSM3_ReturnReply)
-    __arm_cp.2_0                             0x00000f68   Number         4  prsm3.o(.text.PRSM3_ReturnReply)
-    __arm_cp.2_1                             0x00000f6c   Number         4  prsm3.o(.text.PRSM3_ReturnReply)
-    __arm_cp.2_2                             0x00000f70   Number         4  prsm3.o(.text.PRSM3_ReturnReply)
-    [Anonymous Symbol]                       0x00000f74   Section        0  prsm3.o(.text.PRSM3_clearBuffer)
-    __arm_cp.7_0                             0x00000f88   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
-    __arm_cp.7_1                             0x00000f8c   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
-    __arm_cp.7_3                             0x00000f90   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
-    [Anonymous Symbol]                       0x00000f94   Section        0  mg32x02z__irqhandler.o(.text.PendSV_Handler)
-    [Anonymous Symbol]                       0x00000f96   Section        0  mg32x02z__common_drv.o(.text.ProtectModuleReg)
-    [Anonymous Symbol]                       0x00000fa0   Section        0  mg32x02z_rst_init.o(.text.RST_Init)
-    __arm_cp.0_0                             0x00000fcc   Number         4  mg32x02z_rst_init.o(.text.RST_Init)
-    __arm_cp.0_1                             0x00000fd0   Number         4  mg32x02z_rst_init.o(.text.RST_Init)
-    __arm_cp.0_2                             0x00000fd4   Number         4  mg32x02z_rst_init.o(.text.RST_Init)
-    [Anonymous Symbol]                       0x00000fd8   Section        0  mg32x02z__irqhandler.o(.text.SVC_Handler)
-    [Anonymous Symbol]                       0x00000fdc   Section        0  flash.o(.text.SetVariable)
-    [Anonymous Symbol]                       0x00001028   Section        0  flash.o(.text.SetVariablePack)
-    __arm_cp.9_0                             0x000010a0   Number         4  flash.o(.text.SetVariablePack)
-    __arm_cp.9_1                             0x000010a4   Number         4  flash.o(.text.SetVariablePack)
-    __arm_cp.9_2                             0x000010a8   Number         4  flash.o(.text.SetVariablePack)
-    [Anonymous Symbol]                       0x000010ac   Section        0  mg32x02z__irqhandler.o(.text.SysTick_Handler)
-    [Anonymous Symbol]                       0x000010b4   Section        0  system_mg32x02z.o(.text.SystemInit)
-    __arm_cp.1_0                             0x000010bc   Number         4  system_mg32x02z.o(.text.SystemInit)
-    __arm_cp.1_1                             0x000010c0   Number         4  system_mg32x02z.o(.text.SystemInit)
-    [Anonymous Symbol]                       0x000010c4   Section        0  timers.o(.text.TIM01_Callback)
-    [Anonymous Symbol]                       0x000010cc   Section        0  timers.o(.text.TIM10_Callback)
-    __arm_cp.1_0                             0x000010e8   Number         4  timers.o(.text.TIM10_Callback)
-    [Anonymous Symbol]                       0x000010ec   Section        0  timers.o(.text.TIM16_Callback)
-    [Anonymous Symbol]                       0x000010ee   Section        0  timers.o(.text.TIM36_Callback)
-    [Anonymous Symbol]                       0x000010f0   Section        0  timers_irq.o(.text.TM01_IRQ)
-    __arm_cp.6_0                             0x0000114c   Number         4  timers_irq.o(.text.TM01_IRQ)
-    [Anonymous Symbol]                       0x00001150   Section        0  mg32x02z__irqhandler.o(.text.TM0x_IRQHandler)
-    __arm_cp.4_0                             0x00001160   Number         4  mg32x02z__irqhandler.o(.text.TM0x_IRQHandler)
-    [Anonymous Symbol]                       0x00001164   Section        0  timers_irq.o(.text.TM10_IRQ)
-    [Anonymous Symbol]                       0x000011c0   Section        0  mg32x02z__irqhandler.o(.text.TM10_IRQHandler)
-    [Anonymous Symbol]                       0x000011c8   Section        0  timers_irq.o(.text.TM16_IRQ)
-    __arm_cp.8_0                             0x00001224   Number         4  timers_irq.o(.text.TM16_IRQ)
-    [Anonymous Symbol]                       0x00001228   Section        0  mg32x02z__irqhandler.o(.text.TM1x_IRQHandler)
-    [Anonymous Symbol]                       0x00001230   Section        0  timers_irq.o(.text.TM36_IRQ)
-    __arm_cp.9_0                             0x0000128c   Number         4  timers_irq.o(.text.TM36_IRQ)
-    [Anonymous Symbol]                       0x00001290   Section        0  mg32x02z__irqhandler.o(.text.TM3x_IRQHandler)
-    [Anonymous Symbol]                       0x00001298   Section        0  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
-    [Anonymous Symbol]                       0x0000129c   Section        0  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
-    [Anonymous Symbol]                       0x000012a6   Section        0  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
-    [Anonymous Symbol]                       0x000012b4   Section        0  mg32x02z_tm_drv.o(.text.TM_IT_Config)
-    [Anonymous Symbol]                       0x000012c8   Section        0  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_0                             0x0000135c   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_1                             0x00001360   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_2                             0x00001364   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_3                             0x00001368   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_4                             0x0000136c   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_5                             0x00001370   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_6                             0x00001374   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    __arm_cp.0_7                             0x00001378   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
-    [Anonymous Symbol]                       0x0000137c   Section        0  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
-    [Anonymous Symbol]                       0x00001392   Section        0  usart_irq.o(.text.URT0_IRQ)
-    [Anonymous Symbol]                       0x000014dc   Section        0  mg32x02z__irqhandler.o(.text.URT0_IRQHandler)
-    [Anonymous Symbol]                       0x000014e4   Section        0  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
-    [Anonymous Symbol]                       0x000014ec   Section        0  mg32x02z_urt_drv.o(.text.URT_Cmd)
-    [Anonymous Symbol]                       0x000014f8   Section        0  mg32x02z_urt_init.o(.text.URT_Config)
-    __arm_cp.0_0                             0x000015b4   Number         4  mg32x02z_urt_init.o(.text.URT_Config)
-    __arm_cp.0_1                             0x000015b8   Number         4  mg32x02z_urt_init.o(.text.URT_Config)
-    [Anonymous Symbol]                       0x000015bc   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
-    [Anonymous Symbol]                       0x000015c4   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
-    [Anonymous Symbol]                       0x000015c8   Section        0  mg32x02z_urt_drv.o(.text.URT_GetRXData)
-    [Anonymous Symbol]                       0x000015cc   Section        0  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
-    [Anonymous Symbol]                       0x000015d8   Section        0  mg32x02z_urt_drv.o(.text.URT_IT_Config)
-    [Anonymous Symbol]                       0x000015e4   Section        0  mg32x02z_urt_init.o(.text.URT_Init)
-    __arm_cp.1_0                             0x000015fc   Number         4  mg32x02z_urt_init.o(.text.URT_Init)
-    [Anonymous Symbol]                       0x00001600   Section        0  usart.o(.text.URT_IsTxEndTransmission)
-    [Anonymous Symbol]                       0x0000160c   Section        0  usart.o(.text.URT_IsTxReady)
-    [Anonymous Symbol]                       0x00001618   Section        0  usart.o(.text.URT_Rx_Callback)
-    __arm_cp.0_0                             0x00001628   Number         4  usart.o(.text.URT_Rx_Callback)
-    [Anonymous Symbol]                       0x0000162c   Section        0  mg32x02z_urt_drv.o(.text.URT_SetTXData)
-    [Anonymous Symbol]                       0x0000165e   Section        0  usart_irq.o(.text.URT_Tx_Callback)
-    [Anonymous Symbol]                       0x00001660   Section        0  usart.o(.text.URT_Write)
-    [Anonymous Symbol]                       0x0000167a   Section        0  usart.o(.text.URT_WriteWord)
-    [Anonymous Symbol]                       0x00001694   Section        0  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
-    __arm_cp.9_0                             0x0000169c   Number         4  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
-    [Anonymous Symbol]                       0x000016a0   Section        0  flash.o(.text.UpdateFlashResource)
-    __arm_cp.7_0                             0x000016b8   Number         4  flash.o(.text.UpdateFlashResource)
-    __NVIC_EnableIRQ                         0x000016bd   Thumb Code    24  mg32x02z_chipinit.o(.text.__NVIC_EnableIRQ)
-    [Anonymous Symbol]                       0x000016bc   Section        0  mg32x02z_chipinit.o(.text.__NVIC_EnableIRQ)
-    __arm_cp.1_0                             0x000016d0   Number         4  mg32x02z_chipinit.o(.text.__NVIC_EnableIRQ)
-    __NVIC_SetPriority                       0x000016d5   Thumb Code    56  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
-    [Anonymous Symbol]                       0x000016d4   Section        0  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
-    __arm_cp.2_0                             0x00001704   Number         4  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
-    __arm_cp.2_1                             0x00001708   Number         4  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
-    [Anonymous Symbol]                       0x0000170c   Section        0  timers.o(.text.delay_ms)
-    [Anonymous Symbol]                       0x0000171e   Section        0  timers.o(.text.delay_one_ms)
-    [Anonymous Symbol]                       0x00001754   Section        0  main.o(.text.main)
-    __arm_cp.0_0                             0x0000180c   Number         4  main.o(.text.main)
-    __arm_cp.0_1                             0x00001810   Number         4  main.o(.text.main)
-    [Anonymous Symbol]                       0x00001814   Section        0  wdt.o(.text.wdt_disable)
-    [Anonymous Symbol]                       0x0000182c   Section        0  wdt.o(.text.wdt_enable)
-    __arm_cp.0_0                             0x0000184c   Number         4  wdt.o(.text.wdt_enable)
-    [Anonymous Symbol]                       0x00001850   Section        0  wdt.o(.text.wdt_reset)
-    i.__0printf$5                            0x00001858   Section        0  printf5.o(i.__0printf$5)
-    i.__scatterload_copy                     0x00001878   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x00001886   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00001888   Section       14  handlers.o(i.__scatterload_zeroinit)
-    _printf_core                             0x00001899   Thumb Code   688  printf5.o(i._printf_core)
-    i._printf_core                           0x00001898   Section        0  printf5.o(i._printf_core)
-    i.fputc                                  0x00001b74   Section        0  fputc.o(i.fputc)
-    CRC_Table                                0x00001b86   Data         256  crc.o(.rodata.CRC_Table)
-    [Anonymous Symbol]                       0x00001b86   Section        0  crc.o(.rodata.CRC_Table)
-    CSC_InitConfig                           0x00001c88   Data          80  mg32x02z_csc_init.o(.rodata.CSC_InitConfig)
-    [Anonymous Symbol]                       0x00001c88   Section        0  mg32x02z_csc_init.o(.rodata.CSC_InitConfig)
-    GPIO_CFG                                 0x00001cd8   Data         132  mg32x02z_gpio_init.o(.rodata.GPIO_CFG)
-    [Anonymous Symbol]                       0x00001cd8   Section        0  mg32x02z_gpio_init.o(.rodata.GPIO_CFG)
-    .L.str.1                                 0x00001d5c   Data          14  system_mg32x02z.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00001d5c   Section        0  system_mg32x02z.o(.rodata.str1.1)
-    .L.str.2                                 0x00001d6a   Data          14  system_mg32x02z.o(.rodata.str1.1)
-    .L.str                                   0x00001d78   Data          23  system_mg32x02z.o(.rodata.str1.1)
+    __arm_cp.10_1                            0x000002a0   Number         4  flash.o(.text.ActivateKey)
+    __arm_cp.10_2                            0x000002a4   Number         4  flash.o(.text.ActivateKey)
+    [Anonymous Symbol]                       0x000002a8   Section        0  flash.o(.text.AddKey)
+    [Anonymous Symbol]                       0x000002f4   Section        0  mg32x02z_csc_drv.o(.text.CSC_ClearFlag)
+    [Anonymous Symbol]                       0x000002fc   Section        0  mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState)
+    __arm_cp.23_0                            0x0000030c   Number         4  mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState)
+    [Anonymous Symbol]                       0x00000310   Section        0  mg32x02z_csc_drv.o(.text.CSC_IHRCO_Cmd)
+    [Anonymous Symbol]                       0x00000328   Section        0  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_0                             0x000004d4   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_1                             0x000004d8   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_2                             0x000004dc   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_4                             0x000004e0   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_5                             0x000004e4   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_6                             0x000004e8   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_8                             0x000004ec   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_9                             0x000004f0   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    __arm_cp.3_10                            0x000004f4   Number         4  mg32x02z_csc_init.o(.text.CSC_Init)
+    [Anonymous Symbol]                       0x000004f8   Section        0  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
+    __arm_cp.1_0                             0x00000554   Number         4  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
+    __arm_cp.1_1                             0x00000558   Number         4  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
+    [Anonymous Symbol]                       0x0000055c   Section        0  mg32x02z_chipinit.o(.text.ChipInit)
+    [Anonymous Symbol]                       0x000005bc   Section        0  flash.o(.text.CopyFlashPageToRAM)
+    [Anonymous Symbol]                       0x000005d0   Section        0  flash.o(.text.CopyRAMToFlashPage)
+    __arm_cp.8_0                             0x000005e0   Number         4  flash.o(.text.CopyRAMToFlashPage)
+    [Anonymous Symbol]                       0x000005e4   Section        0  flash.o(.text.DoCommand)
+    __arm_cp.12_1                            0x00000688   Number         4  flash.o(.text.DoCommand)
+    __arm_cp.12_3                            0x0000068c   Number         4  flash.o(.text.DoCommand)
+    [Anonymous Symbol]                       0x00000690   Section        0  crc.o(.text.Do_CRC)
+    __arm_cp.0_0                             0x000006ac   Number         4  crc.o(.text.Do_CRC)
+    [Anonymous Symbol]                       0x000006b0   Section        0  flash.o(.text.FlashFirstInit)
+    __arm_cp.2_1                             0x000007c4   Number         4  flash.o(.text.FlashFirstInit)
+    __arm_cp.2_2                             0x000007c8   Number         4  flash.o(.text.FlashFirstInit)
+    __arm_cp.2_3                             0x000007cc   Number         4  flash.o(.text.FlashFirstInit)
+    __arm_cp.2_4                             0x000007d0   Number         4  flash.o(.text.FlashFirstInit)
+    [Anonymous Symbol]                       0x000007d4   Section        0  flash.o(.text.FlashTestFill)
+    __arm_cp.0_0                             0x0000081c   Number         4  flash.o(.text.FlashTestFill)
+    __arm_cp.0_1                             0x00000820   Number         4  flash.o(.text.FlashTestFill)
+    __arm_cp.0_2                             0x00000824   Number         4  flash.o(.text.FlashTestFill)
+    __arm_cp.0_3                             0x00000828   Number         4  flash.o(.text.FlashTestFill)
+    __arm_cp.0_4                             0x0000082c   Number         4  flash.o(.text.FlashTestFill)
+    [Anonymous Symbol]                       0x00000830   Section        0  mg32x02z_gpio_init.o(.text.GPIO_Init)
+    __arm_cp.0_0                             0x00000844   Number         4  mg32x02z_gpio_init.o(.text.GPIO_Init)
+    [Anonymous Symbol]                       0x00000848   Section        0  flash.o(.text.GetKeyStatus)
+    [Anonymous Symbol]                       0x00000854   Section        0  flash.o(.text.GetMaxFlashResource)
+    [Anonymous Symbol]                       0x00000878   Section        0  flash.o(.text.GetVariable)
+    __arm_cp.4_0                             0x0000088c   Number         4  flash.o(.text.GetVariable)
+    [Anonymous Symbol]                       0x00000890   Section        0  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_0                             0x0000091c   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_1                             0x00000920   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_2                             0x00000924   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_3                             0x00000928   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_4                             0x0000092c   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_5                             0x00000930   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_6                             0x00000934   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_7                             0x00000938   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_8                             0x0000093c   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_9                             0x00000940   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_10                            0x00000944   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    [Anonymous Symbol]                       0x000009d8   Section        0  iap.o(.text.IAP_CopyFromIAPToRAM)
+    [Anonymous Symbol]                       0x000009ee   Section        0  iap.o(.text.IAP_Erase_OnePage)
+    [Anonymous Symbol]                       0x00000a00   Section        0  iap.o(.text.IAP_Erase_Page)
+    __arm_cp.2_1                             0x00000abc   Number         4  iap.o(.text.IAP_Erase_Page)
+    [Anonymous Symbol]                       0x00000ac0   Section        0  iap.o(.text.IAP_Init)
+    __arm_cp.0_0                             0x00000af4   Number         4  iap.o(.text.IAP_Init)
+    [Anonymous Symbol]                       0x00000af8   Section        0  iap.o(.text.IAP_Multiple_Write)
+    [Anonymous Symbol]                       0x00000bbc   Section        0  iap.o(.text.IAP_ReadByte)
+    [Anonymous Symbol]                       0x00000bc8   Section        0  iap.o(.text.IAP_ReadWord)
+    [Anonymous Symbol]                       0x00000bd8   Section        0  iap.o(.text.IAP_Single_Write)
+    __arm_cp.7_0                             0x00000c6c   Number         4  iap.o(.text.IAP_Single_Write)
+    __arm_cp.7_1                             0x00000c70   Number         4  iap.o(.text.IAP_Single_Write)
+    __arm_cp.7_2                             0x00000c74   Number         4  iap.o(.text.IAP_Single_Write)
+    __arm_cp.7_3                             0x00000c78   Number         4  iap.o(.text.IAP_Single_Write)
+    __arm_cp.7_4                             0x00000c7c   Number         4  iap.o(.text.IAP_Single_Write)
+    [Anonymous Symbol]                       0x00000c80   Section        0  iap.o(.text.IAP_WriteMultipleWord)
+    [Anonymous Symbol]                       0x00000c98   Section        0  iap.o(.text.IAP_WriteSingleWord)
+    [Anonymous Symbol]                       0x00000cb0   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
+    __arm_cp.4_0                             0x00000cc8   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
+    [Anonymous Symbol]                       0x00000ccc   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
+    __arm_cp.0_0                             0x00000ce0   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
+    [Anonymous Symbol]                       0x00000ce4   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    __arm_cp.2_0                             0x00000cec   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    __arm_cp.2_1                             0x00000cf0   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    [Anonymous Symbol]                       0x00000cf4   Section        0  mg32x02z__common_drv.o(.text.IncTick)
+    __arm_cp.3_0                             0x00000d00   Number         4  mg32x02z__common_drv.o(.text.IncTick)
+    [Anonymous Symbol]                       0x00000d04   Section        0  mg32x02z_mem_drv.o(.text.MEM_ClearFlag)
+    [Anonymous Symbol]                       0x00000d0c   Section        0  mg32x02z_mem_drv.o(.text.MEM_GetFlagStatus)
+    [Anonymous Symbol]                       0x00000d1c   Section        0  mg32x02z_mem_drv.o(.text.MEM_GetIAPSize)
+    __arm_cp.21_0                            0x00000d24   Number         4  mg32x02z_mem_drv.o(.text.MEM_GetIAPSize)
+    [Anonymous Symbol]                       0x00000d28   Section        0  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
+    __arm_cp.22_0                            0x00000d90   Number         4  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
+    [Anonymous Symbol]                       0x00000d94   Section        0  mg32x02z__irqhandler.o(.text.NMI_Handler)
+    [Anonymous Symbol]                       0x00000d98   Section        0  prsm3.o(.text.PRSM3_AddNewByte)
+    [Anonymous Symbol]                       0x00000dac   Section        0  prsm3.o(.text.PRSM3_ParseMessage)
+    [Anonymous Symbol]                       0x00000e14   Section        0  prsm3.o(.text.PRSM3_ParseReadRequest)
+    [Anonymous Symbol]                       0x00000e94   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest24)
+    [Anonymous Symbol]                       0x00000edc   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest9)
+    __arm_cp.3_1                             0x00000f24   Number         4  prsm3.o(.text.PRSM3_ParseWriteRequest9)
+    [Anonymous Symbol]                       0x00000f28   Section        0  prsm3.o(.text.PRSM3_ReturnReply)
+    __arm_cp.2_0                             0x00000f78   Number         4  prsm3.o(.text.PRSM3_ReturnReply)
+    __arm_cp.2_1                             0x00000f7c   Number         4  prsm3.o(.text.PRSM3_ReturnReply)
+    __arm_cp.2_2                             0x00000f80   Number         4  prsm3.o(.text.PRSM3_ReturnReply)
+    [Anonymous Symbol]                       0x00000f84   Section        0  prsm3.o(.text.PRSM3_clearBuffer)
+    __arm_cp.7_0                             0x00000f98   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
+    __arm_cp.7_1                             0x00000f9c   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
+    __arm_cp.7_3                             0x00000fa0   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
+    [Anonymous Symbol]                       0x00000fa4   Section        0  mg32x02z__irqhandler.o(.text.PendSV_Handler)
+    [Anonymous Symbol]                       0x00000fa6   Section        0  mg32x02z__common_drv.o(.text.ProtectModuleReg)
+    [Anonymous Symbol]                       0x00000fb0   Section        0  mg32x02z_rst_init.o(.text.RST_Init)
+    __arm_cp.0_0                             0x00000fdc   Number         4  mg32x02z_rst_init.o(.text.RST_Init)
+    __arm_cp.0_1                             0x00000fe0   Number         4  mg32x02z_rst_init.o(.text.RST_Init)
+    __arm_cp.0_2                             0x00000fe4   Number         4  mg32x02z_rst_init.o(.text.RST_Init)
+    [Anonymous Symbol]                       0x00000fe8   Section        0  mg32x02z__irqhandler.o(.text.SVC_Handler)
+    [Anonymous Symbol]                       0x00000fec   Section        0  flash.o(.text.SetVariable)
+    [Anonymous Symbol]                       0x00001038   Section        0  flash.o(.text.SetVariablePack)
+    __arm_cp.9_0                             0x000010b0   Number         4  flash.o(.text.SetVariablePack)
+    __arm_cp.9_1                             0x000010b4   Number         4  flash.o(.text.SetVariablePack)
+    __arm_cp.9_2                             0x000010b8   Number         4  flash.o(.text.SetVariablePack)
+    [Anonymous Symbol]                       0x000010bc   Section        0  mg32x02z__irqhandler.o(.text.SysTick_Handler)
+    [Anonymous Symbol]                       0x000010c4   Section        0  system_mg32x02z.o(.text.SystemInit)
+    __arm_cp.1_0                             0x000010cc   Number         4  system_mg32x02z.o(.text.SystemInit)
+    __arm_cp.1_1                             0x000010d0   Number         4  system_mg32x02z.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x000010d4   Section        0  timers.o(.text.TIM01_Callback)
+    [Anonymous Symbol]                       0x000010dc   Section        0  timers.o(.text.TIM10_Callback)
+    __arm_cp.1_0                             0x000010f8   Number         4  timers.o(.text.TIM10_Callback)
+    [Anonymous Symbol]                       0x000010fc   Section        0  timers.o(.text.TIM16_Callback)
+    [Anonymous Symbol]                       0x000010fe   Section        0  timers.o(.text.TIM36_Callback)
+    [Anonymous Symbol]                       0x00001100   Section        0  timers_irq.o(.text.TM01_IRQ)
+    __arm_cp.6_0                             0x0000115c   Number         4  timers_irq.o(.text.TM01_IRQ)
+    [Anonymous Symbol]                       0x00001160   Section        0  mg32x02z__irqhandler.o(.text.TM0x_IRQHandler)
+    __arm_cp.4_0                             0x00001170   Number         4  mg32x02z__irqhandler.o(.text.TM0x_IRQHandler)
+    [Anonymous Symbol]                       0x00001174   Section        0  timers_irq.o(.text.TM10_IRQ)
+    [Anonymous Symbol]                       0x000011d0   Section        0  mg32x02z__irqhandler.o(.text.TM10_IRQHandler)
+    [Anonymous Symbol]                       0x000011d8   Section        0  timers_irq.o(.text.TM16_IRQ)
+    __arm_cp.8_0                             0x00001234   Number         4  timers_irq.o(.text.TM16_IRQ)
+    [Anonymous Symbol]                       0x00001238   Section        0  mg32x02z__irqhandler.o(.text.TM1x_IRQHandler)
+    [Anonymous Symbol]                       0x00001240   Section        0  timers_irq.o(.text.TM36_IRQ)
+    __arm_cp.9_0                             0x0000129c   Number         4  timers_irq.o(.text.TM36_IRQ)
+    [Anonymous Symbol]                       0x000012a0   Section        0  mg32x02z__irqhandler.o(.text.TM3x_IRQHandler)
+    [Anonymous Symbol]                       0x000012a8   Section        0  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
+    [Anonymous Symbol]                       0x000012ac   Section        0  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
+    [Anonymous Symbol]                       0x000012b6   Section        0  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
+    [Anonymous Symbol]                       0x000012c4   Section        0  mg32x02z_tm_drv.o(.text.TM_IT_Config)
+    [Anonymous Symbol]                       0x000012d8   Section        0  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_0                             0x0000136c   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_1                             0x00001370   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_2                             0x00001374   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_3                             0x00001378   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_4                             0x0000137c   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_5                             0x00001380   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_6                             0x00001384   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    __arm_cp.0_7                             0x00001388   Number         4  mg32x02z_tm_init.o(.text.TM_Init)
+    [Anonymous Symbol]                       0x0000138c   Section        0  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
+    [Anonymous Symbol]                       0x000013a2   Section        0  usart_irq.o(.text.URT0_IRQ)
+    [Anonymous Symbol]                       0x000014ec   Section        0  mg32x02z__irqhandler.o(.text.URT0_IRQHandler)
+    [Anonymous Symbol]                       0x000014f4   Section        0  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
+    [Anonymous Symbol]                       0x000014fc   Section        0  mg32x02z_urt_drv.o(.text.URT_Cmd)
+    [Anonymous Symbol]                       0x00001508   Section        0  mg32x02z_urt_init.o(.text.URT_Config)
+    __arm_cp.0_0                             0x000015c4   Number         4  mg32x02z_urt_init.o(.text.URT_Config)
+    __arm_cp.0_1                             0x000015c8   Number         4  mg32x02z_urt_init.o(.text.URT_Config)
+    [Anonymous Symbol]                       0x000015cc   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
+    [Anonymous Symbol]                       0x000015d4   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
+    [Anonymous Symbol]                       0x000015d8   Section        0  mg32x02z_urt_drv.o(.text.URT_GetRXData)
+    [Anonymous Symbol]                       0x000015dc   Section        0  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
+    [Anonymous Symbol]                       0x000015e8   Section        0  mg32x02z_urt_drv.o(.text.URT_IT_Config)
+    [Anonymous Symbol]                       0x000015f4   Section        0  mg32x02z_urt_init.o(.text.URT_Init)
+    __arm_cp.1_0                             0x0000160c   Number         4  mg32x02z_urt_init.o(.text.URT_Init)
+    [Anonymous Symbol]                       0x00001610   Section        0  usart.o(.text.URT_IsTxEndTransmission)
+    [Anonymous Symbol]                       0x0000161c   Section        0  usart.o(.text.URT_IsTxReady)
+    [Anonymous Symbol]                       0x00001628   Section        0  usart.o(.text.URT_Rx_Callback)
+    __arm_cp.0_0                             0x00001638   Number         4  usart.o(.text.URT_Rx_Callback)
+    [Anonymous Symbol]                       0x0000163c   Section        0  mg32x02z_urt_drv.o(.text.URT_SetTXData)
+    [Anonymous Symbol]                       0x0000166e   Section        0  usart_irq.o(.text.URT_Tx_Callback)
+    [Anonymous Symbol]                       0x00001670   Section        0  usart.o(.text.URT_Write)
+    [Anonymous Symbol]                       0x0000168a   Section        0  usart.o(.text.URT_WriteWord)
+    [Anonymous Symbol]                       0x000016a4   Section        0  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
+    __arm_cp.9_0                             0x000016ac   Number         4  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
+    [Anonymous Symbol]                       0x000016b0   Section        0  flash.o(.text.UpdateFlashResource)
+    __arm_cp.7_0                             0x000016c8   Number         4  flash.o(.text.UpdateFlashResource)
+    __NVIC_EnableIRQ                         0x000016cd   Thumb Code    24  mg32x02z_chipinit.o(.text.__NVIC_EnableIRQ)
+    [Anonymous Symbol]                       0x000016cc   Section        0  mg32x02z_chipinit.o(.text.__NVIC_EnableIRQ)
+    __arm_cp.1_0                             0x000016e0   Number         4  mg32x02z_chipinit.o(.text.__NVIC_EnableIRQ)
+    __NVIC_SetPriority                       0x000016e5   Thumb Code    56  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
+    [Anonymous Symbol]                       0x000016e4   Section        0  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
+    __arm_cp.2_0                             0x00001714   Number         4  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
+    __arm_cp.2_1                             0x00001718   Number         4  mg32x02z_chipinit.o(.text.__NVIC_SetPriority)
+    [Anonymous Symbol]                       0x0000171c   Section        0  timers.o(.text.delay_ms)
+    [Anonymous Symbol]                       0x0000172e   Section        0  timers.o(.text.delay_one_ms)
+    [Anonymous Symbol]                       0x00001764   Section        0  main.o(.text.main)
+    __arm_cp.0_0                             0x0000181c   Number         4  main.o(.text.main)
+    __arm_cp.0_1                             0x00001820   Number         4  main.o(.text.main)
+    [Anonymous Symbol]                       0x00001824   Section        0  wdt.o(.text.wdt_disable)
+    [Anonymous Symbol]                       0x0000183c   Section        0  wdt.o(.text.wdt_enable)
+    __arm_cp.0_0                             0x0000185c   Number         4  wdt.o(.text.wdt_enable)
+    [Anonymous Symbol]                       0x00001860   Section        0  wdt.o(.text.wdt_reset)
+    i.__0printf$5                            0x00001868   Section        0  printf5.o(i.__0printf$5)
+    i.__scatterload_copy                     0x00001888   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x00001896   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00001898   Section       14  handlers.o(i.__scatterload_zeroinit)
+    _printf_core                             0x000018a9   Thumb Code   688  printf5.o(i._printf_core)
+    i._printf_core                           0x000018a8   Section        0  printf5.o(i._printf_core)
+    i.fputc                                  0x00001b84   Section        0  fputc.o(i.fputc)
+    CRC_Table                                0x00001b96   Data         256  crc.o(.rodata.CRC_Table)
+    [Anonymous Symbol]                       0x00001b96   Section        0  crc.o(.rodata.CRC_Table)
+    CSC_InitConfig                           0x00001c98   Data          80  mg32x02z_csc_init.o(.rodata.CSC_InitConfig)
+    [Anonymous Symbol]                       0x00001c98   Section        0  mg32x02z_csc_init.o(.rodata.CSC_InitConfig)
+    GPIO_CFG                                 0x00001ce8   Data         132  mg32x02z_gpio_init.o(.rodata.GPIO_CFG)
+    [Anonymous Symbol]                       0x00001ce8   Section        0  mg32x02z_gpio_init.o(.rodata.GPIO_CFG)
+    .L.str.1                                 0x00001d6c   Data          14  system_mg32x02z.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00001d6c   Section        0  system_mg32x02z.o(.rodata.str1.1)
+    .L.str.2                                 0x00001d7a   Data          14  system_mg32x02z.o(.rodata.str1.1)
+    .L.str                                   0x00001d88   Data          23  system_mg32x02z.o(.rodata.str1.1)
     .data                                    0x20000000   Section        4  stdout.o(.data)
-    HardFault_Handler_C.stacked_lr           0x2000008c   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_lr)
-    [Anonymous Symbol]                       0x2000008c   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_lr)
-    HardFault_Handler_C.stacked_pc           0x20000090   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_pc)
-    [Anonymous Symbol]                       0x20000090   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_pc)
-    HardFault_Handler_C.stacked_psr          0x20000094   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_psr)
-    [Anonymous Symbol]                       0x20000094   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_psr)
-    HardFault_Handler_C.stacked_r0           0x20000098   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r0)
-    [Anonymous Symbol]                       0x20000098   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r0)
-    HardFault_Handler_C.stacked_r1           0x2000009c   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r1)
-    [Anonymous Symbol]                       0x2000009c   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r1)
-    HardFault_Handler_C.stacked_r12          0x200000a0   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r12)
-    [Anonymous Symbol]                       0x200000a0   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r12)
-    HardFault_Handler_C.stacked_r2           0x200000a4   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r2)
-    [Anonymous Symbol]                       0x200000a4   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r2)
-    HardFault_Handler_C.stacked_r3           0x200000a8   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r3)
-    [Anonymous Symbol]                       0x200000a8   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r3)
-    uwTick                                   0x200004dc   Data           4  mg32x02z__common_drv.o(.bss.uwTick)
-    [Anonymous Symbol]                       0x200004dc   Section        0  mg32x02z__common_drv.o(.bss.uwTick)
-    STACK                                    0x200004e0   Section     1024  startup_mg32x02z.o(STACK)
+    HardFault_Handler_C.stacked_lr           0x200000dc   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_lr)
+    [Anonymous Symbol]                       0x200000dc   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_lr)
+    HardFault_Handler_C.stacked_pc           0x200000e0   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_pc)
+    [Anonymous Symbol]                       0x200000e0   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_pc)
+    HardFault_Handler_C.stacked_psr          0x200000e4   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_psr)
+    [Anonymous Symbol]                       0x200000e4   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_psr)
+    HardFault_Handler_C.stacked_r0           0x200000e8   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r0)
+    [Anonymous Symbol]                       0x200000e8   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r0)
+    HardFault_Handler_C.stacked_r1           0x200000ec   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r1)
+    [Anonymous Symbol]                       0x200000ec   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r1)
+    HardFault_Handler_C.stacked_r12          0x200000f0   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r12)
+    [Anonymous Symbol]                       0x200000f0   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r12)
+    HardFault_Handler_C.stacked_r2           0x200000f4   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r2)
+    [Anonymous Symbol]                       0x200000f4   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r2)
+    HardFault_Handler_C.stacked_r3           0x200000f8   Data           4  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r3)
+    [Anonymous Symbol]                       0x200000f8   Section        0  system_mg32x02z.o(.bss.HardFault_Handler_C.stacked_r3)
+    uwTick                                   0x2000052c   Data           4  mg32x02z__common_drv.o(.bss.uwTick)
+    [Anonymous Symbol]                       0x2000052c   Section        0  mg32x02z__common_drv.o(.bss.uwTick)
+    STACK                                    0x20000530   Section     1024  startup_mg32x02z.o(STACK)
 
     Global Symbols
 
@@ -3502,111 +3497,112 @@ Image Symbol Table
     __aeabi_llsr                             0x00000205   Thumb Code    34  llushr.o(.text)
     _ll_ushift_r                             0x00000205   Thumb Code     0  llushr.o(.text)
     __I$use$semihosting$fputc                0x00000227   Thumb Code     0  iusesemip.o(.text)
-    ActivateKey                              0x00000229   Thumb Code   120  flash.o(.text.ActivateKey)
-    AddKey                                   0x000002a1   Thumb Code   236  flash.o(.text.AddKey)
-    CSC_ClearFlag                            0x0000038d   Thumb Code     8  mg32x02z_csc_drv.o(.text.CSC_ClearFlag)
-    CSC_GetClockSourceState                  0x00000395   Thumb Code    20  mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState)
-    CSC_IHRCO_Cmd                            0x000003a9   Thumb Code    24  mg32x02z_csc_drv.o(.text.CSC_IHRCO_Cmd)
-    CSC_Init                                 0x000003c1   Thumb Code   464  mg32x02z_csc_init.o(.text.CSC_Init)
-    CSC_XOSC_Enable                          0x00000591   Thumb Code   100  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
-    ChipInit                                 0x000005f5   Thumb Code    94  mg32x02z_chipinit.o(.text.ChipInit)
-    CopyFlashPageToRAM                       0x00000655   Thumb Code    20  flash.o(.text.CopyFlashPageToRAM)
-    CopyRAMToFlashPage                       0x00000669   Thumb Code    20  flash.o(.text.CopyRAMToFlashPage)
-    DoCommand                                0x0000067d   Thumb Code   184  flash.o(.text.DoCommand)
-    Do_CRC                                   0x00000735   Thumb Code    32  crc.o(.text.Do_CRC)
-    FlashFirstInit                           0x00000755   Thumb Code   200  flash.o(.text.FlashFirstInit)
-    GPIO_Init                                0x0000081d   Thumb Code    24  mg32x02z_gpio_init.o(.text.GPIO_Init)
-    GetKeyStatus                             0x00000835   Thumb Code    12  flash.o(.text.GetKeyStatus)
-    GetMaxFlashResource                      0x00000841   Thumb Code    36  flash.o(.text.GetMaxFlashResource)
-    GetVariable                              0x00000865   Thumb Code    24  flash.o(.text.GetVariable)
-    HardFault_Handler_C                      0x0000087d   Thumb Code   328  system_mg32x02z.o(.text.HardFault_Handler_C)
-    IAP_CopyFromIAPToRAM                     0x000009c5   Thumb Code    24  iap.o(.text.IAP_CopyFromIAPToRAM)
-    IAP_Erase_OnePage                        0x000009dd   Thumb Code    18  iap.o(.text.IAP_Erase_OnePage)
-    IAP_Erase_Page                           0x000009f1   Thumb Code   192  iap.o(.text.IAP_Erase_Page)
-    IAP_Init                                 0x00000ab1   Thumb Code    56  iap.o(.text.IAP_Init)
-    IAP_Multiple_Write                       0x00000ae9   Thumb Code   196  iap.o(.text.IAP_Multiple_Write)
-    IAP_ReadByte                             0x00000bad   Thumb Code    12  iap.o(.text.IAP_ReadByte)
-    IAP_ReadWord                             0x00000bb9   Thumb Code    14  iap.o(.text.IAP_ReadWord)
-    IAP_Single_Write                         0x00000bc9   Thumb Code   168  iap.o(.text.IAP_Single_Write)
-    IAP_WriteMultipleWord                    0x00000c71   Thumb Code    26  iap.o(.text.IAP_WriteMultipleWord)
-    IAP_WriteSingleWord                      0x00000c8b   Thumb Code    22  iap.o(.text.IAP_WriteSingleWord)
-    IWDT_Cmd                                 0x00000ca1   Thumb Code    28  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
-    IWDT_Divider_Select                      0x00000cbd   Thumb Code    24  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
-    IWDT_RefreshCounter                      0x00000cd5   Thumb Code    16  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    IncTick                                  0x00000ce5   Thumb Code    16  mg32x02z__common_drv.o(.text.IncTick)
-    MEM_ClearFlag                            0x00000cf5   Thumb Code     8  mg32x02z_mem_drv.o(.text.MEM_ClearFlag)
-    MEM_GetFlagStatus                        0x00000cfd   Thumb Code    16  mg32x02z_mem_drv.o(.text.MEM_GetFlagStatus)
-    MEM_GetIAPSize                           0x00000d0d   Thumb Code    12  mg32x02z_mem_drv.o(.text.MEM_GetIAPSize)
-    MEM_SetIAPSize                           0x00000d19   Thumb Code   108  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
-    NMI_Handler                              0x00000d85   Thumb Code     2  mg32x02z__irqhandler.o(.text.NMI_Handler)
-    PRSM3_AddNewByte                         0x00000d89   Thumb Code    20  prsm3.o(.text.PRSM3_AddNewByte)
-    PRSM3_ParseMessage                       0x00000d9d   Thumb Code   104  prsm3.o(.text.PRSM3_ParseMessage)
-    PRSM3_ParseReadRequest                   0x00000e05   Thumb Code   128  prsm3.o(.text.PRSM3_ParseReadRequest)
-    PRSM3_ParseWriteRequest24                0x00000e85   Thumb Code    72  prsm3.o(.text.PRSM3_ParseWriteRequest24)
-    PRSM3_ParseWriteRequest9                 0x00000ecd   Thumb Code    76  prsm3.o(.text.PRSM3_ParseWriteRequest9)
-    PRSM3_ReturnReply                        0x00000f19   Thumb Code    92  prsm3.o(.text.PRSM3_ReturnReply)
-    PRSM3_clearBuffer                        0x00000f75   Thumb Code    32  prsm3.o(.text.PRSM3_clearBuffer)
-    PendSV_Handler                           0x00000f95   Thumb Code     2  mg32x02z__irqhandler.o(.text.PendSV_Handler)
-    ProtectModuleReg                         0x00000f97   Thumb Code     8  mg32x02z__common_drv.o(.text.ProtectModuleReg)
-    RST_Init                                 0x00000fa1   Thumb Code    56  mg32x02z_rst_init.o(.text.RST_Init)
-    SVC_Handler                              0x00000fd9   Thumb Code     2  mg32x02z__irqhandler.o(.text.SVC_Handler)
-    SetVariable                              0x00000fdd   Thumb Code    76  flash.o(.text.SetVariable)
-    SetVariablePack                          0x00001029   Thumb Code   132  flash.o(.text.SetVariablePack)
-    SysTick_Handler                          0x000010ad   Thumb Code     8  mg32x02z__irqhandler.o(.text.SysTick_Handler)
-    SystemInit                               0x000010b5   Thumb Code    16  system_mg32x02z.o(.text.SystemInit)
-    TIM01_Callback                           0x000010c5   Thumb Code     8  timers.o(.text.TIM01_Callback)
-    TIM10_Callback                           0x000010cd   Thumb Code    32  timers.o(.text.TIM10_Callback)
-    TIM16_Callback                           0x000010ed   Thumb Code     2  timers.o(.text.TIM16_Callback)
-    TIM36_Callback                           0x000010ef   Thumb Code     2  timers.o(.text.TIM36_Callback)
-    TM01_IRQ                                 0x000010f1   Thumb Code    96  timers_irq.o(.text.TM01_IRQ)
-    TM0x_IRQHandler                          0x00001151   Thumb Code    20  mg32x02z__irqhandler.o(.text.TM0x_IRQHandler)
-    TM10_IRQ                                 0x00001165   Thumb Code    92  timers_irq.o(.text.TM10_IRQ)
-    TM10_IRQHandler                          0x000011c1   Thumb Code     8  mg32x02z__irqhandler.o(.text.TM10_IRQHandler)
-    TM16_IRQ                                 0x000011c9   Thumb Code    96  timers_irq.o(.text.TM16_IRQ)
-    TM1x_IRQHandler                          0x00001229   Thumb Code     8  mg32x02z__irqhandler.o(.text.TM1x_IRQHandler)
-    TM36_IRQ                                 0x00001231   Thumb Code    96  timers_irq.o(.text.TM36_IRQ)
-    TM3x_IRQHandler                          0x00001291   Thumb Code     8  mg32x02z__irqhandler.o(.text.TM3x_IRQHandler)
-    TM_ClearFlag                             0x00001299   Thumb Code     4  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
-    TM_GetSingleFlagStatus                   0x0000129d   Thumb Code    10  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
-    TM_ITEA_Cmd                              0x000012a7   Thumb Code    14  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
-    TM_IT_Config                             0x000012b5   Thumb Code    20  mg32x02z_tm_drv.o(.text.TM_IT_Config)
-    TM_Init                                  0x000012c9   Thumb Code   180  mg32x02z_tm_init.o(.text.TM_Init)
-    TM_Timer_Cmd                             0x0000137d   Thumb Code    22  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
-    URT0_IRQ                                 0x00001393   Thumb Code   330  usart_irq.o(.text.URT0_IRQ)
-    URT0_IRQHandler                          0x000014dd   Thumb Code     8  mg32x02z__irqhandler.o(.text.URT0_IRQHandler)
-    URT_ClearITFlag                          0x000014e5   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
-    URT_Cmd                                  0x000014ed   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_Cmd)
-    URT_Config                               0x000014f9   Thumb Code   196  mg32x02z_urt_init.o(.text.URT_Config)
-    URT_GetITAllFlagStatus                   0x000015bd   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
-    URT_GetITStatus                          0x000015c5   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
-    URT_GetRXData                            0x000015c9   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetRXData)
-    URT_ITEA_Cmd                             0x000015cd   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
-    URT_IT_Config                            0x000015d9   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_IT_Config)
-    URT_Init                                 0x000015e5   Thumb Code    28  mg32x02z_urt_init.o(.text.URT_Init)
-    URT_IsTxEndTransmission                  0x00001601   Thumb Code    12  usart.o(.text.URT_IsTxEndTransmission)
-    URT_IsTxReady                            0x0000160d   Thumb Code    12  usart.o(.text.URT_IsTxReady)
-    URT_Rx_Callback                          0x00001619   Thumb Code    20  usart.o(.text.URT_Rx_Callback)
-    URT_SetTXData                            0x0000162d   Thumb Code    50  mg32x02z_urt_drv.o(.text.URT_SetTXData)
-    URT_Tx_Callback                          0x0000165f   Thumb Code     2  usart_irq.o(.text.URT_Tx_Callback)
-    URT_Write                                0x00001661   Thumb Code    26  usart.o(.text.URT_Write)
-    URT_WriteWord                            0x0000167b   Thumb Code    26  usart.o(.text.URT_WriteWord)
-    UnProtectModuleReg                       0x00001695   Thumb Code    12  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
-    UpdateFlashResource                      0x000016a1   Thumb Code    28  flash.o(.text.UpdateFlashResource)
-    delay_ms                                 0x0000170d   Thumb Code    18  timers.o(.text.delay_ms)
-    delay_one_ms                             0x0000171f   Thumb Code    52  timers.o(.text.delay_one_ms)
-    main                                     0x00001755   Thumb Code   192  main.o(.text.main)
-    wdt_disable                              0x00001815   Thumb Code    24  wdt.o(.text.wdt_disable)
-    wdt_enable                               0x0000182d   Thumb Code    36  wdt.o(.text.wdt_enable)
-    wdt_reset                                0x00001851   Thumb Code     8  wdt.o(.text.wdt_reset)
-    __0printf$5                              0x00001859   Thumb Code    24  printf5.o(i.__0printf$5)
-    __1printf$5                              0x00001859   Thumb Code     0  printf5.o(i.__0printf$5)
-    __2printf                                0x00001859   Thumb Code     0  printf5.o(i.__0printf$5)
-    __scatterload_copy                       0x00001879   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x00001887   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00001889   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    fputc                                    0x00001b75   Thumb Code    18  fputc.o(i.fputc)
-    Region$$Table$$Base                      0x00001d90   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00001db0   Number         0  anon$$obj.o(Region$$Table)
+    ActivateKey                              0x00000229   Thumb Code   128  flash.o(.text.ActivateKey)
+    AddKey                                   0x000002a9   Thumb Code    76  flash.o(.text.AddKey)
+    CSC_ClearFlag                            0x000002f5   Thumb Code     8  mg32x02z_csc_drv.o(.text.CSC_ClearFlag)
+    CSC_GetClockSourceState                  0x000002fd   Thumb Code    20  mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState)
+    CSC_IHRCO_Cmd                            0x00000311   Thumb Code    24  mg32x02z_csc_drv.o(.text.CSC_IHRCO_Cmd)
+    CSC_Init                                 0x00000329   Thumb Code   464  mg32x02z_csc_init.o(.text.CSC_Init)
+    CSC_XOSC_Enable                          0x000004f9   Thumb Code   100  mg32x02z_csc_init.o(.text.CSC_XOSC_Enable)
+    ChipInit                                 0x0000055d   Thumb Code    94  mg32x02z_chipinit.o(.text.ChipInit)
+    CopyFlashPageToRAM                       0x000005bd   Thumb Code    20  flash.o(.text.CopyFlashPageToRAM)
+    CopyRAMToFlashPage                       0x000005d1   Thumb Code    20  flash.o(.text.CopyRAMToFlashPage)
+    DoCommand                                0x000005e5   Thumb Code   172  flash.o(.text.DoCommand)
+    Do_CRC                                   0x00000691   Thumb Code    32  crc.o(.text.Do_CRC)
+    FlashFirstInit                           0x000006b1   Thumb Code   292  flash.o(.text.FlashFirstInit)
+    FlashTestFill                            0x000007d5   Thumb Code    92  flash.o(.text.FlashTestFill)
+    GPIO_Init                                0x00000831   Thumb Code    24  mg32x02z_gpio_init.o(.text.GPIO_Init)
+    GetKeyStatus                             0x00000849   Thumb Code    12  flash.o(.text.GetKeyStatus)
+    GetMaxFlashResource                      0x00000855   Thumb Code    36  flash.o(.text.GetMaxFlashResource)
+    GetVariable                              0x00000879   Thumb Code    24  flash.o(.text.GetVariable)
+    HardFault_Handler_C                      0x00000891   Thumb Code   328  system_mg32x02z.o(.text.HardFault_Handler_C)
+    IAP_CopyFromIAPToRAM                     0x000009d9   Thumb Code    22  iap.o(.text.IAP_CopyFromIAPToRAM)
+    IAP_Erase_OnePage                        0x000009ef   Thumb Code    18  iap.o(.text.IAP_Erase_OnePage)
+    IAP_Erase_Page                           0x00000a01   Thumb Code   192  iap.o(.text.IAP_Erase_Page)
+    IAP_Init                                 0x00000ac1   Thumb Code    56  iap.o(.text.IAP_Init)
+    IAP_Multiple_Write                       0x00000af9   Thumb Code   196  iap.o(.text.IAP_Multiple_Write)
+    IAP_ReadByte                             0x00000bbd   Thumb Code    12  iap.o(.text.IAP_ReadByte)
+    IAP_ReadWord                             0x00000bc9   Thumb Code    14  iap.o(.text.IAP_ReadWord)
+    IAP_Single_Write                         0x00000bd9   Thumb Code   168  iap.o(.text.IAP_Single_Write)
+    IAP_WriteMultipleWord                    0x00000c81   Thumb Code    24  iap.o(.text.IAP_WriteMultipleWord)
+    IAP_WriteSingleWord                      0x00000c99   Thumb Code    22  iap.o(.text.IAP_WriteSingleWord)
+    IWDT_Cmd                                 0x00000cb1   Thumb Code    28  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
+    IWDT_Divider_Select                      0x00000ccd   Thumb Code    24  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
+    IWDT_RefreshCounter                      0x00000ce5   Thumb Code    16  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    IncTick                                  0x00000cf5   Thumb Code    16  mg32x02z__common_drv.o(.text.IncTick)
+    MEM_ClearFlag                            0x00000d05   Thumb Code     8  mg32x02z_mem_drv.o(.text.MEM_ClearFlag)
+    MEM_GetFlagStatus                        0x00000d0d   Thumb Code    16  mg32x02z_mem_drv.o(.text.MEM_GetFlagStatus)
+    MEM_GetIAPSize                           0x00000d1d   Thumb Code    12  mg32x02z_mem_drv.o(.text.MEM_GetIAPSize)
+    MEM_SetIAPSize                           0x00000d29   Thumb Code   108  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
+    NMI_Handler                              0x00000d95   Thumb Code     2  mg32x02z__irqhandler.o(.text.NMI_Handler)
+    PRSM3_AddNewByte                         0x00000d99   Thumb Code    20  prsm3.o(.text.PRSM3_AddNewByte)
+    PRSM3_ParseMessage                       0x00000dad   Thumb Code   104  prsm3.o(.text.PRSM3_ParseMessage)
+    PRSM3_ParseReadRequest                   0x00000e15   Thumb Code   128  prsm3.o(.text.PRSM3_ParseReadRequest)
+    PRSM3_ParseWriteRequest24                0x00000e95   Thumb Code    72  prsm3.o(.text.PRSM3_ParseWriteRequest24)
+    PRSM3_ParseWriteRequest9                 0x00000edd   Thumb Code    76  prsm3.o(.text.PRSM3_ParseWriteRequest9)
+    PRSM3_ReturnReply                        0x00000f29   Thumb Code    92  prsm3.o(.text.PRSM3_ReturnReply)
+    PRSM3_clearBuffer                        0x00000f85   Thumb Code    32  prsm3.o(.text.PRSM3_clearBuffer)
+    PendSV_Handler                           0x00000fa5   Thumb Code     2  mg32x02z__irqhandler.o(.text.PendSV_Handler)
+    ProtectModuleReg                         0x00000fa7   Thumb Code     8  mg32x02z__common_drv.o(.text.ProtectModuleReg)
+    RST_Init                                 0x00000fb1   Thumb Code    56  mg32x02z_rst_init.o(.text.RST_Init)
+    SVC_Handler                              0x00000fe9   Thumb Code     2  mg32x02z__irqhandler.o(.text.SVC_Handler)
+    SetVariable                              0x00000fed   Thumb Code    76  flash.o(.text.SetVariable)
+    SetVariablePack                          0x00001039   Thumb Code   132  flash.o(.text.SetVariablePack)
+    SysTick_Handler                          0x000010bd   Thumb Code     8  mg32x02z__irqhandler.o(.text.SysTick_Handler)
+    SystemInit                               0x000010c5   Thumb Code    16  system_mg32x02z.o(.text.SystemInit)
+    TIM01_Callback                           0x000010d5   Thumb Code     8  timers.o(.text.TIM01_Callback)
+    TIM10_Callback                           0x000010dd   Thumb Code    32  timers.o(.text.TIM10_Callback)
+    TIM16_Callback                           0x000010fd   Thumb Code     2  timers.o(.text.TIM16_Callback)
+    TIM36_Callback                           0x000010ff   Thumb Code     2  timers.o(.text.TIM36_Callback)
+    TM01_IRQ                                 0x00001101   Thumb Code    96  timers_irq.o(.text.TM01_IRQ)
+    TM0x_IRQHandler                          0x00001161   Thumb Code    20  mg32x02z__irqhandler.o(.text.TM0x_IRQHandler)
+    TM10_IRQ                                 0x00001175   Thumb Code    92  timers_irq.o(.text.TM10_IRQ)
+    TM10_IRQHandler                          0x000011d1   Thumb Code     8  mg32x02z__irqhandler.o(.text.TM10_IRQHandler)
+    TM16_IRQ                                 0x000011d9   Thumb Code    96  timers_irq.o(.text.TM16_IRQ)
+    TM1x_IRQHandler                          0x00001239   Thumb Code     8  mg32x02z__irqhandler.o(.text.TM1x_IRQHandler)
+    TM36_IRQ                                 0x00001241   Thumb Code    96  timers_irq.o(.text.TM36_IRQ)
+    TM3x_IRQHandler                          0x000012a1   Thumb Code     8  mg32x02z__irqhandler.o(.text.TM3x_IRQHandler)
+    TM_ClearFlag                             0x000012a9   Thumb Code     4  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
+    TM_GetSingleFlagStatus                   0x000012ad   Thumb Code    10  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
+    TM_ITEA_Cmd                              0x000012b7   Thumb Code    14  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
+    TM_IT_Config                             0x000012c5   Thumb Code    20  mg32x02z_tm_drv.o(.text.TM_IT_Config)
+    TM_Init                                  0x000012d9   Thumb Code   180  mg32x02z_tm_init.o(.text.TM_Init)
+    TM_Timer_Cmd                             0x0000138d   Thumb Code    22  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
+    URT0_IRQ                                 0x000013a3   Thumb Code   330  usart_irq.o(.text.URT0_IRQ)
+    URT0_IRQHandler                          0x000014ed   Thumb Code     8  mg32x02z__irqhandler.o(.text.URT0_IRQHandler)
+    URT_ClearITFlag                          0x000014f5   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
+    URT_Cmd                                  0x000014fd   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_Cmd)
+    URT_Config                               0x00001509   Thumb Code   196  mg32x02z_urt_init.o(.text.URT_Config)
+    URT_GetITAllFlagStatus                   0x000015cd   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
+    URT_GetITStatus                          0x000015d5   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
+    URT_GetRXData                            0x000015d9   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetRXData)
+    URT_ITEA_Cmd                             0x000015dd   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
+    URT_IT_Config                            0x000015e9   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_IT_Config)
+    URT_Init                                 0x000015f5   Thumb Code    28  mg32x02z_urt_init.o(.text.URT_Init)
+    URT_IsTxEndTransmission                  0x00001611   Thumb Code    12  usart.o(.text.URT_IsTxEndTransmission)
+    URT_IsTxReady                            0x0000161d   Thumb Code    12  usart.o(.text.URT_IsTxReady)
+    URT_Rx_Callback                          0x00001629   Thumb Code    20  usart.o(.text.URT_Rx_Callback)
+    URT_SetTXData                            0x0000163d   Thumb Code    50  mg32x02z_urt_drv.o(.text.URT_SetTXData)
+    URT_Tx_Callback                          0x0000166f   Thumb Code     2  usart_irq.o(.text.URT_Tx_Callback)
+    URT_Write                                0x00001671   Thumb Code    26  usart.o(.text.URT_Write)
+    URT_WriteWord                            0x0000168b   Thumb Code    26  usart.o(.text.URT_WriteWord)
+    UnProtectModuleReg                       0x000016a5   Thumb Code    12  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
+    UpdateFlashResource                      0x000016b1   Thumb Code    28  flash.o(.text.UpdateFlashResource)
+    delay_ms                                 0x0000171d   Thumb Code    18  timers.o(.text.delay_ms)
+    delay_one_ms                             0x0000172f   Thumb Code    52  timers.o(.text.delay_one_ms)
+    main                                     0x00001765   Thumb Code   192  main.o(.text.main)
+    wdt_disable                              0x00001825   Thumb Code    24  wdt.o(.text.wdt_disable)
+    wdt_enable                               0x0000183d   Thumb Code    36  wdt.o(.text.wdt_enable)
+    wdt_reset                                0x00001861   Thumb Code     8  wdt.o(.text.wdt_reset)
+    __0printf$5                              0x00001869   Thumb Code    24  printf5.o(i.__0printf$5)
+    __1printf$5                              0x00001869   Thumb Code     0  printf5.o(i.__0printf$5)
+    __2printf                                0x00001869   Thumb Code     0  printf5.o(i.__0printf$5)
+    __scatterload_copy                       0x00001889   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x00001897   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00001899   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    fputc                                    0x00001b85   Thumb Code    18  fputc.o(i.fputc)
+    Region$$Table$$Base                      0x00001da0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001dc0   Number         0  anon$$obj.o(Region$$Table)
     __stdout                                 0x20000000   Data           4  stdout.o(.data)
     ActiveKeys                               0x20000004   Data           6  variables.o(.data.ActiveKeys)
     BuzzerOffTime                            0x2000000a   Data           6  variables.o(.data.BuzzerOffTime)
@@ -3622,17 +3618,22 @@ Image Symbol Table
     eventAccess                              0x20000046   Data           6  events.o(.data.eventAccess)
     eventAlarm                               0x2000004c   Data           6  events.o(.data.eventAlarm)
     events                                   0x20000054   Data          12  events.o(.data.events)
-    variables                                0x20000060   Data          40  variables.o(.data.variables)
-    CommandSize                              0x20000088   Data           1  prsm3.o(.bss.CommandSize)
-    DecryptedMessageLen                      0x20000089   Data           1  prsm3.o(.bss.DecryptedMessageLen)
-    RecBytes                                 0x200000ac   Data          30  prsm3.o(.bss.RecBytes)
-    eventDoor                                0x200000ca   Data           6  events.o(.bss.eventDoor)
-    fpage                                    0x200000d0   Data        1024  flash.o(.bss.fpage)
-    iptr                                     0x200004d0   Data           1  prsm3.o(.bss.iptr)
-    operStatus                               0x200004d4   Data           4  prsm3.o(.bss.operStatus)
-    parsingStatus                            0x200004d8   Data           1  prsm3.o(.bss.parsingStatus)
-    usUsart                                  0x200004d9   Data           1  prsm3.o(.bss.usUsart)
-    __initial_sp                             0x200008e0   Data           0  startup_mg32x02z.o(STACK)
+    key1                                     0x20000060   Data          16  keys.o(.data.key1)
+    key2                                     0x20000070   Data          16  keys.o(.data.key2)
+    key3                                     0x20000080   Data          16  keys.o(.data.key3)
+    key4                                     0x20000090   Data          16  keys.o(.data.key4)
+    key5                                     0x200000a0   Data          16  keys.o(.data.key5)
+    variables                                0x200000b0   Data          40  variables.o(.data.variables)
+    CommandSize                              0x200000d8   Data           1  prsm3.o(.bss.CommandSize)
+    DecryptedMessageLen                      0x200000d9   Data           1  prsm3.o(.bss.DecryptedMessageLen)
+    RecBytes                                 0x200000fc   Data          30  prsm3.o(.bss.RecBytes)
+    eventDoor                                0x2000011a   Data           6  events.o(.bss.eventDoor)
+    fpage                                    0x20000120   Data        1024  flash.o(.bss.fpage)
+    iptr                                     0x20000520   Data           1  prsm3.o(.bss.iptr)
+    operStatus                               0x20000524   Data           4  prsm3.o(.bss.operStatus)
+    parsingStatus                            0x20000528   Data           1  prsm3.o(.bss.parsingStatus)
+    usUsart                                  0x20000529   Data           1  prsm3.o(.bss.usUsart)
+    __initial_sp                             0x20000930   Data           0  startup_mg32x02z.o(STACK)
 
 
 
@@ -3642,9 +3643,9 @@ Memory Map of the image
 
   Image Entry point : 0x000000db
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00001e38, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00001e98, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00001db0, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00001dc0, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3668,177 +3669,183 @@ Memory Map of the image
     0x00000204   0x00000204   0x00000022   Code   RO         2355    .text               mc_p.l(llushr.o)
     0x00000226   0x00000226   0x00000000   Code   RO         2359    .text               mc_p.l(iusesemip.o)
     0x00000226   0x00000226   0x00000002   PAD
-    0x00000228   0x00000228   0x00000078   Code   RO          205    .text.ActivateKey   flash.o
-    0x000002a0   0x000002a0   0x000000ec   Code   RO          187    .text.AddKey        flash.o
-    0x0000038c   0x0000038c   0x00000008   Code   RO          756    .text.CSC_ClearFlag  mg32x02z_csc_drv.o
-    0x00000394   0x00000394   0x00000014   Code   RO          746    .text.CSC_GetClockSourceState  mg32x02z_csc_drv.o
-    0x000003a8   0x000003a8   0x00000018   Code   RO          700    .text.CSC_IHRCO_Cmd  mg32x02z_csc_drv.o
-    0x000003c0   0x000003c0   0x000001d0   Code   RO          302    .text.CSC_Init      mg32x02z_csc_init.o
-    0x00000590   0x00000590   0x00000064   Code   RO          298    .text.CSC_XOSC_Enable  mg32x02z_csc_init.o
-    0x000005f4   0x000005f4   0x0000005e   Code   RO          313    .text.ChipInit      mg32x02z_chipinit.o
-    0x00000652   0x00000652   0x00000002   PAD
-    0x00000654   0x00000654   0x00000014   Code   RO          197    .text.CopyFlashPageToRAM  flash.o
-    0x00000668   0x00000668   0x00000014   Code   RO          201    .text.CopyRAMToFlashPage  flash.o
-    0x0000067c   0x0000067c   0x000000b8   Code   RO          209    .text.DoCommand     flash.o
-    0x00000734   0x00000734   0x00000020   Code   RO           69    .text.Do_CRC        crc.o
-    0x00000754   0x00000754   0x000000c8   Code   RO          189    .text.FlashFirstInit  flash.o
-    0x0000081c   0x0000081c   0x00000018   Code   RO          327    .text.GPIO_Init     mg32x02z_gpio_init.o
-    0x00000834   0x00000834   0x0000000c   Code   RO          207    .text.GetKeyStatus  flash.o
-    0x00000840   0x00000840   0x00000024   Code   RO          191    .text.GetMaxFlashResource  flash.o
-    0x00000864   0x00000864   0x00000018   Code   RO          193    .text.GetVariable   flash.o
-    0x0000087c   0x0000087c   0x00000148   Code   RO          403    .text.HardFault_Handler_C  system_mg32x02z.o
-    0x000009c4   0x000009c4   0x00000018   Code   RO          137    .text.IAP_CopyFromIAPToRAM  iap.o
-    0x000009dc   0x000009dc   0x00000012   Code   RO          119    .text.IAP_Erase_OnePage  iap.o
-    0x000009ee   0x000009ee   0x00000002   PAD
-    0x000009f0   0x000009f0   0x000000c0   Code   RO          121    .text.IAP_Erase_Page  iap.o
-    0x00000ab0   0x00000ab0   0x00000038   Code   RO          117    .text.IAP_Init      iap.o
-    0x00000ae8   0x00000ae8   0x000000c4   Code   RO          135    .text.IAP_Multiple_Write  iap.o
-    0x00000bac   0x00000bac   0x0000000c   Code   RO          125    .text.IAP_ReadByte  iap.o
-    0x00000bb8   0x00000bb8   0x0000000e   Code   RO          127    .text.IAP_ReadWord  iap.o
-    0x00000bc6   0x00000bc6   0x00000002   PAD
-    0x00000bc8   0x00000bc8   0x000000a8   Code   RO          131    .text.IAP_Single_Write  iap.o
-    0x00000c70   0x00000c70   0x0000001a   Code   RO          133    .text.IAP_WriteMultipleWord  iap.o
-    0x00000c8a   0x00000c8a   0x00000016   Code   RO          129    .text.IAP_WriteSingleWord  iap.o
-    0x00000ca0   0x00000ca0   0x0000001c   Code   RO         1052    .text.IWDT_Cmd      mg32x02z_iwdt_drv.o
-    0x00000cbc   0x00000cbc   0x00000018   Code   RO         1044    .text.IWDT_Divider_Select  mg32x02z_iwdt_drv.o
-    0x00000cd4   0x00000cd4   0x00000010   Code   RO         1048    .text.IWDT_RefreshCounter  mg32x02z_iwdt_drv.o
-    0x00000ce4   0x00000ce4   0x00000010   Code   RO         2022    .text.IncTick       mg32x02z__common_drv.o
-    0x00000cf4   0x00000cf4   0x00000008   Code   RO         1074    .text.MEM_ClearFlag  mg32x02z_mem_drv.o
-    0x00000cfc   0x00000cfc   0x00000010   Code   RO         1072    .text.MEM_GetFlagStatus  mg32x02z_mem_drv.o
-    0x00000d0c   0x00000d0c   0x0000000c   Code   RO         1112    .text.MEM_GetIAPSize  mg32x02z_mem_drv.o
-    0x00000d18   0x00000d18   0x0000006c   Code   RO         1114    .text.MEM_SetIAPSize  mg32x02z_mem_drv.o
-    0x00000d84   0x00000d84   0x00000002   Code   RO          365    .text.NMI_Handler   mg32x02z__irqhandler.o
-    0x00000d86   0x00000d86   0x00000002   PAD
-    0x00000d88   0x00000d88   0x00000014   Code   RO           13    .text.PRSM3_AddNewByte  prsm3.o
-    0x00000d9c   0x00000d9c   0x00000068   Code   RO           15    .text.PRSM3_ParseMessage  prsm3.o
-    0x00000e04   0x00000e04   0x00000080   Code   RO           23    .text.PRSM3_ParseReadRequest  prsm3.o
-    0x00000e84   0x00000e84   0x00000048   Code   RO           21    .text.PRSM3_ParseWriteRequest24  prsm3.o
-    0x00000ecc   0x00000ecc   0x0000004c   Code   RO           19    .text.PRSM3_ParseWriteRequest9  prsm3.o
-    0x00000f18   0x00000f18   0x0000005c   Code   RO           17    .text.PRSM3_ReturnReply  prsm3.o
-    0x00000f74   0x00000f74   0x00000020   Code   RO           27    .text.PRSM3_clearBuffer  prsm3.o
-    0x00000f94   0x00000f94   0x00000002   Code   RO          369    .text.PendSV_Handler  mg32x02z__irqhandler.o
-    0x00000f96   0x00000f96   0x00000008   Code   RO         2032    .text.ProtectModuleReg  mg32x02z__common_drv.o
-    0x00000f9e   0x00000f9e   0x00000002   PAD
-    0x00000fa0   0x00000fa0   0x00000038   Code   RO          337    .text.RST_Init      mg32x02z_rst_init.o
-    0x00000fd8   0x00000fd8   0x00000002   Code   RO          367    .text.SVC_Handler   mg32x02z__irqhandler.o
-    0x00000fda   0x00000fda   0x00000002   PAD
-    0x00000fdc   0x00000fdc   0x0000004c   Code   RO          195    .text.SetVariable   flash.o
-    0x00001028   0x00001028   0x00000084   Code   RO          203    .text.SetVariablePack  flash.o
-    0x000010ac   0x000010ac   0x00000008   Code   RO          371    .text.SysTick_Handler  mg32x02z__irqhandler.o
-    0x000010b4   0x000010b4   0x00000010   Code   RO          401    .text.SystemInit    system_mg32x02z.o
-    0x000010c4   0x000010c4   0x00000008   Code   RO           45    .text.TIM01_Callback  timers.o
-    0x000010cc   0x000010cc   0x00000020   Code   RO           47    .text.TIM10_Callback  timers.o
-    0x000010ec   0x000010ec   0x00000002   Code   RO           49    .text.TIM16_Callback  timers.o
-    0x000010ee   0x000010ee   0x00000002   Code   RO           51    .text.TIM36_Callback  timers.o
-    0x000010f0   0x000010f0   0x00000060   Code   RO          271    .text.TM01_IRQ      timers_irq.o
-    0x00001150   0x00001150   0x00000014   Code   RO          373    .text.TM0x_IRQHandler  mg32x02z__irqhandler.o
-    0x00001164   0x00001164   0x0000005c   Code   RO          273    .text.TM10_IRQ      timers_irq.o
-    0x000011c0   0x000011c0   0x00000008   Code   RO          375    .text.TM10_IRQHandler  mg32x02z__irqhandler.o
-    0x000011c8   0x000011c8   0x00000060   Code   RO          275    .text.TM16_IRQ      timers_irq.o
-    0x00001228   0x00001228   0x00000008   Code   RO          377    .text.TM1x_IRQHandler  mg32x02z__irqhandler.o
-    0x00001230   0x00001230   0x00000060   Code   RO          277    .text.TM36_IRQ      timers_irq.o
-    0x00001290   0x00001290   0x00000008   Code   RO          379    .text.TM3x_IRQHandler  mg32x02z__irqhandler.o
-    0x00001298   0x00001298   0x00000004   Code   RO         1722    .text.TM_ClearFlag  mg32x02z_tm_drv.o
-    0x0000129c   0x0000129c   0x0000000a   Code   RO         1718    .text.TM_GetSingleFlagStatus  mg32x02z_tm_drv.o
-    0x000012a6   0x000012a6   0x0000000e   Code   RO         1716    .text.TM_ITEA_Cmd   mg32x02z_tm_drv.o
-    0x000012b4   0x000012b4   0x00000014   Code   RO         1714    .text.TM_IT_Config  mg32x02z_tm_drv.o
-    0x000012c8   0x000012c8   0x000000b4   Code   RO          345    .text.TM_Init       mg32x02z_tm_init.o
-    0x0000137c   0x0000137c   0x00000016   Code   RO         1452    .text.TM_Timer_Cmd  mg32x02z_tm_drv.o
-    0x00001392   0x00001392   0x0000014a   Code   RO          249    .text.URT0_IRQ      usart_irq.o
-    0x000014dc   0x000014dc   0x00000008   Code   RO          381    .text.URT0_IRQHandler  mg32x02z__irqhandler.o
-    0x000014e4   0x000014e4   0x00000008   Code   RO         1756    .text.URT_ClearITFlag  mg32x02z_urt_drv.o
-    0x000014ec   0x000014ec   0x0000000c   Code   RO         1792    .text.URT_Cmd       mg32x02z_urt_drv.o
-    0x000014f8   0x000014f8   0x000000c4   Code   RO          353    .text.URT_Config    mg32x02z_urt_init.o
-    0x000015bc   0x000015bc   0x00000008   Code   RO         1752    .text.URT_GetITAllFlagStatus  mg32x02z_urt_drv.o
-    0x000015c4   0x000015c4   0x00000004   Code   RO         1748    .text.URT_GetITStatus  mg32x02z_urt_drv.o
-    0x000015c8   0x000015c8   0x00000004   Code   RO         1870    .text.URT_GetRXData  mg32x02z_urt_drv.o
-    0x000015cc   0x000015cc   0x0000000c   Code   RO         1750    .text.URT_ITEA_Cmd  mg32x02z_urt_drv.o
-    0x000015d8   0x000015d8   0x0000000c   Code   RO         1746    .text.URT_IT_Config  mg32x02z_urt_drv.o
-    0x000015e4   0x000015e4   0x0000001c   Code   RO          355    .text.URT_Init      mg32x02z_urt_init.o
-    0x00001600   0x00001600   0x0000000c   Code   RO           92    .text.URT_IsTxEndTransmission  usart.o
-    0x0000160c   0x0000160c   0x0000000c   Code   RO           90    .text.URT_IsTxReady  usart.o
-    0x00001618   0x00001618   0x00000014   Code   RO           82    .text.URT_Rx_Callback  usart.o
-    0x0000162c   0x0000162c   0x00000032   Code   RO         1906    .text.URT_SetTXData  mg32x02z_urt_drv.o
-    0x0000165e   0x0000165e   0x00000002   Code   RO          247    .text.URT_Tx_Callback  usart_irq.o
-    0x00001660   0x00001660   0x0000001a   Code   RO           84    .text.URT_Write     usart.o
-    0x0000167a   0x0000167a   0x0000001a   Code   RO           86    .text.URT_WriteWord  usart.o
-    0x00001694   0x00001694   0x0000000c   Code   RO         2034    .text.UnProtectModuleReg  mg32x02z__common_drv.o
-    0x000016a0   0x000016a0   0x0000001c   Code   RO          199    .text.UpdateFlashResource  flash.o
-    0x000016bc   0x000016bc   0x00000018   Code   RO          315    .text.__NVIC_EnableIRQ  mg32x02z_chipinit.o
-    0x000016d4   0x000016d4   0x00000038   Code   RO          317    .text.__NVIC_SetPriority  mg32x02z_chipinit.o
-    0x0000170c   0x0000170c   0x00000012   Code   RO           55    .text.delay_ms      timers.o
-    0x0000171e   0x0000171e   0x00000034   Code   RO           53    .text.delay_one_ms  timers.o
-    0x00001752   0x00001752   0x00000002   PAD
-    0x00001754   0x00001754   0x000000c0   Code   RO            2    .text.main          main.o
-    0x00001814   0x00001814   0x00000018   Code   RO          107    .text.wdt_disable   wdt.o
-    0x0000182c   0x0000182c   0x00000024   Code   RO          103    .text.wdt_enable    wdt.o
-    0x00001850   0x00001850   0x00000008   Code   RO          105    .text.wdt_reset     wdt.o
-    0x00001858   0x00001858   0x00000020   Code   RO         2190    i.__0printf$5       mc_p.l(printf5.o)
-    0x00001878   0x00001878   0x0000000e   Code   RO         2366    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x00001886   0x00001886   0x00000002   Code   RO         2367    i.__scatterload_null  mc_p.l(handlers.o)
-    0x00001888   0x00001888   0x0000000e   Code   RO         2368    i.__scatterload_zeroinit  mc_p.l(handlers.o)
-    0x00001896   0x00001896   0x00000002   PAD
-    0x00001898   0x00001898   0x000002dc   Code   RO         2197    i._printf_core      mc_p.l(printf5.o)
-    0x00001b74   0x00001b74   0x00000012   Code   RO         2332    i.fputc             mc_p.l(fputc.o)
-    0x00001b86   0x00001b86   0x00000100   Data   RO           73    .rodata.CRC_Table   crc.o
-    0x00001c86   0x00001c86   0x00000002   PAD
-    0x00001c88   0x00001c88   0x00000050   Data   RO          304    .rodata.CSC_InitConfig  mg32x02z_csc_init.o
-    0x00001cd8   0x00001cd8   0x00000084   Data   RO          329    .rodata.GPIO_CFG    mg32x02z_gpio_init.o
-    0x00001d5c   0x00001d5c   0x00000033   Data   RO          414    .rodata.str1.1      system_mg32x02z.o
-    0x00001d8f   0x00001d8f   0x00000001   PAD
-    0x00001d90   0x00001d90   0x00000020   Data   RO         2365    Region$$Table       anon$$obj.o
+    0x00000228   0x00000228   0x00000080   Code   RO          205    .text.ActivateKey   flash.o
+    0x000002a8   0x000002a8   0x0000004c   Code   RO          187    .text.AddKey        flash.o
+    0x000002f4   0x000002f4   0x00000008   Code   RO          756    .text.CSC_ClearFlag  mg32x02z_csc_drv.o
+    0x000002fc   0x000002fc   0x00000014   Code   RO          746    .text.CSC_GetClockSourceState  mg32x02z_csc_drv.o
+    0x00000310   0x00000310   0x00000018   Code   RO          700    .text.CSC_IHRCO_Cmd  mg32x02z_csc_drv.o
+    0x00000328   0x00000328   0x000001d0   Code   RO          302    .text.CSC_Init      mg32x02z_csc_init.o
+    0x000004f8   0x000004f8   0x00000064   Code   RO          298    .text.CSC_XOSC_Enable  mg32x02z_csc_init.o
+    0x0000055c   0x0000055c   0x0000005e   Code   RO          313    .text.ChipInit      mg32x02z_chipinit.o
+    0x000005ba   0x000005ba   0x00000002   PAD
+    0x000005bc   0x000005bc   0x00000014   Code   RO          197    .text.CopyFlashPageToRAM  flash.o
+    0x000005d0   0x000005d0   0x00000014   Code   RO          201    .text.CopyRAMToFlashPage  flash.o
+    0x000005e4   0x000005e4   0x000000ac   Code   RO          209    .text.DoCommand     flash.o
+    0x00000690   0x00000690   0x00000020   Code   RO           69    .text.Do_CRC        crc.o
+    0x000006b0   0x000006b0   0x00000124   Code   RO          189    .text.FlashFirstInit  flash.o
+    0x000007d4   0x000007d4   0x0000005c   Code   RO          185    .text.FlashTestFill  flash.o
+    0x00000830   0x00000830   0x00000018   Code   RO          327    .text.GPIO_Init     mg32x02z_gpio_init.o
+    0x00000848   0x00000848   0x0000000c   Code   RO          207    .text.GetKeyStatus  flash.o
+    0x00000854   0x00000854   0x00000024   Code   RO          191    .text.GetMaxFlashResource  flash.o
+    0x00000878   0x00000878   0x00000018   Code   RO          193    .text.GetVariable   flash.o
+    0x00000890   0x00000890   0x00000148   Code   RO          403    .text.HardFault_Handler_C  system_mg32x02z.o
+    0x000009d8   0x000009d8   0x00000016   Code   RO          137    .text.IAP_CopyFromIAPToRAM  iap.o
+    0x000009ee   0x000009ee   0x00000012   Code   RO          119    .text.IAP_Erase_OnePage  iap.o
+    0x00000a00   0x00000a00   0x000000c0   Code   RO          121    .text.IAP_Erase_Page  iap.o
+    0x00000ac0   0x00000ac0   0x00000038   Code   RO          117    .text.IAP_Init      iap.o
+    0x00000af8   0x00000af8   0x000000c4   Code   RO          135    .text.IAP_Multiple_Write  iap.o
+    0x00000bbc   0x00000bbc   0x0000000c   Code   RO          125    .text.IAP_ReadByte  iap.o
+    0x00000bc8   0x00000bc8   0x0000000e   Code   RO          127    .text.IAP_ReadWord  iap.o
+    0x00000bd6   0x00000bd6   0x00000002   PAD
+    0x00000bd8   0x00000bd8   0x000000a8   Code   RO          131    .text.IAP_Single_Write  iap.o
+    0x00000c80   0x00000c80   0x00000018   Code   RO          133    .text.IAP_WriteMultipleWord  iap.o
+    0x00000c98   0x00000c98   0x00000016   Code   RO          129    .text.IAP_WriteSingleWord  iap.o
+    0x00000cae   0x00000cae   0x00000002   PAD
+    0x00000cb0   0x00000cb0   0x0000001c   Code   RO         1052    .text.IWDT_Cmd      mg32x02z_iwdt_drv.o
+    0x00000ccc   0x00000ccc   0x00000018   Code   RO         1044    .text.IWDT_Divider_Select  mg32x02z_iwdt_drv.o
+    0x00000ce4   0x00000ce4   0x00000010   Code   RO         1048    .text.IWDT_RefreshCounter  mg32x02z_iwdt_drv.o
+    0x00000cf4   0x00000cf4   0x00000010   Code   RO         2022    .text.IncTick       mg32x02z__common_drv.o
+    0x00000d04   0x00000d04   0x00000008   Code   RO         1074    .text.MEM_ClearFlag  mg32x02z_mem_drv.o
+    0x00000d0c   0x00000d0c   0x00000010   Code   RO         1072    .text.MEM_GetFlagStatus  mg32x02z_mem_drv.o
+    0x00000d1c   0x00000d1c   0x0000000c   Code   RO         1112    .text.MEM_GetIAPSize  mg32x02z_mem_drv.o
+    0x00000d28   0x00000d28   0x0000006c   Code   RO         1114    .text.MEM_SetIAPSize  mg32x02z_mem_drv.o
+    0x00000d94   0x00000d94   0x00000002   Code   RO          365    .text.NMI_Handler   mg32x02z__irqhandler.o
+    0x00000d96   0x00000d96   0x00000002   PAD
+    0x00000d98   0x00000d98   0x00000014   Code   RO           13    .text.PRSM3_AddNewByte  prsm3.o
+    0x00000dac   0x00000dac   0x00000068   Code   RO           15    .text.PRSM3_ParseMessage  prsm3.o
+    0x00000e14   0x00000e14   0x00000080   Code   RO           23    .text.PRSM3_ParseReadRequest  prsm3.o
+    0x00000e94   0x00000e94   0x00000048   Code   RO           21    .text.PRSM3_ParseWriteRequest24  prsm3.o
+    0x00000edc   0x00000edc   0x0000004c   Code   RO           19    .text.PRSM3_ParseWriteRequest9  prsm3.o
+    0x00000f28   0x00000f28   0x0000005c   Code   RO           17    .text.PRSM3_ReturnReply  prsm3.o
+    0x00000f84   0x00000f84   0x00000020   Code   RO           27    .text.PRSM3_clearBuffer  prsm3.o
+    0x00000fa4   0x00000fa4   0x00000002   Code   RO          369    .text.PendSV_Handler  mg32x02z__irqhandler.o
+    0x00000fa6   0x00000fa6   0x00000008   Code   RO         2032    .text.ProtectModuleReg  mg32x02z__common_drv.o
+    0x00000fae   0x00000fae   0x00000002   PAD
+    0x00000fb0   0x00000fb0   0x00000038   Code   RO          337    .text.RST_Init      mg32x02z_rst_init.o
+    0x00000fe8   0x00000fe8   0x00000002   Code   RO          367    .text.SVC_Handler   mg32x02z__irqhandler.o
+    0x00000fea   0x00000fea   0x00000002   PAD
+    0x00000fec   0x00000fec   0x0000004c   Code   RO          195    .text.SetVariable   flash.o
+    0x00001038   0x00001038   0x00000084   Code   RO          203    .text.SetVariablePack  flash.o
+    0x000010bc   0x000010bc   0x00000008   Code   RO          371    .text.SysTick_Handler  mg32x02z__irqhandler.o
+    0x000010c4   0x000010c4   0x00000010   Code   RO          401    .text.SystemInit    system_mg32x02z.o
+    0x000010d4   0x000010d4   0x00000008   Code   RO           45    .text.TIM01_Callback  timers.o
+    0x000010dc   0x000010dc   0x00000020   Code   RO           47    .text.TIM10_Callback  timers.o
+    0x000010fc   0x000010fc   0x00000002   Code   RO           49    .text.TIM16_Callback  timers.o
+    0x000010fe   0x000010fe   0x00000002   Code   RO           51    .text.TIM36_Callback  timers.o
+    0x00001100   0x00001100   0x00000060   Code   RO          271    .text.TM01_IRQ      timers_irq.o
+    0x00001160   0x00001160   0x00000014   Code   RO          373    .text.TM0x_IRQHandler  mg32x02z__irqhandler.o
+    0x00001174   0x00001174   0x0000005c   Code   RO          273    .text.TM10_IRQ      timers_irq.o
+    0x000011d0   0x000011d0   0x00000008   Code   RO          375    .text.TM10_IRQHandler  mg32x02z__irqhandler.o
+    0x000011d8   0x000011d8   0x00000060   Code   RO          275    .text.TM16_IRQ      timers_irq.o
+    0x00001238   0x00001238   0x00000008   Code   RO          377    .text.TM1x_IRQHandler  mg32x02z__irqhandler.o
+    0x00001240   0x00001240   0x00000060   Code   RO          277    .text.TM36_IRQ      timers_irq.o
+    0x000012a0   0x000012a0   0x00000008   Code   RO          379    .text.TM3x_IRQHandler  mg32x02z__irqhandler.o
+    0x000012a8   0x000012a8   0x00000004   Code   RO         1722    .text.TM_ClearFlag  mg32x02z_tm_drv.o
+    0x000012ac   0x000012ac   0x0000000a   Code   RO         1718    .text.TM_GetSingleFlagStatus  mg32x02z_tm_drv.o
+    0x000012b6   0x000012b6   0x0000000e   Code   RO         1716    .text.TM_ITEA_Cmd   mg32x02z_tm_drv.o
+    0x000012c4   0x000012c4   0x00000014   Code   RO         1714    .text.TM_IT_Config  mg32x02z_tm_drv.o
+    0x000012d8   0x000012d8   0x000000b4   Code   RO          345    .text.TM_Init       mg32x02z_tm_init.o
+    0x0000138c   0x0000138c   0x00000016   Code   RO         1452    .text.TM_Timer_Cmd  mg32x02z_tm_drv.o
+    0x000013a2   0x000013a2   0x0000014a   Code   RO          249    .text.URT0_IRQ      usart_irq.o
+    0x000014ec   0x000014ec   0x00000008   Code   RO          381    .text.URT0_IRQHandler  mg32x02z__irqhandler.o
+    0x000014f4   0x000014f4   0x00000008   Code   RO         1756    .text.URT_ClearITFlag  mg32x02z_urt_drv.o
+    0x000014fc   0x000014fc   0x0000000c   Code   RO         1792    .text.URT_Cmd       mg32x02z_urt_drv.o
+    0x00001508   0x00001508   0x000000c4   Code   RO          353    .text.URT_Config    mg32x02z_urt_init.o
+    0x000015cc   0x000015cc   0x00000008   Code   RO         1752    .text.URT_GetITAllFlagStatus  mg32x02z_urt_drv.o
+    0x000015d4   0x000015d4   0x00000004   Code   RO         1748    .text.URT_GetITStatus  mg32x02z_urt_drv.o
+    0x000015d8   0x000015d8   0x00000004   Code   RO         1870    .text.URT_GetRXData  mg32x02z_urt_drv.o
+    0x000015dc   0x000015dc   0x0000000c   Code   RO         1750    .text.URT_ITEA_Cmd  mg32x02z_urt_drv.o
+    0x000015e8   0x000015e8   0x0000000c   Code   RO         1746    .text.URT_IT_Config  mg32x02z_urt_drv.o
+    0x000015f4   0x000015f4   0x0000001c   Code   RO          355    .text.URT_Init      mg32x02z_urt_init.o
+    0x00001610   0x00001610   0x0000000c   Code   RO           92    .text.URT_IsTxEndTransmission  usart.o
+    0x0000161c   0x0000161c   0x0000000c   Code   RO           90    .text.URT_IsTxReady  usart.o
+    0x00001628   0x00001628   0x00000014   Code   RO           82    .text.URT_Rx_Callback  usart.o
+    0x0000163c   0x0000163c   0x00000032   Code   RO         1906    .text.URT_SetTXData  mg32x02z_urt_drv.o
+    0x0000166e   0x0000166e   0x00000002   Code   RO          247    .text.URT_Tx_Callback  usart_irq.o
+    0x00001670   0x00001670   0x0000001a   Code   RO           84    .text.URT_Write     usart.o
+    0x0000168a   0x0000168a   0x0000001a   Code   RO           86    .text.URT_WriteWord  usart.o
+    0x000016a4   0x000016a4   0x0000000c   Code   RO         2034    .text.UnProtectModuleReg  mg32x02z__common_drv.o
+    0x000016b0   0x000016b0   0x0000001c   Code   RO          199    .text.UpdateFlashResource  flash.o
+    0x000016cc   0x000016cc   0x00000018   Code   RO          315    .text.__NVIC_EnableIRQ  mg32x02z_chipinit.o
+    0x000016e4   0x000016e4   0x00000038   Code   RO          317    .text.__NVIC_SetPriority  mg32x02z_chipinit.o
+    0x0000171c   0x0000171c   0x00000012   Code   RO           55    .text.delay_ms      timers.o
+    0x0000172e   0x0000172e   0x00000034   Code   RO           53    .text.delay_one_ms  timers.o
+    0x00001762   0x00001762   0x00000002   PAD
+    0x00001764   0x00001764   0x000000c0   Code   RO            2    .text.main          main.o
+    0x00001824   0x00001824   0x00000018   Code   RO          107    .text.wdt_disable   wdt.o
+    0x0000183c   0x0000183c   0x00000024   Code   RO          103    .text.wdt_enable    wdt.o
+    0x00001860   0x00001860   0x00000008   Code   RO          105    .text.wdt_reset     wdt.o
+    0x00001868   0x00001868   0x00000020   Code   RO         2190    i.__0printf$5       mc_p.l(printf5.o)
+    0x00001888   0x00001888   0x0000000e   Code   RO         2366    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x00001896   0x00001896   0x00000002   Code   RO         2367    i.__scatterload_null  mc_p.l(handlers.o)
+    0x00001898   0x00001898   0x0000000e   Code   RO         2368    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x000018a6   0x000018a6   0x00000002   PAD
+    0x000018a8   0x000018a8   0x000002dc   Code   RO         2197    i._printf_core      mc_p.l(printf5.o)
+    0x00001b84   0x00001b84   0x00000012   Code   RO         2332    i.fputc             mc_p.l(fputc.o)
+    0x00001b96   0x00001b96   0x00000100   Data   RO           73    .rodata.CRC_Table   crc.o
+    0x00001c96   0x00001c96   0x00000002   PAD
+    0x00001c98   0x00001c98   0x00000050   Data   RO          304    .rodata.CSC_InitConfig  mg32x02z_csc_init.o
+    0x00001ce8   0x00001ce8   0x00000084   Data   RO          329    .rodata.GPIO_CFG    mg32x02z_gpio_init.o
+    0x00001d6c   0x00001d6c   0x00000033   Data   RO          414    .rodata.str1.1      system_mg32x02z.o
+    0x00001d9f   0x00001d9f   0x00000001   PAD
+    0x00001da0   0x00001da0   0x00000020   Data   RO         2365    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00001db0, Size: 0x00000088, Max: 0xffffffff, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x20000000   0x00001db0   0x00000004   Data   RW         2336    .data               mc_p.l(stdout.o)
-    0x20000004   0x00001db4   0x00000006   Data   RW          237    .data.ActiveKeys    variables.o
-    0x2000000a   0x00001dba   0x00000006   Data   RW          232    .data.BuzzerOffTime  variables.o
-    0x20000010   0x00001dc0   0x00000006   Data   RW          238    .data.FlashResourse  variables.o
-    0x20000016   0x00001dc6   0x00000006   Data   RW          234    .data.FreeAccess    variables.o
-    0x2000001c   0x00001dcc   0x00000006   Data   RW          229    .data.GerkonFiltTime  variables.o
-    0x20000022   0x00001dd2   0x00000006   Data   RW          235    .data.MasterSlave   variables.o
-    0x20000028   0x00001dd8   0x00000006   Data   RW          231    .data.ReactivateAlarmTime  variables.o
-    0x2000002e   0x00001dde   0x00000006   Data   RW          230    .data.SendAlarmTimePos  variables.o
-    0x20000034   0x00001de4   0x00000006   Data   RW          233    .data.SendOfflineEvents  variables.o
-    0x2000003a   0x00001dea   0x00000002   PAD
-    0x2000003c   0x00001dec   0x00000004   Data   RW          405    .data.SystemCoreClock  system_mg32x02z.o
-    0x20000040   0x00001df0   0x00000006   Data   RW          236    .data.TotalKeys     variables.o
-    0x20000046   0x00001df6   0x00000006   Data   RW          221    .data.eventAccess   events.o
-    0x2000004c   0x00001dfc   0x00000006   Data   RW          222    .data.eventAlarm    events.o
-    0x20000052   0x00001e02   0x00000002   PAD
-    0x20000054   0x00001e04   0x0000000c   Data   RW          223    .data.events        events.o
-    0x20000060   0x00001e10   0x00000028   Data   RW          239    .data.variables     variables.o
-
-
-    Execution Region ER_ZI (Exec base: 0x20000088, Load base: 0x00001e38, Size: 0x00000858, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00001dc0, Size: 0x000000d8, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000088        -       0x00000001   Zero   RW           32    .bss.CommandSize    prsm3.o
-    0x20000089        -       0x00000001   Zero   RW           30    .bss.DecryptedMessageLen  prsm3.o
-    0x2000008a   0x00001e38   0x00000002   PAD
-    0x2000008c        -       0x00000004   Zero   RW          411    .bss.HardFault_Handler_C.stacked_lr  system_mg32x02z.o
-    0x20000090        -       0x00000004   Zero   RW          412    .bss.HardFault_Handler_C.stacked_pc  system_mg32x02z.o
-    0x20000094        -       0x00000004   Zero   RW          413    .bss.HardFault_Handler_C.stacked_psr  system_mg32x02z.o
-    0x20000098        -       0x00000004   Zero   RW          406    .bss.HardFault_Handler_C.stacked_r0  system_mg32x02z.o
-    0x2000009c        -       0x00000004   Zero   RW          407    .bss.HardFault_Handler_C.stacked_r1  system_mg32x02z.o
-    0x200000a0        -       0x00000004   Zero   RW          410    .bss.HardFault_Handler_C.stacked_r12  system_mg32x02z.o
-    0x200000a4        -       0x00000004   Zero   RW          408    .bss.HardFault_Handler_C.stacked_r2  system_mg32x02z.o
-    0x200000a8        -       0x00000004   Zero   RW          409    .bss.HardFault_Handler_C.stacked_r3  system_mg32x02z.o
-    0x200000ac        -       0x0000001e   Zero   RW           35    .bss.RecBytes       prsm3.o
-    0x200000ca        -       0x00000006   Zero   RW          220    .bss.eventDoor      events.o
-    0x200000d0        -       0x00000400   Zero   RW          211    .bss.fpage          flash.o
-    0x200004d0        -       0x00000001   Zero   RW           29    .bss.iptr           prsm3.o
-    0x200004d1   0x00001e38   0x00000003   PAD
-    0x200004d4        -       0x00000004   Zero   RW           36    .bss.operStatus     prsm3.o
-    0x200004d8        -       0x00000001   Zero   RW           34    .bss.parsingStatus  prsm3.o
-    0x200004d9        -       0x00000001   Zero   RW           33    .bss.usUsart        prsm3.o
-    0x200004da   0x00001e38   0x00000002   PAD
-    0x200004dc        -       0x00000004   Zero   RW         2038    .bss.uwTick         mg32x02z__common_drv.o
-    0x200004e0        -       0x00000400   Zero   RW          389    STACK               startup_mg32x02z.o
+    0x20000000   0x00001dc0   0x00000004   Data   RW         2336    .data               mc_p.l(stdout.o)
+    0x20000004   0x00001dc4   0x00000006   Data   RW          237    .data.ActiveKeys    variables.o
+    0x2000000a   0x00001dca   0x00000006   Data   RW          232    .data.BuzzerOffTime  variables.o
+    0x20000010   0x00001dd0   0x00000006   Data   RW          238    .data.FlashResourse  variables.o
+    0x20000016   0x00001dd6   0x00000006   Data   RW          234    .data.FreeAccess    variables.o
+    0x2000001c   0x00001ddc   0x00000006   Data   RW          229    .data.GerkonFiltTime  variables.o
+    0x20000022   0x00001de2   0x00000006   Data   RW          235    .data.MasterSlave   variables.o
+    0x20000028   0x00001de8   0x00000006   Data   RW          231    .data.ReactivateAlarmTime  variables.o
+    0x2000002e   0x00001dee   0x00000006   Data   RW          230    .data.SendAlarmTimePos  variables.o
+    0x20000034   0x00001df4   0x00000006   Data   RW          233    .data.SendOfflineEvents  variables.o
+    0x2000003a   0x00001dfa   0x00000002   PAD
+    0x2000003c   0x00001dfc   0x00000004   Data   RW          405    .data.SystemCoreClock  system_mg32x02z.o
+    0x20000040   0x00001e00   0x00000006   Data   RW          236    .data.TotalKeys     variables.o
+    0x20000046   0x00001e06   0x00000006   Data   RW          221    .data.eventAccess   events.o
+    0x2000004c   0x00001e0c   0x00000006   Data   RW          222    .data.eventAlarm    events.o
+    0x20000052   0x00001e12   0x00000002   PAD
+    0x20000054   0x00001e14   0x0000000c   Data   RW          223    .data.events        events.o
+    0x20000060   0x00001e20   0x00000010   Data   RW          167    .data.key1          keys.o
+    0x20000070   0x00001e30   0x00000010   Data   RW          168    .data.key2          keys.o
+    0x20000080   0x00001e40   0x00000010   Data   RW          169    .data.key3          keys.o
+    0x20000090   0x00001e50   0x00000010   Data   RW          170    .data.key4          keys.o
+    0x200000a0   0x00001e60   0x00000010   Data   RW          171    .data.key5          keys.o
+    0x200000b0   0x00001e70   0x00000028   Data   RW          239    .data.variables     variables.o
+
+
+    Execution Region ER_ZI (Exec base: 0x200000d8, Load base: 0x00001e98, Size: 0x00000858, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x200000d8        -       0x00000001   Zero   RW           32    .bss.CommandSize    prsm3.o
+    0x200000d9        -       0x00000001   Zero   RW           30    .bss.DecryptedMessageLen  prsm3.o
+    0x200000da   0x00001e98   0x00000002   PAD
+    0x200000dc        -       0x00000004   Zero   RW          411    .bss.HardFault_Handler_C.stacked_lr  system_mg32x02z.o
+    0x200000e0        -       0x00000004   Zero   RW          412    .bss.HardFault_Handler_C.stacked_pc  system_mg32x02z.o
+    0x200000e4        -       0x00000004   Zero   RW          413    .bss.HardFault_Handler_C.stacked_psr  system_mg32x02z.o
+    0x200000e8        -       0x00000004   Zero   RW          406    .bss.HardFault_Handler_C.stacked_r0  system_mg32x02z.o
+    0x200000ec        -       0x00000004   Zero   RW          407    .bss.HardFault_Handler_C.stacked_r1  system_mg32x02z.o
+    0x200000f0        -       0x00000004   Zero   RW          410    .bss.HardFault_Handler_C.stacked_r12  system_mg32x02z.o
+    0x200000f4        -       0x00000004   Zero   RW          408    .bss.HardFault_Handler_C.stacked_r2  system_mg32x02z.o
+    0x200000f8        -       0x00000004   Zero   RW          409    .bss.HardFault_Handler_C.stacked_r3  system_mg32x02z.o
+    0x200000fc        -       0x0000001e   Zero   RW           35    .bss.RecBytes       prsm3.o
+    0x2000011a        -       0x00000006   Zero   RW          220    .bss.eventDoor      events.o
+    0x20000120        -       0x00000400   Zero   RW          211    .bss.fpage          flash.o
+    0x20000520        -       0x00000001   Zero   RW           29    .bss.iptr           prsm3.o
+    0x20000521   0x00001e98   0x00000003   PAD
+    0x20000524        -       0x00000004   Zero   RW           36    .bss.operStatus     prsm3.o
+    0x20000528        -       0x00000001   Zero   RW           34    .bss.parsingStatus  prsm3.o
+    0x20000529        -       0x00000001   Zero   RW           33    .bss.usUsart        prsm3.o
+    0x2000052a   0x00001e98   0x00000002   PAD
+    0x2000052c        -       0x00000004   Zero   RW         2038    .bss.uwTick         mg32x02z__common_drv.o
+    0x20000530        -       0x00000400   Zero   RW          389    STACK               startup_mg32x02z.o
 
 
 ==============================================================================
@@ -3850,9 +3857,10 @@ Image component sizes
 
         32          4        256          0          0       1169   crc.o
          0          0          0         24          6        723   events.o
-      1088         64          0          0       1024       5242   flash.o
-       728         28          0          0          0      10382   iap.o
-       192          8          0          0          0      14358   main.o
+      1108         76          0          0       1024       5176   flash.o
+       724         28          0          0          0      10372   iap.o
+         0          0          0         80          0       1223   keys.o
+       192          8          0          0          0      14352   main.o
         36          8          0          0          4       4933   mg32x02z__common_drv.o
         66          4          0          0          0       9022   mg32x02z__irqhandler.o
        174         12          0          0          0       2425   mg32x02z_chipinit.o
@@ -3877,7 +3885,7 @@ Image component sizes
         68          4          0          0          0       1459   wdt.o
 
     ----------------------------------------------------------------------
-      5740        524        746        132       2136     231731   Object Totals
+      5756        536        746        212       2136     232872   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         14          0          3          4          7          0   (incl. Padding)
 
@@ -3926,15 +3934,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      6854        592        746        136       2136     231911   Grand Totals
-      6854        592        746        136       2136     231911   ELF Image Totals
-      6854        592        746        136          0          0   ROM Totals
+      6870        604        746        216       2136     233052   Grand Totals
+      6870        604        746        216       2136     233052   ELF Image Totals
+      6870        604        746        216          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 7600 (   7.42kB)
-    Total RW  Size (RW Data + ZI Data)              2272 (   2.22kB)
-    Total ROM Size (Code + RO Data + RW Data)       7736 (   7.55kB)
+    Total RO  Size (Code + RO Data)                 7616 (   7.44kB)
+    Total RW  Size (RW Data + ZI Data)              2352 (   2.30kB)
+    Total ROM Size (Code + RO Data + RW Data)       7832 (   7.65kB)
 
 ==============================================================================
 

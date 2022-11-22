@@ -29,7 +29,6 @@ uint32_t EncryptKey(uint8_t *keySrc, uint8_t *keyDest)
 }
 
 
-
 // Проверка ключа на присутствие и активацию
 uint32_t CheckKey(uint8_t *keyArr)
 {
