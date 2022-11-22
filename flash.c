@@ -20,64 +20,57 @@ void FlashTestFill(void)
 //----------------------------------------------------------------------------------------
 // Функция единократно вызывается после первого старта микроконтроллера
 // Если включение первое, копируем значения переменных по умолчанию во флеш
-// Если включение не первое, то копируем значения переменных из флеша в ОЗУ
+// Если включение не первое, то наиборот копируем значения переменных из флеша в ОЗУ
 //----------------------------------------------------------------------------------------
 
 void FlashFirstInit(void)
 {
 	// если включение не первое
-	if (IAP_ReadWord(FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
+	if (IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
 	{
 		// копируем переменные из флеша в ОЗУ
 		for (uint8_t i = 0; i < VAR_COUNT; i++)
-			variables[i]->value = IAP_ReadWord(PAGE_NUMBER_VARS * IAP_PAGE_SIZE / 4 
-												+ variables[i]->indexOnPage); 
-	
+			variables[i]->value = IAP_ReadWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage); 
+		
+		// кол-во перезаписей флеша = максимальное кол-во со всех страниц
 		FlashResourse.value = GetMaxFlashResource();
 		
 		// копируем события из флеша в ОЗУ
 		for (uint32_t i = 0; i < EVENT_COUNT; i++)
 		{
-
-			events[i]->time = IAP_ReadWord(PAGE_NUMBER_EVENTS * IAP_PAGE_SIZE / 4 
-												+ events[i]->eventNum * 10 + 0); 
-			events[i]->status = IAP_ReadWord(PAGE_NUMBER_EVENTS * IAP_PAGE_SIZE / 4 
-												+ events[i]->eventNum * 10 + 1); 
-			events[i]->repetitionCount = IAP_ReadWord(PAGE_NUMBER_EVENTS * IAP_PAGE_SIZE / 4 
-												+ events[i]->eventNum * 10 + 2); 
+			events[i]->time = IAP_ReadWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 0); 
+			events[i]->status = IAP_ReadWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 1); 
+			events[i]->repetitionCount = IAP_ReadWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 2); 
 		}
-		//+дефолтные ключи (мб мастер)
 	}
-	
 	
 	else // если включение первое
 	{
+		URT_Write(0xCF);
+		// количество перезаписей на всех страницах (кроме ключей) = 1
+		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
+		IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
+		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		
-	// количество перезаписей на всех страницах кроме ключей = 1
-	IAP_WriteSingleWord(FLASH_RESOURCE_POS + PAGE_NUMBER_VARS * IAP_PAGE_SIZE / 4, __FLASH_RESOURCE);
-	IAP_WriteSingleWord(FLASH_RESOURCE_POS + PAGE_NUMBER_EVENTS * IAP_PAGE_SIZE / 4 , __FLASH_RESOURCE);
-	IAP_WriteSingleWord(FLASH_RESOURCE_POS + PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE / 4, __FLASH_RESOURCE);
-	
-		// копируем значения переменных из ОЗУ во флеш
-	for (uint8_t i = 0; i < VAR_COUNT; i++)
-		IAP_WriteSingleWord(PAGE_NUMBER_VARS * IAP_PAGE_SIZE / 4 + variables[i]->indexOnPage,
-							variables[i]->factoryValue);
+			// копируем значения переменных по умолчанию из ОЗУ во флеш
+		for (uint8_t i = 0; i < VAR_COUNT; i++)
+			IAP_WriteSingleWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage, variables[i]->factoryValue);
 
-	
-		// копируем значения событий из ОЗУ во флеш
-		for (uint32_t i = 0; i < EVENT_COUNT; i++)
-		{
-
-			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS * IAP_PAGE_SIZE / 4 + events[i]->eventNum * 10 + 0 ,
-								events[i]->time); 
-			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS * IAP_PAGE_SIZE / 4 + events[i]->eventNum * 10 + 1 ,
-								events[i]->status); 
-			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS * IAP_PAGE_SIZE / 4 + events[i]->eventNum * 10 + 2 ,
-								events[i]->repetitionCount); 
-		}
-	
-	// флаг записи флеша
-	IAP_WriteSingleWord(FIRST_WRITE_VALUE_POS + PAGE_NUMBER_VARS * IAP_PAGE_SIZE / 4, __FIRST_WRITE_VALUE);
+		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, TotalKeys.indexOnPage, TotalKeys.factoryValue);
+		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, TotalKeys.indexOnPage, ActiveKeys.factoryValue);
+		
+//		// копируем значения событий по умолчанию из ОЗУ во флеш
+//		for (uint8_t i = 0; i < EVENT_COUNT; i++)
+//		{
+//			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 0, events[i]->time); 
+//			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 1, events[i]->status); 
+//			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 2, events[i]->repetitionCount); 
+//		}
+		
+		// выставляем флаг первой записи флеша
+		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
+		
+		// + ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
 	}
 
 } 
@@ -92,7 +85,7 @@ void FlashFirstInit(void)
 uint32_t GetVariable(uint8_t varNumber)
 {
 	if (varNumber > VAR_COUNT) return FAILURE;
-	return IAP_ReadWord(PAGE_NUMBER_VARS * IAP_PAGE_SIZE + variables[varNumber]->indexOnPage * 4);
+	return variables[varNumber]->value;
 }
 
 //----------------------------------------------------------------------------------------
@@ -108,10 +101,16 @@ uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB
 {
 	if (varNumber > VAR_COUNT_WRITABLE) return FAILURE;
 	
-	uint16_t var = varValueLSB | (varValueMSB << 8);
+	uint16_t var = varValueLSB | varValueMSB << 8;
+	
+	// проверка на границы?
+	
+	variables[varNumber]->value = var; // -->ram
 	
 	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
-	fpage.word[variables[varNumber]->indexOnPage] = var;
+	fpage.word[variables[varNumber]->indexOnPage] = var; // -->ram-->iap
+	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
+	
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
 	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
 	
@@ -127,8 +126,9 @@ uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB
 //----------------------------------------------------------------------------------------
 
 uint32_t SetVariablePack(uint8_t *packStartAddr)
-{
+{	
 	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
+	
 	uint8_t *tmpAddr = packStartAddr;
 	uint16_t var; 
 	
@@ -138,12 +138,16 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 		var = 0;
 		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
 			var |= *tmpAddr++ << (8 * byteNum);
-		fpage.word[variables[i]->indexOnPage] = var;
+		variables[i]->value = var; // -->ram
+		// проверка на границы?
+		fpage.word[variables[i]->indexOnPage] = var; // ram-->iap
 	}
+	
+	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 
-	fpage.word[FLASH_RESOURCE_POS]++;
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
 	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
+	
 	return SUCCESS;
 }
 
@@ -156,21 +160,39 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 //			UINT32_MAX (ошибка)
 //----------------------------------------------------------------------------------------
 
-uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
+uint32_t ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
 {
-	if (operationType > 0x01) return FAILURE;
+	if (activationType > 0x01) return FAILURE;
 	
-	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
+	uint16_t keyIndex = keyIndexLSB | keyIndexMSB << 8;
 	
-	if (keyIndex >= IAP_PAGE_SIZE) return FAILURE;
+	if (keyIndex > KEYS_MAX_INDEX) return FAILURE;
 	
-	if (GetKeyStatus(keyIndex) == KEY_STATUS_FREE) return FAILURE;
+	uint8_t curKeyIndexStatus = GetKeyStatus(keyIndex);
+	
+	if (curKeyIndexStatus == KEY_STATUS_FREE)
+		return FAILURE;
+	if (curKeyIndexStatus == activationType)
+		return SUCCESS;
 	
 	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
-	fpage.byte[keyIndex] = operationType;
+	
+	if (activationType == ACTKEY_ACTIVATE)
+	{
+		fpage.byte[keyIndex] = KEY_STATUS_ACTIVATED;
+		fpage.word[ActiveKeys.indexOnPage] =  ++ActiveKeys.value;
+	}
+	else 
+	{
+		fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
+		fpage.word[ActiveKeys.indexOnPage] =  --ActiveKeys.value;
+	}
+	
+	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 
 	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
 	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
+	
 	return SUCCESS;
 }
 
@@ -192,19 +214,17 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 			
 			CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
 		
-			for(uint16_t i = 0; i < IAP_PAGE_SIZE; i++)
-			{
-				if (fpage.byte[i] != KEY_STATUS_FREE) 
-					fpage.byte[i] = commArg;
-			}
+			for(uint16_t keyIndex = 0; keyIndex < KEYS_MAX_INDEX; keyIndex++)
+				if (fpage.byte[keyIndex] != KEY_STATUS_FREE) 
+					fpage.byte[keyIndex] = commArg;
 			
-			if (commArg == KEY_STATUS_DEACTIVATED)
-				fpage.word[ACTIVE_KEYS_POS] = 0;
+			if (commArg == ACTKEY_DEACTIVATE)
+				ActiveKeys.value = 0;
 			else 
-				fpage.word[ACTIVE_KEYS_POS] = fpage.word[TOTAL_KEYS_POS];
+				ActiveKeys.value = TotalKeys.value;
 			
-			if (СheckFlashResource(PAGE_NUMBER_KEYSTATUS) != FAILURE)
-				fpage.word[FLASH_RESOURCE_POS]++;
+			fpage.word[ActiveKeys.indexOnPage] = ActiveKeys.value;
+			fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 						
 			IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
 			CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
@@ -217,11 +237,9 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 		
 			for(uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
 				fpage.word[variables[i]->indexOnPage] = variables[i]->factoryValue;
-			
-			if (СheckFlashResource(PAGE_NUMBER_VARS) == SUCCESS)
-				fpage.word[FLASH_RESOURCE_POS]++;
-				
 		
+			fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
+				
 			IAP_Erase_OnePage(PAGE_NUMBER_VARS);
 			CopyRAMToFlashPage(PAGE_NUMBER_VARS);
 		
@@ -249,42 +267,9 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	
 	if (activationType > 0x02) return FAILURE;
 	
-	uint16_t keyIndex = keyIndexLSB | (keyIndexMSB << 8);
+	uint16_t keyIndex = keyIndexLSB | keyIndexMSB << 8;
 	
-	if (keyIndex >= IAP_PAGE_SIZE) return FAILURE;
-	
-	uint8_t oldKeyStatus = GetKeyStatus(keyIndex);
-	
-	// изменяем переменные
-	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
-	
-	switch (oldKeyStatus)
-	{
-		case KEY_STATUS_FREE:
-			fpage.word[TOTAL_KEYS_POS]++;
-			if (activationType == ACTKEY_ACTIVATE)
-				fpage.word[ACTIVE_KEYS_POS]++;	
-			break;
-		
-		case KEY_STATUS_DEACTIVATED:
-			if (activationType == ACTKEY_ACTIVATE)
-				fpage.word[ACTIVE_KEYS_POS]++;	
-			break;
-		
-		case KEY_STATUS_ACTIVATED:
-			if (activationType == ACTKEY_DEACTIVATE)
-				fpage.word[ACTIVE_KEYS_POS]--;	
-			break;
-		
-		default:
-			break;
-	}
-
-	fpage.word[FLASH_RESOURCE_POS]++;
-	
-	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
-	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
-	
+	if (keyIndex > KEYS_MAX_INDEX) return FAILURE;
 	
 	// добавляем/меняем сам ключ
 	
@@ -297,17 +282,53 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	IAP_Erase_OnePage(keyPageNum);
 	CopyRAMToFlashPage(keyPageNum);
 	
-	// изменяем статус ключа
+	// изменяем статус активности ключа и переменные-счетчики
+	
+	uint8_t oldKeyStatus = GetKeyStatus(keyIndex);
 	
 	if (activationType == oldKeyStatus)
 		return SUCCESS;
 	
 	CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
 	
-	if ((activationType == ACTKEY_NOACTION) && (oldKeyStatus == KEY_STATUS_FREE))
-		fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
-	else 
-		fpage.byte[keyIndex] = activationType;
+	switch (oldKeyStatus)
+	{
+		case KEY_STATUS_FREE:
+		
+			if (activationType == ACTKEY_ACTIVATE)
+			{
+				fpage.byte[keyIndex] = KEY_STATUS_ACTIVATED;
+				fpage.word[ActiveKeys.indexOnPage] = ++ActiveKeys.value;
+			}
+			else // deactivate или noaction
+				fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
+			
+			fpage.word[TotalKeys.indexOnPage] = ++TotalKeys.value;
+			
+			break;
+		
+		case KEY_STATUS_DEACTIVATED:
+			
+			if (activationType == ACTKEY_ACTIVATE)
+			{
+				fpage.byte[keyIndex] = KEY_STATUS_ACTIVATED;
+				fpage.word[ActiveKeys.indexOnPage] = ++ActiveKeys.value;
+			}
+			
+			break;
+		
+		case KEY_STATUS_ACTIVATED:
+			
+			if (activationType == ACTKEY_DEACTIVATE)
+				fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
+				fpage.word[ActiveKeys.indexOnPage] = --ActiveKeys.value;
+			break;
+		
+		default:
+			break;
+	}
+	
+	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_KEYSTATUS);
 	
 	IAP_Erase_OnePage(PAGE_NUMBER_KEYSTATUS);
 	CopyRAMToFlashPage(PAGE_NUMBER_KEYSTATUS);
@@ -323,7 +344,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 
 uint32_t GetKeyStatus(uint16_t keyIndex)
 {
-	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS * IAP_PAGE_SIZE + keyIndex);
+	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS, keyIndex);
 }
 
 
@@ -340,7 +361,7 @@ uint32_t GetMaxFlashResource(void)
 	
 	for (uint8_t i = 0; i < 3; i++)
     {
-		curFlashResource = IAP_ReadWord (i * IAP_PAGE_SIZE / 4 + FLASH_RESOURCE_POS);
+		curFlashResource = IAP_ReadWord(i, FLASH_RESOURCE_POS);
 		
 		if (curFlashResource > maxFlashResource)
 			maxFlashResource = curFlashResource;
@@ -351,21 +372,17 @@ uint32_t GetMaxFlashResource(void)
 //----------------------------------------------------------------------------------------
 // Функция увеличивает общий счетчик перезаписей IAP после перезаписи страницы (если это требуется)
 // Args: 	pageNumber - порядковый номер страницы в IAP
-// Returns: 0 - увеличили значение
-//			UINT32_MAX - не увеличили значение	
+// Returns: увеличенное значение счетчика со страницы с номером pageNumber
 //----------------------------------------------------------------------------------------
-uint32_t IncreaseFlashResource(uint8_t curPageNumber)
+uint32_t UpdateFlashResource(uint8_t pageNumber)
 {
-
-	uint8_t curPageResource = IAP_ReadWord (curPageNumber * IAP_PAGE_SIZE / 4 + FLASH_RESOURCE_POS);
-
-	if (curPageResource > GetMaxFlashResource())
-		return FAILURE;
-	fpage.word[FLASH_RESOURCE_POS]++;
-	return SUCCESS;
+	uint16_t curPageResource = IAP_ReadWord(pageNumber, FlashResourse.indexOnPage);
+	
+	if (++curPageResource > FlashResourse.value)
+		FlashResourse.value = curPageResource;
+	
+	return curPageResource;
 }
-
-
 
 //----------------------------------------------------------------------------------------
 // Функция копирует информацию со страницы IAP в "буфер-копию" страницы в ОЗУ
@@ -375,7 +392,7 @@ uint32_t IncreaseFlashResource(uint8_t curPageNumber)
 
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
 {
-	IAP_CopyIAPInRAM(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
+	IAP_CopyFromIAPToRAM(pageNumber, 0, &fpage, IAP_PAGE_SIZE);
 	return SUCCESS;
 }
 
@@ -388,7 +405,5 @@ uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
 
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
 {
-	return IAP_CopyRAMInIAP(pageNumber * IAP_PAGE_SIZE, &fpage, IAP_PAGE_SIZE);
+	return IAP_WriteMultipleWord(pageNumber, 0, &fpage, IAP_PAGE_SIZE / 4);
 }
-
-

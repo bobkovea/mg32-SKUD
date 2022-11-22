@@ -10,7 +10,7 @@
 #define KEY_ENCRYPTED_SIZE 16
 
 #define KEYS_COUNT_ON_PAGE (IAP_PAGE_SIZE / KEY_ENCRYPTED_SIZE) 
-#define KEYS_MAX_INDEX IAP_PAGE_SIZE - 24 - 1
+#define KEYS_MAX_INDEX 999
 
 extern uint8_t KeyEncrypted[KEY_ENCRYPTED_SIZE];
 extern uint8_t KeyRaw[KEY_RAW_SIZE]; 

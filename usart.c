@@ -27,7 +27,7 @@ void URT_Write(uint8_t c) {
 // Функция записывает слово (4 байта) в USART
 //----------------------------------------------------------------------------------------
 void URT_WriteWord(uint32_t w) {
-	while(!URT0->STA.MBIT.TXF);
+	while(URT_IsTxReady() == TxBusy);
 	URT_SetTXData(URT0, 4, w);
 		;
 }

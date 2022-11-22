@@ -126,7 +126,7 @@ static const unsigned int CONF_RST_InitConfig[] =
 0x00000000, // RST_STA 0 not use
 0x00000000, // RST_INT 1 not use
 0x00000000, // RST_KEY 2 not use
-0x02001000, // RST_CR0 3
+0x02000000, // RST_CR0 3
 0x00000000, // RST_CE 4
 0x0000000E, // RST_WE 5
 0x00000000, // RST_AHB 6

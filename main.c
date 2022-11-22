@@ -48,16 +48,23 @@ int main()
 
 	USART_CONFIG_TRANSMIT();
 
-	if (IAP_ReadWord(FIRST_WRITE_VALUE_POS == UINT32_MAX))  
-		FlashFirstInit();
+	FlashFirstInit();
 	
-	FlashTestFill();
-
-//	for (uint32_t i = 0; i < IAP_PAGE_SIZE - 900; i += 4)
-//	{
-//		URT_WriteWord(IAP_ReadWord(IAP_PAGE_SIZE * PAGE_NUMBER_VARS + i));
-//		delay_ms(10);
-//	}
+//	FlashTestFill();
+//	
+//	URT_WriteWord(IAP_ReadWord(0, 250)); 
+//	URT_WriteWord(IAP_ReadWord(0, 251)); 
+//	URT_WriteWord(IAP_ReadWord(0, 252)); 
+//	URT_WriteWord(IAP_ReadWord(0, 253)); 
+//	URT_WriteWord(IAP_ReadWord(0, 254)); 
+//	URT_WriteWord(IAP_ReadWord(0, 255)); 
+//	URT_WriteWord(IAP_ReadWord(0, 256)); 
+//	URT_WriteWord(IAP_ReadWord(0, 257)); 
+	
+	for (uint32_t i = 0; i < 256; i++)
+	{
+		URT_WriteWord(IAP_ReadWord(0, i)); 
+	}
 
 	
 	

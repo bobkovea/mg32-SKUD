@@ -21,7 +21,7 @@ uint32_t GetVariable(uint8_t varNumber);
 uint32_t GetKeyStatus(uint16_t keyIndex);
 
 uint32_t GetMaxFlashResource(void);
-uint32_t IncreaseFlashResource(uint8_t curPageNumber);
+uint32_t UpdateFlashResource(uint8_t curPageNumber);
 
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber);
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber);
@@ -64,8 +64,9 @@ typedef union
 #define SEND_OFFLINE_EVENTS_POS 14
 #define FREE_ACCESS_POS 15
 #define MASTER_SLAVE_POS 16
-#define TOTAL_KEYS_POS 17
-#define ACTIVE_KEYS_POS 18
+
+#define TOTAL_KEYS_POS 253
+#define ACTIVE_KEYS_POS 254
 
 // Страница 1: Архив событий
 

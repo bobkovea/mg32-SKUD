@@ -2,7 +2,8 @@
 
 //----------------------------------------------------------------------------------------
 // Функция выделяет память под IAP
-// Выделяемая память не может быть меньше одной страницы (512 или 1024 байта в зависимости от контроллера)
+// Выделяемая память не может быть меньше одной страницы 
+// (512 или 1024 байта в зависимости от контроллера)
 //----------------------------------------------------------------------------------------
 void IAP_Init(uint32_t IAPSize)
 {
@@ -20,9 +21,9 @@ void IAP_Init(uint32_t IAPSize)
 //----------------------------------------------------------------------------------------
 // Функция очищает одну страницу IAP по её порядковому номеру
 //----------------------------------------------------------------------------------------
-void IAP_Erase_OnePage (uint16_t PageNumber)
+void IAP_Erase_OnePage (uint16_t pageNumber)
 {
-	IAP_Erase_Page(IAP_START_ADDRESS + (IAP_PAGE_SIZE * PageNumber), 1);
+	IAP_Erase_Page(IAP_START_ADDRESS + (IAP_PAGE_SIZE * pageNumber), 1);
 }
 
 //----------------------------------------------------------------------------------------
@@ -35,125 +36,78 @@ void IAP_FullErase(void)
 
 
 //----------------------------------------------------------------------------------------
-// Функция читает 1 байт из IAP по индексу байта
-// Индекс изменяется от 0 до размера выделенной IAP
+// Функция читает 1 байт из IAP по индексу байта на странице
+// Индекс изменяется от 0 до размера страницы IAP в байтах 
 //----------------------------------------------------------------------------------------
-uint8_t IAP_ReadByte(uint32_t ByteIndexInIAP)
+uint8_t IAP_ReadByte(uint8_t pageNumber, uint16_t byteIndexOnPage)
 {
-	return *(uint8_t *)(IAP_START_ADDRESS + ByteIndexInIAP);
+	return *(uint8_t *)(IAP_START_ADDRESS + 
+		pageNumber * IAP_PAGE_SIZE + byteIndexOnPage);
 }
 
 
 //----------------------------------------------------------------------------------------
-// Функция читает слово (4 байта) из IAP по индексу байта
-// Индекс изменяется от 0 до размера выделенной IAP
+// Функция читает слово (4 байта) из IAP по индексу слова на странице
+// Индекс изменяется от 0 до размера страницы IAP в байтах 
 //----------------------------------------------------------------------------------------
-uint32_t IAP_ReadWord(uint32_t ByteIndexInIAP)
+uint32_t IAP_ReadWord(uint8_t pageNumber, uint32_t wordIndexOnPage)
 {
-	return *(uint32_t *)(IAP_START_ADDRESS + ByteIndexInIAP);
+	return *(uint32_t *)(IAP_START_ADDRESS + 
+		pageNumber * IAP_PAGE_SIZE + (wordIndexOnPage * 4));
 }
 
 //----------------------------------------------------------------------------------------
-// Функция записывает слово (4 байта) по индексу
-// Индекс изменяется от 0 до размера выделенной IAP / 4
+// Функция записывает слово (4 байта) по индексу слова на странице
+// pageNumber - номер страницы в IAP
+// wordIndexOnPage - индекс записываемого слова на странице в IAP (от 0 до IAP_SIZE / 4)
+// startAddrInRAM - указатель на копируемый участок в ОЗУ;
+// wordsCount - количество записываемых слов
 //----------------------------------------------------------------------------------------
-uint8_t IAP_WriteSingleWord(uint32_t WordIndexInIAP, uint32_t WordValue)
+uint8_t IAP_WriteSingleWord(uint8_t pageNumber, uint8_t wordIndexOnPage, uint32_t wordValue)
 {
-	return IAP_Single_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), WordValue);
+	return IAP_Single_Write(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE 
+		+ (wordIndexOnPage * 4), wordValue);
 } 
 
+//----------------------------------------------------------------------------------------
+// Функция записывает слова (4 байта) из ОЗУ в IAP, начиная с адреса 
+// pageNumber - номер страницы в IAP
+// startWordIndexOnPage - стартовый индекс слова на странице в IAP 
+// startAddrInRAM - указатель на копируемый участок в ОЗУ;
+// wordsCount - количество записываемых слов
+//----------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------
-// Функция записывает поток слов (4 байта) начиная с индекса памяти
-// Индекс изменяется от 0 до размера выделенной IAP / 4
-//----------------------------------------------------------------------------------------
-uint8_t IAP_WriteMultipleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length)
+uint8_t IAP_WriteMultipleWord(uint8_t pageNumber, uint8_t startWordIndexOnPage, void *startAddrInRAM, uint32_t wordsCount)
 {
-	return IAP_Multiple_Write(IAP_START_ADDRESS + (WordIndexInIAP * 4), DataStartAddress, Length);
-} 
-
-
-//----------------------------------------------------------------------------------------
-// Функция копирует данные из структуры в ОЗУ в IAP
-// StartByteIndex - стартовый индекс в IAP (должен быть кратен 4!);
-// StructInRAMPointer - указатель на структуру с данными;
-// StructInRAMSize - размер структуры в байтах (должен быть кратен 4!).
-// возвращает успех (0) или нет (1)
-//----------------------------------------------------------------------------------------
-uint8_t IAP_CopyRAMInIAP(uint32_t StartByteIndex, void *StructInRAMPointer, uint32_t StructInRAMSize)
-{
-	return IAP_Multiple_Write(IAP_START_ADDRESS + StartByteIndex, 
-								(uint32_t)StructInRAMPointer, 
-								StructInRAMSize / 4);
+	return IAP_Multiple_Write(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
+		+ (startWordIndexOnPage * 4), (uint32_t)startAddrInRAM, wordsCount * 4);
 }
 
 //----------------------------------------------------------------------------------------
 // Функция копирует данные из IAP в структуру ОЗУ
-// StartByteIndex - стартовый индекс в IAP;
-// StructInRAMPointer - указатель на структуру с данными;
-// StructInRAMSize - размер структуры в байтах.
-//----------------------------------------------------------------------------------------
-void IAP_CopyIAPInRAM(uint32_t StartByteIndex, void *StructInRAMPointer, uint32_t StructInRAMSize)  
+// pageNumber - номер страницы в IAP
+// startByteIndexOnPage -  стартовый индекс байта на странице в IAP 
+// startAddrInRAM - указатель на копируемый участок в ОЗУ;
+// bytesCount - количество копируемых байтов
+
+void IAP_CopyFromIAPToRAM(uint8_t pageNumber, uint32_t startByteIndexOnPage, void *startAddrInRAM, uint32_t bytesCount)  
 { 	
-	memcpy(StructInRAMPointer, 
-			(void *) (IAP_START_ADDRESS + StartByteIndex), 
-			StructInRAMSize);
-}
-
-
-//----------------------------------------------------------------------------------------
-// Функция сравнивает состояние структуры в IAP со структурой в ОЗУ
-// StartByteIndex - стартовый индекс байта в IAP;
-// StructInRAMPointer - указатель на структуру с данными;
-// StructInRAMSize - размер структуры в байтах.
-//----------------------------------------------------------------------------------------
-uint8_t IAP_IsEqualToRAM(uint32_t StartByteIndex, void *StructInRAMPointer, uint32_t StructInRAMSize) 
-{
-	return !memcmp((void *) (IAP_START_ADDRESS + StartByteIndex), 
-					StructInRAMPointer, 
-					StructInRAMSize);
+	memcpy(startAddrInRAM, (void *)(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
+		+ startByteIndexOnPage), bytesCount * 4);
 }
 
 //----------------------------------------------------------------------------------------
-// Функция проверяет область выделенной памяти на девственную чистоту
-// Индекс от нуля до размера выделенной области в байтах
+// Функция сравнивает состояние участка в IAP с участком в ОЗУ
+// startByteIndex - стартовый индекс байта в IAP;
+// structInRAMPointer - указатель на структуру с данными;
+// structInRAMSize - размер структуры в байтах.
 //----------------------------------------------------------------------------------------
-uint32_t IAP_IsAreaEmpty(uint32_t StartIndex, uint32_t EndIndex)
+uint8_t IAP_IsEqualToRAM(uint32_t startByteIndex, void *startAddrInRAM, uint32_t bytesCount) 
 {
-	for (uint32_t i = StartIndex; i <= EndIndex; i++) {
-		if (IAP_ReadByte(i) != 0xFF)
-			return 0;
-	}
-	return 1;
+	return !memcmp((void *) (IAP_START_ADDRESS + startByteIndex), 
+					startAddrInRAM, 
+					bytesCount);
 }
-
-//----------------------------------------------------------------------------------------
-// Функция проверяет всю выделенную память на девственную чистоту
-//----------------------------------------------------------------------------------------
-uint32_t IAP_IsFullEmpty(void) 
-{
-	return IAP_IsAreaEmpty(0, MEM_GetIAPSize() - 1);
-}
-
-
-//----------------------------------------------------------------------------------------
-// Функция возвращает номер страницы байта по индексу
-// Индекс изменяется от 0 до размера выделенной IAP
-//----------------------------------------------------------------------------------------
-uint32_t IAP_GetPageNumberOfByte(uint32_t ByteIndexInIAP)
-{
-	return ByteIndexInIAP / IAP_PAGE_SIZE;
-} 
-
-//----------------------------------------------------------------------------------------
-// Функция возвращает количество выделенных страниц для IAP
-//----------------------------------------------------------------------------------------
-uint32_t IAP_GetNumberOfPages()
-{
-	return MEM_GetIAPSize() / IAP_PAGE_SIZE;
-} 
-
-
 
 //-----------------------------Фундаментальные функции----------------------------------//
 

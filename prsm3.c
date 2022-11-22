@@ -168,7 +168,6 @@ void PRSM3_ParseWriteRequest24(void)
 	
 	switch (RecBytes[SCODE_POS])
 	{
-		
 		case SCODE_ADDKEY:
 			operStatus = AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
 						 RecBytes[ADDKEY_INDEX_LSB_POS], 
@@ -215,7 +214,6 @@ void PRSM3_ParseReadRequest(void)
 		case SCODE_READVAR1:
 			
 			var = GetVariable(RecBytes[READVAR1_NUM_POS]);
-
 			if (var == FAILURE)
 			{
 				CommandSize = 9;

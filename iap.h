@@ -29,18 +29,15 @@
  	
 void IAP_Init(uint32_t IAPSize);
 void IAP_FullErase(void);
-void IAP_Erase_OnePage (uint16_t PageNumber);
-uint8_t IAP_WriteSingleWord(uint32_t WordIndexInIAP, uint32_t WordValue);
-uint8_t IAP_WriteMultipleWord(uint32_t WordIndexInIAP, uint32_t DataStartAddress, uint32_t Length);
-uint8_t IAP_ReadByte(uint32_t ByteIndexInIAP);
-uint32_t IAP_ReadWord(uint32_t WordIndexInIAP);
-uint32_t IAP_GetPageNumberOfByte(uint32_t ByteIndexInIAP);
-uint32_t IAP_GetNumberOfPages(void);
+void IAP_Erase_OnePage (uint16_t pageNumber);
+uint8_t IAP_WriteSingleWord(uint8_t pageNumber, uint8_t wordIndexOnPage, uint32_t wordValue);
+uint8_t IAP_WriteMultipleWord(uint8_t pageNumber, uint8_t startWordIndexOnPage, void *startAddrInRAM, uint32_t wordsCount);
+uint8_t IAP_ReadByte(uint8_t pageNumber, uint16_t byteIndexOnPage);
+uint32_t IAP_ReadWord(uint8_t pageNumber, uint32_t wordIndexOnPage);
+void IAP_CopyFromIAPToRAM(uint8_t pageNumber, uint32_t startByteIndexOnPage, void *startAddrInRAM, uint32_t bytesCount);
+
 uint8_t IAP_IsEqualToRAM(uint32_t StartIndex, void* StructInRAMPointer, uint32_t StructInRAMSize);
-void IAP_CopyIAPInRAM(uint32_t StartIndex, void* StructInRAMPointer, uint32_t StructInRAMSize);
-uint8_t IAP_CopyRAMInIAP(uint32_t StartIndex, void* StructInRAMPointer, uint32_t StructInRAMSize);
-uint32_t IAP_IsAreaEmpty(uint32_t StartIndex, uint32_t EndIndex);
-uint32_t IAP_IsFullEmpty(void);
+
 
 DRV_Return IAP_Erase_Page(uint32_t StartPageAddress, uint32_t PageQuantity);
 DRV_Return IAP_Single_Write(uint32_t IAPStartAddress, uint32_t ProgramData);

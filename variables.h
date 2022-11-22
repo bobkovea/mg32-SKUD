@@ -23,9 +23,9 @@
 typedef struct 
 {
 	uint16_t value;
-	uint16_t factoryValue;
-	uint8_t byteSize;
-	uint8_t indexOnPage;
+	const uint16_t factoryValue;
+	const uint8_t byteSize;
+	const uint8_t indexOnPage;
 	
 //	uint16_t lLimit;
 //	uint16_t hLimit;
