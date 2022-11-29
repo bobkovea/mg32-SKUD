@@ -3,7 +3,7 @@
 #include "flash.h"
 
 Variable_t GerkonFiltTime 		= 	{ __GERKON_FILT_TIME, 		__GERKON_FILT_TIME, 	 2, GERKON_FILT_TIME_POS 		};
-Variable_t SendAlarmTimePos 	= 	{ __SEND_ALARM_TIME, 		__SEND_ALARM_TIME, 		 2, SEND_ALARM_TIME_POS 	  	};
+Variable_t SendAlarmTime 		= 	{ __SEND_ALARM_TIME, 		__SEND_ALARM_TIME, 		 2, SEND_ALARM_TIME_POS 	  	};
 Variable_t ReactivateAlarmTime 	= 	{ __REACTIVATE_ALARM_TIME, 	__REACTIVATE_ALARM_TIME, 2, REACTIVATE_ALARM_TIME_POS 	};
 Variable_t BuzzerOffTime 		= 	{ __BUZZER_OFF_TIME, 		__BUZZER_OFF_TIME, 		 2, BUZZER_OFF_TIME_POS 		};
 Variable_t SendOfflineEvents 	= 	{ __SEND_OFFLINE_EVENTS, 	__SEND_OFFLINE_EVENTS, 	 1, SEND_OFFLINE_EVENTS_POS 	};
@@ -16,7 +16,7 @@ Variable_t FlashResourse 		= 	{ __FLASH_RESOURCE, 		__FLASH_RESOURCE, 		 2, FLAS
 Variable_t *variables[VAR_COUNT] =
 {
 	&GerkonFiltTime,
-	&SendAlarmTimePos,
+	&SendAlarmTime,
 	&ReactivateAlarmTime,
 	&BuzzerOffTime,
 	&SendOfflineEvents,
