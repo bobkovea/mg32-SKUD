@@ -71,10 +71,7 @@ void PRSM3_ParseMessage(void)
 	// Проверка адреса 
 	if ((RecBytes[ADDRMSB_POS] != DEVICE_ADDRESS_MSB) ||
 		(RecBytes[ADDRLSB_POS] != DEVICE_ADDRESS_LSB)) 
-	{
-		PRSM3_ReturnReply(ECODE_WRONG_ADDR | FCODE_WRITE4);
 		return;
-	}
 	
 	// Расшифровываем код функции
 	uint8_t FunctionCode = RecBytes[FCODE_POS] & 0x1F;
