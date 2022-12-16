@@ -1,5 +1,4 @@
 #include "prsm3.h"
-#include "events.h"
 
 // текущий номер байта
 uint8_t iptr = 0;
@@ -57,7 +56,7 @@ void PRSM3_ParseMessage(void)
 	// Отключаем таймер
 	TM_Timer_Cmd(TM01, DISABLE); 
 
-	// Сколько было фактически принято байт ???
+	// Сколько было фактически принято байт
 	CommandSize = iptr;
 
     // обнуляем всё
@@ -93,7 +92,6 @@ void PRSM3_ParseMessage(void)
 		default:
 			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE9);
 	}
-
 }
 
 void PRSM3_ParseWriteRequest9(void)
@@ -277,7 +275,7 @@ void PRSM3_EventResponse(Event_t *event)
 //----------------------------------------------------------------------------------------
 void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизировать
 {
-	USART_CONFIG_TRANSMIT(); // ADM485 на передачу
+	RS485_CONFIG_TRANSMIT(); // ADM485 на передачу
 	
 	// Кладем код ответа в посылку-ответ 
 	RecBytes[2] = RetCode;
@@ -296,7 +294,7 @@ void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизироват
 	while(URT_IsTxEndTransmission() == TxBusy)	
 		;
 	
-	USART_CONFIG_RECEIVE(); // ADM485 на прием
+	RS485_CONFIG_RECEIVE(); // ADM485 на прием
 }
 
 void PRSM3_clearBuffer() // что-то непонятное
@@ -305,6 +303,5 @@ void PRSM3_clearBuffer() // что-то непонятное
     DecryptedMessageLen = 0;
     usUsart = 0;
 	parsingStatus = STATUS_COLLECTING_BYTES;
-	
-//    REDE_PIN = 0;
+	RS485_CONFIG_RECEIVE();
 }

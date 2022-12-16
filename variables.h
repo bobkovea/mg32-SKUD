@@ -26,9 +26,6 @@ typedef struct
 	const uint16_t factoryValue;
 	const uint8_t byteSize;
 	const uint8_t indexOnPage;
-	
-//	uint16_t lLimit;
-//	uint16_t hLimit;
 } Variable_t;
 
 extern Variable_t GerkonFiltTime;

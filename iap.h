@@ -1,8 +1,10 @@
 #ifndef IAP_H
 #define IAP_H
 
-#include "MG32x02z_DRV.h"
-	
+#include "MG32x02z__Common_DRV.h"
+#include "MG32x02z_MEM_DRV.h"
+#include "MG32x02z_CSC_DRV.h"
+
 #if defined(MG32_1ST) || defined(MG32_2ND) // MG32F02A132, MG32F02A072, MG32F02A032
 #define IAP_SIZE_1024 1024UL
 #define IAP_SIZE_2048 2048UL 

@@ -5,55 +5,25 @@ uint8_t varPackage[11] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xA0, 0xA1, 0xA2, 0xA3,
 int main()
 {
 	__disable_irq();
-
-    ChipInit();
-	wdt_disable();
-	IAP_Init(IAP_SIZE); 
 	
-	TM_Timer_Cmd(TM01, DISABLE); // выключаем таймер 1 (не даем включиться ранее положенного)
-	TM_IT_Config(TM01, TMx_TIE_IE, ENABLE); // включаем прерывание таймера 1 по переполнению
-	TM_ITEA_Cmd(TM01, ENABLE); // включаем общие прерывания таймера 1
-	TM_ClearFlag(TM01, TMx_TOF); // очищаем флаг прерывания таймера 1
-	
-	TM_Timer_Cmd(TM10, DISABLE); // выключаем таймер 10 (не даем включиться ранее положенного)
-	TM_IT_Config(TM10, TMx_TIE_IE, ENABLE); // включаем прерывание таймера 10 по переполнению
-	TM_ITEA_Cmd(TM10, ENABLE); // включаем общие прерывания таймера 10
-	TM_ClearFlag(TM10, TMx_TOF); // очищаем флаг прерывания таймера 10
-//	
-//	
-//	TM_Timer_Cmd(TM36, DISABLE); // выключаем таймер 36 (не даем включиться ранее положенного)
-//	TM_IT_Config(TM36, TMx_TIE_IE, ENABLE); // включаем прерывание таймера 36 по переполнению
-//	TM_ITEA_Cmd(TM36, ENABLE); // включаем общие прерывания таймера 36
-//	TM_ClearFlag(TM36, TMx_TOF); // очищаем флаг прерывания таймера 36
+    ChipInit(); // настраиваем тактирование
+	FlashFirstInit(); // первичная проверка конфиг. данных во флеше
+	GPIO_Config(); 
+	TIM_Config();
+	USART_Config();
+	WDT_Config();
 
-//	TM_Timer_Cmd(TM16, DISABLE); // выключаем таймер 16 (не даем включиться ранее положенного)
-//	TM_IT_Config(TM16, TMx_TIE_IE, ENABLE); // включаем прерывание таймера 16 по переполнению
-//	TM_ITEA_Cmd(TM16, ENABLE); // включаем общие прерывания таймера 16
-//	TM_ClearFlag(TM16, TMx_TOF); // очищаем флаг прерывания таймера 16
-//	
-	URT_Cmd(URT0, DISABLE); // выключаем UART0
-	URT_IT_Config(URT0, URT_IT_RX, ENABLE); // включаем прерывание UART0 по приему
-    URT_ITEA_Cmd(URT0, ENABLE); // включаем общие прерывания UART0
-
-//	TM_Timer_Cmd(TM10, ENABLE); // включаем таймер, опрашивающий входы
-
-
-//	TM_Timer_Cmd(TM36, ENABLE);
-	
 	URT_Cmd(URT0, ENABLE); // включаем UART0
-
-	__enable_irq();
-//	
-	TM_ClearFlag(TM00, TMx_TOF); 
-
-	USART_CONFIG_TRANSMIT();
-
-	FlashFirstInit();
 	
+	__enable_irq();
+
+	RS485_CONFIG_TRANSMIT();
+
 	FlashTestFill();
 	
 //////////////////////////////////////////////////////////////
 // ТЕСТ ЧТЕНИЯ И ЗАПИСИ ПЕРЕМЕННОЙ
+	
 	URT_WriteWord(GetVariable(0));
 	URT_WriteWord(GetVariable(1));
 		
@@ -153,12 +123,9 @@ int main()
 //////////////////////////////////////////////////////////////
 
 
-
-
 		
 //	delay_ms(5000);
 
-	
 	
 	
 //	uint8_t mas[13] = { 0x43, 0x10, 0x0A,  };
@@ -182,8 +149,6 @@ int main()
 
 //	MonitorKey();
 
-		
-		
 //	uint32_t *kdp = (uint32_t *)&KeysData;
 //	
 //	for (uint8_t i = 0; i < 15; i++)
@@ -192,9 +157,6 @@ int main()
 //    }
 
 //	delay_ms(1000);
-	
-
-		
 		
 //		if (DS1990A_GetID())
 //		{
@@ -214,10 +176,6 @@ int main()
 //			delay_ms(2000);
 //			
 //		}
-		
-		
-		
-		
 
 		wdt_reset();
     }

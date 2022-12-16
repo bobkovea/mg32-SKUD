@@ -1,5 +1,89 @@
-//#ifndef SKUD_ALGO_H
-//#define SKUD_ALGO_H
+#ifndef SKUD_ALGO_H
+#define SKUD_ALGO_H
+#include "stdint.h"
+// текущее состояние записывается во флеш (если это связано с тревогой)
+
+#define eNoEvent 0xFF
+#define sInitialState 0xFF
+
+// s - state
+typedef enum 
+{
+	sDoorIsClosed = 0,
+	sDoorIsOpenedAlarmOn,
+	sDoorIsOpenedAlarmOff,
+	sKeyReadingSuspended,
+} States_t; 
+
+// e - event
+typedef enum 
+{
+	eDoorOpened,
+	eEnteredValidKey,
+	eEnteredInvalidKey,
+	eIndicationEnds,
+	eAlarmTimeout,
+	eDoorClosed,
+} Events_t;
+
+typedef void (*TransitionCallback_t)(States_t state, Events_t event);
+
+typedef struct
+{
+    States_t newState;
+    TransitionCallback_t worker;
+} Transition_t;
+
+States_t currentState;
+extern Events_t currentEvent;
+Events_t newEvent;
+
+// h - handler
+void hDoorOpened(States_t state, Events_t event);
+void hEnteredValidKey(States_t state, Events_t event);
+void hEnteredInvalidKey(States_t state, Events_t event);
+void hAlarmTimeout(States_t state, Events_t event);
+void hKeyReadingResumed(States_t state, Events_t event);
+void hDoorClosed(States_t state, Events_t event);
+
+void HandleEvent();
+
+typedef enum
+{
+	AlarmCommon,
+	ValidKey,
+	InvalidKey,
+	OnlyLED
+} Indication_t;
+
+void IndicationStart(Indication_t indicType);
+void IndicationStop();
+
+extern uint8_t peeCnt;
+extern int8_t peeMax;
+extern uint8_t onlyLed;
+
+
+
+
+
+
+
+
+
+
+
+
+#endif // SKUD_ALGO_H
+
+
+
+
+
+
+
+
+
 
 //#include "keys.h"
 
@@ -55,4 +139,3 @@
 ////void StopRing(void);
 //void MonitorKey(void);
 //uint8_t GetCurEvent (void);
-//#endif // SKUD_ALGO_H

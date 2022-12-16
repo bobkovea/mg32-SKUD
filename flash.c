@@ -3,8 +3,8 @@
 #include "variables.h"
 #include "usart.h"
 #include "events.h"
+
 // отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
-//
 
 flash_block_t fpage;
 

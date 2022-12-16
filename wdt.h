@@ -1,6 +1,7 @@
 #ifndef IWDT_H
 #define IWDT_H
-#include "MG32x02z_DRV.h"
+#include "MG32x02z_IWDT_DRV.h"
+#include "MG32x02z_RST_DRV.h"
 
 #define WDTO_7MS   IWDT_DIV_1
 #define WDTO_15MS   IWDT_DIV_2
@@ -16,8 +17,9 @@
 #define WDTO_16S    IWDT_DIV_2048
 #define WDTO_32S    IWDT_DIV_4096
 
-extern void wdt_enable(IWDT_DIVS_TypeDef divider);
-extern void wdt_disable(void);
-extern void wdt_reset(void);
+void wdt_enable(IWDT_DIVS_TypeDef divider);
+void wdt_disable(void);
+void wdt_reset(void);
+void WDT_Config();
 
 #endif // IWDT_H
