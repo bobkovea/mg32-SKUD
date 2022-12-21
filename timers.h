@@ -8,24 +8,35 @@
 #include "variables.h"
 #include "usart.h"
 #include "skud_algo.h"
-
-#define F_CPU_BASE 8000000.0f
+#include "ibutton.h"
 
 #define TM_DELAY_MS TM00
 #define TM_URT_RECEIVE TM01
-//#define  TM10
-#define TM_DELAY_US TM16
+#define TM_PRSM_RESET TM10
+#define TM_INPUT TM16
+#define TM_INDICATION TM36
 
-#define TM_DELAY_MS_Period (F_CPU / F_CPU_BASE) * 99
-#define TM_DELAY_MS_Prescaler (F_CPU / F_CPU_BASE) * 79
+// для F_CPU = 8МГц
 
-#define TM_URT_RECEIVE_Period (F_CPU / F_CPU_BASE) * 47
-#define TM_URT_RECEIVE_Prescaler (F_CPU / F_CPU_BASE) * 39
+#define TM_DELAY_MS_PERIOD 250 // раз в 1 мс
+#define TM_DELAY_MS_PRESCALER 32
+
+#define TM_URT_RECEIVE_PERIOD 250 // раз в 0,25 мс
+#define TM_URT_RECEIVE_PRESCALER 8
+
+#define TM_PRSM_RESET_PERIOD 40000u // раз 5 мс
+#define TM_PRSM_RESET_PRESCALER 1
+
+#define TM_INPUT_PERIOD 50000u // раз в 100 мс
+#define TM_INPUT_PRESCALER 16
+
+#define TM_INDICATION_PERIOD 50000u // раз в 100 мс
+#define TM_INDICATION_PRESCALER 16
 
 void TIM01_Callback(void);
-void TIM10_Callback(void);
+void TIM10_Callback(void); 
 void TIM16_Callback(void);
-void TIM30_Callback(void);
+void TIM36_Callback(void);
 
 void TM0x_IRQHandler(void);
 void TM10_IRQHandler(void);
@@ -33,6 +44,6 @@ void TM1x_IRQHandler(void);
 void TM3x_IRQHandler(void);
 
 void TIM_Config();
-void delay_ms(uint32_t);
+void delay_ms(uint32_t time);
 void delay_us(uint32_t time);
 #endif // TIMER_H

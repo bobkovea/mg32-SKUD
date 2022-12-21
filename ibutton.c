@@ -7,7 +7,7 @@ uint8_t DS1990A_GetKeyID (void)
 	delay_ms(1);
 	if (Presence) 
 	{
-		OneWire_Write (0x33); 
+		OneWire_Write(0x33); 
 		for (uint8_t i = 0; i < KEY_RAW_SIZE; i++)
 		{
 			KeyRaw[i] = OneWire_Read();

@@ -21,17 +21,26 @@ int main()
 
 	FlashTestFill();
 	
+	
+	currentEvent = eDoorOpened;
+	
+	
+	
+	
+	
+	
+	
 //////////////////////////////////////////////////////////////
 // ТЕСТ ЧТЕНИЯ И ЗАПИСИ ПЕРЕМЕННОЙ
 	
-	URT_WriteWord(GetVariable(0));
-	URT_WriteWord(GetVariable(1));
-		
-	URT_WriteWord(SetVariable(0, 0xAA, 0xBB));
-	URT_WriteWord(SetVariable(1, 0xCC, 0xDD));
-//	
-	URT_WriteWord(GetVariable(0));
-	URT_WriteWord(GetVariable(1));
+//	URT_WriteWord(GetVariable(0));
+//	URT_WriteWord(GetVariable(1));
+//		
+//	URT_WriteWord(SetVariable(0, 0xAA, 0xBB));
+//	URT_WriteWord(SetVariable(1, 0xCC, 0xDD));
+
+//	URT_WriteWord(GetVariable(0));
+//	URT_WriteWord(GetVariable(1));
 	
 //////////////////////////////////////////////////////////////
 // ТЕСТ ЗАПИСИ ПАКА
@@ -144,9 +153,18 @@ int main()
 //	TM_Timer_Cmd(TM16, ENABLE);  
 //	TM_Timer_Cmd(TM36, ENABLE);  
 
+
+
     while(1) 
 	{ 
-
+		HandleEvent();
+		wdt_reset();
+    }
+}
+	
+		
+		
+		
 //	MonitorKey();
 
 //	uint32_t *kdp = (uint32_t *)&KeysData;
@@ -162,24 +180,21 @@ int main()
 //		{
 //			STALED_PIN = !STALED_PIN;
 
-////			URT_WriteWord(CheckTruth(keyCurrent)); // удалить ключ 
-////			URT_WriteWord(RemoveKey(keyCurrent)); // удалить ключ 
-////			URT_WriteWord(AddKey(keyCurrent)); // добавить ключ  
+////		URT_WriteWord(CheckTruth(keyCurrent)); // удалить ключ 
+////		URT_WriteWord(RemoveKey(keyCurrent)); // удалить ключ 
+////		URT_WriteWord(AddKey(keyCurrent)); // добавить ключ  
 //			
-////			for (uint32_t i = 0; i < 2048; i += 4)
-////			{
-////				URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
-////			}
+////		for (uint32_t i = 0; i < 2048; i += 4)
+////		{
+////			URT_WriteWord(*(uint32_t *)(IAP_START_ADDRESS + i));
+////		}
 //			
-////			while(1);
+////		while(1);
 //			
 //			delay_ms(2000);
 //			
 //		}
 
-		wdt_reset();
-    }
-}
 
 
 

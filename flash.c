@@ -341,7 +341,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 
 uint32_t GetKeyStatus(uint16_t keyIndex)
 {
-	return IAP_ReadByte (PAGE_NUMBER_KEYSTATUS, keyIndex);
+	return IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex);
 }
 
 

@@ -7,13 +7,11 @@ States_t currentState = sDoorIsClosed;
 Events_t currentEvent = eNoEvent;
 Events_t newEvent = eNoEvent;
 
-#define CNT_AlarmCommon 500
-#define CNT_ValidKey 250
-#define CNT_InvalidKey 100
+uint32_t indicTimeCnt;
+uint32_t indicTimeMax;
+uint8_t indicSpeed;
 
-#define PEEMAX_AlarmCommon -1
-#define PEEMAX_ValidKey 4 * 2
-#define PEEMAX_InvalidKey 5 * 2
+uint8_t gerkonState;
 
 void IndicationStart(Indication_t indicType)
 {
@@ -21,44 +19,47 @@ void IndicationStart(Indication_t indicType)
 	TM_Timer_Cmd(TM36, DISABLE);
 	BUZZER_PIN = 0;
 	STALED_PIN = 1;
-	peeCnt = 0;
+	indicTimeCnt = 1;
 	
 	switch ((uint8_t)indicType)
 	{
 		case AlarmCommon:
-			peeMax = PEEMAX_AlarmCommon;
-			TM_Counter_Config(TM36, 0, CNT_AlarmCommon);
-			TM_Timer_Cmd(TM36, ENABLE);
-		break;
+			indicSpeed = INDIC_SPEED_ALARM;
+			indicTimeMax = INDIC_CNT_ALARM;
+			break;
 		
 		case ValidKey:
-			peeMax = PEEMAX_ValidKey;
-			TM_Counter_Config(TM36, 0, CNT_ValidKey);
-			TM_Timer_Cmd(TM36, ENABLE);
+			indicSpeed = INDIC_SPEED_VALID_KEY;
+			indicTimeMax = INDIC_CNT_VALID_KEY;
 			break;
 		
 		case InvalidKey:
-			peeMax = PEEMAX_InvalidKey;
-			TM_Counter_Config(TM36, 0, CNT_InvalidKey);
-			TM_Timer_Cmd(TM36, ENABLE);
+			indicSpeed = INDIC_SPEED_INVALID_KEY;
+			indicTimeMax = INDIC_CNT_INVALID_KEY;
 			break;
 		
-		case OnlyLED:
+		case OnlyLED: // в AlarmCommon
 			onlyLed = 1;
-			TM_Counter_Config(TM36, 0, CNT_AlarmCommon);
+			indicSpeed = INDIC_SPEED_ALARM;
+			indicTimeMax = INDIC_CNT_ALARM;
 			break;
-		
+	
 		default: 
-			break;	
+			return;	
 	}
+			
+	TM_Timer_Cmd(TM36, ENABLE);
 }
 
 void IndicationStop()
 {
+	// обнуление всяких штук
 	TM_Timer_Cmd(TM36, DISABLE);
 	BUZZER_PIN = 0;
 	STALED_PIN = 1;
-	// обнуление всяких штук
+	onlyLed = 0;
+	indicTimeCnt = 1;
+
 };
 
 
@@ -75,7 +76,7 @@ void hEnteredValidKey(States_t state, Events_t event)
 
 void hEnteredInvalidKey(States_t state, Events_t event)
 {
-	
+	IndicationStart(InvalidKey);
 };
 
 void hAlarmTimeout(States_t state, Events_t event)
@@ -98,7 +99,7 @@ void hDoorClosed(States_t state, Events_t event)
 
 Transition_t FSMTable[4][6] =
 {
-	// прописать потом все случаи во избежание гонки потоков
+	// прописать потом все случаи во избежание последствий гонки потоков
 	
     [sDoorIsClosed][eDoorOpened] = { sDoorIsOpenedAlarmOn, hDoorOpened },
 	
@@ -110,11 +111,11 @@ Transition_t FSMTable[4][6] =
 		
 	[sDoorIsOpenedAlarmOn][eEnteredValidKey] = { sDoorIsOpenedAlarmOff, hEnteredValidKey },
 	
-	[sKeyReadingSuspended][eKeyReadingResumed] = { sDoorIsOpenedAlarmOn, hKeyReadingResumed },
+	[sKeyReadingSuspended][eIndicationEnded] = { sDoorIsOpenedAlarmOn, hKeyReadingResumed },
 	
 	[sDoorIsOpenedAlarmOff][eDoorClosed] = { sDoorIsClosed, hDoorClosed },
 	
-	/*
+	/* 
 	[sDoorIsClosedAlarmReady]...
 	*/
 };
@@ -139,45 +140,18 @@ void HandleEvent()
 	}
 }
 
+void IsKeyActive(void)
+{
+	for (uint16_t i = 0; i < TotalKeys.value; i++)
+    {
+		GetKeyStatus(i) == KEY_STATUS_ACTIVATED;
+    }
+}
 
 
 
 
 
-
-
-
-
-
-
-//#include "gpio.h"
-//#include "usart.h"
-
-//volatile uint8_t CurState = StateClosed;
-//volatile uint8_t CurEvent = EventNull;
-
-//volatile uint32_t alarmTimeoutCnt = 0;
-//volatile uint32_t alarmTimeoutCntMax = 50; // длительность интервала до отправки сигнала аларма (cек * 10)
-
-//volatile uint32_t alarmReloadCnt = 0;
-//volatile uint32_t alarmReloadCntMax = 50; // длительность интервала до автоматической активации сигналки после её снятия (cек * 10)
-
-////boolean waitBitch = FALSE;
-//volatile uint32_t waitBitchCnt = 0;
-//volatile uint32_t waitBitchCntMax = 20; // длительность интервала до разрешения повторного поднесения ключа (cек * 10)
-
-//volatile uint32_t buzzerFreq = UINT32_MAX; // период следования "писков" зумера (сек / 100)
-//volatile uint32_t buzzerCnt = 1;
-
-//volatile uint8_t piskNumCnt = 0;
-//volatile uint32_t piskNumMax = UINT16_MAX; // количество "писков" зумера
-
-//uint8_t GetCurEvent (void)
-//{
-//	uint8_t tmp = CurEvent;
-//	CurEvent = EventNull;
-//	return tmp;
-//};
 
 
 

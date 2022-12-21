@@ -12,10 +12,9 @@ Section Cross References
     main.o(.text.main) refers to wdt.o(.text.WDT_Config) for WDT_Config
     main.o(.text.main) refers to mg32x02z_urt_drv.o(.text.URT_Cmd) for URT_Cmd
     main.o(.text.main) refers to flash.o(.text.FlashTestFill) for FlashTestFill
-    main.o(.text.main) refers to flash.o(.text.GetVariable) for GetVariable
-    main.o(.text.main) refers to usart.o(.text.URT_WriteWord) for URT_WriteWord
-    main.o(.text.main) refers to flash.o(.text.SetVariable) for SetVariable
+    main.o(.text.main) refers to skud_algo.o(.text.HandleEvent) for HandleEvent
     main.o(.text.main) refers to wdt.o(.text.wdt_reset) for wdt_reset
+    main.o(.text.main) refers to skud_algo.o(.data.currentEvent) for currentEvent
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     prsm3.o(.text.PRSM3_AddNewByte) refers to mg32x02z_urt_drv.o(.text.URT_GetRXData) for URT_GetRXData
     prsm3.o(.text.PRSM3_AddNewByte) refers to prsm3.o(.bss..L_MergedGlobals) for [Anonymous Symbol]
@@ -75,7 +74,16 @@ Section Cross References
     timers.o(.text.TIM10_Callback) refers to prsm3.o(.text.PRSM3_clearBuffer) for PRSM3_clearBuffer
     timers.o(.text.TIM10_Callback) refers to prsm3.o(.bss..L_MergedGlobals) for usUsart
     timers.o(.ARM.exidx.text.TIM10_Callback) refers to timers.o(.text.TIM10_Callback) for [Anonymous Symbol]
+    timers.o(.text.TIM16_Callback) refers to ibutton.o(.text.DS1990A_GetKeyID) for DS1990A_GetKeyID
+    timers.o(.text.TIM16_Callback) refers to skud_algo.o(.text.IsKeyActive) for IsKeyActive
+    timers.o(.text.TIM16_Callback) refers to keys.o(.bss.KeyRaw) for KeyRaw
+    timers.o(.text.TIM16_Callback) refers to skud_algo.o(.data.currentEvent) for currentEvent
+    timers.o(.text.TIM16_Callback) refers to timers.o(.bss.gerkonState) for gerkonState
     timers.o(.ARM.exidx.text.TIM16_Callback) refers to timers.o(.text.TIM16_Callback) for [Anonymous Symbol]
+    timers.o(.text.TIM36_Callback) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    timers.o(.text.TIM36_Callback) refers to uidiv_div0.o(.text) for __aeabi_uidivmod
+    timers.o(.text.TIM36_Callback) refers to skud_algo.o(.bss..L_MergedGlobals) for indicTimeCnt
+    timers.o(.text.TIM36_Callback) refers to skud_algo.o(.data.currentEvent) for currentEvent
     timers.o(.ARM.exidx.text.TIM36_Callback) refers to timers.o(.text.TIM36_Callback) for [Anonymous Symbol]
     timers.o(.text.delay_ms) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
     timers.o(.text.delay_ms) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
@@ -88,15 +96,6 @@ Section Cross References
     timers.o(.text.TIM_Config) refers to mg32x02z_tm_drv.o(.text.TM_IT_Config) for TM_IT_Config
     timers.o(.text.TIM_Config) refers to mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd) for TM_ITEA_Cmd
     timers.o(.ARM.exidx.text.TIM_Config) refers to timers.o(.text.TIM_Config) for [Anonymous Symbol]
-    timers.o(.text.TM01_IRQ) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
-    timers.o(.text.TM01_IRQ) refers to prsm3.o(.text.PRSM3_ParseMessage) for PRSM3_ParseMessage
-    timers.o(.text.TM01_IRQ) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
-    timers.o(.ARM.exidx.text.TM01_IRQ) refers to timers.o(.text.TM01_IRQ) for [Anonymous Symbol]
-    timers.o(.text.TM10_IRQ) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
-    timers.o(.text.TM10_IRQ) refers to prsm3.o(.text.PRSM3_clearBuffer) for PRSM3_clearBuffer
-    timers.o(.text.TM10_IRQ) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
-    timers.o(.text.TM10_IRQ) refers to prsm3.o(.bss..L_MergedGlobals) for usUsart
-    timers.o(.ARM.exidx.text.TM10_IRQ) refers to timers.o(.text.TM10_IRQ) for [Anonymous Symbol]
     timers.o(.text.TM0x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
     timers.o(.text.TM0x_IRQHandler) refers to prsm3.o(.text.PRSM3_ParseMessage) for PRSM3_ParseMessage
     timers.o(.text.TM0x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
@@ -106,6 +105,21 @@ Section Cross References
     timers.o(.text.TM10_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
     timers.o(.text.TM10_IRQHandler) refers to prsm3.o(.bss..L_MergedGlobals) for usUsart
     timers.o(.ARM.exidx.text.TM10_IRQHandler) refers to timers.o(.text.TM10_IRQHandler) for [Anonymous Symbol]
+    timers.o(.text.TM1x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
+    timers.o(.text.TM1x_IRQHandler) refers to ibutton.o(.text.DS1990A_GetKeyID) for DS1990A_GetKeyID
+    timers.o(.text.TM1x_IRQHandler) refers to skud_algo.o(.text.IsKeyActive) for IsKeyActive
+    timers.o(.text.TM1x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
+    timers.o(.text.TM1x_IRQHandler) refers to keys.o(.bss.KeyRaw) for KeyRaw
+    timers.o(.text.TM1x_IRQHandler) refers to skud_algo.o(.data.currentEvent) for currentEvent
+    timers.o(.text.TM1x_IRQHandler) refers to timers.o(.bss.gerkonState) for gerkonState
+    timers.o(.ARM.exidx.text.TM1x_IRQHandler) refers to timers.o(.text.TM1x_IRQHandler) for [Anonymous Symbol]
+    timers.o(.text.TM3x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
+    timers.o(.text.TM3x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    timers.o(.text.TM3x_IRQHandler) refers to uidiv_div0.o(.text) for __aeabi_uidivmod
+    timers.o(.text.TM3x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
+    timers.o(.text.TM3x_IRQHandler) refers to skud_algo.o(.bss..L_MergedGlobals) for indicTimeCnt
+    timers.o(.text.TM3x_IRQHandler) refers to skud_algo.o(.data.currentEvent) for currentEvent
+    timers.o(.ARM.exidx.text.TM3x_IRQHandler) refers to timers.o(.text.TM3x_IRQHandler) for [Anonymous Symbol]
     crc.o(.text.Do_CRC) refers to crc.o(.rodata.CRC_Table) for [Anonymous Symbol]
     crc.o(.ARM.exidx.text.Do_CRC) refers to crc.o(.text.Do_CRC) for [Anonymous Symbol]
     crc.o(.text.CRCisWrong) refers to crc.o(.rodata.CRC_Table) for [Anonymous Symbol]
@@ -235,8 +249,35 @@ Section Cross References
     keys.o(.data.keys) refers to keys.o(.data.key3) for key3
     keys.o(.data.keys) refers to keys.o(.data.key4) for key4
     keys.o(.data.keys) refers to keys.o(.data.key5) for key5
-    skud_algo.o(.text.doFSMTable) refers to skud_algo.o(.data.FSMTable) for FSMTable
-    skud_algo.o(.ARM.exidx.text.doFSMTable) refers to skud_algo.o(.text.doFSMTable) for [Anonymous Symbol]
+    skud_algo.o(.text.IndicationStart) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.IndicationStart) refers to skud_algo.o(.bss..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.IndicationStart) refers to skud_algo.o(.text.IndicationStart) for [Anonymous Symbol]
+    skud_algo.o(.text.IndicationStop) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.IndicationStop) refers to skud_algo.o(.bss..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.IndicationStop) refers to skud_algo.o(.text.IndicationStop) for [Anonymous Symbol]
+    skud_algo.o(.text.hDoorOpened) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hDoorOpened) refers to skud_algo.o(.bss..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hDoorOpened) refers to skud_algo.o(.text.hDoorOpened) for [Anonymous Symbol]
+    skud_algo.o(.text.hEnteredValidKey) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hEnteredValidKey) refers to skud_algo.o(.bss..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hEnteredValidKey) refers to skud_algo.o(.text.hEnteredValidKey) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hEnteredInvalidKey) refers to skud_algo.o(.text.hEnteredInvalidKey) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hAlarmTimeout) refers to skud_algo.o(.text.hAlarmTimeout) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hKeyReadingResumed) refers to skud_algo.o(.text.hKeyReadingResumed) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hDoorClosed) refers to skud_algo.o(.text.hDoorClosed) for [Anonymous Symbol]
+    skud_algo.o(.text.HandleEvent) refers to skud_algo.o(.data.currentEvent) for currentEvent
+    skud_algo.o(.text.HandleEvent) refers to skud_algo.o(.bss.currentState) for currentState
+    skud_algo.o(.text.HandleEvent) refers to skud_algo.o(.data.FSMTable) for FSMTable
+    skud_algo.o(.ARM.exidx.text.HandleEvent) refers to skud_algo.o(.text.HandleEvent) for [Anonymous Symbol]
+    skud_algo.o(.text.IsKeyActive) refers to flash.o(.text.GetKeyStatus) for GetKeyStatus
+    skud_algo.o(.text.IsKeyActive) refers to variables.o(.data.TotalKeys) for TotalKeys
+    skud_algo.o(.ARM.exidx.text.IsKeyActive) refers to skud_algo.o(.text.IsKeyActive) for [Anonymous Symbol]
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hDoorOpened) for hDoorOpened
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hEnteredValidKey) for hEnteredValidKey
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hEnteredInvalidKey) for hEnteredInvalidKey
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hAlarmTimeout) for hAlarmTimeout
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hDoorClosed) for hDoorClosed
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hKeyReadingResumed) for hKeyReadingResumed
     flash.o(.text.FlashTestFill) refers to flash.o(.text.AddKey) for AddKey
     flash.o(.text.FlashTestFill) refers to keys.o(.data.key1) for key1
     flash.o(.text.FlashTestFill) refers to keys.o(.data.key2) for key2
@@ -344,6 +385,8 @@ Section Cross References
     startup_mg32x02z.o(RESET) refers to startup_mg32x02z.o(.text) for MG32x02z_IEC60730_MANAGER
     startup_mg32x02z.o(RESET) refers to timers.o(.text.TM0x_IRQHandler) for TM0x_IRQHandler
     startup_mg32x02z.o(RESET) refers to timers.o(.text.TM10_IRQHandler) for TM10_IRQHandler
+    startup_mg32x02z.o(RESET) refers to timers.o(.text.TM1x_IRQHandler) for TM1x_IRQHandler
+    startup_mg32x02z.o(RESET) refers to timers.o(.text.TM3x_IRQHandler) for TM3x_IRQHandler
     startup_mg32x02z.o(RESET) refers to usart.o(.text.URT0_IRQHandler) for URT0_IRQHandler
     startup_mg32x02z.o(.text) refers to system_mg32x02z.o(.text.SystemInit) for SystemInit
     startup_mg32x02z.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
@@ -1410,20 +1453,17 @@ Removing Unused input sections from the image.
     Removing timers.o(.ARM.exidx.text.TIM01_Callback), (8 bytes).
     Removing timers.o(.text.TIM10_Callback), (32 bytes).
     Removing timers.o(.ARM.exidx.text.TIM10_Callback), (8 bytes).
-    Removing timers.o(.text.TIM16_Callback), (2 bytes).
+    Removing timers.o(.text.TIM16_Callback), (52 bytes).
     Removing timers.o(.ARM.exidx.text.TIM16_Callback), (8 bytes).
-    Removing timers.o(.text.TIM36_Callback), (2 bytes).
+    Removing timers.o(.text.TIM36_Callback), (108 bytes).
     Removing timers.o(.ARM.exidx.text.TIM36_Callback), (8 bytes).
     Removing timers.o(.ARM.exidx.text.delay_ms), (8 bytes).
-    Removing timers.o(.text.delay_us), (14 bytes).
     Removing timers.o(.ARM.exidx.text.delay_us), (8 bytes).
     Removing timers.o(.ARM.exidx.text.TIM_Config), (8 bytes).
-    Removing timers.o(.text.TM01_IRQ), (36 bytes).
-    Removing timers.o(.ARM.exidx.text.TM01_IRQ), (8 bytes).
-    Removing timers.o(.text.TM10_IRQ), (56 bytes).
-    Removing timers.o(.ARM.exidx.text.TM10_IRQ), (8 bytes).
     Removing timers.o(.ARM.exidx.text.TM0x_IRQHandler), (8 bytes).
     Removing timers.o(.ARM.exidx.text.TM10_IRQHandler), (8 bytes).
+    Removing timers.o(.ARM.exidx.text.TM1x_IRQHandler), (8 bytes).
+    Removing timers.o(.ARM.exidx.text.TM3x_IRQHandler), (8 bytes).
     Removing crc.o(.text), (0 bytes).
     Removing crc.o(.ARM.exidx.text.Do_CRC), (8 bytes).
     Removing crc.o(.text.CRCisWrong), (40 bytes).
@@ -1432,6 +1472,7 @@ Removing Unused input sections from the image.
     Removing usart.o(.text.URT_Rx_Callback), (20 bytes).
     Removing usart.o(.ARM.exidx.text.URT_Rx_Callback), (8 bytes).
     Removing usart.o(.ARM.exidx.text.URT_Write), (8 bytes).
+    Removing usart.o(.text.URT_WriteWord), (24 bytes).
     Removing usart.o(.ARM.exidx.text.URT_WriteWord), (8 bytes).
     Removing usart.o(.text.URT_Print), (48 bytes).
     Removing usart.o(.ARM.exidx.text.URT_Print), (8 bytes).
@@ -1480,11 +1521,8 @@ Removing Unused input sections from the image.
     Removing iap.o(.text.IAP_IsEqualToRAM), (18 bytes).
     Removing iap.o(.ARM.exidx.text.IAP_IsEqualToRAM), (8 bytes).
     Removing onewire.o(.text), (0 bytes).
-    Removing onewire.o(.text.OneWire_Start), (68 bytes).
     Removing onewire.o(.ARM.exidx.text.OneWire_Start), (8 bytes).
-    Removing onewire.o(.text.OneWire_Write), (428 bytes).
     Removing onewire.o(.ARM.exidx.text.OneWire_Write), (8 bytes).
-    Removing onewire.o(.text.OneWire_Read), (404 bytes).
     Removing onewire.o(.ARM.exidx.text.OneWire_Read), (8 bytes).
     Removing keys.o(.text), (0 bytes).
     Removing keys.o(.text.EncryptKey), (4 bytes).
@@ -1494,11 +1532,20 @@ Removing Unused input sections from the image.
     Removing keys.o(.data.key_test), (16 bytes).
     Removing keys.o(.data.keys), (20 bytes).
     Removing keys.o(.bss.KeyEncrypted), (16 bytes).
-    Removing keys.o(.bss.KeyRaw), (8 bytes).
     Removing skud_algo.o(.text), (0 bytes).
-    Removing skud_algo.o(.text.doFSMTable), (40 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.doFSMTable), (8 bytes).
-    Removing skud_algo.o(.data.FSMTable), (72 bytes).
+    Removing skud_algo.o(.text.IndicationStart), (96 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.IndicationStart), (8 bytes).
+    Removing skud_algo.o(.text.IndicationStop), (48 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.IndicationStop), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hDoorOpened), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hEnteredValidKey), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hEnteredInvalidKey), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hAlarmTimeout), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hKeyReadingResumed), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hDoorClosed), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.HandleEvent), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.IsKeyActive), (8 bytes).
+    Removing skud_algo.o(.data.newEvent), (1 bytes).
     Removing flash.o(.text), (0 bytes).
     Removing flash.o(.ARM.exidx.text.FlashTestFill), (8 bytes).
     Removing flash.o(.ARM.exidx.text.AddKey), (8 bytes).
@@ -1515,13 +1562,11 @@ Removing Unused input sections from the image.
     Removing flash.o(.ARM.exidx.text.CopyRAMToFlashPage), (8 bytes).
     Removing flash.o(.ARM.exidx.text.SetVariablePack), (8 bytes).
     Removing flash.o(.ARM.exidx.text.ActivateKey), (8 bytes).
-    Removing flash.o(.text.GetKeyStatus), (12 bytes).
     Removing flash.o(.ARM.exidx.text.GetKeyStatus), (8 bytes).
     Removing flash.o(.ARM.exidx.text.DoCommand), (8 bytes).
     Removing events.o(.text), (0 bytes).
     Removing variables.o(.text), (0 bytes).
     Removing ibutton.o(.text), (0 bytes).
-    Removing ibutton.o(.text.DS1990A_GetKeyID), (100 bytes).
     Removing ibutton.o(.ARM.exidx.text.DS1990A_GetKeyID), (8 bytes).
     Removing md5.o(.text), (0 bytes).
     Removing mg32x02z_csc_init.o(.text), (0 bytes).
@@ -2993,4 +3038,4 @@ Removing Unused input sections from the image.
     Removing depilogue.o(.text), (190 bytes).
     Removing depilogue.o(i.__ARM_clz), (46 bytes).
 
-1603 unused section(s) (total 25517 bytes) removed from the image.
+1605 unused section(s) (total 24676 bytes) removed from the image.

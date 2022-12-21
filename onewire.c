@@ -13,7 +13,7 @@ uint8_t OneWire_Start (void)
 	GPIO_PinMode_Select(PINB(0), PINX_Mode_Digital_I);    // настройка на вход
 	delay_us(80);    // задержка в соответствии с даташитом
 
-	if (!ONEWIRE_PIN) 
+	if (ONEWIRE_PIN == 0) 
 		Response = 1;    // если устройство подтянуло шину к земле, то оно на линии (presence)
 
 	delay_us(400);  // всего задержка в соответствии с даташитом 400 + 80 = 480мкс
@@ -26,6 +26,7 @@ uint8_t OneWire_Start (void)
 //----------------------------------------------------------------------------------------
 void OneWire_Write (uint8_t data)
 {
+	// что-то здесь не так!
 	for (int i = 0; i < 8; i++)
 	{
 

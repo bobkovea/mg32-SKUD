@@ -18,10 +18,10 @@ typedef enum
 // e - event
 typedef enum 
 {
-	eDoorOpened,
+	eDoorOpened = 0,
 	eEnteredValidKey,
 	eEnteredInvalidKey,
-	eIndicationEnds,
+	eIndicationEnded,
 	eAlarmTimeout,
 	eDoorClosed,
 } Events_t;
@@ -34,9 +34,9 @@ typedef struct
     TransitionCallback_t worker;
 } Transition_t;
 
-States_t currentState;
+extern States_t currentState;
 extern Events_t currentEvent;
-Events_t newEvent;
+extern Events_t newEvent;
 
 // h - handler
 void hDoorOpened(States_t state, Events_t event);
@@ -59,83 +59,19 @@ typedef enum
 void IndicationStart(Indication_t indicType);
 void IndicationStop();
 
-extern uint8_t peeCnt;
-extern int8_t peeMax;
+extern uint32_t indicTimeCnt;
+extern uint32_t indicTimeMax;
+extern uint8_t indicSpeed;
 extern uint8_t onlyLed;
 
+extern uint8_t gerkonState;
 
+#define INDIC_SPEED_ALARM 10
+#define INDIC_SPEED_VALID_KEY 5
+#define INDIC_SPEED_INVALID_KEY 3
 
-
-
-
-
-
-
-
-
+#define INDIC_CNT_ALARM 0
+#define INDIC_CNT_INVALID_KEY 12
+#define INDIC_CNT_VALID_KEY 16
 
 #endif // SKUD_ALGO_H
-
-
-
-
-
-
-
-
-
-
-//#include "keys.h"
-
-//typedef enum {
-//	StateClosed = 0x00,
-//	StateOpenedAlarm = 0x01,
-//	StateOpenedValidOk = 0x02,
-//	StateOpenedValidNotOk = 0x03,
-//	StateOpenedAlarmTimeout = 0x04,
-//} State;
-
-//typedef enum {
-//	EventNull = 0x00,
-//	EventOpened = 0x01,
-//	EventValidKey = 0x02,
-//	EventNotValidKey = 0x03,
-//	EventTimeout = 0x04,
-//	EventReadyForNewKey = 0x05,
-//	EventReactivateAlarm = 0x06,
-//} Event;
-
-
-//typedef enum {
-//	NoRing,
-//	LongRing,
-//	MediumRing,
-//	FastRing,
-//	FastFastRing,
-//} RingType;
-
-//extern volatile uint8_t CurState;
-//extern volatile uint8_t CurEvent;
-
-//extern volatile uint32_t alarmTimeoutCnt;
-//extern volatile uint32_t alarmTimeoutCntMax;
-
-//extern volatile uint32_t alarmReloadCnt;
-//extern volatile uint32_t alarmReloadCntMax;
-
-//extern volatile uint32_t buzzerFreq;
-//extern volatile uint32_t buzzerCnt;
-
-////extern boolean alarmAuto;
-
-//extern volatile uint8_t piskNumCnt;
-//extern volatile uint32_t piskNumMax;
-
-//extern volatile boolean waitBitch;
-//extern volatile uint32_t waitBitchCnt;
-//extern volatile uint32_t waitBitchCntMax;
-
-////void StartRing(uint8_t rtype, uint32_t duration_ms);
-////void StopRing(void);
-//void MonitorKey(void);
-//uint8_t GetCurEvent (void);
