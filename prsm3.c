@@ -23,18 +23,19 @@ uint32_t operStatus;
 void PRSM3_AddNewByte(void) // вызывается когда пришел очередной байт
 {
 	// после конца посылки вычитываем приходящие "лишние байты"
-    if ((parsingStatus = STATUS_PARSE_WAITING) || (iptr >= RX_BUFFER_SIZE))
-	{ 
+    if ((parsingStatus == STATUS_PARSE_WAITING) || (iptr >= RX_BUFFER_SIZE))
+	{
 		URT_GetRXData(URT0); // проверить, можно ли обойтись без этого
 		return;
     }
+					
 	// пока массив-буфер не переполнен, кладем туда по байту
 	RecBytes[iptr] = URT_GetRXData(URT0);
-
+	
 	// в третьем байте зашифрована длина посылки
     if (iptr++ == FCODE_POS)
 		DecryptedMessageLen = MessageLenArr[(RecBytes[FCODE_POS] >> 3) & 3];
-
+	
 	// дошли по конца посылки, переходим к её парсингу
     if (DecryptedMessageLen != 0)
 	{
@@ -53,7 +54,7 @@ void PRSM3_AddNewByte(void) // вызывается когда пришел оч
 //----------------------------------------------------------------------------------------
 void PRSM3_ParseMessage(void)
 {
-	// Отключаем таймер
+//	// Отключаем таймер
 	TM_Timer_Cmd(TM01, DISABLE); 
 
 	// Сколько было фактически принято байт
@@ -63,10 +64,11 @@ void PRSM3_ParseMessage(void)
     DecryptedMessageLen = 0;
     iptr = 0;
 	usUsart = 0;
+	parsingStatus = STATUS_COLLECTING_BYTES;
 	
 	// Задержка до отправки ответа
-    delay_ms(2);
-	
+	delay_ms(2);
+
 	// Проверка адреса 
 	if ((RecBytes[ADDRMSB_POS] != DEVICE_ADDRESS_MSB) ||
 		(RecBytes[ADDRLSB_POS] != DEVICE_ADDRESS_LSB)) 
@@ -133,14 +135,13 @@ void PRSM3_ParseWriteRequest9(void)
 			CommandSize = 4;
 			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
 			return;
-		
-		CommandSize = 4;
-		if (operStatus == FAILURE)
-			PRSM3_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
-		else 
-			PRSM3_ReturnReply(FCODE_WRITE4);
-		return;
     }
+	CommandSize = 4;
+	if (operStatus == FAILURE)
+		PRSM3_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
+	else 
+		PRSM3_ReturnReply(FCODE_WRITE4);
+	return;
 }
 
 
@@ -227,9 +228,10 @@ void PRSM3_ParseReadRequest(void)
 			
 			tmpAddr = &RecBytes[READVARM_VALUE_1ST_POS];
 			
-			for (uint8_t varNum = 0x00; varNum < VAR_COUNT; varNum++)
+			for (uint8_t varNum = 0; varNum < VAR_COUNT; varNum++)
 			{
 				var = GetVariable(varNum);
+				
 				if (var == FAILURE)
 				{
 					CommandSize = 9;
@@ -240,12 +242,12 @@ void PRSM3_ParseReadRequest(void)
 				// отделяем двухбайтные переменные от однобайтных
 				for (uint8_t byteNum = 0; byteNum < variables[varNum]->byteSize; byteNum++)
 					*tmpAddr++ |= var >> (8 * byteNum);
-
-				CommandSize = 24;
-				PRSM3_ReturnReply(FCODE_READ24);
-				break;
 			}
-		
+			
+			CommandSize = 24;
+			PRSM3_ReturnReply(FCODE_READ24);
+			break;
+	
 		default:
 			CommandSize = 9;
 			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_READ9);

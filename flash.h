@@ -25,8 +25,6 @@ uint32_t UpdateFlashResource(uint8_t curPageNumber);
 
 uint32_t CopyFlashPageToRAM(uint8_t pageNumber);
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber);
-
-
 	
 void FlashFirstInit(void);
 

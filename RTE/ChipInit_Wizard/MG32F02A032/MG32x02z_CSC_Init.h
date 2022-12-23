@@ -127,7 +127,7 @@
 
 //            <q.3> IHRCO_EN
 //            <i> IHRCO device enable
-#define CONF_CSC_CR0_IHRCO_EN             0x00000000  // 18  [3] IHRCO_EN
+#define CONF_CSC_CR0_IHRCO_EN             0x00000008  // 18  [3] IHRCO_EN
 
 
 //            <q.5> PLL_EN

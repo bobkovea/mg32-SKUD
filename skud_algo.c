@@ -10,7 +10,7 @@ Events_t newEvent = eNoEvent;
 uint32_t indicTimeCnt;
 uint32_t indicTimeMax;
 uint8_t indicSpeed;
-
+uint8_t onlyLed;
 uint8_t gerkonState;
 
 void IndicationStart(Indication_t indicType)
@@ -140,12 +140,19 @@ void HandleEvent()
 	}
 }
 
-void IsKeyActive(void)
+uint8_t IsKeyActive(void)
 {
 	for (uint16_t i = 0; i < TotalKeys.value; i++)
     {
-		GetKeyStatus(i) == KEY_STATUS_ACTIVATED;
+		if (GetKeyStatus(i) == KEY_STATUS_ACTIVATED)
+		{
+			if (IAP_IsEqualToRAM(i * KEY_RAW_SIZE, KeyRaw, sizeof(KeyRaw)))
+			{
+				return TRUE;
+			}
+		}
     }
+	return FALSE;
 }
 
 

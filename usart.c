@@ -141,17 +141,11 @@ void USART_Config()
 //----------------------------------------------------------------------------------------
 void URT0_IRQHandler(void)
 {
-	URT0_IRQ();
-}
-
-void URT0_IRQ(void)
-{
     uint32_t URT_ITFlag;
     uint32_t URT_Flag;
     
     URT_Flag   = URT_GetITAllFlagStatus(URT0);
     URT_ITFlag = (URT_Flag & URT_GetITStatus(URT0));
-    
   
     if((URT_ITFlag & URT_IT_RX) == URT_IT_RX)
     {

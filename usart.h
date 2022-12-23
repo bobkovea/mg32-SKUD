@@ -11,7 +11,7 @@ typedef enum {
 	TxReady = 1
 } URT_Status;
 
-void URT0_IRQ(void);
+
 void URT0_IRQHandler(void);
 void URT_Rx_Callback(void);
 void URT_Tx_Callback(void);

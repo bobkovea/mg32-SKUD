@@ -17,11 +17,11 @@ typedef enum
 	PULLUP_ENABLE = 1
 } PullupState_t;
 
-#define BACKL_PIN /*PB1*/ PB10 
+#define BACKL_PIN PB1 
 #define INDLED_PIN PB2
 #define DO_PIN 	PB8
 #define STALED_PIN PB9
-#define BUZZER_PIN /*PB10*/ PB1
+#define BUZZER_PIN PB10
 #define REDE_PIN PB11 
 #define ONEWIRE_PIN PB0
 #define GERKON_PIN PB3

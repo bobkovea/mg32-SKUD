@@ -31,12 +31,11 @@ void TIM16_Callback (void)
 {
 	if (DS1990A_GetKeyID() == KEY_ON_LINE)
 	{
-		if (IsKeyActive(KeyRaw) == KEY_STATUS_ACTIVATED)
+		if (IsKeyActive() == KEY_STATUS_ACTIVATED)
 			currentEvent = eEnteredValidKey;
 		else
 			currentEvent = eEnteredInvalidKey;
 	}
-
 }
 
 // T = 100 ms

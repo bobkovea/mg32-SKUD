@@ -37,9 +37,7 @@ uint8_t IAP_WriteMultipleWord(uint8_t pageNumber, uint8_t startWordIndexOnPage, 
 uint8_t IAP_ReadByte(uint8_t pageNumber, uint16_t byteIndexOnPage);
 uint32_t IAP_ReadWord(uint8_t pageNumber, uint32_t wordIndexOnPage);
 void IAP_CopyFromIAPToRAM(uint8_t pageNumber, uint32_t startByteIndexOnPage, void *startAddrInRAM, uint32_t bytesCount);
-
-uint8_t IAP_IsEqualToRAM(uint32_t StartIndex, void* StructInRAMPointer, uint32_t StructInRAMSize);
-
+uint8_t IAP_IsEqualToRAM(uint32_t startByteIndex, void* startAddrInRAM, uint32_t bytesCount);
 
 DRV_Return IAP_Erase_Page(uint32_t StartPageAddress, uint32_t PageQuantity);
 DRV_Return IAP_Single_Write(uint32_t IAPStartAddress, uint32_t ProgramData);

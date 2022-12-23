@@ -38,6 +38,7 @@ extern States_t currentState;
 extern Events_t currentEvent;
 extern Events_t newEvent;
 
+
 // h - handler
 void hDoorOpened(States_t state, Events_t event);
 void hEnteredValidKey(States_t state, Events_t event);
@@ -73,5 +74,8 @@ extern uint8_t gerkonState;
 #define INDIC_CNT_ALARM 0
 #define INDIC_CNT_INVALID_KEY 12
 #define INDIC_CNT_VALID_KEY 16
+
+
+uint8_t IsKeyActive(void);
 
 #endif // SKUD_ALGO_H

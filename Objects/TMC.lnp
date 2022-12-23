@@ -15,6 +15,7 @@
 ".\objects\variables.o"
 ".\objects\ibutton.o"
 ".\objects\md5.o"
+".\objects\tests.o"
 ".\objects\mg32x02z_csc_init.o"
 ".\objects\mg32x02z_chipinit.o"
 ".\objects\startup_mg32x02z.o"

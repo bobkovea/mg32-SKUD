@@ -25,9 +25,12 @@ void FlashTestFill(void)
 
 void FlashFirstInit(void)
 {
+	IAP_Init(IAP_PAGE_SIZE * 10); // потом заменить на нужное число
+	
 	// если включение не первое
 	if (IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
 	{
+		
 		// копируем переменные из флеша в ОЗУ
 		for (uint8_t i = 0; i < VAR_COUNT; i++)
 			variables[i]->value = IAP_ReadWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage); 
@@ -51,7 +54,7 @@ void FlashFirstInit(void)
 		IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		
-			// копируем значения переменных по умолчанию из ОЗУ во флеш
+		// копируем значения переменных по умолчанию из ОЗУ во флеш
 		for (uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
 			IAP_WriteSingleWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage, variables[i]->factoryValue);
 
@@ -69,7 +72,7 @@ void FlashFirstInit(void)
 		// выставляем флаг первой записи флеша
 		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
 		
-		// + ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
+		// + добавим ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
 	}
 
 } 
@@ -104,10 +107,8 @@ uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB
 	
 	// проверка на границы?
 	
-	variables[varNumber]->value = var; // -->ram
-	
 	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
-	fpage.word[variables[varNumber]->indexOnPage] = var; // -->ram-->iap
+	fpage.word[variables[varNumber]->indexOnPage] = variables[varNumber]->value = var; // -->ram & iap
 	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 	
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
@@ -137,9 +138,8 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 		var = 0;
 		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
 			var |= *tmpAddr++ << (8 * byteNum);
-		variables[i]->value = var; // -->ram
 		// проверка на границы?
-		fpage.word[variables[i]->indexOnPage] = var; // ram-->iap
+		fpage.word[variables[i]->indexOnPage] = variables[i]->value = var; // --> ram & iap
 	}
 	
 	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
@@ -179,12 +179,12 @@ uint32_t ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyInd
 	if (activationType == ACTKEY_ACTIVATE)
 	{
 		fpage.byte[keyIndex] = KEY_STATUS_ACTIVATED;
-		fpage.word[ActiveKeys.indexOnPage] =  ++ActiveKeys.value;
+		fpage.word[ActiveKeys.indexOnPage] = ++ActiveKeys.value;
 	}
 	else 
 	{
 		fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
-		fpage.word[ActiveKeys.indexOnPage] =  --ActiveKeys.value;
+		fpage.word[ActiveKeys.indexOnPage] = --ActiveKeys.value;
 	}
 	
 	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
@@ -205,15 +205,15 @@ uint32_t ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyInd
 
 uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 {
-	if (commArg > 0x02) return FAILURE;
-
 	switch (commNum)
-	{
+	{		
 		case COMM_ALLKEYACT: // (де)активация всех ключей
 			
+			if (commArg > 0x01) return FAILURE;
+		
 			CopyFlashPageToRAM(PAGE_NUMBER_KEYSTATUS);
 		
-			for(uint16_t keyIndex = 0; keyIndex < KEYS_MAX_INDEX; keyIndex++)
+			for(uint16_t keyIndex = 0; keyIndex < KEYS_MAX_INDEX; keyIndex++) // возможно, будет keyIndex < TotalKeys
 				if (fpage.byte[keyIndex] != KEY_STATUS_FREE) 
 					fpage.byte[keyIndex] = commArg;
 			
@@ -233,10 +233,10 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 		case COMM_FACTORY_NUM: // к дефолтным значениям
 			
 			CopyFlashPageToRAM(PAGE_NUMBER_VARS);
-		
+			
 			for(uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
-				fpage.word[variables[i]->indexOnPage] = variables[i]->factoryValue;
-		
+				fpage.word[variables[i]->indexOnPage] = variables[i]->value = variables[i]->factoryValue; // --> ram & iap
+			
 			fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 				
 			IAP_Erase_OnePage(PAGE_NUMBER_VARS);
@@ -271,7 +271,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	// добавляем/меняем сам ключ
 	
 	uint8_t keyPageNum = PAGE_NUMBER_KEYS_0 + keyIndex / KEYS_COUNT_ON_PAGE; // номер страницы, на которой находится целевой ключ
-	uint8_t keyPosOnPage = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_ENCRYPTED_SIZE; // позиция ключа на странице флеша (номер байта)
+	uint16_t keyPosOnPage = (keyIndex % KEYS_COUNT_ON_PAGE) * KEY_ENCRYPTED_SIZE; // позиция ключа на странице флеша (номер байта)
 
 	CopyFlashPageToRAM(keyPageNum); 
 	memcpy(&fpage.byte[keyPosOnPage], keyStartAddr, KEY_ENCRYPTED_SIZE);
