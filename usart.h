@@ -18,9 +18,9 @@ void URT_Tx_Callback(void);
 
 void URT_Write(uint8_t c);
 void URT_WriteWord(uint32_t w);
-void URT_Print(const char* str);
+void URT_PrintString(const char *str);
+void URT_Print(uint8_t *arr, uint8_t size);
 void USART_Config();
-
 URT_Status URT_IsTxReady();
 URT_Status URT_IsTxEndTransmission();
 #endif // USART_H

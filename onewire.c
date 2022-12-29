@@ -6,7 +6,7 @@
 uint8_t OneWire_Start (void)
 {
 	uint8_t Response = 0;
-	GPIO_PinMode_Select(PINB(0), PINX_Mode_PushPull_O); // настройка на выход
+	GPIO_PinMode_Select(PINB(0), PINX_Mode_OpenDrain_O); // настройка на выход
 	ONEWIRE_PIN = 0;  // установка "0"
 	delay_us(480);   // задержка в соответствии с даташитом
 
@@ -29,12 +29,11 @@ void OneWire_Write (uint8_t data)
 	// что-то здесь не так!
 	for (int i = 0; i < 8; i++)
 	{
-
 		if ((data & (1 << i)) != 0)  // если бит = 1
 		{
 			// записываем 1
 
-			GPIO_PinMode_Select(PINB(0), PINX_Mode_PushPull_O);   // настройка на выход
+			GPIO_PinMode_Select(PINB(0), PINX_Mode_OpenDrain_O);   // настройка на выход
 			ONEWIRE_PIN = 0; 
 			delay_us(1);  // по даташиту
 
@@ -45,7 +44,7 @@ void OneWire_Write (uint8_t data)
 		else  // если бит = 0
 		{
 			// записываем 0
-			GPIO_PinMode_Select(PINB(0), PINX_Mode_PushPull_O); // настройка на выход
+			GPIO_PinMode_Select(PINB(0), PINX_Mode_OpenDrain_O); // настройка на выход
 			ONEWIRE_PIN = 0; 
 			delay_us (60); // по даташиту
 
@@ -60,7 +59,7 @@ uint8_t OneWire_Read (void)
 	
 	for (int i = 0; i < 8; i++)
 	{
-		GPIO_PinMode_Select(PINB(0), PINX_Mode_PushPull_O);   // настройка на выход
+		GPIO_PinMode_Select(PINB(0), PINX_Mode_OpenDrain_O);   // настройка на выход
 		ONEWIRE_PIN = 0; 
 		delay_us(2);  // по даташиту
 

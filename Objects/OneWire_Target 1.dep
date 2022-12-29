@@ -1,9 +1,9 @@
 Dependencies for Project 'OneWire', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 6140001::V6.14.1::ARMCLANG
-F (.\main.c)(0x63A5993A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/main.o -MD)
+F (.\main.c)(0x63ADCF9C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/main.o -MD)
 I (main.h)(0x639C09DC)
 I (RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_ChipInit.h)(0x6332C7BF)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_CSC_Init.h)(0x63A56826)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z.h)(0x62034588)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0.h)(0x626F750E)
@@ -15,16 +15,17 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_MEM.h)(0x62034588)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
 I (prsm3.h)(0x63A59D9B)
-I (timers.h)(0x63A40C94)
+I (timers.h)(0x63AD6550)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_TM.h)(0x6203458A)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
@@ -62,23 +63,22 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RTC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RTC.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CM0_DRV.h)(0x628DD25A)
-I (usart.h)(0x63A594DA)
-I (skud_algo.h)(0x63A41BAC)
+I (iap.h)(0x63A41DC8)
+I (packages.h)(0x6377F2D5)
+I (usart.h)(0x63AD6A87)
+I (skud_algo.h)(0x63ADC46C)
 I (ibutton.h)(0x63747CF2)
-I (onewire.h)(0x639C09DC)
+I (onewire.h)(0x63AD6B2B)
 I (keys.h)(0x637C81F5)
 I (crc.h)(0x639C09DC)
 I (wdt.h)(0x639C09DD)
-I (flash.h)(0x63A55DC2)
-I (iap.h)(0x63A41DC8)
-I (packages.h)(0x6377F2D5)
 I (events.h)(0x637C7B41)
-F (.\prsm3.c)(0x63A59E05)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/prsm3.o -MD)
+F (.\prsm3.c)(0x63AD4FB7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/prsm3.o -MD)
 I (prsm3.h)(0x63A59D9B)
-I (timers.h)(0x63A40C94)
+I (timers.h)(0x63AD6550)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -89,10 +89,11 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compi
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_TM.h)(0x6203458A)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
@@ -132,22 +133,21 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RTC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RTC.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CM0_DRV.h)(0x628DD25A)
-I (usart.h)(0x63A594DA)
-I (skud_algo.h)(0x63A41BAC)
+I (iap.h)(0x63A41DC8)
+I (packages.h)(0x6377F2D5)
+I (usart.h)(0x63AD6A87)
+I (skud_algo.h)(0x63ADC46C)
 I (ibutton.h)(0x63747CF2)
-I (onewire.h)(0x639C09DC)
+I (onewire.h)(0x63AD6B2B)
 I (keys.h)(0x637C81F5)
 I (crc.h)(0x639C09DC)
 I (wdt.h)(0x639C09DD)
-I (flash.h)(0x63A55DC2)
-I (iap.h)(0x63A41DC8)
-I (packages.h)(0x6377F2D5)
 I (events.h)(0x637C7B41)
-F (.\timers.c)(0x63A41D65)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/timers.o -MD)
-I (timers.h)(0x63A40C94)
+F (.\timers.c)(0x63ADD386)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/timers.o -MD)
+I (timers.h)(0x63AD6550)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -158,12 +158,12 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compi
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_TM.h)(0x6203458A)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
 I (prsm3.h)(0x63A59D9B)
 I (crc.h)(0x639C09DC)
-I (usart.h)(0x63A594DA)
+I (usart.h)(0x63AD6A87)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_URT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_URT.h)(0x62034588)
 I (wdt.h)(0x639C09DD)
@@ -171,7 +171,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_IWDT.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RST_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RST.h)(0x62034588)
-I (flash.h)(0x63A55DC2)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
@@ -208,16 +208,16 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (iap.h)(0x63A41DC8)
 I (packages.h)(0x6377F2D5)
 I (keys.h)(0x637C81F5)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
 I (events.h)(0x637C7B41)
-I (skud_algo.h)(0x63A41BAC)
+I (skud_algo.h)(0x63ADC46C)
 I (ibutton.h)(0x63747CF2)
-I (onewire.h)(0x639C09DC)
-F (.\crc.c)(0x6332C7BF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/crc.o -MD)
+I (onewire.h)(0x63AD6B2B)
+F (.\crc.c)(0x63A9749D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/crc.o -MD)
 I (crc.h)(0x639C09DC)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
-F (.\usart.c)(0x63A59501)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/usart.o -MD)
-I (usart.h)(0x63A594DA)
+F (.\usart.c)(0x63AD6A8C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/usart.o -MD)
+I (usart.h)(0x63AD6A87)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_URT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z.h)(0x62034588)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0.h)(0x626F750E)
@@ -226,19 +226,20 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_versi
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_URT.h)(0x62034588)
 I (prsm3.h)(0x63A59D9B)
-I (timers.h)(0x63A40C94)
+I (timers.h)(0x63AD6550)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_TM.h)(0x6203458A)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
@@ -276,21 +277,20 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RTC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RTC.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CM0_DRV.h)(0x628DD25A)
-I (skud_algo.h)(0x63A41BAC)
+I (iap.h)(0x63A41DC8)
+I (packages.h)(0x6377F2D5)
+I (skud_algo.h)(0x63ADC46C)
 I (ibutton.h)(0x63747CF2)
-I (onewire.h)(0x639C09DC)
+I (onewire.h)(0x63AD6B2B)
 I (keys.h)(0x637C81F5)
 I (crc.h)(0x639C09DC)
 I (wdt.h)(0x639C09DD)
-I (flash.h)(0x63A55DC2)
-I (iap.h)(0x63A41DC8)
-I (packages.h)(0x6377F2D5)
 I (events.h)(0x637C7B41)
-F (.\gpio.c)(0x63A566C4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/gpio.o -MD)
-I (gpio.h)(0x63A56577)
+F (.\gpio.c)(0x63AD6F0C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/gpio.o -MD)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -304,7 +304,7 @@ F (.\wdt.c)(0x639C09DD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 
 I (wdt.h)(0x639C09DD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_IWDT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -319,7 +319,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (.\iap.c)(0x63A57435)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/iap.o -MD)
 I (iap.h)(0x63A41DC8)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -335,13 +335,13 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_CSC.h)(0x62034588)
-F (.\onewire.c)(0x63A40C94)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/onewire.o -MD)
-I (onewire.h)(0x639C09DC)
+F (.\onewire.c)(0x63AD6FF0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/onewire.o -MD)
+I (onewire.h)(0x63AD6B2B)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
-I (timers.h)(0x63A40C94)
+I (timers.h)(0x63AD6550)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z.h)(0x62034588)
@@ -351,12 +351,12 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compi
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_TM.h)(0x6203458A)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
 I (prsm3.h)(0x63A59D9B)
 I (crc.h)(0x639C09DC)
-I (usart.h)(0x63A594DA)
+I (usart.h)(0x63AD6A87)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_URT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_URT.h)(0x62034588)
 I (wdt.h)(0x639C09DD)
@@ -364,7 +364,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_IWDT.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RST_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RST.h)(0x62034588)
-I (flash.h)(0x63A55DC2)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
@@ -401,16 +401,16 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (iap.h)(0x63A41DC8)
 I (packages.h)(0x6377F2D5)
 I (keys.h)(0x637C81F5)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
 I (events.h)(0x637C7B41)
-I (skud_algo.h)(0x63A41BAC)
+I (skud_algo.h)(0x63ADC46C)
 I (ibutton.h)(0x63747CF2)
 F (.\keys.c)(0x637CC756)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/keys.o -MD)
 I (keys.h)(0x637C81F5)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -460,28 +460,28 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RTC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RTC.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CM0_DRV.h)(0x628DD25A)
-I (onewire.h)(0x639C09DC)
-I (timers.h)(0x63A40C94)
+I (onewire.h)(0x63AD6B2B)
+I (timers.h)(0x63AD6550)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (prsm3.h)(0x63A59D9B)
 I (crc.h)(0x639C09DC)
-I (usart.h)(0x63A594DA)
+I (usart.h)(0x63AD6A87)
 I (wdt.h)(0x639C09DD)
-I (flash.h)(0x63A55DC2)
+I (flash.h)(0x63A97430)
 I (iap.h)(0x63A41DC8)
 I (packages.h)(0x6377F2D5)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
 I (events.h)(0x637C7B41)
-I (skud_algo.h)(0x63A41BAC)
+I (skud_algo.h)(0x63ADC46C)
 I (ibutton.h)(0x63747CF2)
-F (.\skud_algo.c)(0x63A41BA6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/skud_algo.o -MD)
-I (skud_algo.h)(0x63A41BAC)
+F (.\skud_algo.c)(0x63ADCEDE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/skud_algo.o -MD)
+I (skud_algo.h)(0x63ADC46C)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z.h)(0x62034588)
@@ -490,13 +490,13 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_versi
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
-I (timers.h)(0x63A40C94)
+I (timers.h)(0x63AD6550)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_TM.h)(0x6203458A)
 I (device_config.h)(0x63A59529)
 I (prsm3.h)(0x63A59D9B)
 I (crc.h)(0x639C09DC)
-I (usart.h)(0x63A594DA)
+I (usart.h)(0x63AD6A87)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_URT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_URT.h)(0x62034588)
 I (wdt.h)(0x639C09DD)
@@ -504,7 +504,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_IWDT.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RST_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RST.h)(0x62034588)
-I (flash.h)(0x63A55DC2)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
@@ -541,16 +541,16 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (iap.h)(0x63A41DC8)
 I (packages.h)(0x6377F2D5)
 I (keys.h)(0x637C81F5)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
 I (events.h)(0x637C7B41)
 I (ibutton.h)(0x63747CF2)
-I (onewire.h)(0x639C09DC)
-F (.\flash.c)(0x63A59792)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/flash.o -MD)
-I (flash.h)(0x63A55DC2)
+I (onewire.h)(0x63AD6B2B)
+F (.\flash.c)(0x63ADD7E9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/flash.o -MD)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -603,22 +603,22 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (iap.h)(0x63A41DC8)
 I (packages.h)(0x6377F2D5)
 I (keys.h)(0x637C81F5)
-I (variables.h)(0x63A5706F)
-I (usart.h)(0x63A594DA)
+I (variables.h)(0x63AC1E66)
+I (usart.h)(0x63AD6A87)
 I (prsm3.h)(0x63A59D9B)
-I (timers.h)(0x63A40C94)
+I (timers.h)(0x63AD6550)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
-I (skud_algo.h)(0x63A41BAC)
+I (gpio.h)(0x63AD80E6)
+I (skud_algo.h)(0x63ADC46C)
 I (ibutton.h)(0x63747CF2)
-I (onewire.h)(0x639C09DC)
+I (onewire.h)(0x63AD6B2B)
 I (crc.h)(0x639C09DC)
 I (wdt.h)(0x639C09DD)
 I (events.h)(0x637C7B41)
 F (.\events.c)(0x639C09DC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/events.o -MD)
 I (events.h)(0x637C7B41)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -671,10 +671,14 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RTC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RTC.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CM0_DRV.h)(0x628DD25A)
-F (.\variables.c)(0x63A5704A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/variables.o -MD)
-I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+F (.\variables.c)(0x63ADCBA1)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/variables.o -MD)
+I (variables.h)(0x63AC1E66)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
+I (flash.h)(0x63A97430)
+I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
+I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
+I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z.h)(0x62034588)
@@ -682,9 +686,6 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0.h)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
-I (variables.h)(0x63A5706F)
-I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
-I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CFG_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_CFG.h)(0x62034588)
@@ -726,15 +727,14 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RTC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RTC.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CM0_DRV.h)(0x628DD25A)
-I (flash.h)(0x63A55DC2)
 I (iap.h)(0x63A41DC8)
 I (packages.h)(0x6377F2D5)
-F (.\ibutton.c)(0x63A40C94)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/ibutton.o -MD)
+F (.\ibutton.c)(0x63ADC601)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/ibutton.o -MD)
 I (ibutton.h)(0x63747CF2)
-I (timers.h)(0x63A40C94)
+I (timers.h)(0x63AD6550)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -745,12 +745,12 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compi
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_TM.h)(0x6203458A)
 I (device_config.h)(0x63A59529)
-I (gpio.h)(0x63A56577)
+I (gpio.h)(0x63AD80E6)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_GPIO.h)(0x62034588)
 I (prsm3.h)(0x63A59D9B)
 I (crc.h)(0x639C09DC)
-I (usart.h)(0x63A594DA)
+I (usart.h)(0x63AD6A87)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_URT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_URT.h)(0x62034588)
 I (wdt.h)(0x639C09DD)
@@ -758,7 +758,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_IWDT.h)(0x6203458A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RST_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_RST.h)(0x62034588)
-I (flash.h)(0x63A55DC2)
+I (flash.h)(0x63A97430)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_ADC.h)(0x6203458A)
@@ -795,27 +795,27 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 I (iap.h)(0x63A41DC8)
 I (packages.h)(0x6377F2D5)
 I (keys.h)(0x637C81F5)
-I (variables.h)(0x63A5706F)
+I (variables.h)(0x63AC1E66)
 I (events.h)(0x637C7B41)
-I (skud_algo.h)(0x63A41BAC)
-I (onewire.h)(0x639C09DC)
+I (skud_algo.h)(0x63ADC46C)
+I (onewire.h)(0x63AD6B2B)
 F (.\md5.c)(0x63748192)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/md5.o -MD)
 F (.\tests.c)(0x63A58FD6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/tests.o -MD)
 F (.\device_config.h)(0x63A59529)()
 F (.\prsm3.h)(0x63A59D9B)()
-F (.\timers.h)(0x63A40C94)()
+F (.\timers.h)(0x63AD6550)()
 F (.\crc.h)(0x639C09DC)()
-F (.\usart.h)(0x63A594DA)()
+F (.\usart.h)(0x63AD6A87)()
 F (.\main.h)(0x639C09DC)()
-F (.\gpio.h)(0x63A56577)()
+F (.\gpio.h)(0x63AD80E6)()
 F (.\wdt.h)(0x639C09DD)()
 F (.\iap.h)(0x63A41DC8)()
-F (.\onewire.h)(0x639C09DC)()
+F (.\onewire.h)(0x63AD6B2B)()
 F (.\keys.h)(0x637C81F5)()
-F (.\skud_algo.h)(0x63A41BAC)()
-F (.\flash.h)(0x63A55DC2)()
+F (.\skud_algo.h)(0x63ADC46C)()
+F (.\flash.h)(0x63A97430)()
 F (.\packages.h)(0x6377F2D5)()
-F (.\variables.h)(0x63A5706F)()
+F (.\variables.h)(0x63AC1E66)()
 F (.\events.h)(0x637C7B41)()
 F (.\ibutton.h)(0x63747CF2)()
 F (.\md5.h)(0x637481A6)()
@@ -834,7 +834,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_CSC_Init.h)(0x63A56826)()
 F (RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_ChipInit.c)(0x6332C7BF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_chipinit.o -MD)
 I (RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_ChipInit.h)(0x6332C7BF)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (RTE\ChipInit_Wizard\MG32F02A032\MG32x02z_CSC_Init.h)(0x63A56826)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z.h)(0x62034588)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0.h)(0x626F750E)
@@ -850,7 +850,7 @@ F (RTE\Device\MG32F02A032\startup_MG32x02z.s)(0x6332C7BF)(--target=arm-arm-none-
 F (RTE\Device\MG32F02A032\system_MG32x02z.c)(0x6332C7BF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/system_mg32x02z.o -MD)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z.h)(0x62034588)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F750E)
@@ -864,7 +864,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_ADC_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_adc_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_ADC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -881,7 +881,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_APB_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_apb_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_APB_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -895,7 +895,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CFG_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_cfg_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CFG_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -908,7 +908,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CM0_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_cm0_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CM0_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -920,7 +920,7 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcl
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CMP_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_cmp_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CMP_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -934,7 +934,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_CSC_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_csc_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_CSC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -949,7 +949,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_DMA_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_dma_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_DMA_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -963,7 +963,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_EXIC_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_exic_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_EXIC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -977,7 +977,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPIO_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_gpio_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPIO_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -990,7 +990,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_GPL_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_gpl_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_GPL_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1003,7 +1003,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_I2C_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_i2c_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_I2C_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1016,7 +1016,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_IWDT_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_iwdt_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_IWDT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1029,7 +1029,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_MEM_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_mem_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_MEM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1043,7 +1043,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_PW_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_pw_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_PW_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1056,7 +1056,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RST_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_rst_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RST_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1069,7 +1069,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_RTC_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_rtc_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_RTC_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1082,7 +1082,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SPI_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_spi_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_SPI_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1096,7 +1096,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_SYS_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_sys_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_SYS_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1109,7 +1109,7 @@ I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_TM_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_tm_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_TM_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1128,14 +1128,14 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_versi
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F750E)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_URT.h)(0x62034588)
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z_WWDT_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z_wwdt_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z_WWDT_DRV.h)(0x628DD25A)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)
@@ -1147,7 +1147,7 @@ I (E:\Program Files\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcl
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A032\Include\MG32x02z_WWDT.h)(0x6203458A)
 F (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Source\MG32x02z__Common_DRV.c)(0x628DD25A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/ChipInit_Wizard/MG32F02A032-I./RTE/_Target_1-I"E:/Program Files/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/Common/Startup"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A032/MG32x02z_ConfigerWizard/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Device/MG32x02z/MG32F02A_Driver/Include"-I"E:/Program Files/Keil_v5/Packs/Megawin/CM0_DFP/3.2.1/Sample/Driver/Include"-D__UVISION_VERSION="532" -D_RTE_ -DMG32F02A032 -D_RTE_-o ./objects/mg32x02z__common_drv.o -MD)
 I (E:\Program Files\Keil_v5\Packs\Megawin\CM0_DFP\3.2.1\Device\MG32x02z\MG32F02A_Driver\Include\MG32x02z__Common_DRV.h)(0x628DD25A)
-I (RTE\_Target_1\RTE_Components.h)(0x63A56169)
+I (RTE\_Target_1\RTE_Components.h)(0x63AD5254)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6374E6AB)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F513CBE)
 I (E:\Program Files\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F513CBE)

@@ -5,6 +5,12 @@
 #define ALTER_FUNC_PC0_TX0 10
 #define ALTER_FUNC_PC0_RX0 10
 
+#define BUZZER_ON() BACKL_PIN = 1 /*BUZZER_PIN = 1*/
+#define BUZZER_OFF() BACKL_PIN = 0 /*BUZZER_PIN = 0*/
+
+#define STALED_ON() STALED_PIN = 0
+#define STALED_OFF() STALED_PIN = 1
+
 typedef enum 
 {
 	INITIAL_RESET = 0,

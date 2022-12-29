@@ -1,6 +1,5 @@
-#include "MG32x02z__Common_DRV.h"
 #include "variables.h"
-#include "flash.h"
+
 
 Variable_t GerkonFiltTime 		= 	{ __GERKON_FILT_TIME, 		__GERKON_FILT_TIME, 	 2, GERKON_FILT_TIME_POS 		};
 Variable_t SendAlarmTime 		= 	{ __SEND_ALARM_TIME, 		__SEND_ALARM_TIME, 		 2, SEND_ALARM_TIME_POS 	  	};

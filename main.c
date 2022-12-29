@@ -1,4 +1,5 @@
 #include "main.h"
+#include "skud_algo.h"
 
 uint8_t varPackage[11] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5 };
 
@@ -7,31 +8,33 @@ int main()
 	__disable_irq();
 	
     ChipInit(); // настраиваем тактирование
-	GPIO_Config(); 
 	FlashFirstInit(); // первичная проверка конфиг. данных во флеше
+	GPIO_Config(); 
 	TIM_Config();
 	USART_Config();
 	WDT_Config();
 
 	URT_Cmd(URT0, ENABLE); // включаем UART0
 	
+	FlashTestFill();
+	
+	TM_Timer_Cmd(TM_INPUT, ENABLE);  
 	__enable_irq();
 
 //	RS485_CONFIG_TRANSMIT();
 	
-	FlashTestFill();
+
 	
 //	currentEvent = eDoorOpened;
-	
-//	BUZZER_PIN = 0;
-//	DO_PIN = 0;
-	
 
-//	TM_Timer_Cmd(TM16, ENABLE);  
-//	TM_Timer_Cmd(TM36, ENABLE);  
-
+//	TM_Timer_Cmd(TM_PRSM_RESET, ENABLE);  
+	
+//	IndicationStart(AlarmCommon);
+	
+	
     while(1) 
 	{ 
+
 //		HandleEvent();
 		wdt_reset();
     }

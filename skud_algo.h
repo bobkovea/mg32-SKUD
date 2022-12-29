@@ -60,6 +60,8 @@ typedef enum
 void IndicationStart(Indication_t indicType);
 void IndicationStop();
 
+extern uint8_t indicWaitCnt;
+extern uint8_t indicWaitMax;
 extern uint32_t indicTimeCnt;
 extern uint32_t indicTimeMax;
 extern uint8_t indicSpeed;
@@ -67,14 +69,22 @@ extern uint8_t onlyLed;
 
 extern uint8_t gerkonState;
 
-#define INDIC_SPEED_ALARM 10
-#define INDIC_SPEED_VALID_KEY 5
-#define INDIC_SPEED_INVALID_KEY 3
+// ожидание до начала смены типа индикации
+#define INDIC_WAIT_MAX 2 // 200 мс
 
-#define INDIC_CNT_ALARM 0
-#define INDIC_CNT_INVALID_KEY 12
-#define INDIC_CNT_VALID_KEY 16
+// желаемое количество писков
+#define INDIC_PEECNT_VALID_KEY 4
+#define INDIC_PEECNT_INVALID_KEY 3
 
+// интервал между переключениями пищалки
+#define INDIC_SPEED_ALARM 6 // 600 мс
+#define INDIC_SPEED_VALID_KEY 2 // 200 мс
+#define INDIC_SPEED_INVALID_KEY 1 // 100 мс
+
+// расчет макс. значения счетчика для реализации заданных выше величин
+#define INDIC_CNT_ALARM UINT32_MAX
+#define INDIC_CNT_VALID_KEY (INDIC_PEECNT_VALID_KEY * INDIC_SPEED_VALID_KEY * 2)
+#define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
 
 uint8_t IsKeyActive(void);
 

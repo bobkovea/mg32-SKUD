@@ -6,7 +6,8 @@
 States_t currentState = sDoorIsClosed;
 Events_t currentEvent = eNoEvent;
 Events_t newEvent = eNoEvent;
-
+uint8_t indicWaitCnt;
+uint8_t indicWaitMax = INDIC_WAIT_MAX;
 uint32_t indicTimeCnt;
 uint32_t indicTimeMax;
 uint8_t indicSpeed;
@@ -16,16 +17,17 @@ uint8_t gerkonState;
 void IndicationStart(Indication_t indicType)
 {
 //	TM36->CNT.W = 0;
-	TM_Timer_Cmd(TM36, DISABLE);
-	BUZZER_PIN = 0;
-	STALED_PIN = 1;
+	BUZZER_OFF();
+	STALED_OFF();
 	indicTimeCnt = 1;
-	
+	indicWaitCnt = 0;
+
 	switch ((uint8_t)indicType)
 	{
 		case AlarmCommon:
 			indicSpeed = INDIC_SPEED_ALARM;
 			indicTimeMax = INDIC_CNT_ALARM;
+
 			break;
 		
 		case ValidKey:
@@ -47,7 +49,7 @@ void IndicationStart(Indication_t indicType)
 		default: 
 			return;	
 	}
-			
+
 	TM_Timer_Cmd(TM36, ENABLE);
 }
 
@@ -55,8 +57,8 @@ void IndicationStop()
 {
 	// обнуление всяких штук
 	TM_Timer_Cmd(TM36, DISABLE);
-	BUZZER_PIN = 0;
-	STALED_PIN = 1;
+	BUZZER_OFF();
+	STALED_OFF();
 	onlyLed = 0;
 	indicTimeCnt = 1;
 
@@ -142,17 +144,18 @@ void HandleEvent()
 
 uint8_t IsKeyActive(void)
 {
-	for (uint16_t i = 0; i < TotalKeys.value; i++)
+	for (uint16_t keyIndex = 0; keyIndex < 2 /*TotalKeys.value*/; keyIndex++)
     {
-		if (GetKeyStatus(i) == KEY_STATUS_ACTIVATED)
+		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
 		{
-			if (IAP_IsEqualToRAM(i * KEY_RAW_SIZE, KeyRaw, sizeof(KeyRaw)))
+			if(IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyRaw, KEY_RAW_SIZE))
+//			if(IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyEncrypted, KEY_ENCRYPTED_SIZE))
 			{
-				return TRUE;
+				return KEY_STATUS_ACTIVATED;
 			}
 		}
     }
-	return FALSE;
+	return KEY_STATUS_DEACTIVATED;
 }
 
 

@@ -54,16 +54,15 @@ void PRSM3_AddNewByte(void) // вызывается когда пришел оч
 //----------------------------------------------------------------------------------------
 void PRSM3_ParseMessage(void)
 {
-//	// Отключаем таймер
+	// Отключаем таймер
 	TM_Timer_Cmd(TM01, DISABLE); 
-
+	
 	// Сколько было фактически принято байт
 	CommandSize = iptr;
 
     // обнуляем всё
     DecryptedMessageLen = 0;
     iptr = 0;
-	usUsart = 0;
 	parsingStatus = STATUS_COLLECTING_BYTES;
 	
 	// Задержка до отправки ответа
@@ -98,18 +97,18 @@ void PRSM3_ParseMessage(void)
 
 void PRSM3_ParseWriteRequest9(void)
 {
-//	if (CommandSize != 9) // как это возможно исходя из логики?
-//	{
-//		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
-//		return;
-//	}
+	if (CommandSize != 9) // как это возможно исходя из логики?
+	{
+		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
+		return;
+	}
 
-// Проверка контрольной суммы
-//	if (CRCisWrong(RecBytes, CommandSize))
-//	{
-//		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
-//		return;
-//	}
+	// Проверка контрольной суммы
+	if (CRCisWrong(RecBytes, CommandSize))
+	{
+		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
+		return;
+	}
 	
 	switch (RecBytes[SCODE_POS])
 	{
@@ -144,21 +143,20 @@ void PRSM3_ParseWriteRequest9(void)
 	return;
 }
 
-
 void PRSM3_ParseWriteRequest24(void)
 {
-//	if (CommandSize != 24)
-//	{
-//		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
-//		return;
-//	}
+	if (CommandSize != 24)
+	{
+		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
+		return;
+	}
 
-// Проверка контрольной суммы
-//	if (CRCisWrong(RecBytes, CommandSize))
-//	{
-//		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
-//		return;
-//	}
+	// Проверка контрольной суммы
+	if (CRCisWrong(RecBytes, CommandSize))
+	{
+		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
+		return;
+	}
 	
 	CommandSize = 4;
 	
@@ -189,18 +187,18 @@ void PRSM3_ParseWriteRequest24(void)
 
 void PRSM3_ParseReadRequest(void)
 {
-//	if (CommandSize != 6)
-//	{
-//		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_READ9);
-//		return;
-//	}
+	if (CommandSize != 6)
+	{
+		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_READ9);
+		return;
+	}
 
 // Проверка контрольной суммы
-//	if (CRCisWrong(RecBytes, CommandSize))
-//	{
-//		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_READ9);
-//		return;
-//	}
+	if (CRCisWrong(RecBytes, CommandSize))
+	{
+		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_READ9);
+		return;
+	}
 	
 	switch (RecBytes[SCODE_POS])
 	{
@@ -225,23 +223,19 @@ void PRSM3_ParseReadRequest(void)
 			break;
 		
 		case SCODE_READVARM:
-			
+	
 			tmpAddr = &RecBytes[READVARM_VALUE_1ST_POS];
-			
+
 			for (uint8_t varNum = 0; varNum < VAR_COUNT; varNum++)
 			{
-				var = GetVariable(varNum);
-				
-				if (var == FAILURE)
-				{
-					CommandSize = 9;
-					PRSM3_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
-					return;
-				}
+				var = variables[varNum]->value;
 				
 				// отделяем двухбайтные переменные от однобайтных
+				
 				for (uint8_t byteNum = 0; byteNum < variables[varNum]->byteSize; byteNum++)
-					*tmpAddr++ |= var >> (8 * byteNum);
+				{
+					*tmpAddr++ = var >> (8 * byteNum);
+				}
 			}
 			
 			CommandSize = 24;

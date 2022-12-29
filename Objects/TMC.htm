@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\TMC.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\TMC.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Fri Dec 23 17:24:37 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Thu Dec 29 23:09:59 2022
 <BR><P>
 <H3>Maximum Stack Usage =        124 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -204,10 +204,10 @@ Global Symbols
 
 <P><STRONG><a name="[84]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
-<P><STRONG><a name="[52]"></a>memcmp</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, memcmp.o(.text))
+<P><STRONG><a name="[51]"></a>memcmp</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, memcmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = memcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_IsEqualToRAM
+<BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_IsEqualToRAM
 </UL>
 
 <P><STRONG><a name="[28]"></a>__aeabi_uldivmod</STRONG> (Thumb, 96 bytes, Stack size 48 bytes, uldiv.o(.text), UNUSED)
@@ -241,8 +241,8 @@ Global Symbols
 
 <P><STRONG><a name="[89]"></a>__I$use$semihosting$fputc</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, iusesemip.o(.text), UNUSED)
 
-<P><STRONG><a name="[2c]"></a>ActivateKey</STRONG> (Thumb, 148 bytes, Stack size 24 bytes, flash.o(.text.ActivateKey))
-<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = ActivateKey &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
+<P><STRONG><a name="[2c]"></a>ActivateKey</STRONG> (Thumb, 160 bytes, Stack size 32 bytes, flash.o(.text.ActivateKey))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = ActivateKey &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_WriteMultipleWord
 <LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_ReadWord
@@ -267,15 +267,23 @@ Global Symbols
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FlashTestFill
 </UL>
 
-<P><STRONG><a name="[4e]"></a>CSC_ClearFlag</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, mg32x02z_csc_drv.o(.text.CSC_ClearFlag))
+<P><STRONG><a name="[60]"></a>CRCisWrong</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, crc.o(.text.CRCisWrong))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = CRCisWrong
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseWriteRequest9
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseWriteRequest24
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseReadRequest
+</UL>
+
+<P><STRONG><a name="[4d]"></a>CSC_ClearFlag</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, mg32x02z_csc_drv.o(.text.CSC_ClearFlag))
 <BR><BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Init
 </UL>
 
-<P><STRONG><a name="[4d]"></a>CSC_GetClockSourceState</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState))
+<P><STRONG><a name="[4c]"></a>CSC_GetClockSourceState</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, mg32x02z_csc_drv.o(.text.CSC_GetClockSourceState))
 <BR><BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Init
 </UL>
 
-<P><STRONG><a name="[4c]"></a>CSC_IHRCO_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, mg32x02z_csc_drv.o(.text.CSC_IHRCO_Cmd))
+<P><STRONG><a name="[4b]"></a>CSC_IHRCO_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, mg32x02z_csc_drv.o(.text.CSC_IHRCO_Cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Init
 </UL>
 
@@ -293,8 +301,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[36]"></a>DS1990A_GetKeyID</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, ibutton.o(.text.DS1990A_GetKeyID))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = DS1990A_GetKeyID &rArr; OneWire_Read
+<P><STRONG><a name="[36]"></a>DS1990A_GetKeyID</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, ibutton.o(.text.DS1990A_GetKeyID))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = DS1990A_GetKeyID &rArr; OneWire_Read
 </UL>
 <BR>[Calls]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
@@ -305,7 +313,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM1x_IRQHandler
 </UL>
 
-<P><STRONG><a name="[3c]"></a>DoCommand</STRONG> (Thumb, 300 bytes, Stack size 24 bytes, flash.o(.text.DoCommand))
+<P><STRONG><a name="[3c]"></a>DoCommand</STRONG> (Thumb, 380 bytes, Stack size 24 bytes, flash.o(.text.DoCommand))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = DoCommand &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_WriteMultipleWord
@@ -326,7 +334,7 @@ Global Symbols
 <LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 </UL>
 
-<P><STRONG><a name="[3d]"></a>FlashFirstInit</STRONG> (Thumb, 712 bytes, Stack size 24 bytes, flash.o(.text.FlashFirstInit))
+<P><STRONG><a name="[3d]"></a>FlashFirstInit</STRONG> (Thumb, 700 bytes, Stack size 24 bytes, flash.o(.text.FlashFirstInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = FlashFirstInit &rArr; IAP_Init &rArr; MEM_SetIAPSize
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_WriteSingleWord
@@ -336,7 +344,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[40]"></a>FlashTestFill</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, flash.o(.text.FlashTestFill))
+<P><STRONG><a name="[40]"></a>FlashTestFill</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, flash.o(.text.FlashTestFill))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = FlashTestFill &rArr; AddKey &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AddKey
@@ -389,22 +397,14 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Config
 </UL>
 
-<P><STRONG><a name="[49]"></a>GetKeyStatus</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, flash.o(.text.GetKeyStatus))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = GetKeyStatus
-</UL>
-<BR>[Calls]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_ReadByte
-</UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsKeyActive
-</UL>
-
-<P><STRONG><a name="[60]"></a>GetVariable</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, flash.o(.text.GetVariable))
+<P><STRONG><a name="[61]"></a>GetVariable</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, flash.o(.text.GetVariable))
 <BR><BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseReadRequest
 </UL>
 
 <P><STRONG><a name="[22]"></a>HardFault_Handler_C</STRONG> (Thumb, 276 bytes, Stack size 0 bytes, system_mg32x02z.o(.text.HardFault_Handler_C))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HardFault_Handler_C &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mg32x02z.o(.text)
 </UL>
@@ -413,8 +413,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
+<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DoCommand
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AddKey
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ActivateKey
@@ -423,8 +423,8 @@ Global Symbols
 <P><STRONG><a name="[30]"></a>IAP_Erase_OnePage</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, iap.o(.text.IAP_Erase_OnePage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = IAP_Erase_OnePage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
+<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DoCommand
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AddKey
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ActivateKey
@@ -433,25 +433,25 @@ Global Symbols
 <P><STRONG><a name="[3e]"></a>IAP_Init</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, iap.o(.text.IAP_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = IAP_Init &rArr; MEM_SetIAPSize
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MEM_SetIAPSize
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CSC_IHRCO_Cmd
-<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CSC_GetClockSourceState
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CSC_ClearFlag
+<BR>[Calls]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MEM_SetIAPSize
+<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CSC_IHRCO_Cmd
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CSC_GetClockSourceState
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CSC_ClearFlag
+<LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
+<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FlashFirstInit
 </UL>
 
-<P><STRONG><a name="[51]"></a>IAP_IsEqualToRAM</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, iap.o(.text.IAP_IsEqualToRAM))
+<P><STRONG><a name="[50]"></a>IAP_IsEqualToRAM</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, iap.o(.text.IAP_IsEqualToRAM))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = IAP_IsEqualToRAM &rArr; memcmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
+<BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsKeyActive
+<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsKeyActive
 </UL>
 
-<P><STRONG><a name="[53]"></a>IAP_Multiple_Write</STRONG> (Thumb, 196 bytes, Stack size 28 bytes, iap.o(.text.IAP_Multiple_Write))
+<P><STRONG><a name="[52]"></a>IAP_Multiple_Write</STRONG> (Thumb, 196 bytes, Stack size 28 bytes, iap.o(.text.IAP_Multiple_Write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = IAP_Multiple_Write
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_WriteMultipleWord
@@ -460,12 +460,12 @@ Global Symbols
 <P><STRONG><a name="[2d]"></a>IAP_ReadByte</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, iap.o(.text.IAP_ReadByte))
 <BR><BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AddKey
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ActivateKey
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetKeyStatus
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsKeyActive
 </UL>
 
 <P><STRONG><a name="[2f]"></a>IAP_ReadWord</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, iap.o(.text.IAP_ReadWord))
-<BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
+<BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DoCommand
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AddKey
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ActivateKey
@@ -475,10 +475,10 @@ Global Symbols
 <P><STRONG><a name="[31]"></a>IAP_WriteMultipleWord</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, iap.o(.text.IAP_WriteMultipleWord))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Multiple_Write
+<BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Multiple_Write
 </UL>
-<BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
+<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DoCommand
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AddKey
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ActivateKey
@@ -502,29 +502,37 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wdt_reset
 </UL>
 
-<P><STRONG><a name="[54]"></a>IsKeyActive</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, skud_algo.o(.text.IsKeyActive))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = IsKeyActive &rArr; IAP_IsEqualToRAM &rArr; memcmp
+<P><STRONG><a name="[53]"></a>IndicationStart</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, skud_algo.o(.text.IndicationStart))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = IndicationStart
 </UL>
-<BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetKeyStatus
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_IsEqualToRAM
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM1x_IRQHandler
 </UL>
 
-<P><STRONG><a name="[50]"></a>MEM_SetIAPSize</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, mg32x02z_mem_drv.o(.text.MEM_SetIAPSize))
+<P><STRONG><a name="[55]"></a>IsKeyActive</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, skud_algo.o(.text.IsKeyActive))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = IsKeyActive &rArr; IAP_IsEqualToRAM &rArr; memcmp
+</UL>
+<BR>[Calls]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_ReadByte
+<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_IsEqualToRAM
+</UL>
+<BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM1x_IRQHandler
+</UL>
+
+<P><STRONG><a name="[4f]"></a>MEM_SetIAPSize</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, mg32x02z_mem_drv.o(.text.MEM_SetIAPSize))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = MEM_SetIAPSize
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
+<BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
+<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Init
 </UL>
 
-<P><STRONG><a name="[3a]"></a>OneWire_Read</STRONG> (Thumb, 396 bytes, Stack size 48 bytes, onewire.o(.text.OneWire_Read))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = OneWire_Read
+<P><STRONG><a name="[3a]"></a>OneWire_Read</STRONG> (Thumb, 424 bytes, Stack size 72 bytes, onewire.o(.text.OneWire_Read))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = OneWire_Read
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinMode_Select
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinMode_Select
 </UL>
 <BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 </UL>
@@ -532,8 +540,8 @@ Global Symbols
 <P><STRONG><a name="[37]"></a>OneWire_Start</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, onewire.o(.text.OneWire_Start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = OneWire_Start
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinMode_Select
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinMode_Select
 </UL>
 <BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 </UL>
@@ -541,17 +549,17 @@ Global Symbols
 <P><STRONG><a name="[39]"></a>OneWire_Write</STRONG> (Thumb, 428 bytes, Stack size 24 bytes, onewire.o(.text.OneWire_Write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = OneWire_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinMode_Select
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinMode_Select
 </UL>
 <BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 </UL>
 
-<P><STRONG><a name="[56]"></a>PRSM3_AddNewByte</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, prsm3.o(.text.PRSM3_AddNewByte))
+<P><STRONG><a name="[57]"></a>PRSM3_AddNewByte</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, prsm3.o(.text.PRSM3_AddNewByte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = PRSM3_AddNewByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_GetRXData
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
+<BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_GetRXData
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT0_IRQHandler
 </UL>
@@ -563,62 +571,61 @@ Global Symbols
 <LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_Write
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_IsTxEndTransmission
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseWriteRequest9
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseWriteRequest24
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseReadRequest
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM0x_IRQHandler
 </UL>
 
-<P><STRONG><a name="[5b]"></a>PRSM3_ParseReadRequest</STRONG> (Thumb, 912 bytes, Stack size 24 bytes, prsm3.o(.text.PRSM3_ParseReadRequest))
+<P><STRONG><a name="[5b]"></a>PRSM3_ParseReadRequest</STRONG> (Thumb, 844 bytes, Stack size 24 bytes, prsm3.o(.text.PRSM3_ParseReadRequest))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = PRSM3_ParseReadRequest &rArr; wdt_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wdt_enable
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_Write
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_IsTxEndTransmission
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetVariable
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetVariable
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRCisWrong
 </UL>
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
 </UL>
 
-<P><STRONG><a name="[5c]"></a>PRSM3_ParseWriteRequest24</STRONG> (Thumb, 260 bytes, Stack size 16 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest24))
+<P><STRONG><a name="[5c]"></a>PRSM3_ParseWriteRequest24</STRONG> (Thumb, 408 bytes, Stack size 16 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest24))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = PRSM3_ParseWriteRequest24 &rArr; AddKey &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wdt_enable
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_Write
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_IsTxEndTransmission
-<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariablePack
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRCisWrong
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AddKey
 </UL>
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
 </UL>
 
-<P><STRONG><a name="[5a]"></a>PRSM3_ParseWriteRequest9</STRONG> (Thumb, 276 bytes, Stack size 16 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest9))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = PRSM3_ParseWriteRequest9 &rArr; SetVariable &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
+<P><STRONG><a name="[5a]"></a>PRSM3_ParseWriteRequest9</STRONG> (Thumb, 432 bytes, Stack size 16 bytes, prsm3.o(.text.PRSM3_ParseWriteRequest9))
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = PRSM3_ParseWriteRequest9 &rArr; ActivateKey &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wdt_enable
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_Write
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_IsTxEndTransmission
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariable
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DoCommand
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRCisWrong
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ActivateKey
 </UL>
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
 </UL>
 
-<P><STRONG><a name="[6a]"></a>PRSM3_clearBuffer</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, prsm3.o(.text.PRSM3_clearBuffer))
-<BR><BR>[Called By]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM10_IRQHandler
-</UL>
-
-<P><STRONG><a name="[4f]"></a>ProtectModuleReg</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, mg32x02z__common_drv.o(.text.ProtectModuleReg))
+<P><STRONG><a name="[4e]"></a>ProtectModuleReg</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, mg32x02z__common_drv.o(.text.ProtectModuleReg))
 <BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wdt_enable
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDT_Config
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MEM_SetIAPSize
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MEM_SetIAPSize
 <LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Init
 </UL>
 
@@ -626,7 +633,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDT_Config
 </UL>
 
-<P><STRONG><a name="[62]"></a>SetVariable</STRONG> (Thumb, 116 bytes, Stack size 24 bytes, flash.o(.text.SetVariable))
+<P><STRONG><a name="[63]"></a>SetVariable</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, flash.o(.text.SetVariable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = SetVariable &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_WriteMultipleWord
@@ -637,7 +644,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseWriteRequest9
 </UL>
 
-<P><STRONG><a name="[61]"></a>SetVariablePack</STRONG> (Thumb, 420 bytes, Stack size 24 bytes, flash.o(.text.SetVariablePack))
+<P><STRONG><a name="[62]"></a>SetVariablePack</STRONG> (Thumb, 764 bytes, Stack size 24 bytes, flash.o(.text.SetVariablePack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = SetVariablePack &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_WriteMultipleWord
@@ -651,102 +658,103 @@ Global Symbols
 <P><STRONG><a name="[20]"></a>SystemInit</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, system_mg32x02z.o(.text.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mg32x02z.o(.text)
 </UL>
-<P><STRONG><a name="[63]"></a>TIM_Config</STRONG> (Thumb, 272 bytes, Stack size 40 bytes, timers.o(.text.TIM_Config))
+<P><STRONG><a name="[64]"></a>TIM_Config</STRONG> (Thumb, 316 bytes, Stack size 40 bytes, timers.o(.text.TIM_Config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = TIM_Config &rArr; TM_TimeBase_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_TimeBase_Init
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_TimeBaseStruct_Init
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_IT_Config
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ITEA_Cmd
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_TimeBase_Init
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_TimeBaseStruct_Init
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_IT_Config
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ITEA_Cmd
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[10]"></a>TM0x_IRQHandler</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, timers.o(.text.TM0x_IRQHandler))
+<P><STRONG><a name="[10]"></a>TM0x_IRQHandler</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, timers.o(.text.TM0x_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = TM0x_IRQHandler &rArr; PRSM3_ParseMessage &rArr; PRSM3_ParseWriteRequest24 &rArr; AddKey &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mg32x02z.o(RESET)
 </UL>
-<P><STRONG><a name="[11]"></a>TM10_IRQHandler</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, timers.o(.text.TM10_IRQHandler))
+<P><STRONG><a name="[11]"></a>TM10_IRQHandler</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, timers.o(.text.TM10_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = TM10_IRQHandler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_clearBuffer
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mg32x02z.o(RESET)
 </UL>
-<P><STRONG><a name="[12]"></a>TM1x_IRQHandler</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, timers.o(.text.TM1x_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = TM1x_IRQHandler &rArr; DS1990A_GetKeyID &rArr; OneWire_Read
+<P><STRONG><a name="[12]"></a>TM1x_IRQHandler</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, timers.o(.text.TM1x_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = TM1x_IRQHandler &rArr; DS1990A_GetKeyID &rArr; OneWire_Read
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsKeyActive
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsKeyActive
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IndicationStart
 <LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mg32x02z.o(RESET)
 </UL>
-<P><STRONG><a name="[15]"></a>TM3x_IRQHandler</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, timers.o(.text.TM3x_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = TM3x_IRQHandler &rArr; __aeabi_uidivmod
+<P><STRONG><a name="[15]"></a>TM3x_IRQHandler</STRONG> (Thumb, 148 bytes, Stack size 8 bytes, timers.o(.text.TM3x_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TM3x_IRQHandler &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mg32x02z.o(RESET)
 </UL>
-<P><STRONG><a name="[66]"></a>TM_ClearFlag</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_ClearFlag))
-<BR><BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
+<P><STRONG><a name="[67]"></a>TM_ClearFlag</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_ClearFlag))
+<BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM3x_IRQHandler
 <LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM1x_IRQHandler
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM10_IRQHandler
 <LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM0x_IRQHandler
 </UL>
 
-<P><STRONG><a name="[69]"></a>TM_GetSingleFlagStatus</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus))
-<BR><BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM3x_IRQHandler
+<P><STRONG><a name="[6a]"></a>TM_GetSingleFlagStatus</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus))
+<BR><BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM3x_IRQHandler
 <LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM1x_IRQHandler
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM10_IRQHandler
 <LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM0x_IRQHandler
 </UL>
 
-<P><STRONG><a name="[68]"></a>TM_ITEA_Cmd</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
+<P><STRONG><a name="[69]"></a>TM_ITEA_Cmd</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd))
+<BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
 </UL>
 
-<P><STRONG><a name="[67]"></a>TM_IT_Config</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_IT_Config))
-<BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
+<P><STRONG><a name="[68]"></a>TM_IT_Config</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_IT_Config))
+<BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
 </UL>
 
-<P><STRONG><a name="[64]"></a>TM_TimeBaseStruct_Init</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_TimeBaseStruct_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
+<P><STRONG><a name="[65]"></a>TM_TimeBaseStruct_Init</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_TimeBaseStruct_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
 </UL>
 
-<P><STRONG><a name="[65]"></a>TM_TimeBase_Init</STRONG> (Thumb, 134 bytes, Stack size 16 bytes, mg32x02z_tm_drv.o(.text.TM_TimeBase_Init))
+<P><STRONG><a name="[66]"></a>TM_TimeBase_Init</STRONG> (Thumb, 134 bytes, Stack size 16 bytes, mg32x02z_tm_drv.o(.text.TM_TimeBase_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TM_TimeBase_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
+<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
 </UL>
 
-<P><STRONG><a name="[58]"></a>TM_Timer_Cmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_Timer_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_AddNewByte
+<P><STRONG><a name="[54]"></a>TM_Timer_Cmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, mg32x02z_tm_drv.o(.text.TM_Timer_Cmd))
+<BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_AddNewByte
+<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM3x_IRQHandler
+<LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM1x_IRQHandler
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IndicationStart
 </UL>
 
 <P><STRONG><a name="[16]"></a>URT0_IRQHandler</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, usart.o(.text.URT0_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = URT0_IRQHandler &rArr; PRSM3_AddNewByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_AddNewByte
+<BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_AddNewByte
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_GetITStatus
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_GetITAllFlagStatus
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_ClearITFlag
@@ -769,8 +777,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[57]"></a>URT_GetRXData</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mg32x02z_urt_drv.o(.text.URT_GetRXData))
-<BR><BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_AddNewByte
+<P><STRONG><a name="[58]"></a>URT_GetRXData</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mg32x02z_urt_drv.o(.text.URT_GetRXData))
+<BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_AddNewByte
 </UL>
 
 <P><STRONG><a name="[72]"></a>URT_ITEA_Cmd</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd))
@@ -812,48 +820,43 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[4b]"></a>UnProtectModuleReg</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, mg32x02z__common_drv.o(.text.UnProtectModuleReg))
+<P><STRONG><a name="[4a]"></a>UnProtectModuleReg</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, mg32x02z__common_drv.o(.text.UnProtectModuleReg))
 <BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wdt_enable
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDT_Config
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MEM_SetIAPSize
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MEM_SetIAPSize
 <LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Init
 </UL>
 
 <P><STRONG><a name="[73]"></a>WDT_Config</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, wdt.o(.text.WDT_Config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = WDT_Config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
+<BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RST_CRstSource_Config
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
+<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[38]"></a>delay_ms</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, timers.o(.text.delay_ms))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = delay_ms
-</UL>
-<BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_GetSingleFlagStatus
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_ClearFlag
-</UL>
-<BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
+<P><STRONG><a name="[38]"></a>delay_ms</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, timers.o(.text.delay_ms))
+<BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PRSM3_ParseMessage
 <LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 </UL>
 
-<P><STRONG><a name="[55]"></a>delay_us</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, timers.o(.text.delay_us))
+<P><STRONG><a name="[56]"></a>delay_us</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, timers.o(.text.delay_us))
 <BR><BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OneWire_Write
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OneWire_Start
 <LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OneWire_Read
 </UL>
 
-<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, main.o(.text.main))
+<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = main &rArr; FlashTestFill &rArr; AddKey &rArr; IAP_WriteMultipleWord &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wdt_reset
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDT_Config
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_Cmd
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Config
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Config
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FlashTestFill
 <LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FlashFirstInit
@@ -864,8 +867,8 @@ Global Symbols
 <P><STRONG><a name="[5d]"></a>wdt_enable</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, wdt.o(.text.wdt_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = wdt_enable
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
+<BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UnProtectModuleReg
+<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProtectModuleReg
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDT_Divider_Select
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDT_Cmd
 </UL>
@@ -889,7 +892,7 @@ Global Symbols
 
 <P><STRONG><a name="[8a]"></a>__1printf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5), UNUSED)
 
-<P><STRONG><a name="[4a]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5))
+<P><STRONG><a name="[49]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler_C

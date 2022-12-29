@@ -3,10 +3,12 @@
 // Посылка принята целиком - пришло время её разобрать
 void TIM01_Callback (void)
 {
+	usUsart = 0;
 	PRSM3_ParseMessage();
 }
+
 // T = 5 ms
-void TIM10_Callback (void)
+void TIM10_Callback (void)// TM_PRSM_RESET
 {
 	// Каждый новый байт сбрасывает счетчик usUsart в 1
 	// Через 80 мс после прихода последнего байта все переменные очищаются
@@ -14,49 +16,77 @@ void TIM10_Callback (void)
 	
 	// Попробовать TM10->CNT.W = 0 и вкл/выкл 
 	
-	gerkonState = GERKON_PIN; // + filter
+	
+	
+//	gerkonState = GERKON_PIN; // + filter
 
-	if (usUsart >= 1)
-	{
-		usUsart++;
-		if (usUsart > 16)
-			PRSM3_clearBuffer();
-	}
+//	if (usUsart >= 1)
+//	{
+//		usUsart++;
+//		if (usUsart > 16)
+//			PRSM3_clearBuffer();
+//	}
 }
 
 
-
 // T = 100 ms
+// TM_INPUT
 void TIM16_Callback (void)
 {
-	if (DS1990A_GetKeyID() == KEY_ON_LINE)
+	if (DS1990A_GetKeyID() == KEY_ON_LINE)  
 	{
-		if (IsKeyActive() == KEY_STATUS_ACTIVATED)
-			currentEvent = eEnteredValidKey;
+//		EncryptKey();
+		if (IsKeyActive())
+		{
+			IndicationStart(ValidKey);
+		}
 		else
-			currentEvent = eEnteredInvalidKey;
+		{
+			IndicationStart(InvalidKey);
+		}
+		TM_Timer_Cmd(TM16, DISABLE);
+
+//		STALED_PIN = 0;
+		
+//		if (IsKeyActive() == KEY_STATUS_ACTIVATED)
+//			currentEvent = eEnteredValidKey;
+//		else
+//			currentEvent = eEnteredInvalidKey;
 	}
+//	
+//	else 
+//		STALED_PIN = 1;
 }
 
 // T = 100 ms
 void TIM36_Callback (void)
 {
+	// Проверки для бесконечного alarmCommon нет из-за огромности UINT32_MAX 
+	
+	if (indicWaitCnt < indicWaitMax)
+	{
+		++indicWaitCnt;
+		return;
+	}
+
 	if (indicTimeCnt == indicTimeMax)
 	{
-		BUZZER_PIN = 0;
+		BACKL_PIN = 0;
 		STALED_PIN = 1;
 		TM_Timer_Cmd(TM36, DISABLE);
-		currentEvent = eIndicationEnded; // в обработчике мб CNT.W = 0, не выключать таймер
+//		IndicationStart(AlarmCommon);
+//		currentEvent = eIndicationEnded; // в обработчике мб CNT.W = 0, не выключать таймер
 		return;
 	}
 	
-	if (indicTimeCnt % indicSpeed == 0) // indicTimeCnt изначально уже = 1
+	if (indicTimeCnt++ % indicSpeed == 0) // indicTimeCnt изначально уже = 1
 	{
-		BUZZER_PIN = !BUZZER_PIN; // изначально = 0
+		if (onlyLed == 0) 
+		{
+			BACKL_PIN = !BACKL_PIN; // изначально = 0
+		}
 		STALED_PIN = !STALED_PIN;
 	}
-	
-	++indicTimeCnt;
 }
 
 //----------------------------------------------------------------------------------------
@@ -64,13 +94,15 @@ void TIM36_Callback (void)
 //----------------------------------------------------------------------------------------
 void delay_ms(uint32_t time) 
 {
-	TM_Timer_Cmd(TM_DELAY_MS, ENABLE);
-	for (uint32_t i = 0; i < time; i++)
-	{
-		while(TM_GetSingleFlagStatus(TM_DELAY_MS, TMx_TOF) == DRV_UnHappened);
-		TM_ClearFlag(TM_DELAY_MS, TMx_TOF); 
-	}
-	TM_Timer_Cmd(TM_DELAY_MS, DISABLE);
+	delay_us(time * 1000);
+	
+//	TM_Timer_Cmd(TM_DELAY_MS, ENABLE);
+//	for (uint32_t i = 0; i < time; i++)
+//	{
+//		while(TM_GetSingleFlagStatus(TM_DELAY_MS, TMx_TOF) == DRV_UnHappened);
+//		TM_ClearFlag(TM_DELAY_MS, TMx_TOF); 
+//	}
+//	TM_Timer_Cmd(TM_DELAY_MS, DISABLE);
 }
 
 //----------------------------------------------------------------------------------------
@@ -111,7 +143,7 @@ void TIM_Config()
 	NVIC_EnableIRQ(TM0x_IRQn); 
 	NVIC_SetPriority(TM0x_IRQn, 0);
 	
-	// TM_URT_RECEIVE
+	// TM_PRSM_RECEIVE
     TM_TimeBase_InitStruct.TM_Period = TM_PRSM_RESET_PERIOD - 1; 
     TM_TimeBase_InitStruct.TM_Prescaler = TM_PRSM_RESET_PRESCALER - 1;
     TM_TimeBase_Init(TM_PRSM_RESET, &TM_TimeBase_InitStruct);
@@ -127,7 +159,8 @@ void TIM_Config()
     TM_TimeBase_InitStruct.TM_Prescaler = TM_INPUT_PRESCALER - 1;
     TM_TimeBase_Init(TM_INPUT, &TM_TimeBase_InitStruct);
 	TM_ClearFlag(TM_INPUT, TMx_TOF);
-	
+	TM_IT_Config(TM_INPUT, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
+	TM_ITEA_Cmd(TM_INPUT, ENABLE); // включаем общие прерывания таймера
 	NVIC_EnableIRQ(TM1x_IRQn);
 	NVIC_SetPriority(TM1x_IRQn, 0);
 	
@@ -137,11 +170,10 @@ void TIM_Config()
     TM_TimeBase_InitStruct.TM_Prescaler = TM_INDICATION_PRESCALER - 1;
     TM_TimeBase_Init(TM_INDICATION, &TM_TimeBase_InitStruct);
 	TM_ClearFlag(TM_INDICATION, TMx_TOF);
-	
+	TM_IT_Config(TM_INDICATION, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
+	TM_ITEA_Cmd(TM_INDICATION, ENABLE); // включаем общие прерывания таймера
 	NVIC_EnableIRQ(TM3x_IRQn);
 	NVIC_SetPriority(TM3x_IRQn, 0);
-
-
 }
 
 //----------------------------------------------------------------------------------------

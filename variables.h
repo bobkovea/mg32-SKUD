@@ -1,13 +1,13 @@
 #ifndef VARIABLES_H
 #define VARIABLES_H
-#include "MG32x02z_DRV.h"
-
+#include "stdint.h"
+#include "flash.h"
 
 #define VAR_COUNT_WRITABLE 7
 #define VAR_COUNT 10
 
-
 // значения по умолчанию
+#define __FIRST_WRITE_VALUE 0xAA
 #define __GERKON_FILT_TIME 3
 #define __SEND_ALARM_TIME 30
 #define __REACTIVATE_ALARM_TIME 5
@@ -15,10 +15,11 @@
 #define __SEND_OFFLINE_EVENTS 0
 #define __FREE_ACCESS 0
 #define __MASTER_SLAVE 0
+
 #define __TOTAL_KEYS 0
 #define __ACTIVE_KEYS 0
 #define __FLASH_RESOURCE 1
-#define __FIRST_WRITE_VALUE 0xAA
+
 
 typedef struct 
 {
