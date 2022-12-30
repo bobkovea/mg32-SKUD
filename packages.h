@@ -3,6 +3,7 @@
 #include "MG32x02z_DRV.h"
 
 // макросы для разных посылок
+
 #define KEY_STATUS_DEACTIVATED 0x00
 #define KEY_STATUS_ACTIVATED 0x01
 #define KEY_STATUS_FREE 0xFF

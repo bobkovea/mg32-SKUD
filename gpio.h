@@ -32,6 +32,8 @@ typedef enum
 #define ONEWIRE_PIN PB0
 #define GERKON_PIN PB3
 
+extern uint8_t gerkonState;
+
 void GPIO_Config();
 
 #endif // GPIO_H

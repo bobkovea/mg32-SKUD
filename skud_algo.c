@@ -12,7 +12,6 @@ uint32_t indicTimeCnt;
 uint32_t indicTimeMax;
 uint8_t indicSpeed;
 uint8_t onlyLed;
-uint8_t gerkonState;
 
 void IndicationStart(Indication_t indicType)
 {
@@ -50,30 +49,29 @@ void IndicationStart(Indication_t indicType)
 			return;	
 	}
 
-	TM_Timer_Cmd(TM36, ENABLE);
+	TM_Timer_Cmd(TM_INDICATION, ENABLE);
 }
 
 void IndicationStop()
 {
 	// обнуление всяких штук
-	TM_Timer_Cmd(TM36, DISABLE);
+	TM_Timer_Cmd(TM_INDICATION, DISABLE);
 	BUZZER_OFF();
 	STALED_OFF();
 	onlyLed = 0;
 	indicTimeCnt = 1;
-
 };
-
 
 // h - handler
 void hDoorOpened(States_t state, Events_t event)
-{
+{	
+	TM_Timer_Cmd(TM_INPUT, ENABLE); 
 	IndicationStart(AlarmCommon);
 };
 
 void hEnteredValidKey(States_t state, Events_t event)
 {
-	IndicationStop();
+	IndicationStart(ValidKey);
 };
 
 void hEnteredInvalidKey(States_t state, Events_t event)
@@ -83,39 +81,52 @@ void hEnteredInvalidKey(States_t state, Events_t event)
 
 void hAlarmTimeout(States_t state, Events_t event)
 {
-	
+	IndicationStop();
 };
 
 void hKeyReadingResumed(States_t state, Events_t event)
 {
-	
+	TM_Timer_Cmd(TM_INPUT, ENABLE);
+	IndicationStart(AlarmCommon);
 };
 
 void hDoorClosed(States_t state, Events_t event)
-{
-	
+{	
+	TM_Timer_Cmd(TM_INPUT, DISABLE); 
+	IndicationStop();
 };
 
 
 // FSMTable[кол-во состояний][кол-во событий]
-
 Transition_t FSMTable[4][6] =
 {
-	// прописать потом все случаи во избежание последствий гонки потоков
+    [sDoorIsClosed][eDoorOpened] 				= { sDoorIsOpenedAlarmOn, hDoorOpened },
+	[sDoorIsClosed][eEnteredValidKey] 			= {	sDoorIsClosed,  0 },
+	[sDoorIsClosed][eEnteredInvalidKey] 		= { sDoorIsClosed,  0 },
+	[sDoorIsClosed][eIndicationEnded] 			= { sDoorIsClosed,  0 },
+	[sDoorIsClosed][eAlarmTimeout] 				= { sDoorIsClosed,  0 },
+	[sDoorIsClosed][eDoorClosed] 				= { sDoorIsClosed,  0 },
 	
-    [sDoorIsClosed][eDoorOpened] = { sDoorIsOpenedAlarmOn, hDoorOpened },
+	[sDoorIsOpenedAlarmOn][eDoorOpened] 		= { sDoorIsOpenedAlarmOn, 0 },
+	[sDoorIsOpenedAlarmOn][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, hEnteredValidKey },
+	[sDoorIsOpenedAlarmOn][eEnteredInvalidKey] 	= { sKeyReadingSuspended, hEnteredInvalidKey },
+	[sDoorIsOpenedAlarmOn][eIndicationEnded] 	= { sDoorIsOpenedAlarmOn, 0 },
+	[sDoorIsOpenedAlarmOn][eAlarmTimeout] 		= { sDoorIsOpenedAlarmOn, hAlarmTimeout },
+	[sDoorIsOpenedAlarmOn][eDoorClosed] 		= { sDoorIsOpenedAlarmOn, 0 },
 	
-	[sDoorIsOpenedAlarmOn][eDoorClosed] = { sDoorIsClosed, hDoorClosed },
-
-	[sDoorIsOpenedAlarmOn][eEnteredInvalidKey] = { sKeyReadingSuspended, hEnteredInvalidKey },
+	[sKeyReadingSuspended][eDoorOpened] 		= { sKeyReadingSuspended, 0 },
+	[sKeyReadingSuspended][eEnteredValidKey] 	= { sKeyReadingSuspended, 0 },
+	[sKeyReadingSuspended][eEnteredInvalidKey] 	= { sKeyReadingSuspended, 0 },
+	[sKeyReadingSuspended][eIndicationEnded] 	= { sDoorIsOpenedAlarmOn, hKeyReadingResumed },
+	[sKeyReadingSuspended][eAlarmTimeout] 		= { sKeyReadingSuspended, 0 },
+	[sKeyReadingSuspended][eDoorClosed] 		= { sKeyReadingSuspended, 0 },
 	
-	[sDoorIsOpenedAlarmOn][eAlarmTimeout] = { sDoorIsOpenedAlarmOn, hAlarmTimeout },
-		
-	[sDoorIsOpenedAlarmOn][eEnteredValidKey] = { sDoorIsOpenedAlarmOff, hEnteredValidKey },
-	
-	[sKeyReadingSuspended][eIndicationEnded] = { sDoorIsOpenedAlarmOn, hKeyReadingResumed },
-	
-	[sDoorIsOpenedAlarmOff][eDoorClosed] = { sDoorIsClosed, hDoorClosed },
+	[sDoorIsOpenedAlarmOff][eDoorOpened] 		= { sDoorIsOpenedAlarmOff, 0 },
+	[sDoorIsOpenedAlarmOff][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, 0 },
+	[sDoorIsOpenedAlarmOff][eEnteredInvalidKey] = { sDoorIsOpenedAlarmOff, 0 },
+	[sDoorIsOpenedAlarmOff][eIndicationEnded] 	= { sDoorIsOpenedAlarmOff, 0 },
+	[sDoorIsOpenedAlarmOff][eAlarmTimeout] 		= { sDoorIsOpenedAlarmOff, 0 },
+	[sDoorIsOpenedAlarmOff][eDoorClosed] 		= { sDoorIsClosed, hDoorClosed },
 	
 	/* 
 	[sDoorIsClosedAlarmReady]...
@@ -144,7 +155,7 @@ void HandleEvent()
 
 uint8_t IsKeyActive(void)
 {
-	for (uint16_t keyIndex = 0; keyIndex < 2 /*TotalKeys.value*/; keyIndex++)
+	for (uint16_t keyIndex = 0; keyIndex < TotalKeys.value /*KEYS_COUNT*/; keyIndex++)
     {
 		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
 		{
@@ -161,78 +172,6 @@ uint8_t IsKeyActive(void)
 
 
 
-
-
-
-
-//void MonitorKey(void)
-//{
-//	switch (CurState)
-//	{
-//		case StateClosed:
-
-//		if (!GERKON_PIN) // можно опрос геркона с антидребезгом в прерывание
-//			{
-//				delay_ms(100); // антидребезг
-//				if (!GERKON_PIN)
-//				{
-//					CurState = StateOpenedAlarm;
-//					CurEvent = EventOpened;
-//				}
-//			}
-//			
-//			break;
-//			
-//		case StateOpenedAlarm:
-//			// запуск тревоги
-//			// и мониторим ключ
-//	
-//			// if !waitBitch
-//			if (DS1990A_GetID()) // если считан ключ DS1990A
-//			{
-//				// если ключа нет в базе
-//				if (CheckTruth(keyCurrent) == UINT32_MAX)
-//				{
-//					
-//					CurEvent = EventNotValidKey;
-//					waitBitchCnt = 0;
-//					
-//					while(waitBitchCnt < waitBitchCntMax) // сделать на прерываниях
-//						;
-//					
-//					CurEvent = EventReadyForNewKey;
-//				}
-
-//				else 
-//				{
-//					CurState = StateOpenedValidOk;
-//					CurEvent = EventValidKey;
-//					alarmReloadCnt = 0;
-//				}
-//			}
-//			
-//			else if (alarmTimeoutCnt >= alarmTimeoutCntMax)
-//			{
-//			
-//				// +отправить сообщение
-//				CurEvent = EventTimeout;
-//			}
-//			
-//			break;
-//			
-//	
-//		case StateOpenedValidOk:
-//			
-//			if (alarmReloadCnt >= alarmReloadCntMax)
-//			{
-//				CurState = StateClosed;
-//				STALED_PIN = 1;
-////				CurEvent = EventReactivateAlarm;
-//			}
-//			break;
-//	}
-
-//};
 
 
 

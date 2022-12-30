@@ -1,5 +1,7 @@
 #include "gpio.h"
 
+uint8_t gerkonState = 0;
+
 void InitPinBase(Pin_Struct* PINX)
 {
 	GPIO_PinHighSpeedMode_Cmd(PINX, DISABLE);

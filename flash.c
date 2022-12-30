@@ -10,8 +10,8 @@ flash_block_t fpage;
 
 void FlashTestFill(void)
 {
-	AddKey(ACTKEY_NOACTION, 0, 0, key1);
-	AddKey(ACTKEY_NOACTION, 1, 0, key2);
+	AddKey(ACTKEY_ACTIVATE, 0, 0, key1); 
+	AddKey(ACTKEY_ACTIVATE, 1, 0, key2);
 //	AddKey(ACTKEY_NOACTION, 2, 0, key3);
 //	AddKey(ACTKEY_DEACTIVATE, 3, 0, key4);
 //	AddKey(ACTKEY_NOACTION, 4, 0, key5);
@@ -25,7 +25,7 @@ void FlashTestFill(void)
 
 void FlashFirstInit(void)
 {
-	IAP_Init(IAP_PAGE_SIZE * 15); // потом заменить на нужное число
+	IAP_Init(IAP_PAGE_SIZE * 5); // потом заменить на нужное число
 	
 	// если включение не первое
 	if (IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
@@ -35,7 +35,7 @@ void FlashFirstInit(void)
 			variables[varNum]->value = IAP_ReadWord(PAGE_NUMBER_VARS, variables[varNum]->indexOnPage); 
 		
 		TotalKeys.value = IAP_ReadWord(PAGE_NUMBER_KEYSTATUS, TotalKeys.indexOnPage); 
-		ActiveKeys.value = IAP_ReadWord(PAGE_NUMBER_KEYSTATUS, ActiveKeys.indexOnPage); 
+		ActiveKeys.value = IAP_ReadWord(PAGE_NUMBER_KEYSTATUS, ActiveKeys.indexOnPage);
 		
 		// кол-во перезаписей флеша = максимальное кол-во со всех страниц
 		FlashResourse.value = GetMaxFlashResource();
@@ -75,7 +75,7 @@ void FlashFirstInit(void)
 		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
 		
 		// + добавим ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
-
+		FlashTestFill(); 
 	}
 
 } 
@@ -356,7 +356,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	switch (oldKeyStatus)
 	{
 		case KEY_STATUS_FREE:
-		
+			
 			if (activationType == ACTKEY_ACTIVATE)
 			{
 				fpage.byte[keyIndex] = KEY_STATUS_ACTIVATED;
@@ -369,23 +369,30 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 			
 			fpage.word[TotalKeys.indexOnPage] = ++TotalKeys.value;
 			
+//			URT_Write(0xAA);
+//			URT_Write(ActiveKeys.value);
 			break;
 		
 		case KEY_STATUS_DEACTIVATED:
 			
+//			URT_Write(0xBB);
+//			URT_Write(ActiveKeys.value);
 			if (activationType == ACTKEY_ACTIVATE)
 			{
 				fpage.byte[keyIndex] = KEY_STATUS_ACTIVATED;
 				fpage.word[ActiveKeys.indexOnPage] = ++ActiveKeys.value;
 			}
-			
 			break;
 		
 		case KEY_STATUS_ACTIVATED:
 			
+//			URT_Write(0xCC);
+//			URT_Write(ActiveKeys.value);
 			if (activationType == ACTKEY_DEACTIVATE)
+			{
 				fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;
 				fpage.word[ActiveKeys.indexOnPage] = --ActiveKeys.value;
+			}
 			break;
 		
 		default:

@@ -1,5 +1,12 @@
 #include "timers.h"
 
+uint8_t gerkonStateFilter = 0;
+uint8_t gerkonStateFilterMax = 20;
+uint8_t oldGerkonState;
+
+uint8_t alarmTimeoutCnt = 0;
+uint32_t alarmTimeoutMax = 20;
+
 // Посылка принята целиком - пришло время её разобрать
 void TIM01_Callback (void)
 {
@@ -14,18 +21,42 @@ void TIM10_Callback (void)// TM_PRSM_RESET
 	// Через 80 мс после прихода последнего байта все переменные очищаются
 	// (в случае, если посылка зависла)
 	
-	// Попробовать TM10->CNT.W = 0 и вкл/выкл 
+	// Попробовать TM10->CNT.W = 0 и вкл/выкл
 	
-	
-	
-//	gerkonState = GERKON_PIN; // + filter
+	// фильтр
+	if (GERKON_PIN == 0)
+	{
+		if (gerkonStateFilter < gerkonStateFilterMax)
+			++gerkonStateFilter;
+		else 
+			gerkonState = 1;	
+	} 
+	else
+	{
+		if (gerkonStateFilter > 0)
+			--gerkonStateFilter;
+		else
+			gerkonState = 0;
+	}
 
-//	if (usUsart >= 1)
-//	{
-//		usUsart++;
-//		if (usUsart > 16)
-//			PRSM3_clearBuffer();
-//	}
+	// событие открытия/закрытия двери
+	if (oldGerkonState == 0 && gerkonState == 1)
+	{
+		oldGerkonState = gerkonState;
+		currentEvent = eDoorOpened;	
+	}
+	else if (oldGerkonState == 1 && gerkonState == 0)
+	{
+		oldGerkonState = gerkonState;
+		currentEvent = eDoorClosed;	
+	}
+	
+	if (usUsart >= 1)
+	{
+		usUsart++;
+		if (usUsart > 16)
+			PRSM3_clearBuffer();
+	}
 }
 
 
@@ -35,34 +66,27 @@ void TIM16_Callback (void)
 {
 	if (DS1990A_GetKeyID() == KEY_ON_LINE)  
 	{
+		TM_Timer_Cmd(TM_INPUT, DISABLE);
 //		EncryptKey();
 		if (IsKeyActive())
-		{
-			IndicationStart(ValidKey);
-		}
+			currentEvent = eEnteredValidKey;
 		else
-		{
-			IndicationStart(InvalidKey);
-		}
-		TM_Timer_Cmd(TM16, DISABLE);
-
-//		STALED_PIN = 0;
-		
-//		if (IsKeyActive() == KEY_STATUS_ACTIVATED)
-//			currentEvent = eEnteredValidKey;
-//		else
-//			currentEvent = eEnteredInvalidKey;
+			currentEvent = eEnteredInvalidKey;
 	}
-//	
-//	else 
-//		STALED_PIN = 1;
 }
 
 // T = 100 ms
 void TIM36_Callback (void)
 {
-	// Проверки для бесконечного alarmCommon нет из-за огромности UINT32_MAX 
+	if (alarmTimeoutCnt < alarmTimeoutMax)
+		++alarmTimeoutCnt;
+	else
+	{
+		alarmTimeoutCnt = 0;
+		currentEvent = eAlarmTimeout;
+	}
 	
+	// Проверки для бесконечного alarmCommon нет из-за огромности UINT32_MAX
 	if (indicWaitCnt < indicWaitMax)
 	{
 		++indicWaitCnt;
@@ -71,11 +95,10 @@ void TIM36_Callback (void)
 
 	if (indicTimeCnt == indicTimeMax)
 	{
-		BACKL_PIN = 0;
-		STALED_PIN = 1;
-		TM_Timer_Cmd(TM36, DISABLE);
-//		IndicationStart(AlarmCommon);
-//		currentEvent = eIndicationEnded; // в обработчике мб CNT.W = 0, не выключать таймер
+		BUZZER_OFF();
+		STALED_OFF();
+		TM_Timer_Cmd(TM_INDICATION, DISABLE);
+		currentEvent = eIndicationEnded; // в обработчике мб CNT.W = 0, не выключать таймер
 		return;
 	}
 	
@@ -143,7 +166,7 @@ void TIM_Config()
 	NVIC_EnableIRQ(TM0x_IRQn); 
 	NVIC_SetPriority(TM0x_IRQn, 0);
 	
-	// TM_PRSM_RECEIVE
+	// TM_PRSM_RESET
     TM_TimeBase_InitStruct.TM_Period = TM_PRSM_RESET_PERIOD - 1; 
     TM_TimeBase_InitStruct.TM_Prescaler = TM_PRSM_RESET_PRESCALER - 1;
     TM_TimeBase_Init(TM_PRSM_RESET, &TM_TimeBase_InitStruct);
@@ -152,7 +175,7 @@ void TIM_Config()
 	TM_ClearFlag(TM_PRSM_RESET, TMx_TOF);
 	
 	NVIC_EnableIRQ(TM10_IRQn);
-	NVIC_SetPriority(TM10_IRQn, 0);
+	NVIC_SetPriority(TM10_IRQn, 2);
 	
 	// TM_INPUT
     TM_TimeBase_InitStruct.TM_Period = TM_INPUT_PERIOD - 1; 
@@ -162,7 +185,7 @@ void TIM_Config()
 	TM_IT_Config(TM_INPUT, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_INPUT, ENABLE); // включаем общие прерывания таймера
 	NVIC_EnableIRQ(TM1x_IRQn);
-	NVIC_SetPriority(TM1x_IRQn, 0);
+	NVIC_SetPriority(TM1x_IRQn, 1);
 	
 	
 	// TM_INDICATION
@@ -173,7 +196,7 @@ void TIM_Config()
 	TM_IT_Config(TM_INDICATION, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_INDICATION, ENABLE); // включаем общие прерывания таймера
 	NVIC_EnableIRQ(TM3x_IRQn);
-	NVIC_SetPriority(TM3x_IRQn, 0);
+	NVIC_SetPriority(TM3x_IRQn, 1);
 }
 
 //----------------------------------------------------------------------------------------

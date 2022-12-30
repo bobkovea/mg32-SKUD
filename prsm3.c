@@ -282,13 +282,8 @@ void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизироват
 	// Запускаем wdt на ~1с (на случай, если отправка зависнет)
     wdt_enable(WDTO_1S);
 	
-	// Отправляем посылку-ответ
-    for (uint8_t i = 0; i < CommandSize; i++)
-		URT_Write(RecBytes[i]);
-		
-	// Дожидаемся завершения передачи
-	while(URT_IsTxEndTransmission() == TxBusy)	
-		;
+	// Отправляем посылку-ответ, дожидаемся завершения передачи
+	URT_Print(RecBytes, CommandSize);
 	
 	RS485_CONFIG_RECEIVE(); // ADM485 на прием
 }
