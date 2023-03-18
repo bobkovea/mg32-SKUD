@@ -8,8 +8,8 @@
  *
  * @par         Project
  *              MG32x02z
- * @version     V0.65
- * @date        2022/10/03 11:53 (H File Generated Date)
+ * @version     V0.63
+ * @date        2022/05/17 16:17 (H File Generated Date)
  * @author      Megawin Software Center
  * @copyright   Copyright (c) 2020 Megawin Technology Co., Ltd.
  *              All rights reserved.
@@ -35,7 +35,7 @@
 /*!< _MG32x02z_CSC_INIT_H */ 
 #define _MG32x02z_CSC_INIT_H
 
-#define MG32x02z_CSC_INIT_VER            65    // CSC Initial .h Version
+#define MG32x02z_CSC_INIT_VER            63    // CSC Initial .h Version
 
 //*** <<< Use Configuration Wizard in Context Menu >>> ***
 /**
@@ -65,7 +65,7 @@
 #define CONF_CSC_XOSC_GN                  0x00010000  // 3  [17:16] XOSC Gain
 
 //      <q.4> Disable MCD(Missing Clock Detector)
-#define CONF_CSC_MCD_DIS                  0x00000010  // 4  [4] MCD Disable
+#define CONF_CSC_MCD_DIS                  0x00000000  // 4  [4] MCD Disable
 //      <o.22..23> Select Missing Clock Detection Duration <0=> 125us
 //                                                         <1=> 250us
 //                                                         <2=> 500us
@@ -97,7 +97,7 @@
 #define CONF_CSC_PLLO_DIV                 0x00000000  // 12  [5:4] PLLO DIV
 
 #ifndef CONF_CSC_PLL_LDEN
-#define CONF_CSC_PLL_LDEN                 0x00000000     // 13  [2] PLL Lock Detect
+#define CONF_CSC_PLL_LDEN                 0x00000000     // 13  [5:4] PLL Lock Detect
 #endif
 //      </h>
 
@@ -174,13 +174,6 @@
 //          <i> CK_UT frequency = (ILRCO frequency) / (selected Divider Value)
 #define CONF_CSC_UT_DIV                   0x00000000  // 24  [27:26] UT DIV
 
-//      <h> CSC Interrupt Configure
-//<q0.1> XOSC Clock Stable Interrupt Enable
-#define CONF_CSC_XOSC_IE                 0x00000000  // 26  [1] INT XOSC
-//<q0.7> XOSC Missing Clock Detect Failure Event Interrupt Enable
-#define CONF_CSC_MCD_IE                  0x00000000  // 27  [7] INT MCD
-//      </h>
-
 //      <h> Configure Peripheral ON Mode Clock
 //      <i> Peripheral module process clock enable when MCU is running ON mode.
 //          <q.0>  Port A
@@ -213,7 +206,7 @@
 #define CONF_CSC_CMP_EN                   0x00000004  // 40
 //              <o.4>  Select CMP_PR Source <0=> CK_APB <1=> CK_AHB
 //              <i> CMP Process clock source select.
-#define CONF_CSC_CMP_CKS                  0x00000000  // 41
+#define CONF_CSC_CMP_CKS                  0x00000004  // 41
 //          </e>
 //          <q.5>  RTC
 //          <i> RTC clock source enable.
@@ -353,15 +346,18 @@
 
 //*** <<< end of configuration section >>>    ***
 
-#if ((CONF_CSC_XOSC_IE | CONF_CSC_MCD_IE) != 0x0000000)
-#define CONF_CSC_IEA                      0x00000001          // 000, 000
-#else
+// CSC_INT bit 0 ~ 31
 #define CONF_CSC_IEA                      0x00000000          // 000, 000
-#endif
+#define CONF_CSC_XOSC_IE                  0x00000000          // 001, 001
+#define CONF_CSC_ILRCO_IE                 0x00000000          // 004, 004
+#define CONF_CSC_IHRCO_IE                 0x00000000          // 005, 005
+#define CONF_CSC_PLL_IE                   0x00000000          // 006, 006
+#define CONF_CSC_MCD_IE                   0x00000000          // 007, 007
+                                         
 #define CONF_CSC_PLL_MDS                  0x00000001 /*MG32_3RD must be retention and value is 0x00000001 */
                                          
 #define CONF_CSC_STA              0X00000000
-#define CONF_CSC_INT              (CONF_CSC_IEA | CONF_CSC_XOSC_IE | CONF_CSC_MCD_IE)
+#define CONF_CSC_INT              (CONF_CSC_IEA | CONF_CSC_XOSC_IE | CONF_CSC_ILRCO_IE | CONF_CSC_IHRCO_IE | CONF_CSC_PLL_IE | CONF_CSC_MCD_IE)
 #define CONF_CSC_KEY              0x00000000
 
 #define CONF_CSC_PLL              (CONF_CSC_PLL_MUL | CONF_CSC_XOSC_GN)

@@ -4,10 +4,9 @@
 uint8_t DS1990A_GetKeyID (void)	
 {	
 	uint8_t Presence = OneWire_Start();
-	delay_ms(1);
 	if (Presence) 
 	{
-		OneWire_Write(0x33); 
+		OneWire_Write(ONEWIRE_READROM); 
 		for (uint8_t i = 0; i < KEY_RAW_SIZE; i++)
 			KeyRaw[i] = OneWire_Read();
 
@@ -18,7 +17,6 @@ uint8_t DS1990A_GetKeyID (void)
 			return NO_KEY;
 		// несколько считываний подряд ?
 		// CRC мб корректна при нулевом ключе, когда полярность перепутана ?
-		
 //		URT_Print(KeyRaw, KEY_RAW_SIZE);
 		
 		return KEY_ON_LINE;

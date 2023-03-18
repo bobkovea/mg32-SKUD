@@ -193,7 +193,7 @@ void PRSM3_ParseReadRequest(void)
 		return;
 	}
 
-// Проверка контрольной суммы
+	// Проверка контрольной суммы
 	if (CRCisWrong(RecBytes, CommandSize))
 	{
 		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_READ9);

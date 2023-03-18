@@ -8,5 +8,6 @@
 #include "usart.h"
 #include "wdt.h"
 #include "flash.h"
+#include "skud_algo.h"
 
 #endif // MAIN_H

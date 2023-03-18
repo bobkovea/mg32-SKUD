@@ -23,6 +23,12 @@ extern uint8_t key3[16];
 extern uint8_t key4[16];
 extern uint8_t key5[16];
 
+extern uint8_t key_em_1[16];
+extern uint8_t key_em_2[16];
+extern uint8_t key_em_3[16];
+extern uint8_t key_em_4[16];
+extern uint8_t key_em_5[16];
+
 extern uint8_t key_test[16];
 
 extern uint8_t *keys[5];

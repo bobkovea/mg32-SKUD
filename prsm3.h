@@ -12,9 +12,9 @@
 #include "events.h"
 
 // настроить ADM485 на прием
-#define RS485_CONFIG_RECEIVE() REDE_PIN = 0;
+#define RS485_CONFIG_RECEIVE() REDE_PIN = 0
 // настроить ADM485 на передачу
-#define RS485_CONFIG_TRANSMIT() REDE_PIN = 1;
+#define RS485_CONFIG_TRANSMIT() REDE_PIN = 1
 
 #define RX_BUFFER_SIZE 30
 

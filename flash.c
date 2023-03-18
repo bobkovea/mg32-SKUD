@@ -8,13 +8,24 @@
 
 flash_block_t fpage;
 
+#include "md5.h"
+
+
+
 void FlashTestFill(void)
 {
-	AddKey(ACTKEY_ACTIVATE, 0, 0, key1); 
-	AddKey(ACTKEY_ACTIVATE, 1, 0, key2);
-//	AddKey(ACTKEY_NOACTION, 2, 0, key3);
-//	AddKey(ACTKEY_DEACTIVATE, 3, 0, key4);
-//	AddKey(ACTKEY_NOACTION, 4, 0, key5);
+	MD5_MakeHash(key1, KEY_RAW_SIZE, KeyEncrypted);
+	AddKey(ACTKEY_ACTIVATE, 0, 0, KeyEncrypted); 
+//	
+//	MD5_MakeHash(key2, KEY_RAW_SIZE, KeyEncrypted);
+//	AddKey(ACTKEY_ACTIVATE, 1, 0, KeyEncrypted);
+//	
+//	MD5_MakeHash(key_em_1, KEY_RAW_SIZE, KeyEncrypted);
+//	AddKey(ACTKEY_ACTIVATE, 2, 0, KeyEncrypted);
+//	
+//	MD5_MakeHash(key_em_2, KEY_RAW_SIZE, KeyEncrypted);
+//	AddKey(ACTKEY_ACTIVATE, 3, 0, KeyEncrypted);
+
 }
 
 //----------------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 #ifndef USART_H
 #define USART_H
 #include "MG32x02z_URT_DRV.h"
+#include "MG32x02z_CSC_Init.h"
 #include "prsm3.h"
 #include "device_config.h"
 

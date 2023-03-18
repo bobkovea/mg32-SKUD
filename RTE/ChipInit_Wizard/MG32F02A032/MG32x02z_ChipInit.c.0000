@@ -8,8 +8,8 @@
  *
  * @par         Project
  *              MG32x02z
- * @version     V1.20
- * @date        2022/12/19
+ * @version     V1.18
+ * @date        2022/01/11
  * @author      Megawin Software Center
  * @copyright   Copyright (c) 2017 MegaWin Technology Co., Ltd.
  *              All rights reserved.
@@ -135,20 +135,6 @@ void ChipInit(void)
     #ifdef MG32x02z_ConfigerWizard_RTC
         RTC_Init();
     #endif
-        
-    // I2C ConfigerWizard Table
-    #ifdef MG32x02z_ConfigerWizard_I2C
-        I2C_Init();
-    #endif
-        
-    // SPI ConfigerWizard Table
-    #ifdef MG32x02z_ConfigerWizard_SPI
-        SPI_Init(SPI0);
-    #endif
-		
-    // ============= Enable SYS's IEA for SYS interrupt =============
-    // Unconditionally enable IEA for SYS in MG32x02z_ChipInit.c
-    SYS->INT.B[0] = SYS_INT_IEA_enable_b0;
         
     // ============= Enable NVIC interrupt (Control by IRQ_Handler) =============
     // WWDT : Config interrupt priority

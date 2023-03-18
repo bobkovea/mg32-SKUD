@@ -7,8 +7,8 @@
  *
  * @par         Project
  *              MG32x02z
- * @version     V3.14
- * @date        2022/11/28
+ * @version     V3.10
+ * @date        2022/05/17
  * @author      Megawin Software Center
  * @copyright   Copyright (c) 2020 Megawin Technology Co., Ltd.
  *              All rights reserved.
@@ -28,7 +28,6 @@
 
 #include "MG32x02z_CSC_Init.h"
 #include "MG32x02z_CFG.h"
-#include "MG32x02z_SYS.h"
 
 /* Wizard menu ---------------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
@@ -61,6 +60,8 @@
     #define HS_SEL_Ver_0 
     #define HS2_SEL_Ver_0
 #endif
+
+#define USB_DEVICE              USB_TYPE                                                  /*!< USB device define                    */
 
 //#define CSC_STA_Ver_0           defined(MG32_1ST)                                        /*!< CSC clock state version_0 define     */
 //#define CSC_STA_Ver_1           defined(MG32_2ND)                                        /*!< CSC clock state version_1 define     */
@@ -172,7 +173,7 @@ extern uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
                 #error Input clock error, PLLI input clock is too low, setting PLLI input clock faster than 4MHz.
             #endif
             #if ((CONF_CK_HS2_FREQ /CONF_PLLI_DIV) > 8000000)
-                 #error Input clock error, PLLI input clock is too fast, setting PLLI intput clock slower than 8MHz.
+                #error Input clock error, PLLI input clock is too fast, setting PLLI intput clock slower than 8MHz.'
             #endif
         #endif
     #endif
@@ -273,15 +274,15 @@ extern uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
                 #elif CONF_CSC_PLLI_SEL == 0x00000002
                     #if CONF_CSC_HS2_SEL == 0x00000000
                         #if CONF_CSC_CR0_IHRCO_EN == 0x00000000         // CK_IHRCO enable check
-                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_IHRCO, but CK_IHRCO is not enabling.
+                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_IHRCO, but CK_IHRCO is not enabling..
                         #endif
                     #elif CONF_CSC_HS2_SEL == 0x00001000
                         #if CONF_CFG_XOSC_EN == 0x00000000
-                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_XOSC, but CK_XOSC is not enabling.
+                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_XOSC, but CK_XOSC is not enabling..
                         #endif
                     #elif CONF_CSC_HS2_SEL == 0x00003000
                         #if CONF_CFG_EXTCK_EN == 0x00000000
-                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_EXT, but CK_EXT is not enabling.
+                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_EXT, but CK_EXT is not enabling..
                         #endif
                     #endif
                 #endif                                                  // PLLI_SEL select end
@@ -322,15 +323,15 @@ extern uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
                 #elif CONF_CSC_PLLI_SEL == 0x00000002
                     #if CONF_CSC_HS2_SEL == 0x00000000
                         #if CONF_CSC_CR0_IHRCO_EN == 0x00000000         // CK_IHRCO enable check
-                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_IHRCO, but CK_IHRCO is not enabling.
+                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_IHRCO, but CK_IHRCO is not enabling..
                         #endif
                     #elif CONF_CSC_HS2_SEL == 0x00001000
                         #if CONF_CFG_XOSC_EN == 0x00000000
-                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_XOSC, but CK_XOSC is not enabling.
+                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_XOSC, but CK_XOSC is not enabling..
                         #endif
                     #elif CONF_CSC_HS2_SEL == 0x00003000
                         #if CONF_CFG_EXTCK_EN == 0x00000000
-                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_EXT, but CK_EXT is not enabling.
+                            #error CK_MAIN clock is from CK_PLLI and CK_PLLI clock from CK_EXT, but CK_EXT is not enabling..
                         #endif
                     #endif
                 #endif                                                  // PLLI_SEL select end
@@ -353,7 +354,7 @@ extern uint32_t SystemCoreClock;  /*!< System Clock Frequency (Core Clock)*/
 /**
  * @name Check USB Input Clock
  */
-#if defined(USB_TYPE)
+#if USB_DEVICE
     #if CONF_CSC_USB_EN == 0x10000000           /*!< USB Clock Enable Check    */
 
 //        #define CONF_PLL_MULX   CONF_CSC_PLL_MUL_VAL
@@ -414,7 +415,7 @@ void CSC_EXTCK_Enable(void);
  * @brief           IHRCO Module Enable.
  * @details  
  * @param[in]       CSC_CFG:
- * @arg\b           Use keil wizard define table index.
+ * @arg\b           Use keil wizard define table index..
  * @return
  * @note
  * @par             Example
@@ -456,7 +457,7 @@ void CSC_IHRCO_Enable(const uint32_t *CSC_CFG)
  * @brief           XOSC Module Enable.
  * @details  
  * @param[in]       CSC_CFG:
- * @arg\b           Use keil wizard define table index.
+ * @arg\b           Use keil wizard define table index..
  * @return
  * @note            PC13, XIN, analog input
  *                  PC14, XOUT, analog input
@@ -506,7 +507,7 @@ void CSC_XOSC_Enable(const uint32_t *CSC_CFG)
  * @brief           EXTCK Module Enable.
  * @details  
  * @param[in]       CSC_CFG:
- * @arg\b           Use keil wizard define table index.
+ * @arg\b           Use keil wizard define table index..
  * @return
  * @note            PC13, GPIO, digital input
  *                  PC14, GPIO, analog input
@@ -530,7 +531,7 @@ void CSC_EXTCK_Enable(void)
  * @brief  	    initialized CSC module.
  * @details  
  * @param[in]   CSC_CFG:
- * 	@arg\b			Use keil wizard define table index.
+ * 	@arg\b			Use keil wizard define table index..
  * @return	    	
  * @note
  * @par         Example
@@ -550,15 +551,12 @@ void CSC_Init (void)
     uint8_t REG;
 #endif
     
-    SYS->INT.MBIT.IEA = 1;
-    
     CSC_SET.PLL.W = CSC_InitConfig[2];         // Reload config data
     CSC_SET.CR0.W = CSC_InitConfig[4];
     CSC_SET.DIV.W = CSC_InitConfig[5];
     
     // Flash waite state setting
     MEM->KEY.MBIT.KEY = 0xA217;
-    MEM->CR0.MBIT.HSP_EN = 1;
 #if defined(MG32_3RD) || defined(MG32_4TH)
     MEM->CR0.W = (MEM->CR0.W & (~MEM_CR0_FWAIT_mask_w)) | (CSC_InitConfig[19] | MEM_CR0_FWAIT_one_w);
 #else
@@ -574,9 +572,6 @@ void CSC_Init (void)
     CSC->PLL.W = CSC_SET.PLL.W;
     // Missing clock detect select 125us/ 250us/ 500us/ 1ms.
     CSC->CR0.MBIT.MCD_SEL = CSC_SET.CR0.MBIT.MCD_SEL;
-    
-    // CSC Interrupt Configure
-    CSC->INT.W = CSC_InitConfig[1];
     
     // Missing clock detect control.
     // When XOSC gain is lowest or normal low gain, will disable "miss clock detect".
@@ -768,7 +763,7 @@ void CSC_Init (void)
     }
     
 // USB device check, if USB APB0 enable will enable PLL function.
-#if defined(USB_TYPE)
+#if USB_DEVICE
     if((CSC_InitConfig[8] & CSC_APB0_USB_EN_enable_w)==CSC_APB0_USB_EN_enable_w)
     {
         // Enable PLL function
@@ -817,6 +812,7 @@ void CSC_Init (void)
 #endif
     
     // Configure ICKO function
+    CSC->INT.W = CSC_InitConfig[1];
     CSC->CKO.W = CSC_InitConfig[6];
     
     // Configure peripheral clock 

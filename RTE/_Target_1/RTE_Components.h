@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'OneWire' 
+ * Project: 'TMC' 
  * Target:  'Target 1' 
  */
 

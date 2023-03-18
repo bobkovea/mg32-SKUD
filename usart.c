@@ -79,7 +79,7 @@ void USART_Config()
     uint8_t BST_SOL, OVSMP, REM;    
     //==========================================
     //URT_BAUDRATE
-    Tmp = F_CPU / URT_BAUDRATE;
+    Tmp = CONF_CK_APB_FREQ / URT_BAUDRATE;
     if(Tmp < 8)
     {
         return;

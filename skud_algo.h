@@ -1,30 +1,41 @@
 #ifndef SKUD_ALGO_H
 #define SKUD_ALGO_H
 #include "stdint.h"
+
+	
 // текущее состояние записывается во флеш (если это связано с тревогой)
 
 #define eNoEvent 0xFF
 #define sInitialState 0xFF
 
+#define MAX_EVENTS_NUM 5
+
 // s - state
 typedef enum 
 {
 	sDoorIsClosed = 0,
-	sDoorIsOpenedAlarmOn,
-	sDoorIsOpenedAlarmOff,
-	sKeyReadingSuspended,
+	sDoorIsOpenedAlarmOn = 1,
+	sDoorIsOpenedAlarmOff = 2,
+	sKeyReadingSuspended = 3,
 } States_t; 
 
 // e - event
 typedef enum 
 {
 	eDoorOpened = 0,
-	eEnteredValidKey,
-	eEnteredInvalidKey,
-	eIndicationEnded,
-	eAlarmTimeout,
-	eDoorClosed,
+	eEnteredValidKey = 1,
+	eEnteredInvalidKey = 2,
+	eIndicationEnded = 3,
+	eAlarmTimeout = 4,
+	eDoorClosed = 5,
 } Events_t;
+
+typedef struct {
+	Events_t qu[MAX_EVENTS_NUM];
+	uint8_t front;
+	uint8_t rear;
+} Events_queue_t;
+
 
 typedef void (*TransitionCallback_t)(States_t state, Events_t event);
 
@@ -66,8 +77,6 @@ extern uint32_t indicTimeCnt;
 extern uint32_t indicTimeMax;
 extern uint8_t indicSpeed;
 extern uint8_t onlyLed;
-
-extern uint8_t gerkonState;
 
 // перерыв в индикации до смены на другой тип индикации
 #define INDIC_WAIT_MAX 2 // 200 мс
