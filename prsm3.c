@@ -249,7 +249,7 @@ void PRSM3_ParseReadRequest(void)
     }
 }
 
-void PRSM3_EventResponse(Event_t *event)
+void PRSM3_EventResponse(MainEvent_t *event)
 {
 	RecBytes[SCODE_POS] 			 = event->eventNum;
 	RecBytes[EVENT_STATUS_POS] 		 = event->status << 7 |

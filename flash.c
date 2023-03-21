@@ -10,8 +10,6 @@ flash_block_t fpage;
 
 #include "md5.h"
 
-
-
 void FlashTestFill(void)
 {
 	MD5_MakeHash(key1, KEY_RAW_SIZE, KeyEncrypted);

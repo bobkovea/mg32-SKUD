@@ -27,17 +27,17 @@ uint8_t isEmpty()
 	return (eBuffer.readOffset == eBuffer.writeOffset);
 }
 
-Events_t getEvent()
+uint8_t getEvent()
 {
 	if (!isEmpty())
 	{
-		Events_t data = eBuffer.buf[eBuffer.readOffset];
+		uint8_t data = eBuffer.buf[eBuffer.readOffset];
 		eBuffer.readOffset = getNextRead();
 		return data;
 	}
 	else
 	{
-		return 0;
+		return eNoEvent;
 	}
 }
 

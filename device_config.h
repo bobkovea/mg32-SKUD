@@ -9,7 +9,4 @@
 #define URT_BAUDRATE 19200UL
 //#define URT_BAUDRATE 38400UL
 
-/* Выбор частоты тактирования МК */
-#define F_CPU 8000000UL // todo: привязать к текущей частоты CSC
-
 #endif // DEVICE_CONFIG_H

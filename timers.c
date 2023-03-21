@@ -1,12 +1,5 @@
 #include "timers.h"
 
-volatile uint8_t gerkonStateFilter = 0;
-volatile uint8_t gerkonStateFilterMax = 20;
-volatile uint8_t oldGerkonState = 0;
-volatile uint8_t gerkonState = 0;
-
-volatile uint8_t alarmTimeoutCnt = 0;
-volatile uint32_t alarmTimeoutMax = 20;
 
 // T = 5 ms
 void TIM00_Callback (void) // TM_PRSM_RESET
@@ -34,12 +27,14 @@ void TIM00_Callback (void) // TM_PRSM_RESET
 	if (oldGerkonState == 0 && gerkonState == 1)
 	{
 		oldGerkonState = gerkonState;
-		currentEvent = eDoorOpened;	
+		putEvent(eDoorOpened);
+//		currentEvent = eDoorOpened;	
 	}
 	else if (oldGerkonState == 1 && gerkonState == 0)
 	{
 		oldGerkonState = gerkonState;
-		currentEvent = eDoorClosed;	
+		putEvent(eDoorClosed);
+//		currentEvent = eDoorClosed;	
 	}
 	
 	// Каждый новый байт сбрасывает счетчик usUsart в 1
@@ -71,7 +66,8 @@ void TIM10_Callback (void)
 	else
 	{
 		alarmTimeoutCnt = 0;
-		currentEvent = eAlarmTimeout;
+		putEvent(eAlarmTimeout);
+//		currentEvent = eAlarmTimeout;
 	}
 }
 
@@ -85,9 +81,13 @@ void TIM16_Callback (void)
 		TM_Timer_Cmd(TM_READ_KEY, DISABLE);
 		
 		if (IsKeyActive())
-			currentEvent = eEnteredValidKey;
+			putEvent(eEnteredValidKey);
 		else
-			currentEvent = eEnteredInvalidKey;
+			putEvent(eEnteredInvalidKey);
+		
+//			currentEvent = eEnteredValidKey;
+//		else
+//			currentEvent = eEnteredInvalidKey;
 	}
 }
 
@@ -106,7 +106,8 @@ void TIM36_Callback (void)
 		BUZZER_OFF();
 		STALED_OFF();
 		TM_Timer_Cmd(TM_INDICATION, DISABLE);
-		currentEvent = eIndicationEnded; // в обработчике мб CNT.W = 0, не выключать таймер
+		putEvent(eIndicationEnded);
+//		currentEvent = eIndicationEnded; // в обработчике мб CNT.W = 0, не выключать таймер
 		return;
 	}
 	

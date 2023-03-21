@@ -1,25 +1,26 @@
 #ifndef EVENTS_H
 #define EVENTS_H
-#include "MG32x02z__Common_DRV.h"
+#include "stdint.h"
 #include "packages.h"
+#include "keys.h"
 
 #define EVENT_COUNT 3
 
 typedef struct
 {
-	uint8_t eventNum;
-	uint8_t repetitionCount;
-	uint8_t status;
-	uint8_t time;
-	uint16_t keyIndex;
-} Event_t;
+	uint8_t eventNum; // идентификатор события
+	uint8_t repetitionCount; // количество повторений события
+	uint8_t status; // актуальный/неактуальный
+	uint8_t time; // время
+	uint16_t keyIndex; // индекс снявшего сигнализацию ключа (для соотв. события)
+} MainEvent_t;
 
-extern Event_t eventDoor;
-extern Event_t eventAccess;
-extern Event_t eventAlarm;
+extern volatile MainEvent_t eventDoor;
+extern volatile MainEvent_t eventAccess;
+extern volatile MainEvent_t eventAlarm;
 
-extern Event_t *events[3];
-	
+extern volatile MainEvent_t *events[3];
+
 
 
 

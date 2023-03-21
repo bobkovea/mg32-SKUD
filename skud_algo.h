@@ -1,10 +1,9 @@
 #ifndef SKUD_ALGO_H
 #define SKUD_ALGO_H
 #include "stdint.h"
-
+#include "buffer.h"
 	
 // текущее состояние записывается во флеш (если это связано с тревогой)
-
 #define eNoEvent 0xFF
 #define sInitialState 0xFF
 
@@ -17,7 +16,7 @@ typedef enum
 	sDoorIsOpenedAlarmOn = 1,
 	sDoorIsOpenedAlarmOff = 2,
 	sKeyReadingSuspended = 3,
-} States_t; 
+} State_t; 
 
 // e - event
 typedef enum 
@@ -28,35 +27,28 @@ typedef enum
 	eIndicationEnded = 3,
 	eAlarmTimeout = 4,
 	eDoorClosed = 5,
-} Events_t;
+} Event_t;
 
-typedef struct {
-	Events_t qu[MAX_EVENTS_NUM];
-	uint8_t front;
-	uint8_t rear;
-} Events_queue_t;
-
-
-typedef void (*TransitionCallback_t)(States_t state, Events_t event);
+typedef void (*TransitionCallback_t)(State_t state, Event_t event);
 
 typedef struct
 {
-    States_t newState;
+    State_t newState;
     TransitionCallback_t worker;
 } Transition_t;
 
-extern States_t currentState;
-extern Events_t currentEvent;
-extern Events_t newEvent;
+extern State_t currentState;
+extern Event_t currentEvent;
+extern Event_t newEvent;
 
 
 // h - handler
-void hDoorOpened(States_t state, Events_t event);
-void hEnteredValidKey(States_t state, Events_t event);
-void hEnteredInvalidKey(States_t state, Events_t event);
-void hAlarmTimeout(States_t state, Events_t event);
-void hKeyReadingResumed(States_t state, Events_t event);
-void hDoorClosed(States_t state, Events_t event);
+void hDoorOpened(State_t state, Event_t event);
+void hEnteredValidKey(State_t state, Event_t event);
+void hEnteredInvalidKey(State_t state, Event_t event);
+void hAlarmTimeout(State_t state, Event_t event);
+void hKeyReadingResumed(State_t state, Event_t event);
+void hDoorClosed(State_t state, Event_t event);
 
 void HandleEvent();
 
@@ -71,12 +63,20 @@ typedef enum
 void IndicationStart(Indication_t indicType);
 void IndicationStop();
 
-extern uint8_t indicWaitCnt;
-extern uint8_t indicWaitMax;
-extern uint32_t indicTimeCnt;
-extern uint32_t indicTimeMax;
-extern uint8_t indicSpeed;
-extern uint8_t onlyLed;
+extern volatile uint8_t indicWaitCnt;
+extern volatile uint8_t indicWaitMax;
+extern volatile uint32_t indicTimeCnt;
+extern volatile uint32_t indicTimeMax;
+extern volatile uint8_t indicSpeed;
+extern volatile uint8_t onlyLed;
+
+extern volatile uint32_t alarmTimeoutCnt;
+extern volatile uint32_t alarmTimeoutMax;
+
+extern volatile uint8_t gerkonStateFilter;
+extern volatile uint8_t gerkonStateFilterMax;
+extern volatile uint8_t oldGerkonState;
+extern volatile uint8_t gerkonState;
 
 // перерыв в индикации до смены на другой тип индикации
 #define INDIC_WAIT_MAX 2 // 200 мс
@@ -94,6 +94,8 @@ extern uint8_t onlyLed;
 #define INDIC_CNT_ALARM UINT32_MAX
 #define INDIC_CNT_VALID_KEY (INDIC_PEECNT_VALID_KEY * INDIC_SPEED_VALID_KEY * 2)
 #define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
+
+#define ALARM_TIMEOUT_MAX 20
 
 uint8_t IsKeyActive(void);
 

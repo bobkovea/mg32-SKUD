@@ -4,44 +4,21 @@
 #include "timers.h"
 #include "md5.h"
 
-States_t currentState = sDoorIsClosed;
-Events_t currentEvent = eNoEvent;
-Events_t newEvent = eNoEvent;
-uint8_t indicWaitCnt;
-uint8_t indicWaitMax = INDIC_WAIT_MAX;
-uint32_t indicTimeCnt;
-uint32_t indicTimeMax;
-uint8_t indicSpeed;
-uint8_t onlyLed;
+State_t currentState = sDoorIsClosed;
+volatile uint8_t indicWaitCnt = 0;
+volatile uint8_t indicWaitMax = INDIC_WAIT_MAX;
+volatile uint32_t indicTimeCnt = 1;
+volatile uint32_t indicTimeMax = INDIC_CNT_ALARM;
+volatile uint8_t indicSpeed = INDIC_SPEED_ALARM;
+volatile uint8_t onlyLed = 0;
 
+volatile uint32_t alarmTimeoutCnt = 0;
+volatile uint32_t alarmTimeoutMax = ALARM_TIMEOUT_MAX;
 
-Events_queue_t eQueue = 
-{
-	.front = 1,
-	.rear = 0
-};
-
-void PushEvent(Events_t newEvent)
-{
-	if(eQueue.rear < MAX_EVENTS_NUM - 1)
-	{
-		eQueue.rear++;
-		eQueue.qu[eQueue.rear] = newEvent;
-	}
-}
-
-Events_t PopEvent()
-{
-	Events_t x = eQueue.qu[eQueue.front];
-	for(uint8_t i = eQueue.front; i < eQueue.rear; i++)
-	{
-		eQueue.qu[i] = eQueue.qu[i + 1];
-	}
-	eQueue.rear--;
-	return x;
-}
-
-
+volatile uint8_t gerkonStateFilter = 0;
+volatile uint8_t gerkonStateFilterMax = 20;
+volatile uint8_t oldGerkonState = 0;
+volatile uint8_t gerkonState = 0;
 
 void IndicationStart(Indication_t indicType)
 {
@@ -93,45 +70,46 @@ void IndicationStop()
 };
 
 // h - handler
-void hDoorOpened(States_t state, Events_t event)
+void hDoorOpened(State_t state, Event_t event)
 {
 	TM_Timer_Cmd(TM_ALARM_TIMEOUT, ENABLE); 
 	TM_Timer_Cmd(TM_READ_KEY, ENABLE); 
 	IndicationStart(AlarmCommon);
 };
 
-void hEnteredValidKey(States_t state, Events_t event)
+void hEnteredValidKey(State_t state, Event_t event)
 {
+	TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
+	alarmTimeoutCnt = 0;
 	IndicationStart(ValidKey);
 };
 
-void hEnteredInvalidKey(States_t state, Events_t event)
+void hEnteredInvalidKey(State_t state, Event_t event)
 {
 	IndicationStart(InvalidKey);
 };
 
-void hAlarmTimeout(States_t state, Events_t event)
+void hAlarmTimeout(State_t state, Event_t event)
 {
+	eventAlarm.repetitionCount++;
+	
 	// устанавливаем факт тревоги (во флеш)
 	// готовимся отправить посылку о тревоге
-	
 	// отключаем счет времени до тревоги
 	TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
 };
 
-void hKeyReadingResumed(States_t state, Events_t event)
+void hKeyReadingResumed(State_t state, Event_t event)
 {
 	TM_Timer_Cmd(TM_READ_KEY, ENABLE);
 	IndicationStart(AlarmCommon);
 };
 
-void hDoorClosed(States_t state, Events_t event)
-{	
+void hDoorClosed(State_t state, Event_t event)
+{
 	TM_Timer_Cmd(TM_READ_KEY, DISABLE); 
 	IndicationStop();
 };
-
-
 
 // таблица состояний - FSMTable[кол-во состояний][кол-во событий]
 Transition_t FSMTable[4][6] =
@@ -144,7 +122,7 @@ Transition_t FSMTable[4][6] =
 	[sDoorIsClosed][eDoorClosed] 				= { sDoorIsClosed,  0 },
 	
 	[sDoorIsOpenedAlarmOn][eDoorOpened] 		= { sDoorIsOpenedAlarmOn, 0 },
-	[sDoorIsOpenedAlarmOn][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, hEnteredValidKey },
+	[sDoorIsOpenedAlarmOn][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, hEnteredValidKey }, 
 	[sDoorIsOpenedAlarmOn][eEnteredInvalidKey] 	= { sKeyReadingSuspended, hEnteredInvalidKey },
 	[sDoorIsOpenedAlarmOn][eIndicationEnded] 	= { sDoorIsOpenedAlarmOn, 0 },
 	[sDoorIsOpenedAlarmOn][eAlarmTimeout] 		= { sDoorIsOpenedAlarmOn, hAlarmTimeout }, 
@@ -170,34 +148,30 @@ Transition_t FSMTable[4][6] =
 
 void HandleEvent()
 {
-	
-	
-	// проверяем не пришло ли какое-то событие
-	if (currentEvent != eNoEvent)
+	Event_t newEvent = getEvent();
+	if (newEvent != eNoEvent)
 	{
 		URT_PrintString("Event: ");
-		URT_Write(currentEvent + '0');
+		URT_Write(newEvent + '0');
 		URT_PrintString("\r\n");
 		URT_PrintString("CurState: ");
 		URT_Write(currentState + '0');
 		URT_PrintString("\r\n");
 		
 		// реакция на событие в зависимости от текущего состояния
-		TransitionCallback_t worker = FSMTable[currentState][currentEvent].worker;
+		TransitionCallback_t worker = FSMTable[currentState][newEvent].worker;
 		if (worker)
 		{
 			worker(currentState, newEvent);
 		}
 		
-		currentState = FSMTable[currentState][currentEvent].newState; // переходим в новое состояние
-		currentEvent = eNoEvent; // сбрасываем событие
+		currentState = FSMTable[currentState][newEvent].newState; // переходим в новое состояние
 		
 		URT_PrintString("NewState: ");
 		URT_Write(currentState + '0');
 		URT_PrintString("\r\n");
 		URT_PrintString("*********");
 		URT_PrintString("\r\n");
-		
 	}
 }
 
@@ -211,7 +185,6 @@ uint8_t IsKeyActive(void)
     {
 		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
 		{
-			
 			//if(IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyRaw, KEY_RAW_SIZE))
 			if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyEncrypted, KEY_ENCRYPTED_SIZE))
 			{

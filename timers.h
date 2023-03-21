@@ -16,7 +16,7 @@
 #define TM_READ_KEY TM16
 #define TM_INDICATION TM36
 
-// для F_CPU = 8МГц
+// для F_CPU = 8 МГц
 
 #define TM_PRSM_RESET_PERIOD 250u // раз 5 мс
 #define TM_PRSM_RESET_PRESCALER 160
