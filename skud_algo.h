@@ -48,8 +48,8 @@ void hEnteredValidKey(State_t state, Event_t event);
 void hEnteredInvalidKey(State_t state, Event_t event);
 void hAlarmTimeout(State_t state, Event_t event);
 void hKeyReadingResumed(State_t state, Event_t event);
-void hDoorClosed(State_t state, Event_t event);
-
+void hDoorClosedAlarmOn(State_t state, Event_t event);
+void hDoorClosedAlarmOff(State_t state, Event_t event);
 void HandleEvent();
 
 typedef enum

@@ -21,18 +21,18 @@ int main()
 	GPIO_Config(); 
 	TIM_Config();
 	USART_Config();
-	WDT_Config();
+	WDT_Config(); 
 	
 	URT_Cmd(URTX, ENABLE); // включаем UART0
  
 	TM_Timer_Cmd(TM_PRSM_RESET, ENABLE);  
-	
 	__enable_irq();
 
+	// RS485_CONFIG_RECEIVE();
 	RS485_CONFIG_TRANSMIT();
-
+	
     while(1) 
-	{ 
+	{
 		HandleEvent();
 		wdt_reset();
     }

@@ -6,9 +6,13 @@ uint8_t DS1990A_GetKeyID (void)
 	uint8_t Presence = OneWire_Start();
 	if (Presence) 
 	{
+		
 		OneWire_Write(ONEWIRE_READROM); 
+		
 		for (uint8_t i = 0; i < KEY_RAW_SIZE; i++)
+		{
 			KeyRaw[i] = OneWire_Read();
+		}
 
 		if (KeyRaw[0] != 0x01)
 			return NO_KEY;

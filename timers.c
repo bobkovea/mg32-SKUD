@@ -6,14 +6,14 @@ void TIM00_Callback (void) // TM_PRSM_RESET
 {
 	// Попробовать TM10->CNT.W = 0 и вкл/выкл
 	
-	// фильтр
+	// возможно изменить на проверки
 	
-	if (GERKON_PIN == 0)
+	if (GERKON_PIN == 0) // если дверь открылась
 	{
 		if (gerkonStateFilter < gerkonStateFilterMax)
 			++gerkonStateFilter;
 		else 
-			gerkonState = 1;	
+			gerkonState = 1; 
 	}
 	else
 	{
@@ -71,7 +71,6 @@ void TIM10_Callback (void)
 	}
 }
 
-
 // T = 100 ms
 // TM_READ_KEY
 void TIM16_Callback (void)
@@ -79,7 +78,7 @@ void TIM16_Callback (void)
 	if (DS1990A_GetKeyID() == KEY_ON_LINE)  
 	{
 		TM_Timer_Cmd(TM_READ_KEY, DISABLE);
-		
+
 		if (IsKeyActive())
 			putEvent(eEnteredValidKey);
 		else
@@ -94,7 +93,6 @@ void TIM16_Callback (void)
 // T = 100 ms
 void TIM36_Callback (void)
 {
-	// Проверки для бесконечного alarmCommon нет из-за огромности UINT32_MAX
 	if (indicWaitCnt < indicWaitMax)
 	{
 		++indicWaitCnt;
@@ -107,7 +105,7 @@ void TIM36_Callback (void)
 		STALED_OFF();
 		TM_Timer_Cmd(TM_INDICATION, DISABLE);
 		putEvent(eIndicationEnded);
-//		currentEvent = eIndicationEnded; // в обработчике мб CNT.W = 0, не выключать таймер
+//		currentEvent = eIndicationEnded; 
 		return;
 	}
 	
@@ -115,7 +113,7 @@ void TIM36_Callback (void)
 	{
 		if (onlyLed == 0) 
 		{
-			//BACKL_PIN = !BACKL_PIN; // изначально = 0
+			BACKL_PIN = !BACKL_PIN; // изначально = 0
 		}
 		STALED_PIN = !STALED_PIN;
 	}

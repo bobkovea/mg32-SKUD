@@ -22,18 +22,16 @@ volatile uint8_t gerkonState = 0;
 
 void IndicationStart(Indication_t indicType)
 {
-//	TM36->CNT.W = 0;
 	BUZZER_OFF();
 	STALED_OFF();
 	indicTimeCnt = 1;
 	indicWaitCnt = 0;
-
+	onlyLed = 0;
 	switch ((uint8_t)indicType)
 	{
 		case AlarmCommon:
 			indicSpeed = INDIC_SPEED_ALARM;
 			indicTimeMax = INDIC_CNT_ALARM;
-
 			break;
 		
 		case ValidKey:
@@ -105,50 +103,61 @@ void hKeyReadingResumed(State_t state, Event_t event)
 	IndicationStart(AlarmCommon);
 };
 
-void hDoorClosed(State_t state, Event_t event)
+void hDoorClosedAlarmOff(State_t state, Event_t event)
 {
 	TM_Timer_Cmd(TM_READ_KEY, DISABLE); 
 	IndicationStop();
 };
 
+void hDoorClosedAlarmOn(State_t state, Event_t event)
+{
+	TM_Timer_Cmd(TM_READ_KEY, DISABLE); 
+	BUZZER_OFF();
+	onlyLed = 1;
+//	
+//	IndicationStart(OnlyLED);
+};
+
+
 // таблица состояний - FSMTable[кол-во состояний][кол-во событий]
 Transition_t FSMTable[4][6] =
 {
-    [sDoorIsClosed][eDoorOpened] 				= { sDoorIsOpenedAlarmOn, hDoorOpened },
-	[sDoorIsClosed][eEnteredValidKey] 			= {	sDoorIsClosed,  0 },
-	[sDoorIsClosed][eEnteredInvalidKey] 		= { sDoorIsClosed,  0 },
-	[sDoorIsClosed][eIndicationEnded] 			= { sDoorIsClosed,  0 },
-	[sDoorIsClosed][eAlarmTimeout] 				= { sDoorIsClosed,  hAlarmTimeout },
-	[sDoorIsClosed][eDoorClosed] 				= { sDoorIsClosed,  0 },
+    [sDoorIsClosed][eDoorOpened] 				= { sDoorIsOpenedAlarmOn, hDoorOpened }, // дверь открыли
+	[sDoorIsClosed][eEnteredValidKey] 			= {	sDoorIsClosed,  NULL },
+	[sDoorIsClosed][eEnteredInvalidKey] 		= { sDoorIsClosed,  NULL },
+	[sDoorIsClosed][eIndicationEnded] 			= { sDoorIsClosed,  NULL },
+	[sDoorIsClosed][eAlarmTimeout] 				= { sDoorIsClosed,  hAlarmTimeout }, // истек таймаут ввода ключа после закрытия двери
+	[sDoorIsClosed][eDoorClosed] 				= { sDoorIsClosed,  NULL },
 	
-	[sDoorIsOpenedAlarmOn][eDoorOpened] 		= { sDoorIsOpenedAlarmOn, 0 },
-	[sDoorIsOpenedAlarmOn][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, hEnteredValidKey }, 
-	[sDoorIsOpenedAlarmOn][eEnteredInvalidKey] 	= { sKeyReadingSuspended, hEnteredInvalidKey },
-	[sDoorIsOpenedAlarmOn][eIndicationEnded] 	= { sDoorIsOpenedAlarmOn, 0 },
-	[sDoorIsOpenedAlarmOn][eAlarmTimeout] 		= { sDoorIsOpenedAlarmOn, hAlarmTimeout }, 
-	[sDoorIsOpenedAlarmOn][eDoorClosed] 		= { sDoorIsClosed, hDoorClosed },
+	[sDoorIsOpenedAlarmOn][eDoorOpened] 		= { sDoorIsOpenedAlarmOn, NULL },
+	[sDoorIsOpenedAlarmOn][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, hEnteredValidKey }, // введен верный ключ 
+	[sDoorIsOpenedAlarmOn][eEnteredInvalidKey] 	= { sKeyReadingSuspended, hEnteredInvalidKey }, // введен неверный ключ
+	[sDoorIsOpenedAlarmOn][eIndicationEnded] 	= { sDoorIsOpenedAlarmOn, NULL },
+	[sDoorIsOpenedAlarmOn][eAlarmTimeout] 		= { sDoorIsOpenedAlarmOn, hAlarmTimeout }, // истек таймаут ввода ключа
+	[sDoorIsOpenedAlarmOn][eDoorClosed] 		= { sDoorIsClosed, hDoorClosedAlarmOn }, // дверь закрыли, не введя ключ
 	
-	[sKeyReadingSuspended][eDoorOpened] 		= { sKeyReadingSuspended, 0 },
-	[sKeyReadingSuspended][eEnteredValidKey] 	= { sKeyReadingSuspended, 0 },
-	[sKeyReadingSuspended][eEnteredInvalidKey] 	= { sKeyReadingSuspended, 0 },
-	[sKeyReadingSuspended][eIndicationEnded] 	= { sDoorIsOpenedAlarmOn, hKeyReadingResumed },
-	[sKeyReadingSuspended][eAlarmTimeout] 		= { sKeyReadingSuspended, 0 },
-	[sKeyReadingSuspended][eDoorClosed] 		= { sKeyReadingSuspended, 0 },
+	[sKeyReadingSuspended][eDoorOpened] 		= { sKeyReadingSuspended, NULL },
+	[sKeyReadingSuspended][eEnteredValidKey] 	= { sKeyReadingSuspended, NULL },
+	[sKeyReadingSuspended][eEnteredInvalidKey] 	= { sKeyReadingSuspended, NULL }, 
+	[sKeyReadingSuspended][eIndicationEnded] 	= { sDoorIsOpenedAlarmOn, hKeyReadingResumed }, // разрешаем повторное чтение ключа
+	[sKeyReadingSuspended][eAlarmTimeout] 		= { sKeyReadingSuspended, hAlarmTimeout }, // таймаут истек во время индикации ввода ключа
+	[sKeyReadingSuspended][eDoorClosed] 		= { sDoorIsClosed, hDoorClosedAlarmOn }, // закрыли шкаф во время индикации ввода ключа
 	
-	[sDoorIsOpenedAlarmOff][eDoorOpened] 		= { sDoorIsOpenedAlarmOff, 0 },
-	[sDoorIsOpenedAlarmOff][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, 0 },
-	[sDoorIsOpenedAlarmOff][eEnteredInvalidKey] = { sDoorIsOpenedAlarmOff, 0 },
-	[sDoorIsOpenedAlarmOff][eIndicationEnded] 	= { sDoorIsOpenedAlarmOff, 0 },
-	[sDoorIsOpenedAlarmOff][eAlarmTimeout] 		= { sDoorIsOpenedAlarmOff, 0 },
-	[sDoorIsOpenedAlarmOff][eDoorClosed] 		= { sDoorIsClosed, hDoorClosed },
+	[sDoorIsOpenedAlarmOff][eDoorOpened] 		= { sDoorIsOpenedAlarmOff, NULL },
+	[sDoorIsOpenedAlarmOff][eEnteredValidKey] 	= { sDoorIsOpenedAlarmOff, NULL },
+	[sDoorIsOpenedAlarmOff][eEnteredInvalidKey] = { sDoorIsOpenedAlarmOff, NULL },
+	[sDoorIsOpenedAlarmOff][eIndicationEnded] 	= { sDoorIsOpenedAlarmOff, NULL },
+	[sDoorIsOpenedAlarmOff][eAlarmTimeout] 		= { sDoorIsOpenedAlarmOff, NULL },
+	[sDoorIsOpenedAlarmOff][eDoorClosed] 		= { sDoorIsClosed, hDoorClosedAlarmOff }, // закрыли дверь после ввода верного ключа
+	
+	// сделать чтобы не сразу ставилась сигналка после закрытия двери
 };
 
-// что сделать с лучае, если события произошли почти одновременно, не успев обработаться? 
-// очередь событий? скорее игнорировать опоздавшего? мб это не страшно, если вся таблица переходов будет прописана
+// буфер событий предотвращает потерю информации о переходе к другому состоянию 
 
 void HandleEvent()
 {
-	Event_t newEvent = getEvent();
+	Event_t newEvent = getEvent(); // получаем новый ивент из буфера
 	if (newEvent != eNoEvent)
 	{
 		URT_PrintString("Event: ");
@@ -194,10 +203,3 @@ uint8_t IsKeyActive(void)
     }
 	return KEY_STATUS_DEACTIVATED;
 }
-
-
-
-
-
-
-

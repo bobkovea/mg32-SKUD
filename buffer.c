@@ -1,6 +1,6 @@
 #include "buffer.h"
 
-RingBuffer_t eBuffer =
+RingBuffer_t eBuf =
 {
 	.size = BUFFER_SIZE,
 	.writeOffset = 0,
@@ -9,43 +9,40 @@ RingBuffer_t eBuffer =
 
 uint8_t getNextWrite()
 {
-	return (eBuffer.writeOffset == (eBuffer.size - 1) ? 0 : eBuffer.writeOffset + 1);
+	return (eBuf.writeOffset == (eBuf.size - 1) ? 0 : eBuf.writeOffset + 1);
 }
 
 uint8_t getNextRead()
 {
-	return (eBuffer.readOffset == (eBuffer.size - 1) ? 0 : eBuffer.readOffset + 1);
+	return (eBuf.readOffset == (eBuf.size - 1) ? 0 : eBuf.readOffset + 1);
 }
 
 uint8_t isFull()
 {
-	return (eBuffer.readOffset == getNextRead());
+	return (eBuf.readOffset == getNextRead());
 }
 
 uint8_t isEmpty()
 {
-	return (eBuffer.readOffset == eBuffer.writeOffset);
+	return (eBuf.readOffset == eBuf.writeOffset);
 }
 
 uint8_t getEvent()
 {
 	if (!isEmpty())
 	{
-		uint8_t data = eBuffer.buf[eBuffer.readOffset];
-		eBuffer.readOffset = getNextRead();
+		uint8_t data = eBuf.buf[eBuf.readOffset];
+		eBuf.readOffset = getNextRead();
 		return data;
 	}
-	else
-	{
-		return eNoEvent;
-	}
+	return eNoEvent;
 }
 
 void putEvent(uint8_t data)
 {
 	if (!isFull())
 	{
-		eBuffer.buf[eBuffer.writeOffset] = data;
-		eBuffer.writeOffset = getNextWrite();
+		eBuf.buf[eBuf.writeOffset] = data;
+		eBuf.writeOffset = getNextWrite();
 	}
 }

@@ -9,11 +9,11 @@ typedef struct
 {
 	uint8_t writeOffset;
     uint8_t readOffset;
-    uint8_t size;
+    const uint8_t size;
     uint8_t buf[BUFFER_SIZE];
 } RingBuffer_t;
 
-extern RingBuffer_t eBuffer;
+extern RingBuffer_t eBuf;
 
 void putEvent(uint8_t data);
 uint8_t getEvent();
