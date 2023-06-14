@@ -111,7 +111,7 @@ void TIM36_Callback (void)
 	
 	if (indicTimeCnt++ % indicSpeed == 0) // indicTimeCnt изначально уже = 1
 	{
-		if (onlyLed == 0) 
+		if (buzzerOn == 1) 
 		{
 			BACKL_PIN = !BACKL_PIN; // изначально = 0
 		}

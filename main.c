@@ -28,8 +28,8 @@ int main()
 	TM_Timer_Cmd(TM_PRSM_RESET, ENABLE);  
 	__enable_irq();
 
-	// RS485_CONFIG_RECEIVE();
-	RS485_CONFIG_TRANSMIT();
+	RS485_CONFIG_RECEIVE();
+	//RS485_CONFIG_TRANSMIT();
 	
     while(1) 
 	{

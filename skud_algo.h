@@ -13,8 +13,8 @@
 typedef enum 
 {
 	sDoorIsClosed = 0,
-	sDoorIsOpenedAlarmOn = 1,
-	sDoorIsOpenedAlarmOff = 2,
+	sDoorIsOpened = 1,
+	sAccessGiven = 2,
 	sKeyReadingSuspended = 3,
 } State_t; 
 
@@ -68,7 +68,7 @@ extern volatile uint8_t indicWaitMax;
 extern volatile uint32_t indicTimeCnt;
 extern volatile uint32_t indicTimeMax;
 extern volatile uint8_t indicSpeed;
-extern volatile uint8_t onlyLed;
+extern volatile uint8_t buzzerOn;
 
 extern volatile uint32_t alarmTimeoutCnt;
 extern volatile uint32_t alarmTimeoutMax;
