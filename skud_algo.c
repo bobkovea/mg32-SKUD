@@ -4,21 +4,26 @@
 #include "timers.h"
 #include "md5.h"
 
-State_t currentState = sDoorIsClosed;
+State_t currentState = sNoAccessSleep;
 volatile uint8_t indicWaitCnt = 0;
 volatile uint8_t indicWaitMax = INDIC_WAIT_MAX;
 volatile uint32_t indicTimeCnt = 1;
 volatile uint32_t indicTimeMax = INDIC_CNT_ALARM;
 volatile uint8_t indicSpeed = INDIC_SPEED_ALARM;
-volatile uint8_t buzzerOn = 1;
+volatile uint8_t buzzerMuted = 0;
+
+volatile uint8_t indicationPhase = 1;
 
 volatile uint32_t alarmTimeoutCnt = 0;
 volatile uint32_t alarmTimeoutMax = ALARM_TIMEOUT_MAX;
 
-volatile uint8_t gerkonStateFilter = 0;
-volatile uint8_t gerkonStateFilterMax = 20;
+volatile uint8_t gerkonFilterCnt = 0;
+volatile uint8_t gerkonFilterMax = 20;
 volatile uint8_t oldGerkonState = 0;
 volatile uint8_t gerkonState = 0;
+
+volatile uint16_t protectionDelayCnt = 0;
+volatile uint16_t protectionDelayMax = 1000; // 5 секунд
 
 void IndicationStart(Indication_t indicType)
 {
@@ -26,7 +31,8 @@ void IndicationStart(Indication_t indicType)
 	STALED_OFF();
 	indicTimeCnt = 1;
 	indicWaitCnt = 0;
-	buzzerOn = 1;
+	indicationPhase = 1;
+	
 	switch ((uint8_t)indicType)
 	{
 		case AlarmCommon:
@@ -43,12 +49,6 @@ void IndicationStart(Indication_t indicType)
 			indicSpeed = INDIC_SPEED_INVALID_KEY;
 			indicTimeMax = INDIC_CNT_INVALID_KEY;
 			break;
-		
-		case OnlyLED: // в AlarmCommon
-			buzzerOn = 0;
-			indicSpeed = INDIC_SPEED_ALARM;
-			indicTimeMax = INDIC_CNT_ALARM;
-			break;
 	
 		default: 
 			return;	
@@ -57,125 +57,81 @@ void IndicationStart(Indication_t indicType)
 	TM_Timer_Cmd(TM_INDICATION, ENABLE);
 }
 
-void BuzzerUnmute()
-{
-	BUZZER_OFF();
-}
-
-void BuzzerMute()
-{
-	BUZZER_ON();
-}
 
 void IndicationStop()
 {
-	// обнуление всяких штук
-	TM_Timer_Cmd(TM_INDICATION, DISABLE);
+//	// обнуление всяких штук
+//	TM_Timer_Cmd(TM_INDICATION, DISABLE);
 	BUZZER_OFF();
 	STALED_OFF();
-	buzzerOn = 1;
+	buzzerMuted = 0;
 	indicTimeCnt = 1;
+	indicationPhase = 1;
 };
 
-// h - handler
-void hDoorOpened(State_t state, Event_t event)
+
+void AlarmCountdownEnable() // -static inline
 {
 	TM_Timer_Cmd(TM_ALARM_TIMEOUT, ENABLE); 
-	TM_Timer_Cmd(TM_READ_KEY, ENABLE); 
-	if (buzzerOn == 0) buzzerOn = 1;
-	else IndicationStart(AlarmCommon);
-};
+}
 
-void hEnteredValidKey(State_t state, Event_t event)
+void AlarmCountdownDisable()
 {
-	TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
+	TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE); 
 	alarmTimeoutCnt = 0;
-	IndicationStart(ValidKey);
-};
+}
 
-void hEnteredInvalidKey(State_t state, Event_t event)
+void ReadingKeyEnable()
 {
-	IndicationStart(InvalidKey);
-};
+	TM_Timer_Cmd(TM_READ_KEY, ENABLE); 
+}
 
-void hAlarmTimeout(State_t state, Event_t event)
-{
-	eventAlarm.repetitionCount++;
-	
-	// устанавливаем факт тревоги (во флеш)
-	// готовимся отправить посылку о тревоге
-	// отключаем счет времени до тревоги
-	TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
-};
-
-void hKeyReadingResumed(State_t state, Event_t event)
-{
-	TM_Timer_Cmd(TM_READ_KEY, ENABLE);
-	IndicationStart(AlarmCommon);
-};
-
-void hDoorClosedAlarmOff(State_t state, Event_t event)
+void ReadingKeyDisable()
 {
 	TM_Timer_Cmd(TM_READ_KEY, DISABLE); 
-	IndicationStop();
+	OneWire_SetDirection(PINX_Mode_Digital_I);  // 1-wire на вход (на всякий случай)
+}
+
+void ProtectionDelayEnable()
+{
+	TM_Timer_Cmd(TM_PROTECTION_DELAY, ENABLE); 
 };
 
-void hDoorClosedAlarmOn(State_t state, Event_t event)
+void MuteBuzzer()
 {
-	TM_Timer_Cmd(TM_READ_KEY, DISABLE); 
+	buzzerMuted = TRUE;
 	BUZZER_OFF();
-	buzzerOn = 0;
-//	
-//	IndicationStart(OnlyLED);
-};
+}
 
-void hProtectionRestored(State_t state, Event_t event)
+void UnmuteBuzzer()
 {
-	oldGerkonState = 1;
-};
+	BACKL_PIN = !indicationPhase;
+	buzzerMuted = FALSE;
+}
 
-// чтобы синъронизировать мигание и пищалку нужно прочитать состояние светодиода
+// h - handler
+/* **************************** */
 
-// [текущее состояние][возникшее событие] 		= { новое состояние, функция-обработчик }
+// чтобы синхронизировать мигание и пищалку нужно прочитать состояние светодиода
 
 void hSleepToWaiting(State_t state, Event_t event)
 {
-	AlarmTimerEnable();
+	AlarmCountdownEnable();
 	ReadingKeyEnable();
-//	TM_Timer_Cmd(TM_ALARM_TIMEOUT, ENABLE); 
-//	TM_Timer_Cmd(TM_READ_KEY, ENABLE); 
 	IndicationStart(AlarmCommon);
 }
 
 void hWaitingToAccess(State_t state, Event_t event)
 {
-//	TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
-//	TM_Timer_Cmd(TM_READ_KEY, DISABLE);
-//	TM_Timer_Cmd(TM_PROTECTION_DELAY, ENABLE);
-	AlarmTimerDisable();
+	AlarmCountdownDisable();
 	ReadingKeyDisable();
-
-
-//	ProtectionDelayEnable();
-
+	ProtectionDelayEnable();
 	IndicationStart(ValidKey);
 }
 
 void hAccessToSleep(State_t state, Event_t event)
 {
-	ProtectionDelayDisable();
-}
-
-void hMuteBuzzer(State_t state, Event_t event)
-{
-	buzzerOn = FALSE;
-	BUZZER_OFF();
-}
-
-void hUnmuteBuzzer(State_t state, Event_t event)
-{
-	BUZZER_PIN = indicationPhase; // развить идею с фазой индикации (зависимость пищания не от состояния пинов, а от состояния переменной - 0/1)
-	buzzerOn = TRUE;
+	oldGerkonState = 0;
 }
 
 // логика разрешения чтения ключей жестко связана с логикой индикации, но здесь это оправдано
@@ -185,12 +141,40 @@ void hReadingKeySuspend(State_t state, Event_t event)
 	IndicationStart(InvalidKey);
 }
 
-void hSendAlarmEvent(State_t state, Event_t event)
-{
-	
+void hReadingKeyResume(State_t state, Event_t event)
+{	
+	if (gerkonState == 1) ReadingKeyEnable();
+	IndicationStart(AlarmCommon);
+
 }
 
-Transition_t FSMTable[3][6] =
+void hDoorClosedNoAccess(State_t state, Event_t event)
+{	
+	ReadingKeyDisable();
+	MuteBuzzer();
+}
+
+void hDoorOpenedNoAccess(State_t state, Event_t event)
+{
+	ReadingKeyEnable();
+	UnmuteBuzzer();
+}
+
+void hSendAlarmEvent(State_t state, Event_t event)
+{
+	URT_Write(0xAD);
+}
+
+void hIndicationStop(State_t state, Event_t event)
+{
+	IndicationStop();
+}
+
+
+// 	таблица состояний - FSMTable[кол-во состояний][кол-во событий] =
+// 	[текущее состояние][возникшее событие] 		= { новое состояние, функция-обработчик }
+
+Transition_t FSMTable[3][7] =
 {
 	[sNoAccessSleep][eDoorOpened] 				= { sNoAccessWaitingKey, hSleepToWaiting },
 	[sNoAccessSleep][eDoorClosed] 				= { sNoAccessSleep, NULL },
@@ -198,59 +182,27 @@ Transition_t FSMTable[3][6] =
 	[sNoAccessSleep][eEnteredInvalidKey] 		= { sNoAccessSleep, NULL },
 	[sNoAccessSleep][eAlarmTimeout] 			= { sNoAccessSleep, NULL },
 	[sNoAccessSleep][eProtectionRestored] 		= { sNoAccessSleep, NULL },
+	[sNoAccessSleep][eIndicationEnded] 			= { sNoAccessSleep, NULL },
 	
-	[sNoAccessWaitingKey][eDoorOpened] 			= { sNoAccessWaitingKey, NULL /*hUnmuteBuzzer*/ },
-	[sNoAccessWaitingKey][eDoorClosed] 			= { sNoAccessWaitingKey, hMuteBuzzer },
+	[sNoAccessWaitingKey][eDoorOpened] 			= { sNoAccessWaitingKey, hDoorOpenedNoAccess },
+	[sNoAccessWaitingKey][eDoorClosed] 			= { sNoAccessWaitingKey, hDoorClosedNoAccess },
 	[sNoAccessWaitingKey][eEnteredValidKey] 	= { sAccessGiven, hWaitingToAccess },
 	[sNoAccessWaitingKey][eEnteredInvalidKey] 	= { sNoAccessWaitingKey, hReadingKeySuspend },
 	[sNoAccessWaitingKey][eAlarmTimeout] 		= { sNoAccessWaitingKey, hSendAlarmEvent },
 	[sNoAccessWaitingKey][eProtectionRestored] 	= { sNoAccessWaitingKey, NULL }, 
+	[sNoAccessWaitingKey][eIndicationEnded] 	= { sNoAccessWaitingKey, hReadingKeyResume },
+	
+	[sAccessGiven][eDoorOpened] 				= { sAccessGiven, NULL },
+	[sAccessGiven][eDoorClosed] 				= { sAccessGiven, NULL },
+	[sAccessGiven][eEnteredValidKey] 			= { sAccessGiven, NULL },
+	[sAccessGiven][eEnteredInvalidKey] 			= { sAccessGiven, NULL },
+	[sAccessGiven][eAlarmTimeout] 				= { sAccessGiven, NULL },
+	[sAccessGiven][eProtectionRestored] 		= { sNoAccessSleep, hAccessToSleep },
+	[sAccessGiven][eIndicationEnded] 			= { sAccessGiven, hIndicationStop }
 	
 	// если один аларм сработал, и дверь после этого закрыта,  то перейти в сон?
 	// если один аларм сработал, и дверь открыта, то состояние не меняем, но ?
-	
-	[sAccessGiven][eDoorOpened] 				= { sNoAccessWaitingKey, NULL },
-	[sAccessGiven][eDoorClosed] 				= { sNoAccessWaitingKey, NULL },
-	[sAccessGiven][eEnteredValidKey] 			= { sAccessGiven, NULL },
-	[sAccessGiven][eEnteredInvalidKey] 			= { sNoAccessWaitingKey, NULL },
-	[sAccessGiven][eAlarmTimeout] 				= { sNoAccessWaitingKey, NULL },
-	[sAccessGiven][eProtectionRestored] 		= { sNoAccessSleep, hAccessToSleep },
-}	
 
-// таблица состояний - FSMTable[кол-во состояний][кол-во событий]
-Transition_t FSMTable[4][7] =
-{
-    [sDoorIsClosed][eDoorOpened] 				= { sDoorIsOpened, hDoorOpened }, // дверь открыли
-	[sDoorIsClosed][eEnteredValidKey] 			= {	sDoorIsClosed,  NULL },
-	[sDoorIsClosed][eEnteredInvalidKey] 		= { sDoorIsClosed,  NULL },
-	[sDoorIsClosed][eIndicationEnded] 			= { sDoorIsClosed,  NULL },
-	[sDoorIsClosed][eAlarmTimeout] 				= { sDoorIsClosed,  hAlarmTimeout }, // истек таймаут ввода ключа после закрытия двери
-	[sDoorIsClosed][eDoorClosed] 				= { sDoorIsClosed,  NULL },
-	
-	[sDoorIsOpened][eDoorOpened] 				= { sDoorIsOpened, NULL },
-	[sDoorIsOpened][eEnteredValidKey] 			= { sAccessGiven, hEnteredValidKey }, // введен верный ключ 
-	[sDoorIsOpened][eEnteredInvalidKey] 		= { sKeyReadingSuspended, hEnteredInvalidKey }, // введен неверный ключ
-	[sDoorIsOpened][eIndicationEnded] 			= { sDoorIsOpened, NULL },
-	[sDoorIsOpened][eAlarmTimeout] 				= { sDoorIsOpened, hAlarmTimeout }, // истек таймаут ввода ключа
-	[sDoorIsOpened][eDoorClosed] 				= { sDoorIsClosed, hDoorClosedAlarmOn }, // дверь закрыли, не введя ключ
-	[sDoorIsOpened][eProtectionRestored] 		= { sDoorIsOpened, NULL }, // дверь закрыли, не введя ключ
-	
-	[sKeyReadingSuspended][eDoorOpened] 		= { sKeyReadingSuspended, NULL },
-	[sKeyReadingSuspended][eEnteredValidKey] 	= { sKeyReadingSuspended, NULL },
-	[sKeyReadingSuspended][eEnteredInvalidKey] 	= { sKeyReadingSuspended, NULL }, 
-	[sKeyReadingSuspended][eIndicationEnded] 	= { sDoorIsOpened, hKeyReadingResumed }, // разрешаем повторное чтение ключа
-	[sKeyReadingSuspended][eAlarmTimeout] 		= { sKeyReadingSuspended, hAlarmTimeout }, // таймаут истек во время индикации ввода ключа
-	[sKeyReadingSuspended][eDoorClosed] 		= { sDoorIsClosed, hDoorClosedAlarmOn }, // закрыли шкаф во время индикации ввода ключа
-	[sKeyReadingSuspended][eProtectionRestored] = { sKeyReadingSuspended,  NULL },
-	
-	[sAccessGiven][eDoorOpened] 				= { sAccessGiven, NULL },
-	[sAccessGiven][eEnteredValidKey] 			= { sAccessGiven, NULL },
-	[sAccessGiven][eEnteredInvalidKey] 			= { sAccessGiven, NULL },
-	[sAccessGiven][eIndicationEnded] 			= { sAccessGiven, NULL }, 
-	[sAccessGiven][eAlarmTimeout] 				= { sAccessGiven, NULL },
-	[sAccessGiven][eDoorClosed] 				= { sAccessGiven, NULL /*hDoorClosedAlarmOff*/ }, // закрыли дверь после ввода верного ключа
-	[sAccessGiven][eProtectionRestored] 		= { sDoorIsClosed,  hProtectionRestored },
-	// сделать чтобы не сразу ставилась сигналка после закрытия двери
 };
 
 // буфер событий предотвращает потерю информации о переходе к другому состоянию 
@@ -260,12 +212,12 @@ void HandleEvent()
 	Event_t newEvent = getEvent(); // получаем новый ивент из буфера
 	if (newEvent != eNoEvent)
 	{
-		URT_PrintString("Event: ");
-		URT_Write(newEvent + '0');
-		URT_PrintString("\r\n");
-		URT_PrintString("CurState: ");
-		URT_Write(currentState + '0');
-		URT_PrintString("\r\n");
+//		URT_PrintString("Event: ");
+//		URT_Write(newEvent + '0');
+//		URT_PrintString("\r\n");
+//		URT_PrintString("CurState: ");
+//		URT_Write(currentState + '0');
+//		URT_PrintString("\r\n");
 		
 		// реакция на событие в зависимости от текущего состояния
 		// почему это работает?
@@ -277,11 +229,11 @@ void HandleEvent()
 		
 		currentState = FSMTable[currentState][newEvent].newState; // переходим в новое состояние
 		
-		URT_PrintString("NewState: ");
-		URT_Write(currentState + '0');
-		URT_PrintString("\r\n");
-		URT_PrintString("*********");
-		URT_PrintString("\r\n");
+//		URT_PrintString("NewState: ");
+//		URT_Write(currentState + '0');
+//		URT_PrintString("\r\n");
+//		URT_PrintString("*********");
+//		URT_PrintString("\r\n");
 	}
 }
 

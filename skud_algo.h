@@ -3,19 +3,36 @@
 #include "stdint.h"
 #include "buffer.h"
 	
+// перерыв в индикации до смены на другой тип индикации
+#define INDIC_WAIT_MAX 2 // 200 мс
+
+// желаемое количество писков
+#define INDIC_PEECNT_VALID_KEY 4
+#define INDIC_PEECNT_INVALID_KEY 20
+
+// интервал между переключениями пищалки
+#define INDIC_SPEED_ALARM 6 // 600 мс
+#define INDIC_SPEED_VALID_KEY 2 // 200 мс
+#define INDIC_SPEED_INVALID_KEY 1 // 100 мс
+
+// расчет макс. значения счетчика для реализации заданных выше величин
+#define INDIC_CNT_ALARM UINT32_MAX
+#define INDIC_CNT_VALID_KEY (INDIC_PEECNT_VALID_KEY * INDIC_SPEED_VALID_KEY * 2)
+#define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
+
+#define ALARM_TIMEOUT_MAX 20 // 2 секунды
+
 // текущее состояние записывается во флеш (если это связано с тревогой)
 #define eNoEvent 0xFF
-#define sInitialState 0xFF
 
 #define MAX_EVENTS_NUM 5
 
 // s - state
 typedef enum 
 {
-	sDoorIsClosed = 0,
-	sDoorIsOpened = 1,
+	sNoAccessSleep = 0,
+	sNoAccessWaitingKey = 1,
 	sAccessGiven = 2,
-	sKeyReadingSuspended = 3,
 } State_t; 
 
 // e - event
@@ -24,9 +41,10 @@ typedef enum
 	eDoorOpened = 0,
 	eEnteredValidKey = 1,
 	eEnteredInvalidKey = 2,
-	eIndicationEnded = 3,
-	eAlarmTimeout = 4,
-	eDoorClosed = 5,
+	eAlarmTimeout = 3,
+	eDoorClosed = 4,
+	eProtectionRestored = 5,
+	eIndicationEnded = 6
 } Event_t;
 
 typedef void (*TransitionCallback_t)(State_t state, Event_t event);
@@ -41,15 +59,8 @@ extern State_t currentState;
 extern Event_t currentEvent;
 extern Event_t newEvent;
 
-
 // h - handler
-void hDoorOpened(State_t state, Event_t event);
-void hEnteredValidKey(State_t state, Event_t event);
-void hEnteredInvalidKey(State_t state, Event_t event);
-void hAlarmTimeout(State_t state, Event_t event);
-void hKeyReadingResumed(State_t state, Event_t event);
-void hDoorClosedAlarmOn(State_t state, Event_t event);
-void hDoorClosedAlarmOff(State_t state, Event_t event);
+
 void HandleEvent();
 
 typedef enum
@@ -57,7 +68,6 @@ typedef enum
 	AlarmCommon,
 	ValidKey,
 	InvalidKey,
-	OnlyLED
 } Indication_t;
 
 void IndicationStart(Indication_t indicType);
@@ -68,34 +78,20 @@ extern volatile uint8_t indicWaitMax;
 extern volatile uint32_t indicTimeCnt;
 extern volatile uint32_t indicTimeMax;
 extern volatile uint8_t indicSpeed;
-extern volatile uint8_t buzzerOn;
+extern volatile uint8_t indicationPhase;
+extern volatile uint8_t buzzerMuted; // buzzerMuted?
 
 extern volatile uint32_t alarmTimeoutCnt;
 extern volatile uint32_t alarmTimeoutMax;
 
-extern volatile uint8_t gerkonStateFilter;
-extern volatile uint8_t gerkonStateFilterMax;
+extern volatile uint8_t gerkonFilterCnt;
+extern volatile uint8_t gerkonFilterMax;
 extern volatile uint8_t oldGerkonState;
 extern volatile uint8_t gerkonState;
 
-// перерыв в индикации до смены на другой тип индикации
-#define INDIC_WAIT_MAX 2 // 200 мс
+extern volatile uint16_t protectionDelayCnt;
+extern volatile uint16_t protectionDelayMax;
 
-// желаемое количество писков
-#define INDIC_PEECNT_VALID_KEY 4
-#define INDIC_PEECNT_INVALID_KEY 3
-
-// интервал между переключениями пищалки
-#define INDIC_SPEED_ALARM 6 // 600 мс
-#define INDIC_SPEED_VALID_KEY 2 // 200 мс
-#define INDIC_SPEED_INVALID_KEY 1 // 100 мс
-
-// расчет макс. значения счетчика для реализации заданных выше величин
-#define INDIC_CNT_ALARM UINT32_MAX
-#define INDIC_CNT_VALID_KEY (INDIC_PEECNT_VALID_KEY * INDIC_SPEED_VALID_KEY * 2)
-#define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
-
-#define ALARM_TIMEOUT_MAX 20
 
 uint8_t IsKeyActive(void);
 

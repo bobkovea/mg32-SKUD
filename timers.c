@@ -10,15 +10,15 @@ void TIM00_Callback (void) // TM_PRSM_RESET
 	
 	if (GERKON_PIN == 0) // если дверь открылась
 	{
-		if (gerkonStateFilter < gerkonStateFilterMax)
-			++gerkonStateFilter;
+		if (gerkonFilterCnt < gerkonFilterMax)
+			++gerkonFilterCnt;
 		else 
 			gerkonState = 1; 
 	}
 	else
 	{
-		if (gerkonStateFilter > 0)
-			--gerkonStateFilter;
+		if (gerkonFilterCnt > 0)
+			--gerkonFilterCnt;
 		else
 			gerkonState = 0;
 	}
@@ -49,22 +49,24 @@ void TIM00_Callback (void) // TM_PRSM_RESET
 	}
 }
 	
-// Посылка принята целиком - пришло время её разобрать
+// T = 5 ms
 void TIM01_Callback (void)
 {
-	usUsart = 0;
-	PRSM3_ParseMessage();
+	if (protectionDelayCnt++ == protectionDelayMax)
+	{
+		TM_Timer_Cmd(TM_PROTECTION_DELAY, DISABLE);
+		protectionDelayCnt = 0;
+		putEvent(eProtectionRestored);
+//		currentEvent = eAlarmTimeout;
+	}
 }
 
 // Счетчик аларма T = 100 ms
 void TIM10_Callback (void)
 {
-	if (alarmTimeoutCnt < alarmTimeoutMax)
+	if (alarmTimeoutCnt++ == alarmTimeoutMax)
 	{
-		++alarmTimeoutCnt;
-	}
-	else
-	{
+		TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
 		alarmTimeoutCnt = 0;
 		putEvent(eAlarmTimeout);
 //		currentEvent = eAlarmTimeout;
@@ -80,9 +82,13 @@ void TIM16_Callback (void)
 		TM_Timer_Cmd(TM_READ_KEY, DISABLE);
 
 		if (IsKeyActive())
+		{
 			putEvent(eEnteredValidKey);
+		}
 		else
+		{
 			putEvent(eEnteredInvalidKey);
+		}
 		
 //			currentEvent = eEnteredValidKey;
 //		else
@@ -98,11 +104,9 @@ void TIM36_Callback (void)
 		++indicWaitCnt;
 		return;
 	}
-
+	
 	if (indicTimeCnt == indicTimeMax)
 	{
-		BUZZER_OFF();
-		STALED_OFF();
 		TM_Timer_Cmd(TM_INDICATION, DISABLE);
 		putEvent(eIndicationEnded);
 //		currentEvent = eIndicationEnded; 
@@ -111,11 +115,12 @@ void TIM36_Callback (void)
 	
 	if (indicTimeCnt++ % indicSpeed == 0) // indicTimeCnt изначально уже = 1
 	{
-		if (buzzerOn == 1) 
+		indicationPhase = !indicationPhase;
+		if (buzzerMuted == 0) 
 		{
-			BACKL_PIN = !BACKL_PIN; // изначально = 0
+			BACKL_PIN = !indicationPhase; // изначально = 0
 		}
-		STALED_PIN = !STALED_PIN;
+		STALED_PIN = indicationPhase;
 	}
 }
 
@@ -160,13 +165,13 @@ void TIM_Config()
 	TM_ITEA_Cmd(TM_PRSM_RESET, ENABLE); // включаем общие прерывания таймера
 	TM_ClearFlag(TM_PRSM_RESET, TMx_TOF);
 	
-	// TM_URT_RECEIVE
-    TM_TimeBase_InitStruct.TM_Period = TM_URT_RECEIVE_PERIOD - 1; 
-    TM_TimeBase_InitStruct.TM_Prescaler = TM_URT_RECEIVE_PRESCALER - 1;
-    TM_TimeBase_Init(TM_URT_RECEIVE, &TM_TimeBase_InitStruct);
-	TM_IT_Config(TM_URT_RECEIVE, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
-	TM_ITEA_Cmd(TM_URT_RECEIVE, ENABLE); // включаем общие прерывания таймера
-	TM_ClearFlag(TM_URT_RECEIVE, TMx_TOF);
+	// TM_PROTECTION_DELAY
+    TM_TimeBase_InitStruct.TM_Period = TM_PROTECTION_DELAY_PERIOD - 1; 
+    TM_TimeBase_InitStruct.TM_Prescaler = TM_PROTECTION_DELAY_PRESCALER - 1;
+    TM_TimeBase_Init(TM_PROTECTION_DELAY, &TM_TimeBase_InitStruct);
+	TM_IT_Config(TM_PROTECTION_DELAY, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
+	TM_ITEA_Cmd(TM_PROTECTION_DELAY, ENABLE); // включаем общие прерывания таймера
+	TM_ClearFlag(TM_PROTECTION_DELAY, TMx_TOF);
 
 	// TM_ALARM_TIMEOUT
     TM_TimeBase_InitStruct.TM_Period = TM_ALARM_TIMEOUT_PERIOD - 1; 
@@ -192,7 +197,7 @@ void TIM_Config()
 	TM_IT_Config(TM_INDICATION, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_INDICATION, ENABLE); // включаем общие прерывания таймера
 		
-	// TM_PRSM_RESET и TM_URT_RECEIVE
+	// TM_PRSM_RESET и TM_PROTECTION_DELAY
 	NVIC_EnableIRQ(TM0x_IRQn); 
 	NVIC_SetPriority(TM0x_IRQn, 0);
 	

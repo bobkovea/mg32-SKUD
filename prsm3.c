@@ -42,7 +42,7 @@ void PRSM3_AddNewByte(void) // вызывается когда пришел оч
         if (iptr == DecryptedMessageLen)
 		{
             parsingStatus = STATUS_PARSE_WAITING;
-			TM_Timer_Cmd(TM01, ENABLE); // запускаем таймер на 1ms // start_parsing
+			PRSM3_ParseMessage();
         }
     }
 }  
@@ -54,6 +54,8 @@ void PRSM3_AddNewByte(void) // вызывается когда пришел оч
 //----------------------------------------------------------------------------------------
 void PRSM3_ParseMessage(void)
 {
+	usUsart = 0;
+	
 	// Отключаем таймер
 	TM_Timer_Cmd(TM01, DISABLE); 
 	

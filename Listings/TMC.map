@@ -16,7 +16,7 @@ Section Cross References
     main.o(.text.main) refers to wdt.o(.text.wdt_reset) for wdt_reset
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     prsm3.o(.text.PRSM3_AddNewByte) refers to mg32x02z_urt_drv.o(.text.URT_GetRXData) for URT_GetRXData
-    prsm3.o(.text.PRSM3_AddNewByte) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    prsm3.o(.text.PRSM3_AddNewByte) refers to prsm3.o(.text.PRSM3_ParseMessage) for PRSM3_ParseMessage
     prsm3.o(.text.PRSM3_AddNewByte) refers to prsm3.o(.bss..L_MergedGlobals) for [Anonymous Symbol]
     prsm3.o(.text.PRSM3_AddNewByte) refers to prsm3.o(.data.MessageLenArr) for MessageLenArr
     prsm3.o(.ARM.exidx.text.PRSM3_AddNewByte) refers to prsm3.o(.text.PRSM3_AddNewByte) for [Anonymous Symbol]
@@ -69,17 +69,20 @@ Section Cross References
     prsm3.o(.ARM.exidx.text.PRSM3_clearBuffer) refers to prsm3.o(.text.PRSM3_clearBuffer) for [Anonymous Symbol]
     timers.o(.text.TIM00_Callback) refers to buffer.o(.text.putEvent) for putEvent
     timers.o(.text.TIM00_Callback) refers to prsm3.o(.text.PRSM3_clearBuffer) for PRSM3_clearBuffer
-    timers.o(.text.TIM00_Callback) refers to skud_algo.o(.bss.gerkonStateFilter) for gerkonStateFilter
-    timers.o(.text.TIM00_Callback) refers to skud_algo.o(.bss.gerkonState) for gerkonState
-    timers.o(.text.TIM00_Callback) refers to skud_algo.o(.data.gerkonStateFilterMax) for gerkonStateFilterMax
+    timers.o(.text.TIM00_Callback) refers to skud_algo.o(.bss.gerkonFilterCnt) for gerkonFilterCnt
+    timers.o(.text.TIM00_Callback) refers to skud_algo.o(.bss..L_MergedGlobals.1) for gerkonState
+    timers.o(.text.TIM00_Callback) refers to skud_algo.o(.data.gerkonFilterMax) for gerkonFilterMax
     timers.o(.text.TIM00_Callback) refers to skud_algo.o(.bss.oldGerkonState) for oldGerkonState
     timers.o(.text.TIM00_Callback) refers to prsm3.o(.bss..L_MergedGlobals) for usUsart
     timers.o(.ARM.exidx.text.TIM00_Callback) refers to timers.o(.text.TIM00_Callback) for [Anonymous Symbol]
-    timers.o(.text.TIM01_Callback) refers to prsm3.o(.text.PRSM3_ParseMessage) for PRSM3_ParseMessage
-    timers.o(.text.TIM01_Callback) refers to prsm3.o(.bss..L_MergedGlobals) for usUsart
+    timers.o(.text.TIM01_Callback) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    timers.o(.text.TIM01_Callback) refers to buffer.o(.text.putEvent) for putEvent
+    timers.o(.text.TIM01_Callback) refers to skud_algo.o(.bss.protectionDelayCnt) for protectionDelayCnt
+    timers.o(.text.TIM01_Callback) refers to skud_algo.o(.data.protectionDelayMax) for protectionDelayMax
     timers.o(.ARM.exidx.text.TIM01_Callback) refers to timers.o(.text.TIM01_Callback) for [Anonymous Symbol]
+    timers.o(.text.TIM10_Callback) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
     timers.o(.text.TIM10_Callback) refers to buffer.o(.text.putEvent) for putEvent
-    timers.o(.text.TIM10_Callback) refers to skud_algo.o(.bss..L_MergedGlobals.5) for alarmTimeoutCnt
+    timers.o(.text.TIM10_Callback) refers to skud_algo.o(.bss..L_MergedGlobals.1) for alarmTimeoutCnt
     timers.o(.text.TIM10_Callback) refers to skud_algo.o(.data.alarmTimeoutMax) for alarmTimeoutMax
     timers.o(.ARM.exidx.text.TIM10_Callback) refers to timers.o(.text.TIM10_Callback) for [Anonymous Symbol]
     timers.o(.text.TIM16_Callback) refers to ibutton.o(.text.DS1990A_GetKeyID) for DS1990A_GetKeyID
@@ -90,9 +93,10 @@ Section Cross References
     timers.o(.text.TIM36_Callback) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
     timers.o(.text.TIM36_Callback) refers to buffer.o(.text.putEvent) for putEvent
     timers.o(.text.TIM36_Callback) refers to uidiv.o(.text) for __aeabi_uidivmod
-    timers.o(.text.TIM36_Callback) refers to skud_algo.o(.bss..L_MergedGlobals.5) for indicWaitCnt
+    timers.o(.text.TIM36_Callback) refers to skud_algo.o(.bss..L_MergedGlobals.1) for indicWaitCnt
     timers.o(.text.TIM36_Callback) refers to skud_algo.o(.data.indicWaitMax) for indicWaitMax
     timers.o(.text.TIM36_Callback) refers to skud_algo.o(.data..L_MergedGlobals) for indicTimeCnt
+    timers.o(.text.TIM36_Callback) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
     timers.o(.ARM.exidx.text.TIM36_Callback) refers to timers.o(.text.TIM36_Callback) for [Anonymous Symbol]
     timers.o(.ARM.exidx.text.delay_ms) refers to timers.o(.text.delay_ms) for [Anonymous Symbol]
     timers.o(.ARM.exidx.text.delay_us) refers to timers.o(.text.delay_us) for [Anonymous Symbol]
@@ -103,15 +107,18 @@ Section Cross References
     timers.o(.text.TIM_Config) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
     timers.o(.ARM.exidx.text.TIM_Config) refers to timers.o(.text.TIM_Config) for [Anonymous Symbol]
     timers.o(.text.TM0x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
-    timers.o(.text.TM0x_IRQHandler) refers to prsm3.o(.text.PRSM3_ParseMessage) for PRSM3_ParseMessage
+    timers.o(.text.TM0x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    timers.o(.text.TM0x_IRQHandler) refers to buffer.o(.text.putEvent) for putEvent
     timers.o(.text.TM0x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
     timers.o(.text.TM0x_IRQHandler) refers to timers.o(.text.TIM00_Callback) for TIM00_Callback
-    timers.o(.text.TM0x_IRQHandler) refers to prsm3.o(.bss..L_MergedGlobals) for usUsart
+    timers.o(.text.TM0x_IRQHandler) refers to skud_algo.o(.bss.protectionDelayCnt) for protectionDelayCnt
+    timers.o(.text.TM0x_IRQHandler) refers to skud_algo.o(.data.protectionDelayMax) for protectionDelayMax
     timers.o(.ARM.exidx.text.TM0x_IRQHandler) refers to timers.o(.text.TM0x_IRQHandler) for [Anonymous Symbol]
     timers.o(.text.TM10_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
+    timers.o(.text.TM10_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
     timers.o(.text.TM10_IRQHandler) refers to buffer.o(.text.putEvent) for putEvent
     timers.o(.text.TM10_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
-    timers.o(.text.TM10_IRQHandler) refers to skud_algo.o(.bss..L_MergedGlobals.5) for alarmTimeoutCnt
+    timers.o(.text.TM10_IRQHandler) refers to skud_algo.o(.bss..L_MergedGlobals.1) for alarmTimeoutCnt
     timers.o(.text.TM10_IRQHandler) refers to skud_algo.o(.data.alarmTimeoutMax) for alarmTimeoutMax
     timers.o(.ARM.exidx.text.TM10_IRQHandler) refers to timers.o(.text.TM10_IRQHandler) for [Anonymous Symbol]
     timers.o(.text.TM1x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus) for TM_GetSingleFlagStatus
@@ -126,9 +133,10 @@ Section Cross References
     timers.o(.text.TM3x_IRQHandler) refers to buffer.o(.text.putEvent) for putEvent
     timers.o(.text.TM3x_IRQHandler) refers to uidiv.o(.text) for __aeabi_uidivmod
     timers.o(.text.TM3x_IRQHandler) refers to mg32x02z_tm_drv.o(.text.TM_ClearFlag) for TM_ClearFlag
-    timers.o(.text.TM3x_IRQHandler) refers to skud_algo.o(.bss..L_MergedGlobals.5) for indicWaitCnt
+    timers.o(.text.TM3x_IRQHandler) refers to skud_algo.o(.bss..L_MergedGlobals.1) for indicWaitCnt
     timers.o(.text.TM3x_IRQHandler) refers to skud_algo.o(.data.indicWaitMax) for indicWaitMax
     timers.o(.text.TM3x_IRQHandler) refers to skud_algo.o(.data..L_MergedGlobals) for indicTimeCnt
+    timers.o(.text.TM3x_IRQHandler) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
     timers.o(.ARM.exidx.text.TM3x_IRQHandler) refers to timers.o(.text.TM3x_IRQHandler) for [Anonymous Symbol]
     crc.o(.text.Do_CRC) refers to crc.o(.rodata.CRC_Table) for [Anonymous Symbol]
     crc.o(.ARM.exidx.text.Do_CRC) refers to crc.o(.text.Do_CRC) for [Anonymous Symbol]
@@ -238,6 +246,8 @@ Section Cross References
     iap.o(.ARM.exidx.text.IAP_CopyFromIAPToRAM) refers to iap.o(.text.IAP_CopyFromIAPToRAM) for [Anonymous Symbol]
     iap.o(.text.IAP_IsEqualToRAM) refers to memcmp.o(.text) for memcmp
     iap.o(.ARM.exidx.text.IAP_IsEqualToRAM) refers to iap.o(.text.IAP_IsEqualToRAM) for [Anonymous Symbol]
+    onewire.o(.text.OneWire_SetDirection) refers to mg32x02z_gpio_drv.o(.text.GPIO_PinMode_Select) for GPIO_PinMode_Select
+    onewire.o(.ARM.exidx.text.OneWire_SetDirection) refers to onewire.o(.text.OneWire_SetDirection) for [Anonymous Symbol]
     onewire.o(.text.OneWire_Start) refers to mg32x02z_gpio_drv.o(.text.GPIO_PinMode_Select) for GPIO_PinMode_Select
     onewire.o(.text.OneWire_Start) refers to timers.o(.text.delay_us) for delay_us
     onewire.o(.ARM.exidx.text.OneWire_Start) refers to onewire.o(.text.OneWire_Start) for [Anonymous Symbol]
@@ -258,44 +268,62 @@ Section Cross References
     keys.o(.data.keys) refers to keys.o(.data.key5) for key5
     skud_algo.o(.text.IndicationStart) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
     skud_algo.o(.text.IndicationStart) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
-    skud_algo.o(.text.IndicationStart) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
+    skud_algo.o(.text.IndicationStart) refers to skud_algo.o(.bss..L_MergedGlobals.1) for [Anonymous Symbol]
     skud_algo.o(.ARM.exidx.text.IndicationStart) refers to skud_algo.o(.text.IndicationStart) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.BuzzerUnmute) refers to skud_algo.o(.text.BuzzerUnmute) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.BuzzerMute) refers to skud_algo.o(.text.BuzzerMute) for [Anonymous Symbol]
-    skud_algo.o(.text.IndicationStop) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.IndicationStop) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
+    skud_algo.o(.text.IndicationStop) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
     skud_algo.o(.text.IndicationStop) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
     skud_algo.o(.ARM.exidx.text.IndicationStop) refers to skud_algo.o(.text.IndicationStop) for [Anonymous Symbol]
-    skud_algo.o(.text.hDoorOpened) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.hDoorOpened) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
-    skud_algo.o(.text.hDoorOpened) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.hDoorOpened) refers to skud_algo.o(.text.hDoorOpened) for [Anonymous Symbol]
-    skud_algo.o(.text.hEnteredValidKey) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.hEnteredValidKey) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
-    skud_algo.o(.text.hEnteredValidKey) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.hEnteredValidKey) refers to skud_algo.o(.text.hEnteredValidKey) for [Anonymous Symbol]
-    skud_algo.o(.text.hEnteredInvalidKey) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.hEnteredInvalidKey) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
-    skud_algo.o(.text.hEnteredInvalidKey) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.hEnteredInvalidKey) refers to skud_algo.o(.text.hEnteredInvalidKey) for [Anonymous Symbol]
-    skud_algo.o(.text.hAlarmTimeout) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.hAlarmTimeout) refers to events.o(.data.eventAlarm) for eventAlarm
-    skud_algo.o(.ARM.exidx.text.hAlarmTimeout) refers to skud_algo.o(.text.hAlarmTimeout) for [Anonymous Symbol]
-    skud_algo.o(.text.hKeyReadingResumed) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.hKeyReadingResumed) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
-    skud_algo.o(.text.hKeyReadingResumed) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.hKeyReadingResumed) refers to skud_algo.o(.text.hKeyReadingResumed) for [Anonymous Symbol]
-    skud_algo.o(.text.hDoorClosedAlarmOff) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.hDoorClosedAlarmOff) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
-    skud_algo.o(.text.hDoorClosedAlarmOff) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.hDoorClosedAlarmOff) refers to skud_algo.o(.text.hDoorClosedAlarmOff) for [Anonymous Symbol]
-    skud_algo.o(.text.hDoorClosedAlarmOn) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
-    skud_algo.o(.text.hDoorClosedAlarmOn) refers to skud_algo.o(.bss..L_MergedGlobals.5) for [Anonymous Symbol]
-    skud_algo.o(.ARM.exidx.text.hDoorClosedAlarmOn) refers to skud_algo.o(.text.hDoorClosedAlarmOn) for [Anonymous Symbol]
+    skud_algo.o(.text.AlarmCountdownEnable) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.ARM.exidx.text.AlarmCountdownEnable) refers to skud_algo.o(.text.AlarmCountdownEnable) for [Anonymous Symbol]
+    skud_algo.o(.text.AlarmCountdownDisable) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.AlarmCountdownDisable) refers to skud_algo.o(.bss..L_MergedGlobals.1) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.AlarmCountdownDisable) refers to skud_algo.o(.text.AlarmCountdownDisable) for [Anonymous Symbol]
+    skud_algo.o(.text.ReadingKeyEnable) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.ARM.exidx.text.ReadingKeyEnable) refers to skud_algo.o(.text.ReadingKeyEnable) for [Anonymous Symbol]
+    skud_algo.o(.text.ReadingKeyDisable) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.ReadingKeyDisable) refers to onewire.o(.text.OneWire_SetDirection) for OneWire_SetDirection
+    skud_algo.o(.ARM.exidx.text.ReadingKeyDisable) refers to skud_algo.o(.text.ReadingKeyDisable) for [Anonymous Symbol]
+    skud_algo.o(.text.ProtectionDelayEnable) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.ARM.exidx.text.ProtectionDelayEnable) refers to skud_algo.o(.text.ProtectionDelayEnable) for [Anonymous Symbol]
+    skud_algo.o(.text.MuteBuzzer) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
+    skud_algo.o(.ARM.exidx.text.MuteBuzzer) refers to skud_algo.o(.text.MuteBuzzer) for [Anonymous Symbol]
+    skud_algo.o(.text.UnmuteBuzzer) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.text.UnmuteBuzzer) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
+    skud_algo.o(.ARM.exidx.text.UnmuteBuzzer) refers to skud_algo.o(.text.UnmuteBuzzer) for [Anonymous Symbol]
+    skud_algo.o(.text.hSleepToWaiting) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hSleepToWaiting) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.text.hSleepToWaiting) refers to skud_algo.o(.bss..L_MergedGlobals.1) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hSleepToWaiting) refers to skud_algo.o(.text.hSleepToWaiting) for [Anonymous Symbol]
+    skud_algo.o(.text.hWaitingToAccess) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hWaitingToAccess) refers to onewire.o(.text.OneWire_SetDirection) for OneWire_SetDirection
+    skud_algo.o(.text.hWaitingToAccess) refers to skud_algo.o(.bss..L_MergedGlobals.1) for [Anonymous Symbol]
+    skud_algo.o(.text.hWaitingToAccess) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hWaitingToAccess) refers to skud_algo.o(.text.hWaitingToAccess) for [Anonymous Symbol]
+    skud_algo.o(.text.hAccessToSleep) refers to skud_algo.o(.bss.oldGerkonState) for oldGerkonState
+    skud_algo.o(.ARM.exidx.text.hAccessToSleep) refers to skud_algo.o(.text.hAccessToSleep) for [Anonymous Symbol]
+    skud_algo.o(.text.hReadingKeySuspend) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hReadingKeySuspend) refers to onewire.o(.text.OneWire_SetDirection) for OneWire_SetDirection
+    skud_algo.o(.text.hReadingKeySuspend) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.text.hReadingKeySuspend) refers to skud_algo.o(.bss..L_MergedGlobals.1) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hReadingKeySuspend) refers to skud_algo.o(.text.hReadingKeySuspend) for [Anonymous Symbol]
+    skud_algo.o(.text.hReadingKeyResume) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hReadingKeyResume) refers to skud_algo.o(.bss..L_MergedGlobals.1) for [Anonymous Symbol]
+    skud_algo.o(.text.hReadingKeyResume) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hReadingKeyResume) refers to skud_algo.o(.text.hReadingKeyResume) for [Anonymous Symbol]
+    skud_algo.o(.text.hDoorClosedNoAccess) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hDoorClosedNoAccess) refers to onewire.o(.text.OneWire_SetDirection) for OneWire_SetDirection
+    skud_algo.o(.text.hDoorClosedNoAccess) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
+    skud_algo.o(.ARM.exidx.text.hDoorClosedNoAccess) refers to skud_algo.o(.text.hDoorClosedNoAccess) for [Anonymous Symbol]
+    skud_algo.o(.text.hDoorOpenedNoAccess) refers to mg32x02z_tm_drv.o(.text.TM_Timer_Cmd) for TM_Timer_Cmd
+    skud_algo.o(.text.hDoorOpenedNoAccess) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.text.hDoorOpenedNoAccess) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
+    skud_algo.o(.ARM.exidx.text.hDoorOpenedNoAccess) refers to skud_algo.o(.text.hDoorOpenedNoAccess) for [Anonymous Symbol]
+    skud_algo.o(.text.hSendAlarmEvent) refers to usart.o(.text.URT_Write) for URT_Write
+    skud_algo.o(.ARM.exidx.text.hSendAlarmEvent) refers to skud_algo.o(.text.hSendAlarmEvent) for [Anonymous Symbol]
+    skud_algo.o(.text.hIndicationStop) refers to skud_algo.o(.bss.buzzerMuted) for buzzerMuted
+    skud_algo.o(.text.hIndicationStop) refers to skud_algo.o(.data..L_MergedGlobals) for [Anonymous Symbol]
+    skud_algo.o(.ARM.exidx.text.hIndicationStop) refers to skud_algo.o(.text.hIndicationStop) for [Anonymous Symbol]
     skud_algo.o(.text.HandleEvent) refers to buffer.o(.text.getEvent) for getEvent
-    skud_algo.o(.text.HandleEvent) refers to usart.o(.text.URT_PrintString) for URT_PrintString
-    skud_algo.o(.text.HandleEvent) refers to usart.o(.text.URT_Write) for URT_Write
-    skud_algo.o(.text.HandleEvent) refers to skud_algo.o(.rodata.str1.1) for .L.str.1
     skud_algo.o(.text.HandleEvent) refers to skud_algo.o(.bss.currentState) for currentState
     skud_algo.o(.text.HandleEvent) refers to skud_algo.o(.data.FSMTable) for FSMTable
     skud_algo.o(.ARM.exidx.text.HandleEvent) refers to skud_algo.o(.text.HandleEvent) for [Anonymous Symbol]
@@ -306,13 +334,15 @@ Section Cross References
     skud_algo.o(.text.IsKeyActive) refers to keys.o(.bss.KeyEncrypted) for KeyEncrypted
     skud_algo.o(.text.IsKeyActive) refers to variables.o(.data.TotalKeys) for TotalKeys
     skud_algo.o(.ARM.exidx.text.IsKeyActive) refers to skud_algo.o(.text.IsKeyActive) for [Anonymous Symbol]
-    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hDoorOpened) for hDoorOpened
-    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hAlarmTimeout) for hAlarmTimeout
-    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hEnteredValidKey) for hEnteredValidKey
-    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hEnteredInvalidKey) for hEnteredInvalidKey
-    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hDoorClosedAlarmOn) for hDoorClosedAlarmOn
-    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hDoorClosedAlarmOff) for hDoorClosedAlarmOff
-    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hKeyReadingResumed) for hKeyReadingResumed
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hSleepToWaiting) for hSleepToWaiting
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hDoorOpenedNoAccess) for hDoorOpenedNoAccess
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hWaitingToAccess) for hWaitingToAccess
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hReadingKeySuspend) for hReadingKeySuspend
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hSendAlarmEvent) for hSendAlarmEvent
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hDoorClosedNoAccess) for hDoorClosedNoAccess
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hReadingKeyResume) for hReadingKeyResume
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hAccessToSleep) for hAccessToSleep
+    skud_algo.o(.data.FSMTable) refers to skud_algo.o(.text.hIndicationStop) for hIndicationStop
     flash.o(.text.FlashTestFill) refers to md5.o(.text.MD5_MakeHash) for MD5_MakeHash
     flash.o(.text.FlashTestFill) refers to flash.o(.text.AddKey) for AddKey
     flash.o(.text.FlashTestFill) refers to keys.o(.data.key1) for key1
@@ -1517,13 +1547,13 @@ Removing Unused input sections from the image.
     Removing prsm3.o(.ARM.exidx.text.PRSM3_clearBuffer), (8 bytes).
     Removing timers.o(.text), (0 bytes).
     Removing timers.o(.ARM.exidx.text.TIM00_Callback), (8 bytes).
-    Removing timers.o(.text.TIM01_Callback), (20 bytes).
+    Removing timers.o(.text.TIM01_Callback), (52 bytes).
     Removing timers.o(.ARM.exidx.text.TIM01_Callback), (8 bytes).
-    Removing timers.o(.text.TIM10_Callback), (44 bytes).
+    Removing timers.o(.text.TIM10_Callback), (48 bytes).
     Removing timers.o(.ARM.exidx.text.TIM10_Callback), (8 bytes).
     Removing timers.o(.text.TIM16_Callback), (44 bytes).
     Removing timers.o(.ARM.exidx.text.TIM16_Callback), (8 bytes).
-    Removing timers.o(.text.TIM36_Callback), (140 bytes).
+    Removing timers.o(.text.TIM36_Callback), (148 bytes).
     Removing timers.o(.ARM.exidx.text.TIM36_Callback), (8 bytes).
     Removing timers.o(.ARM.exidx.text.delay_ms), (8 bytes).
     Removing timers.o(.ARM.exidx.text.delay_us), (8 bytes).
@@ -1541,6 +1571,7 @@ Removing Unused input sections from the image.
     Removing usart.o(.ARM.exidx.text.URT_Write), (8 bytes).
     Removing usart.o(.text.URT_WriteWord), (22 bytes).
     Removing usart.o(.ARM.exidx.text.URT_WriteWord), (8 bytes).
+    Removing usart.o(.text.URT_PrintString), (46 bytes).
     Removing usart.o(.ARM.exidx.text.URT_PrintString), (8 bytes).
     Removing usart.o(.ARM.exidx.text.URT_Print), (8 bytes).
     Removing usart.o(.text.URT_IsTxReady), (12 bytes).
@@ -1584,6 +1615,7 @@ Removing Unused input sections from the image.
     Removing iap.o(.ARM.exidx.text.IAP_CopyFromIAPToRAM), (8 bytes).
     Removing iap.o(.ARM.exidx.text.IAP_IsEqualToRAM), (8 bytes).
     Removing onewire.o(.text), (0 bytes).
+    Removing onewire.o(.ARM.exidx.text.OneWire_SetDirection), (8 bytes).
     Removing onewire.o(.ARM.exidx.text.OneWire_Start), (8 bytes).
     Removing onewire.o(.ARM.exidx.text.OneWire_Write), (8 bytes).
     Removing onewire.o(.ARM.exidx.text.OneWire_Read), (8 bytes).
@@ -1604,21 +1636,33 @@ Removing Unused input sections from the image.
     Removing keys.o(.data.key_test), (16 bytes).
     Removing keys.o(.data.keys), (20 bytes).
     Removing skud_algo.o(.text), (0 bytes).
-    Removing skud_algo.o(.text.IndicationStart), (88 bytes).
+    Removing skud_algo.o(.text.IndicationStart), (80 bytes).
     Removing skud_algo.o(.ARM.exidx.text.IndicationStart), (8 bytes).
-    Removing skud_algo.o(.text.BuzzerUnmute), (12 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.BuzzerUnmute), (8 bytes).
-    Removing skud_algo.o(.text.BuzzerMute), (12 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.BuzzerMute), (8 bytes).
-    Removing skud_algo.o(.text.IndicationStop), (48 bytes).
+    Removing skud_algo.o(.text.IndicationStop), (36 bytes).
     Removing skud_algo.o(.ARM.exidx.text.IndicationStop), (8 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.hDoorOpened), (8 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.hEnteredValidKey), (8 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.hEnteredInvalidKey), (8 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.hAlarmTimeout), (8 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.hKeyReadingResumed), (8 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.hDoorClosedAlarmOff), (8 bytes).
-    Removing skud_algo.o(.ARM.exidx.text.hDoorClosedAlarmOn), (8 bytes).
+    Removing skud_algo.o(.text.AlarmCountdownEnable), (14 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.AlarmCountdownEnable), (8 bytes).
+    Removing skud_algo.o(.text.AlarmCountdownDisable), (24 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.AlarmCountdownDisable), (8 bytes).
+    Removing skud_algo.o(.text.ReadingKeyEnable), (16 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.ReadingKeyEnable), (8 bytes).
+    Removing skud_algo.o(.text.ReadingKeyDisable), (24 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.ReadingKeyDisable), (8 bytes).
+    Removing skud_algo.o(.text.ProtectionDelayEnable), (16 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.ProtectionDelayEnable), (8 bytes).
+    Removing skud_algo.o(.text.MuteBuzzer), (24 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.MuteBuzzer), (8 bytes).
+    Removing skud_algo.o(.text.UnmuteBuzzer), (32 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.UnmuteBuzzer), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hSleepToWaiting), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hWaitingToAccess), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hAccessToSleep), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hReadingKeySuspend), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hReadingKeyResume), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hDoorClosedNoAccess), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hDoorOpenedNoAccess), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hSendAlarmEvent), (8 bytes).
+    Removing skud_algo.o(.ARM.exidx.text.hIndicationStop), (8 bytes).
     Removing skud_algo.o(.ARM.exidx.text.HandleEvent), (8 bytes).
     Removing skud_algo.o(.ARM.exidx.text.IsKeyActive), (8 bytes).
     Removing flash.o(.text), (0 bytes).
@@ -3139,7 +3183,7 @@ Removing Unused input sections from the image.
     Removing depilogue.o(.text), (190 bytes).
     Removing depilogue.o(i.__ARM_clz), (46 bytes).
 
-1637 unused section(s) (total 25575 bytes) removed from the image.
+1651 unused section(s) (total 25835 bytes) removed from the image.
 
 ==============================================================================
 
@@ -3322,252 +3366,256 @@ Image Symbol Table
     [Anonymous Symbol]                       0x00000f2c   Section        0  flash.o(.text.GetVariable)
     __arm_cp.4_0                             0x00000f40   Number         4  flash.o(.text.GetVariable)
     [Anonymous Symbol]                       0x00000f44   Section        0  skud_algo.o(.text.HandleEvent)
-    __arm_cp.11_1                            0x00000fdc   Number         4  skud_algo.o(.text.HandleEvent)
-    __arm_cp.11_3                            0x00000fec   Number         4  skud_algo.o(.text.HandleEvent)
-    __arm_cp.11_4                            0x00000ff0   Number         4  skud_algo.o(.text.HandleEvent)
-    [Anonymous Symbol]                       0x0000100c   Section        0  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_0                             0x00001080   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_1                             0x00001084   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_2                             0x00001088   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    __arm_cp.2_3                             0x0000108c   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
-    [Anonymous Symbol]                       0x00001120   Section        0  iap.o(.text.IAP_CopyFromIAPToRAM)
-    [Anonymous Symbol]                       0x00001138   Section        0  iap.o(.text.IAP_Erase_OnePage)
-    [Anonymous Symbol]                       0x000011c8   Section        0  iap.o(.text.IAP_Init)
-    __arm_cp.0_0                             0x000011fc   Number         4  iap.o(.text.IAP_Init)
-    [Anonymous Symbol]                       0x00001200   Section        0  iap.o(.text.IAP_IsEqualToRAM)
-    [Anonymous Symbol]                       0x00001214   Section        0  iap.o(.text.IAP_Multiple_Write)
-    [Anonymous Symbol]                       0x000012d8   Section        0  iap.o(.text.IAP_ReadByte)
-    [Anonymous Symbol]                       0x000012e4   Section        0  iap.o(.text.IAP_ReadWord)
-    [Anonymous Symbol]                       0x000012f2   Section        0  iap.o(.text.IAP_WriteMultipleWord)
-    [Anonymous Symbol]                       0x0000130c   Section        0  iap.o(.text.IAP_WriteSingleWord)
-    __arm_cp.6_0                             0x000013a8   Number         4  iap.o(.text.IAP_WriteSingleWord)
-    __arm_cp.6_1                             0x000013ac   Number         4  iap.o(.text.IAP_WriteSingleWord)
-    __arm_cp.6_2                             0x000013b0   Number         4  iap.o(.text.IAP_WriteSingleWord)
-    __arm_cp.6_3                             0x000013b4   Number         4  iap.o(.text.IAP_WriteSingleWord)
-    [Anonymous Symbol]                       0x000013b8   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
-    __arm_cp.4_0                             0x000013d0   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
-    [Anonymous Symbol]                       0x000013d4   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
-    __arm_cp.0_0                             0x000013e8   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
-    [Anonymous Symbol]                       0x000013ec   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    __arm_cp.2_0                             0x000013f4   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    __arm_cp.2_1                             0x000013f8   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    [Anonymous Symbol]                       0x000013fc   Section        0  skud_algo.o(.text.IsKeyActive)
-    __arm_cp.12_0                            0x0000144c   Number         4  skud_algo.o(.text.IsKeyActive)
-    __arm_cp.12_1                            0x00001450   Number         4  skud_algo.o(.text.IsKeyActive)
-    __arm_cp.12_2                            0x00001454   Number         4  skud_algo.o(.text.IsKeyActive)
-    [Anonymous Symbol]                       0x00001458   Section        0  md5.o(.text.MD5_Final)
-    [Anonymous Symbol]                       0x00001518   Section        0  md5.o(.text.MD5_MakeHash)
-    __arm_cp.4_0                             0x0000157c   Number         4  md5.o(.text.MD5_MakeHash)
-    __arm_cp.4_1                             0x00001580   Number         4  md5.o(.text.MD5_MakeHash)
-    __arm_cp.4_2                             0x00001584   Number         4  md5.o(.text.MD5_MakeHash)
-    __arm_cp.4_3                             0x00001588   Number         4  md5.o(.text.MD5_MakeHash)
-    [Anonymous Symbol]                       0x0000158c   Section        0  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
-    __arm_cp.23_0                            0x00001600   Number         4  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
-    [Anonymous Symbol]                       0x00001604   Section        0  onewire.o(.text.OneWire_Read)
-    [Anonymous Symbol]                       0x000017ac   Section        0  onewire.o(.text.OneWire_Start)
-    [Anonymous Symbol]                       0x000017e8   Section        0  onewire.o(.text.OneWire_Write)
-    __arm_cp.1_0                             0x0000198c   Number         4  onewire.o(.text.OneWire_Write)
-    __arm_cp.1_1                             0x00001990   Number         4  onewire.o(.text.OneWire_Write)
-    [Anonymous Symbol]                       0x00001994   Section        0  prsm3.o(.text.PRSM3_AddNewByte)
-    __arm_cp.0_1                             0x000019e4   Number         4  prsm3.o(.text.PRSM3_AddNewByte)
-    [Anonymous Symbol]                       0x000019e8   Section        0  prsm3.o(.text.PRSM3_ParseMessage)
-    __arm_cp.1_0                             0x00001a74   Number         4  prsm3.o(.text.PRSM3_ParseMessage)
-    [Anonymous Symbol]                       0x00001a78   Section        0  prsm3.o(.text.PRSM3_ParseReadRequest)
-    [Anonymous Symbol]                       0x00001c60   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest24)
-    __arm_cp.3_0                             0x00001cf4   Number         4  prsm3.o(.text.PRSM3_ParseWriteRequest24)
-    [Anonymous Symbol]                       0x00001cf8   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest9)
-    [Anonymous Symbol]                       0x00001d9c   Section        0  prsm3.o(.text.PRSM3_clearBuffer)
-    __arm_cp.7_0                             0x00001dac   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
-    __arm_cp.7_1                             0x00001db0   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
-    [Anonymous Symbol]                       0x00001db4   Section        0  mg32x02z__common_drv.o(.text.ProtectModuleReg)
-    [Anonymous Symbol]                       0x00001dbc   Section        0  mg32x02z_rst_drv.o(.text.RST_CRstSource_Config)
-    __arm_cp.3_0                             0x00001dd0   Number         4  mg32x02z_rst_drv.o(.text.RST_CRstSource_Config)
-    [Anonymous Symbol]                       0x00001dd4   Section        0  flash.o(.text.SetVariable)
-    __arm_cp.5_0                             0x00001e4c   Number         4  flash.o(.text.SetVariable)
-    [Anonymous Symbol]                       0x00001e50   Section        0  flash.o(.text.SetVariablePack)
-    __arm_cp.9_0                             0x00002140   Number         4  flash.o(.text.SetVariablePack)
-    __arm_cp.9_1                             0x00002144   Number         4  flash.o(.text.SetVariablePack)
-    __arm_cp.9_2                             0x00002148   Number         4  flash.o(.text.SetVariablePack)
-    [Anonymous Symbol]                       0x0000214c   Section        0  system_mg32x02z.o(.text.SystemInit)
-    __arm_cp.1_0                             0x00002154   Number         4  system_mg32x02z.o(.text.SystemInit)
-    __arm_cp.1_1                             0x00002158   Number         4  system_mg32x02z.o(.text.SystemInit)
-    [Anonymous Symbol]                       0x0000215c   Section        0  timers.o(.text.TIM00_Callback)
-    __arm_cp.0_0                             0x000021d8   Number         4  timers.o(.text.TIM00_Callback)
-    __arm_cp.0_1                             0x000021dc   Number         4  timers.o(.text.TIM00_Callback)
-    __arm_cp.0_2                             0x000021e0   Number         4  timers.o(.text.TIM00_Callback)
-    __arm_cp.0_3                             0x000021e4   Number         4  timers.o(.text.TIM00_Callback)
-    __arm_cp.0_4                             0x000021e8   Number         4  timers.o(.text.TIM00_Callback)
-    [Anonymous Symbol]                       0x000021ec   Section        0  timers.o(.text.TIM_Config)
-    __arm_cp.7_1                             0x00002324   Number         4  timers.o(.text.TIM_Config)
-    __arm_cp.7_4                             0x00002328   Number         4  timers.o(.text.TIM_Config)
-    __arm_cp.7_5                             0x0000232c   Number         4  timers.o(.text.TIM_Config)
-    __arm_cp.7_6                             0x00002330   Number         4  timers.o(.text.TIM_Config)
-    [Anonymous Symbol]                       0x00002334   Section        0  timers.o(.text.TM0x_IRQHandler)
-    __arm_cp.8_0                             0x00002384   Number         4  timers.o(.text.TM0x_IRQHandler)
-    __arm_cp.8_1                             0x00002388   Number         4  timers.o(.text.TM0x_IRQHandler)
-    __arm_cp.8_2                             0x0000238c   Number         4  timers.o(.text.TM0x_IRQHandler)
-    [Anonymous Symbol]                       0x00002390   Section        0  timers.o(.text.TM10_IRQHandler)
-    __arm_cp.9_0                             0x000023cc   Number         4  timers.o(.text.TM10_IRQHandler)
-    __arm_cp.9_1                             0x000023d0   Number         4  timers.o(.text.TM10_IRQHandler)
-    [Anonymous Symbol]                       0x000023d4   Section        0  timers.o(.text.TM1x_IRQHandler)
-    __arm_cp.10_0                            0x00002410   Number         4  timers.o(.text.TM1x_IRQHandler)
-    [Anonymous Symbol]                       0x00002414   Section        0  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_0                            0x00002494   Number         4  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_1                            0x00002498   Number         4  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_2                            0x0000249c   Number         4  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_3                            0x000024a0   Number         4  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_4                            0x000024a4   Number         4  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_5                            0x000024a8   Number         4  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_6                            0x000024ac   Number         4  timers.o(.text.TM3x_IRQHandler)
-    __arm_cp.11_7                            0x000024b0   Number         4  timers.o(.text.TM3x_IRQHandler)
-    [Anonymous Symbol]                       0x000024b4   Section        0  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
-    [Anonymous Symbol]                       0x000024b8   Section        0  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
-    [Anonymous Symbol]                       0x000024c2   Section        0  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
-    [Anonymous Symbol]                       0x000024d0   Section        0  mg32x02z_tm_drv.o(.text.TM_IT_Config)
-    [Anonymous Symbol]                       0x000024e4   Section        0  mg32x02z_tm_drv.o(.text.TM_TimeBaseStruct_Init)
-    [Anonymous Symbol]                       0x000024f8   Section        0  mg32x02z_tm_drv.o(.text.TM_TimeBase_Init)
-    [Anonymous Symbol]                       0x0000257e   Section        0  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
-    [Anonymous Symbol]                       0x00002594   Section        0  usart.o(.text.URT0_IRQHandler)
-    __arm_cp.8_0                             0x000025c4   Number         4  usart.o(.text.URT0_IRQHandler)
-    [Anonymous Symbol]                       0x000025c8   Section        0  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
-    [Anonymous Symbol]                       0x000025d0   Section        0  mg32x02z_urt_drv.o(.text.URT_Cmd)
-    [Anonymous Symbol]                       0x000025dc   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
-    [Anonymous Symbol]                       0x000025e4   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
-    [Anonymous Symbol]                       0x000025e8   Section        0  mg32x02z_urt_drv.o(.text.URT_GetRXData)
-    [Anonymous Symbol]                       0x000025ec   Section        0  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
-    [Anonymous Symbol]                       0x000025f8   Section        0  mg32x02z_urt_drv.o(.text.URT_IT_Config)
-    [Anonymous Symbol]                       0x00002604   Section        0  usart.o(.text.URT_Print)
-    [Anonymous Symbol]                       0x00002638   Section        0  usart.o(.text.URT_PrintString)
-    [Anonymous Symbol]                       0x00002668   Section        0  mg32x02z_urt_drv.o(.text.URT_SetTXData)
-    [Anonymous Symbol]                       0x0000269a   Section        0  usart.o(.text.URT_Write)
-    [Anonymous Symbol]                       0x000026b0   Section        0  usart.o(.text.USART_Config)
-    __arm_cp.7_0                             0x00002714   Number         4  usart.o(.text.USART_Config)
-    __arm_cp.7_1                             0x00002718   Number         4  usart.o(.text.USART_Config)
-    __arm_cp.7_2                             0x0000271c   Number         4  usart.o(.text.USART_Config)
-    __arm_cp.7_3                             0x00002720   Number         4  usart.o(.text.USART_Config)
-    __arm_cp.7_4                             0x00002724   Number         4  usart.o(.text.USART_Config)
-    __arm_cp.7_5                             0x00002728   Number         4  usart.o(.text.USART_Config)
-    [Anonymous Symbol]                       0x0000272c   Section        0  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
-    __arm_cp.7_0                             0x00002734   Number         4  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
-    [Anonymous Symbol]                       0x00002738   Section        0  wdt.o(.text.WDT_Config)
-    __arm_cp.0_0                             0x00002754   Number         4  wdt.o(.text.WDT_Config)
-    [Anonymous Symbol]                       0x00002758   Section        0  md5.o(.text.body)
-    __arm_cp.0_64                            0x00002d44   Number         4  md5.o(.text.body)
-    __arm_cp.0_65                            0x00002d48   Number         4  md5.o(.text.body)
-    __arm_cp.0_66                            0x00002d4c   Number         4  md5.o(.text.body)
-    __arm_cp.0_67                            0x00002d50   Number         4  md5.o(.text.body)
-    __arm_cp.0_68                            0x00002d54   Number         4  md5.o(.text.body)
-    __arm_cp.0_69                            0x00002d58   Number         4  md5.o(.text.body)
-    __arm_cp.0_70                            0x00002d5c   Number         4  md5.o(.text.body)
-    __arm_cp.0_71                            0x00002d60   Number         4  md5.o(.text.body)
-    __arm_cp.0_72                            0x00002d64   Number         4  md5.o(.text.body)
-    __arm_cp.0_73                            0x00002d68   Number         4  md5.o(.text.body)
-    __arm_cp.0_74                            0x00002d6c   Number         4  md5.o(.text.body)
-    __arm_cp.0_75                            0x00002d70   Number         4  md5.o(.text.body)
-    __arm_cp.0_76                            0x00002d74   Number         4  md5.o(.text.body)
-    __arm_cp.0_77                            0x00002d78   Number         4  md5.o(.text.body)
-    __arm_cp.0_78                            0x00002d7c   Number         4  md5.o(.text.body)
-    __arm_cp.0_79                            0x00002d80   Number         4  md5.o(.text.body)
-    __arm_cp.0_80                            0x00002d84   Number         4  md5.o(.text.body)
-    __arm_cp.0_81                            0x00002d88   Number         4  md5.o(.text.body)
-    __arm_cp.0_82                            0x00002d8c   Number         4  md5.o(.text.body)
-    __arm_cp.0_83                            0x00002d90   Number         4  md5.o(.text.body)
-    __arm_cp.0_84                            0x00002d94   Number         4  md5.o(.text.body)
-    __arm_cp.0_85                            0x00002d98   Number         4  md5.o(.text.body)
-    __arm_cp.0_86                            0x00002d9c   Number         4  md5.o(.text.body)
-    __arm_cp.0_87                            0x00002da0   Number         4  md5.o(.text.body)
-    __arm_cp.0_24                            0x00002f98   Number         4  md5.o(.text.body)
-    __arm_cp.0_25                            0x00002f9c   Number         4  md5.o(.text.body)
-    __arm_cp.0_26                            0x00002fa0   Number         4  md5.o(.text.body)
-    __arm_cp.0_27                            0x00002fa4   Number         4  md5.o(.text.body)
-    __arm_cp.0_28                            0x00002fa8   Number         4  md5.o(.text.body)
-    __arm_cp.0_29                            0x00002fac   Number         4  md5.o(.text.body)
-    __arm_cp.0_30                            0x00002fb0   Number         4  md5.o(.text.body)
-    __arm_cp.0_31                            0x00002fb4   Number         4  md5.o(.text.body)
-    __arm_cp.0_32                            0x00002fb8   Number         4  md5.o(.text.body)
-    __arm_cp.0_33                            0x00002fbc   Number         4  md5.o(.text.body)
-    __arm_cp.0_34                            0x00002fc0   Number         4  md5.o(.text.body)
-    __arm_cp.0_35                            0x00002fc4   Number         4  md5.o(.text.body)
-    __arm_cp.0_36                            0x00002fc8   Number         4  md5.o(.text.body)
-    __arm_cp.0_37                            0x00002fcc   Number         4  md5.o(.text.body)
-    __arm_cp.0_38                            0x00002fd0   Number         4  md5.o(.text.body)
-    __arm_cp.0_39                            0x00002fd4   Number         4  md5.o(.text.body)
-    __arm_cp.0_40                            0x00002fd8   Number         4  md5.o(.text.body)
-    __arm_cp.0_41                            0x00002fdc   Number         4  md5.o(.text.body)
-    __arm_cp.0_42                            0x00002fe0   Number         4  md5.o(.text.body)
-    __arm_cp.0_43                            0x00002fe4   Number         4  md5.o(.text.body)
-    __arm_cp.0_44                            0x00002fe8   Number         4  md5.o(.text.body)
-    __arm_cp.0_45                            0x00002fec   Number         4  md5.o(.text.body)
-    __arm_cp.0_46                            0x00002ff0   Number         4  md5.o(.text.body)
-    __arm_cp.0_47                            0x00002ff4   Number         4  md5.o(.text.body)
-    __arm_cp.0_48                            0x00002ff8   Number         4  md5.o(.text.body)
-    __arm_cp.0_49                            0x00002ffc   Number         4  md5.o(.text.body)
-    __arm_cp.0_50                            0x00003000   Number         4  md5.o(.text.body)
-    __arm_cp.0_51                            0x00003004   Number         4  md5.o(.text.body)
-    __arm_cp.0_52                            0x00003008   Number         4  md5.o(.text.body)
-    __arm_cp.0_53                            0x0000300c   Number         4  md5.o(.text.body)
-    __arm_cp.0_54                            0x00003010   Number         4  md5.o(.text.body)
-    __arm_cp.0_55                            0x00003014   Number         4  md5.o(.text.body)
-    __arm_cp.0_56                            0x00003018   Number         4  md5.o(.text.body)
-    __arm_cp.0_57                            0x0000301c   Number         4  md5.o(.text.body)
-    __arm_cp.0_58                            0x00003020   Number         4  md5.o(.text.body)
-    __arm_cp.0_59                            0x00003024   Number         4  md5.o(.text.body)
-    __arm_cp.0_60                            0x00003028   Number         4  md5.o(.text.body)
-    __arm_cp.0_61                            0x0000302c   Number         4  md5.o(.text.body)
-    __arm_cp.0_62                            0x00003030   Number         4  md5.o(.text.body)
-    __arm_cp.0_63                            0x00003034   Number         4  md5.o(.text.body)
-    [Anonymous Symbol]                       0x00003038   Section        0  timers.o(.text.delay_ms)
-    [Anonymous Symbol]                       0x0000304e   Section        0  timers.o(.text.delay_us)
-    [Anonymous Symbol]                       0x00003060   Section        0  buffer.o(.text.getEvent)
-    [Anonymous Symbol]                       0x0000308c   Section        0  skud_algo.o(.text.hAlarmTimeout)
-    __arm_cp.7_0                             0x000030a4   Number         4  skud_algo.o(.text.hAlarmTimeout)
-    [Anonymous Symbol]                       0x000030a8   Section        0  skud_algo.o(.text.hDoorClosedAlarmOff)
-    [Anonymous Symbol]                       0x000030d0   Section        0  skud_algo.o(.text.hDoorClosedAlarmOn)
-    [Anonymous Symbol]                       0x000030e8   Section        0  skud_algo.o(.text.hDoorOpened)
-    [Anonymous Symbol]                       0x00003130   Section        0  skud_algo.o(.text.hEnteredInvalidKey)
-    [Anonymous Symbol]                       0x00003154   Section        0  skud_algo.o(.text.hEnteredValidKey)
-    [Anonymous Symbol]                       0x00003188   Section        0  skud_algo.o(.text.hKeyReadingResumed)
-    __arm_cp.8_0                             0x000031b8   Number         4  skud_algo.o(.text.hKeyReadingResumed)
-    __arm_cp.8_1                             0x000031bc   Number         4  skud_algo.o(.text.hKeyReadingResumed)
-    __arm_cp.8_2                             0x000031c0   Number         4  skud_algo.o(.text.hKeyReadingResumed)
-    __arm_cp.8_3                             0x000031c4   Number         4  skud_algo.o(.text.hKeyReadingResumed)
-    __arm_cp.8_4                             0x000031c8   Number         4  skud_algo.o(.text.hKeyReadingResumed)
-    [Anonymous Symbol]                       0x000031cc   Section        0  main.o(.text.main)
-    __arm_cp.0_0                             0x00003210   Number         4  main.o(.text.main)
-    [Anonymous Symbol]                       0x00003214   Section        0  buffer.o(.text.putEvent)
-    __arm_cp.5_0                             0x0000324c   Number         4  buffer.o(.text.putEvent)
-    [Anonymous Symbol]                       0x00003250   Section        0  wdt.o(.text.wdt_enable)
-    __arm_cp.1_0                             0x00003270   Number         4  wdt.o(.text.wdt_enable)
-    [Anonymous Symbol]                       0x00003274   Section        0  wdt.o(.text.wdt_reset)
-    i.__0printf$5                            0x0000327c   Section        0  printf5.o(i.__0printf$5)
-    i.__scatterload_copy                     0x0000329c   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x000032aa   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x000032ac   Section       14  handlers.o(i.__scatterload_zeroinit)
-    _printf_core                             0x000032bd   Thumb Code   688  printf5.o(i._printf_core)
-    i._printf_core                           0x000032bc   Section        0  printf5.o(i._printf_core)
-    i.fputc                                  0x00003598   Section        0  fputc.o(i.fputc)
-    CRC_Table                                0x000035aa   Data         256  crc.o(.rodata.CRC_Table)
-    [Anonymous Symbol]                       0x000035aa   Section        0  crc.o(.rodata.CRC_Table)
-    .L.str.1                                 0x000036aa   Data           3  skud_algo.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x000036aa   Section        0  skud_algo.o(.rodata.str1.1)
-    .L.str.1                                 0x000036ad   Data          14  system_mg32x02z.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x000036ad   Section        0  system_mg32x02z.o(.rodata.str1.1)
-    .L.str.2                                 0x000036bb   Data          14  system_mg32x02z.o(.rodata.str1.1)
-    .L.str                                   0x000036c9   Data          23  system_mg32x02z.o(.rodata.str1.1)
+    __arm_cp.18_0                            0x00000f7c   Number         4  skud_algo.o(.text.HandleEvent)
+    __arm_cp.18_1                            0x00000f80   Number         4  skud_algo.o(.text.HandleEvent)
+    [Anonymous Symbol]                       0x00000f84   Section        0  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_0                             0x00000ff8   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_1                             0x00000ffc   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_2                             0x00001000   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    __arm_cp.2_3                             0x00001004   Number         4  system_mg32x02z.o(.text.HardFault_Handler_C)
+    [Anonymous Symbol]                       0x00001098   Section        0  iap.o(.text.IAP_CopyFromIAPToRAM)
+    [Anonymous Symbol]                       0x000010b0   Section        0  iap.o(.text.IAP_Erase_OnePage)
+    [Anonymous Symbol]                       0x00001140   Section        0  iap.o(.text.IAP_Init)
+    __arm_cp.0_0                             0x00001174   Number         4  iap.o(.text.IAP_Init)
+    [Anonymous Symbol]                       0x00001178   Section        0  iap.o(.text.IAP_IsEqualToRAM)
+    [Anonymous Symbol]                       0x0000118c   Section        0  iap.o(.text.IAP_Multiple_Write)
+    [Anonymous Symbol]                       0x00001250   Section        0  iap.o(.text.IAP_ReadByte)
+    [Anonymous Symbol]                       0x0000125c   Section        0  iap.o(.text.IAP_ReadWord)
+    [Anonymous Symbol]                       0x0000126a   Section        0  iap.o(.text.IAP_WriteMultipleWord)
+    [Anonymous Symbol]                       0x00001284   Section        0  iap.o(.text.IAP_WriteSingleWord)
+    __arm_cp.6_0                             0x00001320   Number         4  iap.o(.text.IAP_WriteSingleWord)
+    __arm_cp.6_1                             0x00001324   Number         4  iap.o(.text.IAP_WriteSingleWord)
+    __arm_cp.6_2                             0x00001328   Number         4  iap.o(.text.IAP_WriteSingleWord)
+    __arm_cp.6_3                             0x0000132c   Number         4  iap.o(.text.IAP_WriteSingleWord)
+    [Anonymous Symbol]                       0x00001330   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
+    __arm_cp.4_0                             0x00001348   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
+    [Anonymous Symbol]                       0x0000134c   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
+    __arm_cp.0_0                             0x00001360   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
+    [Anonymous Symbol]                       0x00001364   Section        0  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    __arm_cp.2_0                             0x0000136c   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    __arm_cp.2_1                             0x00001370   Number         4  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    [Anonymous Symbol]                       0x00001374   Section        0  skud_algo.o(.text.IsKeyActive)
+    __arm_cp.19_0                            0x000013c4   Number         4  skud_algo.o(.text.IsKeyActive)
+    __arm_cp.19_1                            0x000013c8   Number         4  skud_algo.o(.text.IsKeyActive)
+    __arm_cp.19_2                            0x000013cc   Number         4  skud_algo.o(.text.IsKeyActive)
+    [Anonymous Symbol]                       0x000013d0   Section        0  md5.o(.text.MD5_Final)
+    [Anonymous Symbol]                       0x00001490   Section        0  md5.o(.text.MD5_MakeHash)
+    __arm_cp.4_0                             0x000014f4   Number         4  md5.o(.text.MD5_MakeHash)
+    __arm_cp.4_1                             0x000014f8   Number         4  md5.o(.text.MD5_MakeHash)
+    __arm_cp.4_2                             0x000014fc   Number         4  md5.o(.text.MD5_MakeHash)
+    __arm_cp.4_3                             0x00001500   Number         4  md5.o(.text.MD5_MakeHash)
+    [Anonymous Symbol]                       0x00001504   Section        0  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
+    __arm_cp.23_0                            0x00001578   Number         4  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
+    [Anonymous Symbol]                       0x0000157c   Section        0  onewire.o(.text.OneWire_Read)
+    [Anonymous Symbol]                       0x00001724   Section        0  onewire.o(.text.OneWire_SetDirection)
+    [Anonymous Symbol]                       0x00001730   Section        0  onewire.o(.text.OneWire_Start)
+    [Anonymous Symbol]                       0x0000176c   Section        0  onewire.o(.text.OneWire_Write)
+    __arm_cp.2_0                             0x00001910   Number         4  onewire.o(.text.OneWire_Write)
+    __arm_cp.2_1                             0x00001914   Number         4  onewire.o(.text.OneWire_Write)
+    [Anonymous Symbol]                       0x00001918   Section        0  prsm3.o(.text.PRSM3_AddNewByte)
+    __arm_cp.0_1                             0x00001968   Number         4  prsm3.o(.text.PRSM3_AddNewByte)
+    [Anonymous Symbol]                       0x0000196c   Section        0  prsm3.o(.text.PRSM3_ParseMessage)
+    __arm_cp.1_1                             0x000019f8   Number         4  prsm3.o(.text.PRSM3_ParseMessage)
+    [Anonymous Symbol]                       0x000019fc   Section        0  prsm3.o(.text.PRSM3_ParseReadRequest)
+    [Anonymous Symbol]                       0x00001be4   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest24)
+    __arm_cp.3_0                             0x00001c78   Number         4  prsm3.o(.text.PRSM3_ParseWriteRequest24)
+    [Anonymous Symbol]                       0x00001c7c   Section        0  prsm3.o(.text.PRSM3_ParseWriteRequest9)
+    [Anonymous Symbol]                       0x00001d20   Section        0  prsm3.o(.text.PRSM3_clearBuffer)
+    __arm_cp.7_0                             0x00001d30   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
+    __arm_cp.7_1                             0x00001d34   Number         4  prsm3.o(.text.PRSM3_clearBuffer)
+    [Anonymous Symbol]                       0x00001d38   Section        0  mg32x02z__common_drv.o(.text.ProtectModuleReg)
+    [Anonymous Symbol]                       0x00001d40   Section        0  mg32x02z_rst_drv.o(.text.RST_CRstSource_Config)
+    __arm_cp.3_0                             0x00001d54   Number         4  mg32x02z_rst_drv.o(.text.RST_CRstSource_Config)
+    [Anonymous Symbol]                       0x00001d58   Section        0  flash.o(.text.SetVariable)
+    __arm_cp.5_0                             0x00001dd0   Number         4  flash.o(.text.SetVariable)
+    [Anonymous Symbol]                       0x00001dd4   Section        0  flash.o(.text.SetVariablePack)
+    __arm_cp.9_0                             0x000020c4   Number         4  flash.o(.text.SetVariablePack)
+    __arm_cp.9_1                             0x000020c8   Number         4  flash.o(.text.SetVariablePack)
+    __arm_cp.9_2                             0x000020cc   Number         4  flash.o(.text.SetVariablePack)
+    [Anonymous Symbol]                       0x000020d0   Section        0  system_mg32x02z.o(.text.SystemInit)
+    __arm_cp.1_0                             0x000020d8   Number         4  system_mg32x02z.o(.text.SystemInit)
+    __arm_cp.1_1                             0x000020dc   Number         4  system_mg32x02z.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x000020e0   Section        0  timers.o(.text.TIM00_Callback)
+    __arm_cp.0_0                             0x0000215c   Number         4  timers.o(.text.TIM00_Callback)
+    __arm_cp.0_1                             0x00002160   Number         4  timers.o(.text.TIM00_Callback)
+    __arm_cp.0_2                             0x00002164   Number         4  timers.o(.text.TIM00_Callback)
+    __arm_cp.0_3                             0x00002168   Number         4  timers.o(.text.TIM00_Callback)
+    __arm_cp.0_4                             0x0000216c   Number         4  timers.o(.text.TIM00_Callback)
+    __arm_cp.0_5                             0x00002170   Number         4  timers.o(.text.TIM00_Callback)
+    [Anonymous Symbol]                       0x00002174   Section        0  timers.o(.text.TIM_Config)
+    __arm_cp.7_1                             0x000022b0   Number         4  timers.o(.text.TIM_Config)
+    __arm_cp.7_4                             0x000022b4   Number         4  timers.o(.text.TIM_Config)
+    __arm_cp.7_5                             0x000022b8   Number         4  timers.o(.text.TIM_Config)
+    __arm_cp.7_6                             0x000022bc   Number         4  timers.o(.text.TIM_Config)
+    [Anonymous Symbol]                       0x000022c0   Section        0  timers.o(.text.TM0x_IRQHandler)
+    __arm_cp.8_0                             0x00002328   Number         4  timers.o(.text.TM0x_IRQHandler)
+    __arm_cp.8_1                             0x0000232c   Number         4  timers.o(.text.TM0x_IRQHandler)
+    __arm_cp.8_2                             0x00002330   Number         4  timers.o(.text.TM0x_IRQHandler)
+    __arm_cp.8_3                             0x00002334   Number         4  timers.o(.text.TM0x_IRQHandler)
+    [Anonymous Symbol]                       0x00002338   Section        0  timers.o(.text.TM10_IRQHandler)
+    __arm_cp.9_0                             0x00002378   Number         4  timers.o(.text.TM10_IRQHandler)
+    __arm_cp.9_1                             0x0000237c   Number         4  timers.o(.text.TM10_IRQHandler)
+    [Anonymous Symbol]                       0x00002380   Section        0  timers.o(.text.TM1x_IRQHandler)
+    __arm_cp.10_0                            0x000023bc   Number         4  timers.o(.text.TM1x_IRQHandler)
+    [Anonymous Symbol]                       0x000023c0   Section        0  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_0                            0x0000243c   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_1                            0x00002440   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_2                            0x00002444   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_3                            0x00002448   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_4                            0x0000244c   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_5                            0x00002450   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_6                            0x00002454   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_7                            0x00002458   Number         4  timers.o(.text.TM3x_IRQHandler)
+    __arm_cp.11_8                            0x0000245c   Number         4  timers.o(.text.TM3x_IRQHandler)
+    [Anonymous Symbol]                       0x00002460   Section        0  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
+    [Anonymous Symbol]                       0x00002464   Section        0  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
+    [Anonymous Symbol]                       0x0000246e   Section        0  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
+    [Anonymous Symbol]                       0x0000247c   Section        0  mg32x02z_tm_drv.o(.text.TM_IT_Config)
+    [Anonymous Symbol]                       0x00002490   Section        0  mg32x02z_tm_drv.o(.text.TM_TimeBaseStruct_Init)
+    [Anonymous Symbol]                       0x000024a4   Section        0  mg32x02z_tm_drv.o(.text.TM_TimeBase_Init)
+    [Anonymous Symbol]                       0x0000252a   Section        0  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
+    [Anonymous Symbol]                       0x00002540   Section        0  usart.o(.text.URT0_IRQHandler)
+    __arm_cp.8_0                             0x00002570   Number         4  usart.o(.text.URT0_IRQHandler)
+    [Anonymous Symbol]                       0x00002574   Section        0  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
+    [Anonymous Symbol]                       0x0000257c   Section        0  mg32x02z_urt_drv.o(.text.URT_Cmd)
+    [Anonymous Symbol]                       0x00002588   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
+    [Anonymous Symbol]                       0x00002590   Section        0  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
+    [Anonymous Symbol]                       0x00002594   Section        0  mg32x02z_urt_drv.o(.text.URT_GetRXData)
+    [Anonymous Symbol]                       0x00002598   Section        0  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
+    [Anonymous Symbol]                       0x000025a4   Section        0  mg32x02z_urt_drv.o(.text.URT_IT_Config)
+    [Anonymous Symbol]                       0x000025b0   Section        0  usart.o(.text.URT_Print)
+    [Anonymous Symbol]                       0x000025e4   Section        0  mg32x02z_urt_drv.o(.text.URT_SetTXData)
+    [Anonymous Symbol]                       0x00002616   Section        0  usart.o(.text.URT_Write)
+    [Anonymous Symbol]                       0x0000262c   Section        0  usart.o(.text.USART_Config)
+    __arm_cp.7_0                             0x00002690   Number         4  usart.o(.text.USART_Config)
+    __arm_cp.7_1                             0x00002694   Number         4  usart.o(.text.USART_Config)
+    __arm_cp.7_2                             0x00002698   Number         4  usart.o(.text.USART_Config)
+    __arm_cp.7_3                             0x0000269c   Number         4  usart.o(.text.USART_Config)
+    __arm_cp.7_4                             0x000026a0   Number         4  usart.o(.text.USART_Config)
+    __arm_cp.7_5                             0x000026a4   Number         4  usart.o(.text.USART_Config)
+    [Anonymous Symbol]                       0x000026a8   Section        0  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
+    __arm_cp.7_0                             0x000026b0   Number         4  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
+    [Anonymous Symbol]                       0x000026b4   Section        0  wdt.o(.text.WDT_Config)
+    __arm_cp.0_0                             0x000026d0   Number         4  wdt.o(.text.WDT_Config)
+    [Anonymous Symbol]                       0x000026d4   Section        0  md5.o(.text.body)
+    __arm_cp.0_64                            0x00002cc0   Number         4  md5.o(.text.body)
+    __arm_cp.0_65                            0x00002cc4   Number         4  md5.o(.text.body)
+    __arm_cp.0_66                            0x00002cc8   Number         4  md5.o(.text.body)
+    __arm_cp.0_67                            0x00002ccc   Number         4  md5.o(.text.body)
+    __arm_cp.0_68                            0x00002cd0   Number         4  md5.o(.text.body)
+    __arm_cp.0_69                            0x00002cd4   Number         4  md5.o(.text.body)
+    __arm_cp.0_70                            0x00002cd8   Number         4  md5.o(.text.body)
+    __arm_cp.0_71                            0x00002cdc   Number         4  md5.o(.text.body)
+    __arm_cp.0_72                            0x00002ce0   Number         4  md5.o(.text.body)
+    __arm_cp.0_73                            0x00002ce4   Number         4  md5.o(.text.body)
+    __arm_cp.0_74                            0x00002ce8   Number         4  md5.o(.text.body)
+    __arm_cp.0_75                            0x00002cec   Number         4  md5.o(.text.body)
+    __arm_cp.0_76                            0x00002cf0   Number         4  md5.o(.text.body)
+    __arm_cp.0_77                            0x00002cf4   Number         4  md5.o(.text.body)
+    __arm_cp.0_78                            0x00002cf8   Number         4  md5.o(.text.body)
+    __arm_cp.0_79                            0x00002cfc   Number         4  md5.o(.text.body)
+    __arm_cp.0_80                            0x00002d00   Number         4  md5.o(.text.body)
+    __arm_cp.0_81                            0x00002d04   Number         4  md5.o(.text.body)
+    __arm_cp.0_82                            0x00002d08   Number         4  md5.o(.text.body)
+    __arm_cp.0_83                            0x00002d0c   Number         4  md5.o(.text.body)
+    __arm_cp.0_84                            0x00002d10   Number         4  md5.o(.text.body)
+    __arm_cp.0_85                            0x00002d14   Number         4  md5.o(.text.body)
+    __arm_cp.0_86                            0x00002d18   Number         4  md5.o(.text.body)
+    __arm_cp.0_87                            0x00002d1c   Number         4  md5.o(.text.body)
+    __arm_cp.0_24                            0x00002f14   Number         4  md5.o(.text.body)
+    __arm_cp.0_25                            0x00002f18   Number         4  md5.o(.text.body)
+    __arm_cp.0_26                            0x00002f1c   Number         4  md5.o(.text.body)
+    __arm_cp.0_27                            0x00002f20   Number         4  md5.o(.text.body)
+    __arm_cp.0_28                            0x00002f24   Number         4  md5.o(.text.body)
+    __arm_cp.0_29                            0x00002f28   Number         4  md5.o(.text.body)
+    __arm_cp.0_30                            0x00002f2c   Number         4  md5.o(.text.body)
+    __arm_cp.0_31                            0x00002f30   Number         4  md5.o(.text.body)
+    __arm_cp.0_32                            0x00002f34   Number         4  md5.o(.text.body)
+    __arm_cp.0_33                            0x00002f38   Number         4  md5.o(.text.body)
+    __arm_cp.0_34                            0x00002f3c   Number         4  md5.o(.text.body)
+    __arm_cp.0_35                            0x00002f40   Number         4  md5.o(.text.body)
+    __arm_cp.0_36                            0x00002f44   Number         4  md5.o(.text.body)
+    __arm_cp.0_37                            0x00002f48   Number         4  md5.o(.text.body)
+    __arm_cp.0_38                            0x00002f4c   Number         4  md5.o(.text.body)
+    __arm_cp.0_39                            0x00002f50   Number         4  md5.o(.text.body)
+    __arm_cp.0_40                            0x00002f54   Number         4  md5.o(.text.body)
+    __arm_cp.0_41                            0x00002f58   Number         4  md5.o(.text.body)
+    __arm_cp.0_42                            0x00002f5c   Number         4  md5.o(.text.body)
+    __arm_cp.0_43                            0x00002f60   Number         4  md5.o(.text.body)
+    __arm_cp.0_44                            0x00002f64   Number         4  md5.o(.text.body)
+    __arm_cp.0_45                            0x00002f68   Number         4  md5.o(.text.body)
+    __arm_cp.0_46                            0x00002f6c   Number         4  md5.o(.text.body)
+    __arm_cp.0_47                            0x00002f70   Number         4  md5.o(.text.body)
+    __arm_cp.0_48                            0x00002f74   Number         4  md5.o(.text.body)
+    __arm_cp.0_49                            0x00002f78   Number         4  md5.o(.text.body)
+    __arm_cp.0_50                            0x00002f7c   Number         4  md5.o(.text.body)
+    __arm_cp.0_51                            0x00002f80   Number         4  md5.o(.text.body)
+    __arm_cp.0_52                            0x00002f84   Number         4  md5.o(.text.body)
+    __arm_cp.0_53                            0x00002f88   Number         4  md5.o(.text.body)
+    __arm_cp.0_54                            0x00002f8c   Number         4  md5.o(.text.body)
+    __arm_cp.0_55                            0x00002f90   Number         4  md5.o(.text.body)
+    __arm_cp.0_56                            0x00002f94   Number         4  md5.o(.text.body)
+    __arm_cp.0_57                            0x00002f98   Number         4  md5.o(.text.body)
+    __arm_cp.0_58                            0x00002f9c   Number         4  md5.o(.text.body)
+    __arm_cp.0_59                            0x00002fa0   Number         4  md5.o(.text.body)
+    __arm_cp.0_60                            0x00002fa4   Number         4  md5.o(.text.body)
+    __arm_cp.0_61                            0x00002fa8   Number         4  md5.o(.text.body)
+    __arm_cp.0_62                            0x00002fac   Number         4  md5.o(.text.body)
+    __arm_cp.0_63                            0x00002fb0   Number         4  md5.o(.text.body)
+    [Anonymous Symbol]                       0x00002fb4   Section        0  timers.o(.text.delay_ms)
+    [Anonymous Symbol]                       0x00002fca   Section        0  timers.o(.text.delay_us)
+    [Anonymous Symbol]                       0x00002fdc   Section        0  buffer.o(.text.getEvent)
+    [Anonymous Symbol]                       0x00003008   Section        0  skud_algo.o(.text.hAccessToSleep)
+    __arm_cp.11_0                            0x00003010   Number         4  skud_algo.o(.text.hAccessToSleep)
+    [Anonymous Symbol]                       0x00003014   Section        0  skud_algo.o(.text.hDoorClosedNoAccess)
+    [Anonymous Symbol]                       0x00003034   Section        0  skud_algo.o(.text.hDoorOpenedNoAccess)
+    [Anonymous Symbol]                       0x00003054   Section        0  skud_algo.o(.text.hIndicationStop)
+    __arm_cp.17_1                            0x0000306c   Number         4  skud_algo.o(.text.hIndicationStop)
+    [Anonymous Symbol]                       0x00003070   Section        0  skud_algo.o(.text.hReadingKeyResume)
+    [Anonymous Symbol]                       0x000030a4   Section        0  skud_algo.o(.text.hReadingKeySuspend)
+    [Anonymous Symbol]                       0x000030d8   Section        0  skud_algo.o(.text.hSendAlarmEvent)
+    [Anonymous Symbol]                       0x000030e4   Section        0  skud_algo.o(.text.hSleepToWaiting)
+    [Anonymous Symbol]                       0x00003120   Section        0  skud_algo.o(.text.hWaitingToAccess)
+    __arm_cp.10_0                            0x0000316c   Number         4  skud_algo.o(.text.hWaitingToAccess)
+    __arm_cp.10_1                            0x00003170   Number         4  skud_algo.o(.text.hWaitingToAccess)
+    __arm_cp.10_2                            0x00003174   Number         4  skud_algo.o(.text.hWaitingToAccess)
+    __arm_cp.10_3                            0x00003178   Number         4  skud_algo.o(.text.hWaitingToAccess)
+    __arm_cp.10_4                            0x0000317c   Number         4  skud_algo.o(.text.hWaitingToAccess)
+    __arm_cp.10_5                            0x00003180   Number         4  skud_algo.o(.text.hWaitingToAccess)
+    [Anonymous Symbol]                       0x00003184   Section        0  main.o(.text.main)
+    __arm_cp.0_0                             0x000031c4   Number         4  main.o(.text.main)
+    [Anonymous Symbol]                       0x000031c8   Section        0  buffer.o(.text.putEvent)
+    __arm_cp.5_0                             0x00003200   Number         4  buffer.o(.text.putEvent)
+    [Anonymous Symbol]                       0x00003204   Section        0  wdt.o(.text.wdt_enable)
+    __arm_cp.1_0                             0x00003224   Number         4  wdt.o(.text.wdt_enable)
+    [Anonymous Symbol]                       0x00003228   Section        0  wdt.o(.text.wdt_reset)
+    i.__0printf$5                            0x00003230   Section        0  printf5.o(i.__0printf$5)
+    i.__scatterload_copy                     0x00003250   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0000325e   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00003260   Section       14  handlers.o(i.__scatterload_zeroinit)
+    _printf_core                             0x00003271   Thumb Code   688  printf5.o(i._printf_core)
+    i._printf_core                           0x00003270   Section        0  printf5.o(i._printf_core)
+    i.fputc                                  0x0000354c   Section        0  fputc.o(i.fputc)
+    CRC_Table                                0x0000355e   Data         256  crc.o(.rodata.CRC_Table)
+    [Anonymous Symbol]                       0x0000355e   Section        0  crc.o(.rodata.CRC_Table)
+    .L.str.1                                 0x0000365e   Data          14  system_mg32x02z.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0000365e   Section        0  system_mg32x02z.o(.rodata.str1.1)
+    .L.str.2                                 0x0000366c   Data          14  system_mg32x02z.o(.rodata.str1.1)
+    .L.str                                   0x0000367a   Data          23  system_mg32x02z.o(.rodata.str1.1)
     .data                                    0x20000000   Section        4  stdout.o(.data)
     [Anonymous Symbol]                       0x20000004   Section        0  skud_algo.o(.data..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000178   Section        0  prsm3.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_r0           0x200001a4   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x200001a4   Section        0  system_mg32x02z.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_r1           0x200001a8   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_r2           0x200001ac   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_r3           0x200001b0   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_r12          0x200001b4   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_lr           0x200001b8   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_pc           0x200001bc   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    HardFault_Handler_C.stacked_psr          0x200001c0   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x200001c4   Section        0  skud_algo.o(.bss..L_MergedGlobals.5)
-    STACK                                    0x200005f0   Section     1024  startup_mg32x02z.o(STACK)
+    [Anonymous Symbol]                       0x20000160   Section        0  prsm3.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_r0           0x2000018c   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x2000018c   Section        0  system_mg32x02z.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_r1           0x20000190   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_r2           0x20000194   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_r3           0x20000198   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_r12          0x2000019c   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_lr           0x200001a0   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_pc           0x200001a4   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    HardFault_Handler_C.stacked_psr          0x200001a8   Data           4  system_mg32x02z.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x200001ac   Section        0  skud_algo.o(.bss..L_MergedGlobals.1)
+    STACK                                    0x200005d8   Section     1024  startup_mg32x02z.o(STACK)
 
     Global Symbols
 
@@ -3704,135 +3752,140 @@ Image Symbol Table
     GPIO_PinOutputDrive_Select               0x00000f09   Thumb Code    18  mg32x02z_gpio_drv.o(.text.GPIO_PinOutputDrive_Select)
     GPIO_PinPUResister_Cmd                   0x00000f1b   Thumb Code    16  mg32x02z_gpio_drv.o(.text.GPIO_PinPUResister_Cmd)
     GetVariable                              0x00000f2d   Thumb Code    24  flash.o(.text.GetVariable)
-    HandleEvent                              0x00000f45   Thumb Code   200  skud_algo.o(.text.HandleEvent)
-    HardFault_Handler_C                      0x0000100d   Thumb Code   276  system_mg32x02z.o(.text.HardFault_Handler_C)
-    IAP_CopyFromIAPToRAM                     0x00001121   Thumb Code    22  iap.o(.text.IAP_CopyFromIAPToRAM)
-    IAP_Erase_OnePage                        0x00001139   Thumb Code   144  iap.o(.text.IAP_Erase_OnePage)
-    IAP_Init                                 0x000011c9   Thumb Code    56  iap.o(.text.IAP_Init)
-    IAP_IsEqualToRAM                         0x00001201   Thumb Code    18  iap.o(.text.IAP_IsEqualToRAM)
-    IAP_Multiple_Write                       0x00001215   Thumb Code   196  iap.o(.text.IAP_Multiple_Write)
-    IAP_ReadByte                             0x000012d9   Thumb Code    12  iap.o(.text.IAP_ReadByte)
-    IAP_ReadWord                             0x000012e5   Thumb Code    14  iap.o(.text.IAP_ReadWord)
-    IAP_WriteMultipleWord                    0x000012f3   Thumb Code    24  iap.o(.text.IAP_WriteMultipleWord)
-    IAP_WriteSingleWord                      0x0000130d   Thumb Code   172  iap.o(.text.IAP_WriteSingleWord)
-    IWDT_Cmd                                 0x000013b9   Thumb Code    28  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
-    IWDT_Divider_Select                      0x000013d5   Thumb Code    24  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
-    IWDT_RefreshCounter                      0x000013ed   Thumb Code    16  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
-    IsKeyActive                              0x000013fd   Thumb Code    92  skud_algo.o(.text.IsKeyActive)
-    MD5_Final                                0x00001459   Thumb Code   190  md5.o(.text.MD5_Final)
-    MD5_MakeHash                             0x00001519   Thumb Code   116  md5.o(.text.MD5_MakeHash)
-    MEM_SetIAPSize                           0x0000158d   Thumb Code   120  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
-    OneWire_Read                             0x00001605   Thumb Code   424  onewire.o(.text.OneWire_Read)
-    OneWire_Start                            0x000017ad   Thumb Code    60  onewire.o(.text.OneWire_Start)
-    OneWire_Write                            0x000017e9   Thumb Code   428  onewire.o(.text.OneWire_Write)
-    PRSM3_AddNewByte                         0x00001995   Thumb Code    84  prsm3.o(.text.PRSM3_AddNewByte)
-    PRSM3_ParseMessage                       0x000019e9   Thumb Code   144  prsm3.o(.text.PRSM3_ParseMessage)
-    PRSM3_ParseReadRequest                   0x00001a79   Thumb Code   488  prsm3.o(.text.PRSM3_ParseReadRequest)
-    PRSM3_ParseWriteRequest24                0x00001c61   Thumb Code   152  prsm3.o(.text.PRSM3_ParseWriteRequest24)
-    PRSM3_ParseWriteRequest9                 0x00001cf9   Thumb Code   164  prsm3.o(.text.PRSM3_ParseWriteRequest9)
-    PRSM3_clearBuffer                        0x00001d9d   Thumb Code    24  prsm3.o(.text.PRSM3_clearBuffer)
-    ProtectModuleReg                         0x00001db5   Thumb Code     8  mg32x02z__common_drv.o(.text.ProtectModuleReg)
-    RST_CRstSource_Config                    0x00001dbd   Thumb Code    24  mg32x02z_rst_drv.o(.text.RST_CRstSource_Config)
-    SetVariable                              0x00001dd5   Thumb Code   124  flash.o(.text.SetVariable)
-    SetVariablePack                          0x00001e51   Thumb Code   764  flash.o(.text.SetVariablePack)
-    SystemInit                               0x0000214d   Thumb Code    16  system_mg32x02z.o(.text.SystemInit)
-    TIM00_Callback                           0x0000215d   Thumb Code   144  timers.o(.text.TIM00_Callback)
-    TIM_Config                               0x000021ed   Thumb Code   328  timers.o(.text.TIM_Config)
-    TM0x_IRQHandler                          0x00002335   Thumb Code    92  timers.o(.text.TM0x_IRQHandler)
-    TM10_IRQHandler                          0x00002391   Thumb Code    68  timers.o(.text.TM10_IRQHandler)
-    TM1x_IRQHandler                          0x000023d5   Thumb Code    64  timers.o(.text.TM1x_IRQHandler)
-    TM3x_IRQHandler                          0x00002415   Thumb Code   160  timers.o(.text.TM3x_IRQHandler)
-    TM_ClearFlag                             0x000024b5   Thumb Code     4  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
-    TM_GetSingleFlagStatus                   0x000024b9   Thumb Code    10  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
-    TM_ITEA_Cmd                              0x000024c3   Thumb Code    14  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
-    TM_IT_Config                             0x000024d1   Thumb Code    20  mg32x02z_tm_drv.o(.text.TM_IT_Config)
-    TM_TimeBaseStruct_Init                   0x000024e5   Thumb Code    20  mg32x02z_tm_drv.o(.text.TM_TimeBaseStruct_Init)
-    TM_TimeBase_Init                         0x000024f9   Thumb Code   134  mg32x02z_tm_drv.o(.text.TM_TimeBase_Init)
-    TM_Timer_Cmd                             0x0000257f   Thumb Code    22  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
-    URT0_IRQHandler                          0x00002595   Thumb Code    52  usart.o(.text.URT0_IRQHandler)
-    URT_ClearITFlag                          0x000025c9   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
-    URT_Cmd                                  0x000025d1   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_Cmd)
-    URT_GetITAllFlagStatus                   0x000025dd   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
-    URT_GetITStatus                          0x000025e5   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
-    URT_GetRXData                            0x000025e9   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetRXData)
-    URT_ITEA_Cmd                             0x000025ed   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
-    URT_IT_Config                            0x000025f9   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_IT_Config)
-    URT_Print                                0x00002605   Thumb Code    52  usart.o(.text.URT_Print)
-    URT_PrintString                          0x00002639   Thumb Code    46  usart.o(.text.URT_PrintString)
-    URT_SetTXData                            0x00002669   Thumb Code    50  mg32x02z_urt_drv.o(.text.URT_SetTXData)
-    URT_Write                                0x0000269b   Thumb Code    22  usart.o(.text.URT_Write)
-    USART_Config                             0x000026b1   Thumb Code   124  usart.o(.text.USART_Config)
-    UnProtectModuleReg                       0x0000272d   Thumb Code    12  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
-    WDT_Config                               0x00002739   Thumb Code    32  wdt.o(.text.WDT_Config)
-    body                                     0x00002759   Thumb Code  2272  md5.o(.text.body)
-    delay_ms                                 0x00003039   Thumb Code    22  timers.o(.text.delay_ms)
-    delay_us                                 0x0000304f   Thumb Code    18  timers.o(.text.delay_us)
-    getEvent                                 0x00003061   Thumb Code    44  buffer.o(.text.getEvent)
-    hAlarmTimeout                            0x0000308d   Thumb Code    28  skud_algo.o(.text.hAlarmTimeout)
-    hDoorClosedAlarmOff                      0x000030a9   Thumb Code    40  skud_algo.o(.text.hDoorClosedAlarmOff)
-    hDoorClosedAlarmOn                       0x000030d1   Thumb Code    24  skud_algo.o(.text.hDoorClosedAlarmOn)
-    hDoorOpened                              0x000030e9   Thumb Code    72  skud_algo.o(.text.hDoorOpened)
-    hEnteredInvalidKey                       0x00003131   Thumb Code    36  skud_algo.o(.text.hEnteredInvalidKey)
-    hEnteredValidKey                         0x00003155   Thumb Code    52  skud_algo.o(.text.hEnteredValidKey)
-    hKeyReadingResumed                       0x00003189   Thumb Code    68  skud_algo.o(.text.hKeyReadingResumed)
-    main                                     0x000031cd   Thumb Code    72  main.o(.text.main)
-    putEvent                                 0x00003215   Thumb Code    60  buffer.o(.text.putEvent)
-    wdt_enable                               0x00003251   Thumb Code    36  wdt.o(.text.wdt_enable)
-    wdt_reset                                0x00003275   Thumb Code     8  wdt.o(.text.wdt_reset)
-    __0printf$5                              0x0000327d   Thumb Code    24  printf5.o(i.__0printf$5)
-    __1printf$5                              0x0000327d   Thumb Code     0  printf5.o(i.__0printf$5)
-    __2printf                                0x0000327d   Thumb Code     0  printf5.o(i.__0printf$5)
-    __scatterload_copy                       0x0000329d   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x000032ab   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x000032ad   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    fputc                                    0x00003599   Thumb Code    18  fputc.o(i.fputc)
-    Region$$Table$$Base                      0x000036e0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00003700   Number         0  anon$$obj.o(Region$$Table)
+    HandleEvent                              0x00000f45   Thumb Code    64  skud_algo.o(.text.HandleEvent)
+    HardFault_Handler_C                      0x00000f85   Thumb Code   276  system_mg32x02z.o(.text.HardFault_Handler_C)
+    IAP_CopyFromIAPToRAM                     0x00001099   Thumb Code    22  iap.o(.text.IAP_CopyFromIAPToRAM)
+    IAP_Erase_OnePage                        0x000010b1   Thumb Code   144  iap.o(.text.IAP_Erase_OnePage)
+    IAP_Init                                 0x00001141   Thumb Code    56  iap.o(.text.IAP_Init)
+    IAP_IsEqualToRAM                         0x00001179   Thumb Code    18  iap.o(.text.IAP_IsEqualToRAM)
+    IAP_Multiple_Write                       0x0000118d   Thumb Code   196  iap.o(.text.IAP_Multiple_Write)
+    IAP_ReadByte                             0x00001251   Thumb Code    12  iap.o(.text.IAP_ReadByte)
+    IAP_ReadWord                             0x0000125d   Thumb Code    14  iap.o(.text.IAP_ReadWord)
+    IAP_WriteMultipleWord                    0x0000126b   Thumb Code    24  iap.o(.text.IAP_WriteMultipleWord)
+    IAP_WriteSingleWord                      0x00001285   Thumb Code   172  iap.o(.text.IAP_WriteSingleWord)
+    IWDT_Cmd                                 0x00001331   Thumb Code    28  mg32x02z_iwdt_drv.o(.text.IWDT_Cmd)
+    IWDT_Divider_Select                      0x0000134d   Thumb Code    24  mg32x02z_iwdt_drv.o(.text.IWDT_Divider_Select)
+    IWDT_RefreshCounter                      0x00001365   Thumb Code    16  mg32x02z_iwdt_drv.o(.text.IWDT_RefreshCounter)
+    IsKeyActive                              0x00001375   Thumb Code    92  skud_algo.o(.text.IsKeyActive)
+    MD5_Final                                0x000013d1   Thumb Code   190  md5.o(.text.MD5_Final)
+    MD5_MakeHash                             0x00001491   Thumb Code   116  md5.o(.text.MD5_MakeHash)
+    MEM_SetIAPSize                           0x00001505   Thumb Code   120  mg32x02z_mem_drv.o(.text.MEM_SetIAPSize)
+    OneWire_Read                             0x0000157d   Thumb Code   424  onewire.o(.text.OneWire_Read)
+    OneWire_SetDirection                     0x00001725   Thumb Code    12  onewire.o(.text.OneWire_SetDirection)
+    OneWire_Start                            0x00001731   Thumb Code    60  onewire.o(.text.OneWire_Start)
+    OneWire_Write                            0x0000176d   Thumb Code   428  onewire.o(.text.OneWire_Write)
+    PRSM3_AddNewByte                         0x00001919   Thumb Code    84  prsm3.o(.text.PRSM3_AddNewByte)
+    PRSM3_ParseMessage                       0x0000196d   Thumb Code   144  prsm3.o(.text.PRSM3_ParseMessage)
+    PRSM3_ParseReadRequest                   0x000019fd   Thumb Code   488  prsm3.o(.text.PRSM3_ParseReadRequest)
+    PRSM3_ParseWriteRequest24                0x00001be5   Thumb Code   152  prsm3.o(.text.PRSM3_ParseWriteRequest24)
+    PRSM3_ParseWriteRequest9                 0x00001c7d   Thumb Code   164  prsm3.o(.text.PRSM3_ParseWriteRequest9)
+    PRSM3_clearBuffer                        0x00001d21   Thumb Code    24  prsm3.o(.text.PRSM3_clearBuffer)
+    ProtectModuleReg                         0x00001d39   Thumb Code     8  mg32x02z__common_drv.o(.text.ProtectModuleReg)
+    RST_CRstSource_Config                    0x00001d41   Thumb Code    24  mg32x02z_rst_drv.o(.text.RST_CRstSource_Config)
+    SetVariable                              0x00001d59   Thumb Code   124  flash.o(.text.SetVariable)
+    SetVariablePack                          0x00001dd5   Thumb Code   764  flash.o(.text.SetVariablePack)
+    SystemInit                               0x000020d1   Thumb Code    16  system_mg32x02z.o(.text.SystemInit)
+    TIM00_Callback                           0x000020e1   Thumb Code   148  timers.o(.text.TIM00_Callback)
+    TIM_Config                               0x00002175   Thumb Code   332  timers.o(.text.TIM_Config)
+    TM0x_IRQHandler                          0x000022c1   Thumb Code   120  timers.o(.text.TM0x_IRQHandler)
+    TM10_IRQHandler                          0x00002339   Thumb Code    72  timers.o(.text.TM10_IRQHandler)
+    TM1x_IRQHandler                          0x00002381   Thumb Code    64  timers.o(.text.TM1x_IRQHandler)
+    TM3x_IRQHandler                          0x000023c1   Thumb Code   160  timers.o(.text.TM3x_IRQHandler)
+    TM_ClearFlag                             0x00002461   Thumb Code     4  mg32x02z_tm_drv.o(.text.TM_ClearFlag)
+    TM_GetSingleFlagStatus                   0x00002465   Thumb Code    10  mg32x02z_tm_drv.o(.text.TM_GetSingleFlagStatus)
+    TM_ITEA_Cmd                              0x0000246f   Thumb Code    14  mg32x02z_tm_drv.o(.text.TM_ITEA_Cmd)
+    TM_IT_Config                             0x0000247d   Thumb Code    20  mg32x02z_tm_drv.o(.text.TM_IT_Config)
+    TM_TimeBaseStruct_Init                   0x00002491   Thumb Code    20  mg32x02z_tm_drv.o(.text.TM_TimeBaseStruct_Init)
+    TM_TimeBase_Init                         0x000024a5   Thumb Code   134  mg32x02z_tm_drv.o(.text.TM_TimeBase_Init)
+    TM_Timer_Cmd                             0x0000252b   Thumb Code    22  mg32x02z_tm_drv.o(.text.TM_Timer_Cmd)
+    URT0_IRQHandler                          0x00002541   Thumb Code    52  usart.o(.text.URT0_IRQHandler)
+    URT_ClearITFlag                          0x00002575   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_ClearITFlag)
+    URT_Cmd                                  0x0000257d   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_Cmd)
+    URT_GetITAllFlagStatus                   0x00002589   Thumb Code     8  mg32x02z_urt_drv.o(.text.URT_GetITAllFlagStatus)
+    URT_GetITStatus                          0x00002591   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetITStatus)
+    URT_GetRXData                            0x00002595   Thumb Code     4  mg32x02z_urt_drv.o(.text.URT_GetRXData)
+    URT_ITEA_Cmd                             0x00002599   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_ITEA_Cmd)
+    URT_IT_Config                            0x000025a5   Thumb Code    12  mg32x02z_urt_drv.o(.text.URT_IT_Config)
+    URT_Print                                0x000025b1   Thumb Code    52  usart.o(.text.URT_Print)
+    URT_SetTXData                            0x000025e5   Thumb Code    50  mg32x02z_urt_drv.o(.text.URT_SetTXData)
+    URT_Write                                0x00002617   Thumb Code    22  usart.o(.text.URT_Write)
+    USART_Config                             0x0000262d   Thumb Code   124  usart.o(.text.USART_Config)
+    UnProtectModuleReg                       0x000026a9   Thumb Code    12  mg32x02z__common_drv.o(.text.UnProtectModuleReg)
+    WDT_Config                               0x000026b5   Thumb Code    32  wdt.o(.text.WDT_Config)
+    body                                     0x000026d5   Thumb Code  2272  md5.o(.text.body)
+    delay_ms                                 0x00002fb5   Thumb Code    22  timers.o(.text.delay_ms)
+    delay_us                                 0x00002fcb   Thumb Code    18  timers.o(.text.delay_us)
+    getEvent                                 0x00002fdd   Thumb Code    44  buffer.o(.text.getEvent)
+    hAccessToSleep                           0x00003009   Thumb Code    12  skud_algo.o(.text.hAccessToSleep)
+    hDoorClosedNoAccess                      0x00003015   Thumb Code    32  skud_algo.o(.text.hDoorClosedNoAccess)
+    hDoorOpenedNoAccess                      0x00003035   Thumb Code    32  skud_algo.o(.text.hDoorOpenedNoAccess)
+    hIndicationStop                          0x00003055   Thumb Code    28  skud_algo.o(.text.hIndicationStop)
+    hReadingKeyResume                        0x00003071   Thumb Code    52  skud_algo.o(.text.hReadingKeyResume)
+    hReadingKeySuspend                       0x000030a5   Thumb Code    52  skud_algo.o(.text.hReadingKeySuspend)
+    hSendAlarmEvent                          0x000030d9   Thumb Code    10  skud_algo.o(.text.hSendAlarmEvent)
+    hSleepToWaiting                          0x000030e5   Thumb Code    60  skud_algo.o(.text.hSleepToWaiting)
+    hWaitingToAccess                         0x00003121   Thumb Code   100  skud_algo.o(.text.hWaitingToAccess)
+    main                                     0x00003185   Thumb Code    68  main.o(.text.main)
+    putEvent                                 0x000031c9   Thumb Code    60  buffer.o(.text.putEvent)
+    wdt_enable                               0x00003205   Thumb Code    36  wdt.o(.text.wdt_enable)
+    wdt_reset                                0x00003229   Thumb Code     8  wdt.o(.text.wdt_reset)
+    __0printf$5                              0x00003231   Thumb Code    24  printf5.o(i.__0printf$5)
+    __1printf$5                              0x00003231   Thumb Code     0  printf5.o(i.__0printf$5)
+    __2printf                                0x00003231   Thumb Code     0  printf5.o(i.__0printf$5)
+    __scatterload_copy                       0x00003251   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0000325f   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00003261   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    fputc                                    0x0000354d   Thumb Code    18  fputc.o(i.fputc)
+    Region$$Table$$Base                      0x00003694   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x000036b4   Number         0  anon$$obj.o(Region$$Table)
     __stdout                                 0x20000000   Data           4  stdout.o(.data)
     indicSpeed                               0x20000004   Data           1  skud_algo.o(.data..L_MergedGlobals)
+    indicationPhase                          0x20000005   Data           1  skud_algo.o(.data..L_MergedGlobals)
     indicTimeCnt                             0x20000008   Data           4  skud_algo.o(.data..L_MergedGlobals)
     indicTimeMax                             0x2000000c   Data           4  skud_algo.o(.data..L_MergedGlobals)
     ActiveKeys                               0x20000010   Data           6  variables.o(.data.ActiveKeys)
     BuzzerOffTime                            0x20000016   Data           6  variables.o(.data.BuzzerOffTime)
-    FSMTable                                 0x2000001c   Data         192  skud_algo.o(.data.FSMTable)
-    FlashResourse                            0x200000dc   Data           6  variables.o(.data.FlashResourse)
-    FreeAccess                               0x200000e2   Data           6  variables.o(.data.FreeAccess)
-    GerkonFiltTime                           0x200000e8   Data           6  variables.o(.data.GerkonFiltTime)
-    MasterSlave                              0x200000ee   Data           6  variables.o(.data.MasterSlave)
-    MessageLenArr                            0x200000f4   Data           4  prsm3.o(.data.MessageLenArr)
-    ReactivateAlarmTime                      0x200000f8   Data           6  variables.o(.data.ReactivateAlarmTime)
-    SendAlarmTime                            0x200000fe   Data           6  variables.o(.data.SendAlarmTime)
-    SendOfflineEvents                        0x20000104   Data           6  variables.o(.data.SendOfflineEvents)
-    SystemCoreClock                          0x2000010c   Data           4  system_mg32x02z.o(.data.SystemCoreClock)
-    TotalKeys                                0x20000110   Data           6  variables.o(.data.TotalKeys)
-    alarmTimeoutMax                          0x20000118   Data           4  skud_algo.o(.data.alarmTimeoutMax)
-    eBuf                                     0x2000011c   Data           8  buffer.o(.data.eBuf)
-    eventAccess                              0x20000124   Data           6  events.o(.data.eventAccess)
-    eventAlarm                               0x2000012a   Data           6  events.o(.data.eventAlarm)
-    events                                   0x20000130   Data          12  events.o(.data.events)
-    gerkonStateFilterMax                     0x2000013c   Data           1  skud_algo.o(.data.gerkonStateFilterMax)
-    indicWaitMax                             0x2000013d   Data           1  skud_algo.o(.data.indicWaitMax)
-    key1                                     0x2000013e   Data          16  keys.o(.data.key1)
-    variables                                0x20000150   Data          40  variables.o(.data.variables)
-    iptr                                     0x20000178   Data           1  prsm3.o(.bss..L_MergedGlobals)
-    DecryptedMessageLen                      0x20000179   Data           1  prsm3.o(.bss..L_MergedGlobals)
-    CommandSize                              0x2000017a   Data           1  prsm3.o(.bss..L_MergedGlobals)
-    usUsart                                  0x2000017b   Data           1  prsm3.o(.bss..L_MergedGlobals)
-    parsingStatus                            0x2000017c   Data           1  prsm3.o(.bss..L_MergedGlobals)
-    operStatus                               0x20000180   Data           4  prsm3.o(.bss..L_MergedGlobals)
-    RecBytes                                 0x20000184   Data          30  prsm3.o(.bss..L_MergedGlobals)
-    indicWaitCnt                             0x200001c4   Data           1  skud_algo.o(.bss..L_MergedGlobals.5)
-    onlyLed                                  0x200001c5   Data           1  skud_algo.o(.bss..L_MergedGlobals.5)
-    alarmTimeoutCnt                          0x200001c8   Data           4  skud_algo.o(.bss..L_MergedGlobals.5)
-    KeyEncrypted                             0x200001cc   Data          16  keys.o(.bss.KeyEncrypted)
-    KeyRaw                                   0x200001dc   Data           8  keys.o(.bss.KeyRaw)
-    currentState                             0x200001e4   Data           1  skud_algo.o(.bss.currentState)
-    eventDoor                                0x200001e6   Data           6  events.o(.bss.eventDoor)
-    fpage                                    0x200001ec   Data        1024  flash.o(.bss.fpage)
-    gerkonState                              0x200005ec   Data           1  skud_algo.o(.bss.gerkonState)
-    gerkonStateFilter                        0x200005ed   Data           1  skud_algo.o(.bss.gerkonStateFilter)
-    oldGerkonState                           0x200005ee   Data           1  skud_algo.o(.bss.oldGerkonState)
-    __initial_sp                             0x200009f0   Data           0  startup_mg32x02z.o(STACK)
+    FSMTable                                 0x2000001c   Data         168  skud_algo.o(.data.FSMTable)
+    FlashResourse                            0x200000c4   Data           6  variables.o(.data.FlashResourse)
+    FreeAccess                               0x200000ca   Data           6  variables.o(.data.FreeAccess)
+    GerkonFiltTime                           0x200000d0   Data           6  variables.o(.data.GerkonFiltTime)
+    MasterSlave                              0x200000d6   Data           6  variables.o(.data.MasterSlave)
+    MessageLenArr                            0x200000dc   Data           4  prsm3.o(.data.MessageLenArr)
+    ReactivateAlarmTime                      0x200000e0   Data           6  variables.o(.data.ReactivateAlarmTime)
+    SendAlarmTime                            0x200000e6   Data           6  variables.o(.data.SendAlarmTime)
+    SendOfflineEvents                        0x200000ec   Data           6  variables.o(.data.SendOfflineEvents)
+    SystemCoreClock                          0x200000f4   Data           4  system_mg32x02z.o(.data.SystemCoreClock)
+    TotalKeys                                0x200000f8   Data           6  variables.o(.data.TotalKeys)
+    alarmTimeoutMax                          0x20000100   Data           4  skud_algo.o(.data.alarmTimeoutMax)
+    eBuf                                     0x20000104   Data           8  buffer.o(.data.eBuf)
+    eventAccess                              0x2000010c   Data           6  events.o(.data.eventAccess)
+    eventAlarm                               0x20000112   Data           6  events.o(.data.eventAlarm)
+    events                                   0x20000118   Data          12  events.o(.data.events)
+    gerkonFilterMax                          0x20000124   Data           1  skud_algo.o(.data.gerkonFilterMax)
+    indicWaitMax                             0x20000125   Data           1  skud_algo.o(.data.indicWaitMax)
+    key1                                     0x20000126   Data          16  keys.o(.data.key1)
+    protectionDelayMax                       0x20000136   Data           2  skud_algo.o(.data.protectionDelayMax)
+    variables                                0x20000138   Data          40  variables.o(.data.variables)
+    iptr                                     0x20000160   Data           1  prsm3.o(.bss..L_MergedGlobals)
+    DecryptedMessageLen                      0x20000161   Data           1  prsm3.o(.bss..L_MergedGlobals)
+    CommandSize                              0x20000162   Data           1  prsm3.o(.bss..L_MergedGlobals)
+    usUsart                                  0x20000163   Data           1  prsm3.o(.bss..L_MergedGlobals)
+    parsingStatus                            0x20000164   Data           1  prsm3.o(.bss..L_MergedGlobals)
+    operStatus                               0x20000168   Data           4  prsm3.o(.bss..L_MergedGlobals)
+    RecBytes                                 0x2000016c   Data          30  prsm3.o(.bss..L_MergedGlobals)
+    indicWaitCnt                             0x200001ac   Data           1  skud_algo.o(.bss..L_MergedGlobals.1)
+    gerkonState                              0x200001ad   Data           1  skud_algo.o(.bss..L_MergedGlobals.1)
+    alarmTimeoutCnt                          0x200001b0   Data           4  skud_algo.o(.bss..L_MergedGlobals.1)
+    KeyEncrypted                             0x200001b4   Data          16  keys.o(.bss.KeyEncrypted)
+    KeyRaw                                   0x200001c4   Data           8  keys.o(.bss.KeyRaw)
+    buzzerMuted                              0x200001cc   Data           1  skud_algo.o(.bss.buzzerMuted)
+    currentState                             0x200001cd   Data           1  skud_algo.o(.bss.currentState)
+    eventDoor                                0x200001ce   Data           6  events.o(.bss.eventDoor)
+    fpage                                    0x200001d4   Data        1024  flash.o(.bss.fpage)
+    gerkonFilterCnt                          0x200005d4   Data           1  skud_algo.o(.bss.gerkonFilterCnt)
+    oldGerkonState                           0x200005d5   Data           1  skud_algo.o(.bss.oldGerkonState)
+    protectionDelayCnt                       0x200005d6   Data           2  skud_algo.o(.bss.protectionDelayCnt)
+    __initial_sp                             0x200009d8   Data           0  startup_mg32x02z.o(STACK)
 
 
 
@@ -3842,202 +3895,203 @@ Memory Map of the image
 
   Image Entry point : 0x000000db
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00003878, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000037bc])
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00003814, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x0000376c])
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00003700, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000036b4, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x000000c0   Data   RO          398    RESET               startup_mg32x02z.o
-    0x000000c0   0x000000c0   0x00000000   Code   RO         2048  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x000000c0   0x000000c0   0x00000004   Code   RO         2322    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x000000c4   0x000000c4   0x00000004   Code   RO         2325    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x000000c8   0x000000c8   0x00000000   Code   RO         2327    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x000000c8   0x000000c8   0x00000000   Code   RO         2329    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x000000c8   0x000000c8   0x00000008   Code   RO         2330    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x000000d0   0x000000d0   0x00000000   Code   RO         2332    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x000000d0   0x000000d0   0x00000000   Code   RO         2334    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x000000d0   0x000000d0   0x00000004   Code   RO         2323    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
-    0x000000d4   0x000000d4   0x0000003c   Code   RO          399  * .text               startup_mg32x02z.o
-    0x00000110   0x00000110   0x0000002c   Code   RO         2051    .text               mc_p.l(uidiv.o)
-    0x0000013c   0x0000013c   0x00000024   Code   RO         2053    .text               mc_p.l(memcpya.o)
-    0x00000160   0x00000160   0x00000024   Code   RO         2055    .text               mc_p.l(memseta.o)
-    0x00000184   0x00000184   0x0000001a   Code   RO         2057    .text               mc_p.l(memcmp.o)
-    0x0000019e   0x0000019e   0x00000060   Code   RO         2341    .text               mc_p.l(uldiv.o)
+    0x00000000   0x00000000   0x000000c0   Data   RO          415    RESET               startup_mg32x02z.o
+    0x000000c0   0x000000c0   0x00000000   Code   RO         2065  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x000000c0   0x000000c0   0x00000004   Code   RO         2339    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x000000c4   0x000000c4   0x00000004   Code   RO         2342    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x000000c8   0x000000c8   0x00000000   Code   RO         2344    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x000000c8   0x000000c8   0x00000000   Code   RO         2346    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x000000c8   0x000000c8   0x00000008   Code   RO         2347    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x000000d0   0x000000d0   0x00000000   Code   RO         2349    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x000000d0   0x000000d0   0x00000000   Code   RO         2351    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x000000d0   0x000000d0   0x00000004   Code   RO         2340    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x000000d4   0x000000d4   0x0000003c   Code   RO          416  * .text               startup_mg32x02z.o
+    0x00000110   0x00000110   0x0000002c   Code   RO         2068    .text               mc_p.l(uidiv.o)
+    0x0000013c   0x0000013c   0x00000024   Code   RO         2070    .text               mc_p.l(memcpya.o)
+    0x00000160   0x00000160   0x00000024   Code   RO         2072    .text               mc_p.l(memseta.o)
+    0x00000184   0x00000184   0x0000001a   Code   RO         2074    .text               mc_p.l(memcmp.o)
+    0x0000019e   0x0000019e   0x00000060   Code   RO         2358    .text               mc_p.l(uldiv.o)
     0x000001fe   0x000001fe   0x00000002   PAD
-    0x00000200   0x00000200   0x00000024   Code   RO         2354    .text               mc_p.l(init.o)
-    0x00000224   0x00000224   0x00000000   Code   RO         2356    .text               mc_p.l(semi.o)
-    0x00000224   0x00000224   0x00000020   Code   RO         2357    .text               mc_p.l(llshl.o)
-    0x00000244   0x00000244   0x00000022   Code   RO         2359    .text               mc_p.l(llushr.o)
-    0x00000266   0x00000266   0x00000000   Code   RO         2363    .text               mc_p.l(iusesemip.o)
-    0x00000266   0x00000266   0x0000003a   Code   RO         2376    .text               mc_p.l(__dczerorl.o)
-    0x000002a0   0x000002a0   0x000000a0   Code   RO          281    .text.ActivateKey   flash.o
-    0x00000340   0x00000340   0x00000134   Code   RO          263    .text.AddKey        flash.o
+    0x00000200   0x00000200   0x00000024   Code   RO         2371    .text               mc_p.l(init.o)
+    0x00000224   0x00000224   0x00000000   Code   RO         2373    .text               mc_p.l(semi.o)
+    0x00000224   0x00000224   0x00000020   Code   RO         2374    .text               mc_p.l(llshl.o)
+    0x00000244   0x00000244   0x00000022   Code   RO         2376    .text               mc_p.l(llushr.o)
+    0x00000266   0x00000266   0x00000000   Code   RO         2380    .text               mc_p.l(iusesemip.o)
+    0x00000266   0x00000266   0x0000003a   Code   RO         2393    .text               mc_p.l(__dczerorl.o)
+    0x000002a0   0x000002a0   0x000000a0   Code   RO          298    .text.ActivateKey   flash.o
+    0x00000340   0x00000340   0x00000134   Code   RO          280    .text.AddKey        flash.o
     0x00000474   0x00000474   0x00000028   Code   RO           71    .text.CRCisWrong    crc.o
-    0x0000049c   0x0000049c   0x00000008   Code   RO          758    .text.CSC_ClearFlag  mg32x02z_csc_drv.o
-    0x000004a4   0x000004a4   0x00000014   Code   RO          748    .text.CSC_GetClockSourceState  mg32x02z_csc_drv.o
-    0x000004b8   0x000004b8   0x00000018   Code   RO          700    .text.CSC_IHRCO_Cmd  mg32x02z_csc_drv.o
-    0x000004d0   0x000004d0   0x0000026c   Code   RO          379    .text.CSC_Init      mg32x02z_csc_init.o
-    0x0000073c   0x0000073c   0x00000014   Code   RO          389    .text.ChipInit      mg32x02z_chipinit.o
-    0x00000750   0x00000750   0x00000064   Code   RO          321    .text.DS1990A_GetKeyID  ibutton.o
-    0x000007b4   0x000007b4   0x0000017c   Code   RO          285    .text.DoCommand     flash.o
+    0x0000049c   0x0000049c   0x00000008   Code   RO          775    .text.CSC_ClearFlag  mg32x02z_csc_drv.o
+    0x000004a4   0x000004a4   0x00000014   Code   RO          765    .text.CSC_GetClockSourceState  mg32x02z_csc_drv.o
+    0x000004b8   0x000004b8   0x00000018   Code   RO          717    .text.CSC_IHRCO_Cmd  mg32x02z_csc_drv.o
+    0x000004d0   0x000004d0   0x0000026c   Code   RO          396    .text.CSC_Init      mg32x02z_csc_init.o
+    0x0000073c   0x0000073c   0x00000014   Code   RO          406    .text.ChipInit      mg32x02z_chipinit.o
+    0x00000750   0x00000750   0x00000064   Code   RO          338    .text.DS1990A_GetKeyID  ibutton.o
+    0x000007b4   0x000007b4   0x0000017c   Code   RO          302    .text.DoCommand     flash.o
     0x00000930   0x00000930   0x00000020   Code   RO           69    .text.Do_CRC        crc.o
-    0x00000950   0x00000950   0x000002dc   Code   RO          265    .text.FlashFirstInit  flash.o
+    0x00000950   0x00000950   0x000002dc   Code   RO          282    .text.FlashFirstInit  flash.o
     0x00000c2c   0x00000c2c   0x00000280   Code   RO          118    .text.GPIO_Config   gpio.o
-    0x00000eac   0x00000eac   0x00000018   Code   RO          908    .text.GPIO_PinFunction_Select  mg32x02z_gpio_drv.o
-    0x00000ec4   0x00000ec4   0x00000010   Code   RO          898    .text.GPIO_PinHighSpeedMode_Cmd  mg32x02z_gpio_drv.o
-    0x00000ed4   0x00000ed4   0x00000012   Code   RO          906    .text.GPIO_PinInFilterDivider_Select  mg32x02z_gpio_drv.o
-    0x00000ee6   0x00000ee6   0x00000010   Code   RO          902    .text.GPIO_PinInverse_Cmd  mg32x02z_gpio_drv.o
-    0x00000ef6   0x00000ef6   0x00000012   Code   RO          896    .text.GPIO_PinMode_Select  mg32x02z_gpio_drv.o
-    0x00000f08   0x00000f08   0x00000012   Code   RO          904    .text.GPIO_PinOutputDrive_Select  mg32x02z_gpio_drv.o
-    0x00000f1a   0x00000f1a   0x00000010   Code   RO          900    .text.GPIO_PinPUResister_Cmd  mg32x02z_gpio_drv.o
+    0x00000eac   0x00000eac   0x00000018   Code   RO          925    .text.GPIO_PinFunction_Select  mg32x02z_gpio_drv.o
+    0x00000ec4   0x00000ec4   0x00000010   Code   RO          915    .text.GPIO_PinHighSpeedMode_Cmd  mg32x02z_gpio_drv.o
+    0x00000ed4   0x00000ed4   0x00000012   Code   RO          923    .text.GPIO_PinInFilterDivider_Select  mg32x02z_gpio_drv.o
+    0x00000ee6   0x00000ee6   0x00000010   Code   RO          919    .text.GPIO_PinInverse_Cmd  mg32x02z_gpio_drv.o
+    0x00000ef6   0x00000ef6   0x00000012   Code   RO          913    .text.GPIO_PinMode_Select  mg32x02z_gpio_drv.o
+    0x00000f08   0x00000f08   0x00000012   Code   RO          921    .text.GPIO_PinOutputDrive_Select  mg32x02z_gpio_drv.o
+    0x00000f1a   0x00000f1a   0x00000010   Code   RO          917    .text.GPIO_PinPUResister_Cmd  mg32x02z_gpio_drv.o
     0x00000f2a   0x00000f2a   0x00000002   PAD
-    0x00000f2c   0x00000f2c   0x00000018   Code   RO          269    .text.GetVariable   flash.o
-    0x00000f44   0x00000f44   0x000000c8   Code   RO          238    .text.HandleEvent   skud_algo.o
-    0x0000100c   0x0000100c   0x00000114   Code   RO          410    .text.HardFault_Handler_C  system_mg32x02z.o
-    0x00001120   0x00001120   0x00000016   Code   RO          164    .text.IAP_CopyFromIAPToRAM  iap.o
-    0x00001136   0x00001136   0x00000002   PAD
-    0x00001138   0x00001138   0x00000090   Code   RO          146    .text.IAP_Erase_OnePage  iap.o
-    0x000011c8   0x000011c8   0x00000038   Code   RO          144    .text.IAP_Init      iap.o
-    0x00001200   0x00001200   0x00000012   Code   RO          166    .text.IAP_IsEqualToRAM  iap.o
-    0x00001212   0x00001212   0x00000002   PAD
-    0x00001214   0x00001214   0x000000c4   Code   RO          162    .text.IAP_Multiple_Write  iap.o
-    0x000012d8   0x000012d8   0x0000000c   Code   RO          152    .text.IAP_ReadByte  iap.o
-    0x000012e4   0x000012e4   0x0000000e   Code   RO          154    .text.IAP_ReadWord  iap.o
-    0x000012f2   0x000012f2   0x00000018   Code   RO          160    .text.IAP_WriteMultipleWord  iap.o
-    0x0000130a   0x0000130a   0x00000002   PAD
-    0x0000130c   0x0000130c   0x000000ac   Code   RO          156    .text.IAP_WriteSingleWord  iap.o
-    0x000013b8   0x000013b8   0x0000001c   Code   RO         1054    .text.IWDT_Cmd      mg32x02z_iwdt_drv.o
-    0x000013d4   0x000013d4   0x00000018   Code   RO         1046    .text.IWDT_Divider_Select  mg32x02z_iwdt_drv.o
-    0x000013ec   0x000013ec   0x00000010   Code   RO         1050    .text.IWDT_RefreshCounter  mg32x02z_iwdt_drv.o
-    0x000013fc   0x000013fc   0x0000005c   Code   RO          240    .text.IsKeyActive   skud_algo.o
-    0x00001458   0x00001458   0x000000be   Code   RO          336    .text.MD5_Final     md5.o
-    0x00001516   0x00001516   0x00000002   PAD
-    0x00001518   0x00001518   0x00000074   Code   RO          338    .text.MD5_MakeHash  md5.o
-    0x0000158c   0x0000158c   0x00000078   Code   RO         1118    .text.MEM_SetIAPSize  mg32x02z_mem_drv.o
-    0x00001604   0x00001604   0x000001a8   Code   RO          180    .text.OneWire_Read  onewire.o
-    0x000017ac   0x000017ac   0x0000003c   Code   RO          176    .text.OneWire_Start  onewire.o
-    0x000017e8   0x000017e8   0x000001ac   Code   RO          178    .text.OneWire_Write  onewire.o
-    0x00001994   0x00001994   0x00000054   Code   RO           11    .text.PRSM3_AddNewByte  prsm3.o
-    0x000019e8   0x000019e8   0x00000090   Code   RO           13    .text.PRSM3_ParseMessage  prsm3.o
-    0x00001a78   0x00001a78   0x000001e8   Code   RO           19    .text.PRSM3_ParseReadRequest  prsm3.o
-    0x00001c60   0x00001c60   0x00000098   Code   RO           17    .text.PRSM3_ParseWriteRequest24  prsm3.o
-    0x00001cf8   0x00001cf8   0x000000a4   Code   RO           15    .text.PRSM3_ParseWriteRequest9  prsm3.o
-    0x00001d9c   0x00001d9c   0x00000018   Code   RO           25    .text.PRSM3_clearBuffer  prsm3.o
-    0x00001db4   0x00001db4   0x00000008   Code   RO         2034    .text.ProtectModuleReg  mg32x02z__common_drv.o
-    0x00001dbc   0x00001dbc   0x00000018   Code   RO         1206    .text.RST_CRstSource_Config  mg32x02z_rst_drv.o
-    0x00001dd4   0x00001dd4   0x0000007c   Code   RO          271    .text.SetVariable   flash.o
-    0x00001e50   0x00001e50   0x000002fc   Code   RO          279    .text.SetVariablePack  flash.o
-    0x0000214c   0x0000214c   0x00000010   Code   RO          408    .text.SystemInit    system_mg32x02z.o
-    0x0000215c   0x0000215c   0x00000090   Code   RO           37    .text.TIM00_Callback  timers.o
-    0x000021ec   0x000021ec   0x00000148   Code   RO           51    .text.TIM_Config    timers.o
-    0x00002334   0x00002334   0x0000005c   Code   RO           53    .text.TM0x_IRQHandler  timers.o
-    0x00002390   0x00002390   0x00000044   Code   RO           55    .text.TM10_IRQHandler  timers.o
-    0x000023d4   0x000023d4   0x00000040   Code   RO           57    .text.TM1x_IRQHandler  timers.o
-    0x00002414   0x00002414   0x000000a0   Code   RO           59    .text.TM3x_IRQHandler  timers.o
-    0x000024b4   0x000024b4   0x00000004   Code   RO         1728    .text.TM_ClearFlag  mg32x02z_tm_drv.o
-    0x000024b8   0x000024b8   0x0000000a   Code   RO         1724    .text.TM_GetSingleFlagStatus  mg32x02z_tm_drv.o
-    0x000024c2   0x000024c2   0x0000000e   Code   RO         1722    .text.TM_ITEA_Cmd   mg32x02z_tm_drv.o
-    0x000024d0   0x000024d0   0x00000014   Code   RO         1720    .text.TM_IT_Config  mg32x02z_tm_drv.o
-    0x000024e4   0x000024e4   0x00000014   Code   RO         1420    .text.TM_TimeBaseStruct_Init  mg32x02z_tm_drv.o
-    0x000024f8   0x000024f8   0x00000086   Code   RO         1422    .text.TM_TimeBase_Init  mg32x02z_tm_drv.o
-    0x0000257e   0x0000257e   0x00000016   Code   RO         1458    .text.TM_Timer_Cmd  mg32x02z_tm_drv.o
-    0x00002594   0x00002594   0x00000034   Code   RO           98    .text.URT0_IRQHandler  usart.o
-    0x000025c8   0x000025c8   0x00000008   Code   RO         1762    .text.URT_ClearITFlag  mg32x02z_urt_drv.o
-    0x000025d0   0x000025d0   0x0000000c   Code   RO         1798    .text.URT_Cmd       mg32x02z_urt_drv.o
-    0x000025dc   0x000025dc   0x00000008   Code   RO         1758    .text.URT_GetITAllFlagStatus  mg32x02z_urt_drv.o
-    0x000025e4   0x000025e4   0x00000004   Code   RO         1754    .text.URT_GetITStatus  mg32x02z_urt_drv.o
-    0x000025e8   0x000025e8   0x00000004   Code   RO         1876    .text.URT_GetRXData  mg32x02z_urt_drv.o
-    0x000025ec   0x000025ec   0x0000000c   Code   RO         1756    .text.URT_ITEA_Cmd  mg32x02z_urt_drv.o
-    0x000025f8   0x000025f8   0x0000000c   Code   RO         1752    .text.URT_IT_Config  mg32x02z_urt_drv.o
-    0x00002604   0x00002604   0x00000034   Code   RO           90    .text.URT_Print     usart.o
-    0x00002638   0x00002638   0x0000002e   Code   RO           88    .text.URT_PrintString  usart.o
-    0x00002666   0x00002666   0x00000002   PAD
-    0x00002668   0x00002668   0x00000032   Code   RO         1912    .text.URT_SetTXData  mg32x02z_urt_drv.o
-    0x0000269a   0x0000269a   0x00000016   Code   RO           84    .text.URT_Write     usart.o
-    0x000026b0   0x000026b0   0x0000007c   Code   RO           96    .text.USART_Config  usart.o
-    0x0000272c   0x0000272c   0x0000000c   Code   RO         2036    .text.UnProtectModuleReg  mg32x02z__common_drv.o
-    0x00002738   0x00002738   0x00000020   Code   RO          128    .text.WDT_Config    wdt.o
-    0x00002758   0x00002758   0x000008e0   Code   RO          330    .text.body          md5.o
-    0x00003038   0x00003038   0x00000016   Code   RO           47    .text.delay_ms      timers.o
-    0x0000304e   0x0000304e   0x00000012   Code   RO           49    .text.delay_us      timers.o
-    0x00003060   0x00003060   0x0000002c   Code   RO          360    .text.getEvent      buffer.o
-    0x0000308c   0x0000308c   0x0000001c   Code   RO          230    .text.hAlarmTimeout  skud_algo.o
-    0x000030a8   0x000030a8   0x00000028   Code   RO          234    .text.hDoorClosedAlarmOff  skud_algo.o
-    0x000030d0   0x000030d0   0x00000018   Code   RO          236    .text.hDoorClosedAlarmOn  skud_algo.o
-    0x000030e8   0x000030e8   0x00000048   Code   RO          224    .text.hDoorOpened   skud_algo.o
-    0x00003130   0x00003130   0x00000024   Code   RO          228    .text.hEnteredInvalidKey  skud_algo.o
-    0x00003154   0x00003154   0x00000034   Code   RO          226    .text.hEnteredValidKey  skud_algo.o
-    0x00003188   0x00003188   0x00000044   Code   RO          232    .text.hKeyReadingResumed  skud_algo.o
-    0x000031cc   0x000031cc   0x00000048   Code   RO            2    .text.main          main.o
-    0x00003214   0x00003214   0x0000003c   Code   RO          362    .text.putEvent      buffer.o
-    0x00003250   0x00003250   0x00000024   Code   RO          130    .text.wdt_enable    wdt.o
-    0x00003274   0x00003274   0x00000008   Code   RO          132    .text.wdt_reset     wdt.o
-    0x0000327c   0x0000327c   0x00000020   Code   RO         2194    i.__0printf$5       mc_p.l(printf5.o)
-    0x0000329c   0x0000329c   0x0000000e   Code   RO         2370    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x000032aa   0x000032aa   0x00000002   Code   RO         2371    i.__scatterload_null  mc_p.l(handlers.o)
-    0x000032ac   0x000032ac   0x0000000e   Code   RO         2372    i.__scatterload_zeroinit  mc_p.l(handlers.o)
-    0x000032ba   0x000032ba   0x00000002   PAD
-    0x000032bc   0x000032bc   0x000002dc   Code   RO         2201    i._printf_core      mc_p.l(printf5.o)
-    0x00003598   0x00003598   0x00000012   Code   RO         2336    i.fputc             mc_p.l(fputc.o)
-    0x000035aa   0x000035aa   0x00000100   Data   RO           73    .rodata.CRC_Table   crc.o
-    0x000036aa   0x000036aa   0x00000003   Data   RO          250    .rodata.str1.1      skud_algo.o
-    0x000036ad   0x000036ad   0x00000033   Data   RO          413    .rodata.str1.1      system_mg32x02z.o
-    0x000036e0   0x000036e0   0x00000020   Data   RO         2369    Region$$Table       anon$$obj.o
+    0x00000f2c   0x00000f2c   0x00000018   Code   RO          286    .text.GetVariable   flash.o
+    0x00000f44   0x00000f44   0x00000040   Code   RO          254    .text.HandleEvent   skud_algo.o
+    0x00000f84   0x00000f84   0x00000114   Code   RO          427    .text.HardFault_Handler_C  system_mg32x02z.o
+    0x00001098   0x00001098   0x00000016   Code   RO          164    .text.IAP_CopyFromIAPToRAM  iap.o
+    0x000010ae   0x000010ae   0x00000002   PAD
+    0x000010b0   0x000010b0   0x00000090   Code   RO          146    .text.IAP_Erase_OnePage  iap.o
+    0x00001140   0x00001140   0x00000038   Code   RO          144    .text.IAP_Init      iap.o
+    0x00001178   0x00001178   0x00000012   Code   RO          166    .text.IAP_IsEqualToRAM  iap.o
+    0x0000118a   0x0000118a   0x00000002   PAD
+    0x0000118c   0x0000118c   0x000000c4   Code   RO          162    .text.IAP_Multiple_Write  iap.o
+    0x00001250   0x00001250   0x0000000c   Code   RO          152    .text.IAP_ReadByte  iap.o
+    0x0000125c   0x0000125c   0x0000000e   Code   RO          154    .text.IAP_ReadWord  iap.o
+    0x0000126a   0x0000126a   0x00000018   Code   RO          160    .text.IAP_WriteMultipleWord  iap.o
+    0x00001282   0x00001282   0x00000002   PAD
+    0x00001284   0x00001284   0x000000ac   Code   RO          156    .text.IAP_WriteSingleWord  iap.o
+    0x00001330   0x00001330   0x0000001c   Code   RO         1071    .text.IWDT_Cmd      mg32x02z_iwdt_drv.o
+    0x0000134c   0x0000134c   0x00000018   Code   RO         1063    .text.IWDT_Divider_Select  mg32x02z_iwdt_drv.o
+    0x00001364   0x00001364   0x00000010   Code   RO         1067    .text.IWDT_RefreshCounter  mg32x02z_iwdt_drv.o
+    0x00001374   0x00001374   0x0000005c   Code   RO          256    .text.IsKeyActive   skud_algo.o
+    0x000013d0   0x000013d0   0x000000be   Code   RO          353    .text.MD5_Final     md5.o
+    0x0000148e   0x0000148e   0x00000002   PAD
+    0x00001490   0x00001490   0x00000074   Code   RO          355    .text.MD5_MakeHash  md5.o
+    0x00001504   0x00001504   0x00000078   Code   RO         1135    .text.MEM_SetIAPSize  mg32x02z_mem_drv.o
+    0x0000157c   0x0000157c   0x000001a8   Code   RO          182    .text.OneWire_Read  onewire.o
+    0x00001724   0x00001724   0x0000000c   Code   RO          176    .text.OneWire_SetDirection  onewire.o
+    0x00001730   0x00001730   0x0000003c   Code   RO          178    .text.OneWire_Start  onewire.o
+    0x0000176c   0x0000176c   0x000001ac   Code   RO          180    .text.OneWire_Write  onewire.o
+    0x00001918   0x00001918   0x00000054   Code   RO           11    .text.PRSM3_AddNewByte  prsm3.o
+    0x0000196c   0x0000196c   0x00000090   Code   RO           13    .text.PRSM3_ParseMessage  prsm3.o
+    0x000019fc   0x000019fc   0x000001e8   Code   RO           19    .text.PRSM3_ParseReadRequest  prsm3.o
+    0x00001be4   0x00001be4   0x00000098   Code   RO           17    .text.PRSM3_ParseWriteRequest24  prsm3.o
+    0x00001c7c   0x00001c7c   0x000000a4   Code   RO           15    .text.PRSM3_ParseWriteRequest9  prsm3.o
+    0x00001d20   0x00001d20   0x00000018   Code   RO           25    .text.PRSM3_clearBuffer  prsm3.o
+    0x00001d38   0x00001d38   0x00000008   Code   RO         2051    .text.ProtectModuleReg  mg32x02z__common_drv.o
+    0x00001d40   0x00001d40   0x00000018   Code   RO         1223    .text.RST_CRstSource_Config  mg32x02z_rst_drv.o
+    0x00001d58   0x00001d58   0x0000007c   Code   RO          288    .text.SetVariable   flash.o
+    0x00001dd4   0x00001dd4   0x000002fc   Code   RO          296    .text.SetVariablePack  flash.o
+    0x000020d0   0x000020d0   0x00000010   Code   RO          425    .text.SystemInit    system_mg32x02z.o
+    0x000020e0   0x000020e0   0x00000094   Code   RO           37    .text.TIM00_Callback  timers.o
+    0x00002174   0x00002174   0x0000014c   Code   RO           51    .text.TIM_Config    timers.o
+    0x000022c0   0x000022c0   0x00000078   Code   RO           53    .text.TM0x_IRQHandler  timers.o
+    0x00002338   0x00002338   0x00000048   Code   RO           55    .text.TM10_IRQHandler  timers.o
+    0x00002380   0x00002380   0x00000040   Code   RO           57    .text.TM1x_IRQHandler  timers.o
+    0x000023c0   0x000023c0   0x000000a0   Code   RO           59    .text.TM3x_IRQHandler  timers.o
+    0x00002460   0x00002460   0x00000004   Code   RO         1745    .text.TM_ClearFlag  mg32x02z_tm_drv.o
+    0x00002464   0x00002464   0x0000000a   Code   RO         1741    .text.TM_GetSingleFlagStatus  mg32x02z_tm_drv.o
+    0x0000246e   0x0000246e   0x0000000e   Code   RO         1739    .text.TM_ITEA_Cmd   mg32x02z_tm_drv.o
+    0x0000247c   0x0000247c   0x00000014   Code   RO         1737    .text.TM_IT_Config  mg32x02z_tm_drv.o
+    0x00002490   0x00002490   0x00000014   Code   RO         1437    .text.TM_TimeBaseStruct_Init  mg32x02z_tm_drv.o
+    0x000024a4   0x000024a4   0x00000086   Code   RO         1439    .text.TM_TimeBase_Init  mg32x02z_tm_drv.o
+    0x0000252a   0x0000252a   0x00000016   Code   RO         1475    .text.TM_Timer_Cmd  mg32x02z_tm_drv.o
+    0x00002540   0x00002540   0x00000034   Code   RO           98    .text.URT0_IRQHandler  usart.o
+    0x00002574   0x00002574   0x00000008   Code   RO         1779    .text.URT_ClearITFlag  mg32x02z_urt_drv.o
+    0x0000257c   0x0000257c   0x0000000c   Code   RO         1815    .text.URT_Cmd       mg32x02z_urt_drv.o
+    0x00002588   0x00002588   0x00000008   Code   RO         1775    .text.URT_GetITAllFlagStatus  mg32x02z_urt_drv.o
+    0x00002590   0x00002590   0x00000004   Code   RO         1771    .text.URT_GetITStatus  mg32x02z_urt_drv.o
+    0x00002594   0x00002594   0x00000004   Code   RO         1893    .text.URT_GetRXData  mg32x02z_urt_drv.o
+    0x00002598   0x00002598   0x0000000c   Code   RO         1773    .text.URT_ITEA_Cmd  mg32x02z_urt_drv.o
+    0x000025a4   0x000025a4   0x0000000c   Code   RO         1769    .text.URT_IT_Config  mg32x02z_urt_drv.o
+    0x000025b0   0x000025b0   0x00000034   Code   RO           90    .text.URT_Print     usart.o
+    0x000025e4   0x000025e4   0x00000032   Code   RO         1929    .text.URT_SetTXData  mg32x02z_urt_drv.o
+    0x00002616   0x00002616   0x00000016   Code   RO           84    .text.URT_Write     usart.o
+    0x0000262c   0x0000262c   0x0000007c   Code   RO           96    .text.USART_Config  usart.o
+    0x000026a8   0x000026a8   0x0000000c   Code   RO         2053    .text.UnProtectModuleReg  mg32x02z__common_drv.o
+    0x000026b4   0x000026b4   0x00000020   Code   RO          128    .text.WDT_Config    wdt.o
+    0x000026d4   0x000026d4   0x000008e0   Code   RO          347    .text.body          md5.o
+    0x00002fb4   0x00002fb4   0x00000016   Code   RO           47    .text.delay_ms      timers.o
+    0x00002fca   0x00002fca   0x00000012   Code   RO           49    .text.delay_us      timers.o
+    0x00002fdc   0x00002fdc   0x0000002c   Code   RO          377    .text.getEvent      buffer.o
+    0x00003008   0x00003008   0x0000000c   Code   RO          240    .text.hAccessToSleep  skud_algo.o
+    0x00003014   0x00003014   0x00000020   Code   RO          246    .text.hDoorClosedNoAccess  skud_algo.o
+    0x00003034   0x00003034   0x00000020   Code   RO          248    .text.hDoorOpenedNoAccess  skud_algo.o
+    0x00003054   0x00003054   0x0000001c   Code   RO          252    .text.hIndicationStop  skud_algo.o
+    0x00003070   0x00003070   0x00000034   Code   RO          244    .text.hReadingKeyResume  skud_algo.o
+    0x000030a4   0x000030a4   0x00000034   Code   RO          242    .text.hReadingKeySuspend  skud_algo.o
+    0x000030d8   0x000030d8   0x0000000a   Code   RO          250    .text.hSendAlarmEvent  skud_algo.o
+    0x000030e2   0x000030e2   0x00000002   PAD
+    0x000030e4   0x000030e4   0x0000003c   Code   RO          236    .text.hSleepToWaiting  skud_algo.o
+    0x00003120   0x00003120   0x00000064   Code   RO          238    .text.hWaitingToAccess  skud_algo.o
+    0x00003184   0x00003184   0x00000044   Code   RO            2    .text.main          main.o
+    0x000031c8   0x000031c8   0x0000003c   Code   RO          379    .text.putEvent      buffer.o
+    0x00003204   0x00003204   0x00000024   Code   RO          130    .text.wdt_enable    wdt.o
+    0x00003228   0x00003228   0x00000008   Code   RO          132    .text.wdt_reset     wdt.o
+    0x00003230   0x00003230   0x00000020   Code   RO         2211    i.__0printf$5       mc_p.l(printf5.o)
+    0x00003250   0x00003250   0x0000000e   Code   RO         2387    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x0000325e   0x0000325e   0x00000002   Code   RO         2388    i.__scatterload_null  mc_p.l(handlers.o)
+    0x00003260   0x00003260   0x0000000e   Code   RO         2389    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x0000326e   0x0000326e   0x00000002   PAD
+    0x00003270   0x00003270   0x000002dc   Code   RO         2218    i._printf_core      mc_p.l(printf5.o)
+    0x0000354c   0x0000354c   0x00000012   Code   RO         2353    i.fputc             mc_p.l(fputc.o)
+    0x0000355e   0x0000355e   0x00000100   Data   RO           73    .rodata.CRC_Table   crc.o
+    0x0000365e   0x0000365e   0x00000033   Data   RO          430    .rodata.str1.1      system_mg32x02z.o
+    0x00003691   0x00003691   0x00000003   PAD
+    0x00003694   0x00003694   0x00000020   Data   RO         2386    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00003700, Size: 0x00000178, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000000bc])
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x20000000   COMPRESSED   0x00000004   Data   RW         2340    .data               mc_p.l(stdout.o)
-    0x20000004   COMPRESSED   0x0000000c   Data   RW          251    .data..L_MergedGlobals  skud_algo.o
-    0x20000010   COMPRESSED   0x00000006   Data   RW          313    .data.ActiveKeys    variables.o
-    0x20000016   COMPRESSED   0x00000006   Data   RW          308    .data.BuzzerOffTime  variables.o
-    0x2000001c   COMPRESSED   0x000000c0   Data   RW          249    .data.FSMTable      skud_algo.o
-    0x200000dc   COMPRESSED   0x00000006   Data   RW          314    .data.FlashResourse  variables.o
-    0x200000e2   COMPRESSED   0x00000006   Data   RW          310    .data.FreeAccess    variables.o
-    0x200000e8   COMPRESSED   0x00000006   Data   RW          305    .data.GerkonFiltTime  variables.o
-    0x200000ee   COMPRESSED   0x00000006   Data   RW          311    .data.MasterSlave   variables.o
-    0x200000f4   COMPRESSED   0x00000004   Data   RW           27    .data.MessageLenArr  prsm3.o
-    0x200000f8   COMPRESSED   0x00000006   Data   RW          307    .data.ReactivateAlarmTime  variables.o
-    0x200000fe   COMPRESSED   0x00000006   Data   RW          306    .data.SendAlarmTime  variables.o
-    0x20000104   COMPRESSED   0x00000006   Data   RW          309    .data.SendOfflineEvents  variables.o
-    0x2000010a   COMPRESSED   0x00000002   PAD
-    0x2000010c   COMPRESSED   0x00000004   Data   RW          412    .data.SystemCoreClock  system_mg32x02z.o
-    0x20000110   COMPRESSED   0x00000006   Data   RW          312    .data.TotalKeys     variables.o
-    0x20000116   COMPRESSED   0x00000002   PAD
-    0x20000118   COMPRESSED   0x00000004   Data   RW          244    .data.alarmTimeoutMax  skud_algo.o
-    0x2000011c   COMPRESSED   0x00000008   Data   RW          364    .data.eBuf          buffer.o
-    0x20000124   COMPRESSED   0x00000006   Data   RW          297    .data.eventAccess   events.o
-    0x2000012a   COMPRESSED   0x00000006   Data   RW          298    .data.eventAlarm    events.o
-    0x20000130   COMPRESSED   0x0000000c   Data   RW          299    .data.events        events.o
-    0x2000013c   COMPRESSED   0x00000001   Data   RW          246    .data.gerkonStateFilterMax  skud_algo.o
-    0x2000013d   COMPRESSED   0x00000001   Data   RW          243    .data.indicWaitMax  skud_algo.o
-    0x2000013e   COMPRESSED   0x00000010   Data   RW          194    .data.key1          keys.o
-    0x2000014e   COMPRESSED   0x00000002   PAD
-    0x20000150   COMPRESSED   0x00000028   Data   RW          315    .data.variables     variables.o
-
-
-    Execution Region ER_ZI (Exec base: 0x20000178, Load base: 0x000037bc, Size: 0x00000878, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x000036b4, Size: 0x00000160, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000000b8])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000178        -       0x0000002a   Zero   RW           28    .bss..L_MergedGlobals  prsm3.o
-    0x200001a2   0x000037bc   0x00000002   PAD
-    0x200001a4        -       0x00000020   Zero   RW          414    .bss..L_MergedGlobals  system_mg32x02z.o
-    0x200001c4        -       0x00000008   Zero   RW          252    .bss..L_MergedGlobals.5  skud_algo.o
-    0x200001cc        -       0x00000010   Zero   RW          206    .bss.KeyEncrypted   keys.o
-    0x200001dc        -       0x00000008   Zero   RW          207    .bss.KeyRaw         keys.o
-    0x200001e4        -       0x00000001   Zero   RW          242    .bss.currentState   skud_algo.o
-    0x200001e5   0x000037bc   0x00000001   PAD
-    0x200001e6        -       0x00000006   Zero   RW          296    .bss.eventDoor      events.o
-    0x200001ec        -       0x00000400   Zero   RW          287    .bss.fpage          flash.o
-    0x200005ec        -       0x00000001   Zero   RW          248    .bss.gerkonState    skud_algo.o
-    0x200005ed        -       0x00000001   Zero   RW          245    .bss.gerkonStateFilter  skud_algo.o
-    0x200005ee        -       0x00000001   Zero   RW          247    .bss.oldGerkonState  skud_algo.o
-    0x200005ef   0x000037bc   0x00000001   PAD
-    0x200005f0        -       0x00000400   Zero   RW          396    STACK               startup_mg32x02z.o
+    0x20000000   COMPRESSED   0x00000004   Data   RW         2357    .data               mc_p.l(stdout.o)
+    0x20000004   COMPRESSED   0x0000000c   Data   RW          268    .data..L_MergedGlobals  skud_algo.o
+    0x20000010   COMPRESSED   0x00000006   Data   RW          330    .data.ActiveKeys    variables.o
+    0x20000016   COMPRESSED   0x00000006   Data   RW          325    .data.BuzzerOffTime  variables.o
+    0x2000001c   COMPRESSED   0x000000a8   Data   RW          267    .data.FSMTable      skud_algo.o
+    0x200000c4   COMPRESSED   0x00000006   Data   RW          331    .data.FlashResourse  variables.o
+    0x200000ca   COMPRESSED   0x00000006   Data   RW          327    .data.FreeAccess    variables.o
+    0x200000d0   COMPRESSED   0x00000006   Data   RW          322    .data.GerkonFiltTime  variables.o
+    0x200000d6   COMPRESSED   0x00000006   Data   RW          328    .data.MasterSlave   variables.o
+    0x200000dc   COMPRESSED   0x00000004   Data   RW           27    .data.MessageLenArr  prsm3.o
+    0x200000e0   COMPRESSED   0x00000006   Data   RW          324    .data.ReactivateAlarmTime  variables.o
+    0x200000e6   COMPRESSED   0x00000006   Data   RW          323    .data.SendAlarmTime  variables.o
+    0x200000ec   COMPRESSED   0x00000006   Data   RW          326    .data.SendOfflineEvents  variables.o
+    0x200000f2   COMPRESSED   0x00000002   PAD
+    0x200000f4   COMPRESSED   0x00000004   Data   RW          429    .data.SystemCoreClock  system_mg32x02z.o
+    0x200000f8   COMPRESSED   0x00000006   Data   RW          329    .data.TotalKeys     variables.o
+    0x200000fe   COMPRESSED   0x00000002   PAD
+    0x20000100   COMPRESSED   0x00000004   Data   RW          261    .data.alarmTimeoutMax  skud_algo.o
+    0x20000104   COMPRESSED   0x00000008   Data   RW          381    .data.eBuf          buffer.o
+    0x2000010c   COMPRESSED   0x00000006   Data   RW          314    .data.eventAccess   events.o
+    0x20000112   COMPRESSED   0x00000006   Data   RW          315    .data.eventAlarm    events.o
+    0x20000118   COMPRESSED   0x0000000c   Data   RW          316    .data.events        events.o
+    0x20000124   COMPRESSED   0x00000001   Data   RW          263    .data.gerkonFilterMax  skud_algo.o
+    0x20000125   COMPRESSED   0x00000001   Data   RW          259    .data.indicWaitMax  skud_algo.o
+    0x20000126   COMPRESSED   0x00000010   Data   RW          196    .data.key1          keys.o
+    0x20000136   COMPRESSED   0x00000002   Data   RW          266    .data.protectionDelayMax  skud_algo.o
+    0x20000138   COMPRESSED   0x00000028   Data   RW          332    .data.variables     variables.o
+
+
+    Execution Region ER_ZI (Exec base: 0x20000160, Load base: 0x0000376c, Size: 0x00000878, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000160        -       0x0000002a   Zero   RW           28    .bss..L_MergedGlobals  prsm3.o
+    0x2000018a   0x0000376c   0x00000002   PAD
+    0x2000018c        -       0x00000020   Zero   RW          431    .bss..L_MergedGlobals  system_mg32x02z.o
+    0x200001ac        -       0x00000008   Zero   RW          269    .bss..L_MergedGlobals.1  skud_algo.o
+    0x200001b4        -       0x00000010   Zero   RW          208    .bss.KeyEncrypted   keys.o
+    0x200001c4        -       0x00000008   Zero   RW          209    .bss.KeyRaw         keys.o
+    0x200001cc        -       0x00000001   Zero   RW          260    .bss.buzzerMuted    skud_algo.o
+    0x200001cd        -       0x00000001   Zero   RW          258    .bss.currentState   skud_algo.o
+    0x200001ce        -       0x00000006   Zero   RW          313    .bss.eventDoor      events.o
+    0x200001d4        -       0x00000400   Zero   RW          304    .bss.fpage          flash.o
+    0x200005d4        -       0x00000001   Zero   RW          262    .bss.gerkonFilterCnt  skud_algo.o
+    0x200005d5        -       0x00000001   Zero   RW          264    .bss.oldGerkonState  skud_algo.o
+    0x200005d6        -       0x00000002   Zero   RW          265    .bss.protectionDelayCnt  skud_algo.o
+    0x200005d8        -       0x00000400   Zero   RW          413    STACK               startup_mg32x02z.o
 
 
 ==============================================================================
@@ -4047,7 +4101,7 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       104          4          0          8          0       1796   buffer.o
+       104          4          0          8          0       1793   buffer.o
         72          8        256          0          0       1514   crc.o
          0          0          0         24          6        739   events.o
       2492         76          0          0       1024      11135   flash.o
@@ -4055,7 +4109,7 @@ Image component sizes
        658         20          0          0          0      11338   iap.o
        100          4          0          0          0        735   ibutton.o
          0          0          0         16         24       1358   keys.o
-        72          4          0          0          0      13542   main.o
+        68          4          0          0          0      13542   main.o
       2578        272          0          0          0       7718   md5.o
         20          4          0          0          0       5035   mg32x02z__common_drv.o
         20          4          0          0          0       1374   mg32x02z_chipinit.o
@@ -4067,20 +4121,20 @@ Image component sizes
         24          4          0          0          0       6533   mg32x02z_rst_drv.o
        224          0          0          0          0      37841   mg32x02z_tm_drv.o
        110          4          0          0          0      31038   mg32x02z_urt_drv.o
-       912          8          0          0          0       2667   onewire.o
+       924          8          0          0          0       4198   onewire.o
       1056         20          0          4         42      17445   prsm3.o
-       612         92          3        210         12      10757   skud_algo.o
+       534         52          0        188         14      12025   skud_algo.o
         60         12        192          0       1024        668   startup_mg32x02z.o
        292        168         51          4         32       1389   system_mg32x02z.o
-       896         92          0          0          0      20383   timers.o
-       296         28          0          0          0      10417   usart.o
+       936        104          0          0          0      20489   timers.o
+       250         28          0          0          0      10417   usart.o
          0          0          0        100          0        969   variables.o
         76          8          0          0          0       1657   wdt.o
 
     ----------------------------------------------------------------------
-     12312        912        534        372       2168     254535   Object Totals
+     12236        884        534        348       2168     257437   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        12          0          0          6          4          0   (incl. Padding)
+        12          0          3          4          2          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -4130,15 +4184,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     13546        980        534        376       2168     254855   Grand Totals
-     13546        980        534        188       2168     254855   ELF Image Totals (compressed)
-     13546        980        534        188          0          0   ROM Totals
+     13470        952        534        352       2168     257757   Grand Totals
+     13470        952        534        184       2168     257757   ELF Image Totals (compressed)
+     13470        952        534        184          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                14080 (  13.75kB)
-    Total RW  Size (RW Data + ZI Data)              2544 (   2.48kB)
-    Total ROM Size (Code + RO Data + RW Data)      14268 (  13.93kB)
+    Total RO  Size (Code + RO Data)                14004 (  13.68kB)
+    Total RW  Size (RW Data + ZI Data)              2520 (   2.46kB)
+    Total ROM Size (Code + RO Data + RW Data)      14188 (  13.86kB)
 
 ==============================================================================
 

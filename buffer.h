@@ -15,7 +15,7 @@ typedef struct
 
 extern RingBuffer_t eBuf;
 
-void putEvent(uint8_t data);
+void putEvent(uint8_t event);
 uint8_t getEvent();
 
 

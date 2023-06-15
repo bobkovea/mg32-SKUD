@@ -30,6 +30,7 @@ typedef enum
 #define BUZZER_PIN PB10
 #define REDE_PIN PB11 
 #define ONEWIRE_PIN PB0
+#define ONEWIRE_DIR_PIN PINB(0)
 #define GERKON_PIN PB3
 
 void GPIO_Config();

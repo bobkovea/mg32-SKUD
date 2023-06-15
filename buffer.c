@@ -31,18 +31,18 @@ uint8_t getEvent()
 {
 	if (!isEmpty())
 	{
-		uint8_t data = eBuf.buf[eBuf.readOffset];
+		uint8_t event = eBuf.buf[eBuf.readOffset];
 		eBuf.readOffset = getNextRead();
-		return data;
+		return event;
 	}
 	return eNoEvent;
 }
 
-void putEvent(uint8_t data)
+void putEvent(uint8_t event)
 {
 	if (!isFull())
 	{
-		eBuf.buf[eBuf.writeOffset] = data;
+		eBuf.buf[eBuf.writeOffset] = event;
 		eBuf.writeOffset = getNextWrite();
 	}
 }
