@@ -5,13 +5,13 @@
 #include "md5.h"
 
 State_t currentState = sNoAccessSleep;
+
 volatile uint8_t indicWaitCnt = 0;
 volatile uint8_t indicWaitMax = INDIC_WAIT_MAX;
 volatile uint32_t indicTimeCnt = 1;
 volatile uint32_t indicTimeMax = INDIC_CNT_ALARM;
 volatile uint8_t indicSpeed = INDIC_SPEED_ALARM;
 volatile uint8_t buzzerMuted = 0;
-
 volatile uint8_t indicationPhase = 1;
 
 volatile uint32_t alarmTimeoutCnt = 0;
@@ -23,7 +23,7 @@ volatile uint8_t oldGerkonState = 0;
 volatile uint8_t gerkonState = 0;
 
 volatile uint16_t protectionDelayCnt = 0;
-volatile uint16_t protectionDelayMax = 1000; // 5 секунд
+volatile uint16_t protectionDelayMax = PROTECTION_DELAY_MAX; // 5 секунд
 
 void IndicationStart(Indication_t indicType)
 {
@@ -57,10 +57,8 @@ void IndicationStart(Indication_t indicType)
 	TM_Timer_Cmd(TM_INDICATION, ENABLE);
 }
 
-
 void IndicationStop()
 {
-//	// обнуление всяких штук
 //	TM_Timer_Cmd(TM_INDICATION, DISABLE);
 	BUZZER_OFF();
 	STALED_OFF();
@@ -68,7 +66,6 @@ void IndicationStop()
 	indicTimeCnt = 1;
 	indicationPhase = 1;
 };
-
 
 void AlarmCountdownEnable() // -static inline
 {
@@ -116,60 +113,59 @@ void UnmuteBuzzer()
 
 void hSleepToWaiting(State_t state, Event_t event)
 {
-	AlarmCountdownEnable();
-	ReadingKeyEnable();
-	IndicationStart(AlarmCommon);
+	// ... // отправляем сигнал об открытии двери
+	AlarmCountdownEnable(); // отсчет до тревоги запущен
+	ReadingKeyEnable(); // чтение ключей начато
+	IndicationStart(AlarmCommon); // начинаем проигрывать сигнал, требуя ввести ключ
 }
 
 void hWaitingToAccess(State_t state, Event_t event)
 {
-	AlarmCountdownDisable();
-	ReadingKeyDisable();
-	ProtectionDelayEnable();
-	IndicationStart(ValidKey);
+	AlarmCountdownDisable(); // отсчет до тревоги остановлен
+	ReadingKeyDisable(); // чтение ключей остановлено
+	ProtectionDelayEnable(); // чтение ключей остановлено
+	IndicationStart(ValidKey); // прогрываем сигнал верного ключа
 }
 
 void hAccessToSleep(State_t state, Event_t event)
 {
-	oldGerkonState = 0;
+	oldGerkonState = 0; // в случае, если дверь открыта, то это приведет к тревоге
 }
 
 // логика разрешения чтения ключей жестко связана с логикой индикации, но здесь это оправдано
 void hReadingKeySuspend(State_t state, Event_t event)
 {
-	ReadingKeyDisable();
-	IndicationStart(InvalidKey);
+	ReadingKeyDisable(); // прекращаем чтение ключа на интервал времени
+	IndicationStart(InvalidKey); // прогрываем сигнал неверного ключа
 }
 
 void hReadingKeyResume(State_t state, Event_t event)
 {	
-	if (gerkonState == 1) ReadingKeyEnable();
-	IndicationStart(AlarmCommon);
-
+	if (gerkonState == 1) ReadingKeyEnable(); // если дверь открыта, то возобновляем чтение ключа
+	IndicationStart(AlarmCommon); // если дверь открыта, то возобновляем чтение ключа
 }
 
 void hDoorClosedNoAccess(State_t state, Event_t event)
 {	
-	ReadingKeyDisable();
-	MuteBuzzer();
+	ReadingKeyDisable(); // прекращаем чтение ключа пока дверь не откроют
+	MuteBuzzer(); // оставляем только световую индикацию
 }
 
 void hDoorOpenedNoAccess(State_t state, Event_t event)
 {
-	ReadingKeyEnable();
-	UnmuteBuzzer();
+	ReadingKeyEnable(); // возобновляем чтение ключа
+	UnmuteBuzzer(); // опять включаем звук в дополнение к световой индикации
 }
 
 void hSendAlarmEvent(State_t state, Event_t event)
 {
-	URT_Write(0xAD);
+	// 
 }
 
 void hIndicationStop(State_t state, Event_t event)
 {
 	IndicationStop();
 }
-
 
 // 	таблица состояний - FSMTable[кол-во состояний][кол-во событий] =
 // 	[текущее состояние][возникшее событие] 		= { новое состояние, функция-обработчик }
@@ -222,7 +218,7 @@ void HandleEvent()
 		// реакция на событие в зависимости от текущего состояния
 		// почему это работает?
 		TransitionCallback_t worker = FSMTable[currentState][newEvent].worker;
-		if (worker)
+		if (worker != NULL)
 		{
 			worker(currentState, newEvent);
 		}

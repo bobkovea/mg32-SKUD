@@ -4,11 +4,11 @@
 #include "buffer.h"
 	
 // перерыв в индикации до смены на другой тип индикации
-#define INDIC_WAIT_MAX 2 // 200 мс
+#define INDIC_WAIT_MAX 1 // 100 мс
 
 // желаемое количество писков
 #define INDIC_PEECNT_VALID_KEY 4
-#define INDIC_PEECNT_INVALID_KEY 20
+#define INDIC_PEECNT_INVALID_KEY 3
 
 // интервал между переключениями пищалки
 #define INDIC_SPEED_ALARM 6 // 600 мс
@@ -21,11 +21,14 @@
 #define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
 
 #define ALARM_TIMEOUT_MAX 20 // 2 секунды
+#define PROTECTION_DELAY_MAX 1000 // 5 секунд
 
-// текущее состояние записывается во флеш (если это связано с тревогой)
-#define eNoEvent 0xFF
-
-#define MAX_EVENTS_NUM 5
+typedef enum
+{
+	AlarmCommon,
+	ValidKey,
+	InvalidKey,
+} Indication_t;
 
 // s - state
 typedef enum 
@@ -44,7 +47,8 @@ typedef enum
 	eAlarmTimeout = 3,
 	eDoorClosed = 4,
 	eProtectionRestored = 5,
-	eIndicationEnded = 6
+	eIndicationEnded = 6,
+	eNoEvent = 255
 } Event_t;
 
 typedef void (*TransitionCallback_t)(State_t state, Event_t event);
@@ -56,22 +60,6 @@ typedef struct
 } Transition_t;
 
 extern State_t currentState;
-extern Event_t currentEvent;
-extern Event_t newEvent;
-
-// h - handler
-
-void HandleEvent();
-
-typedef enum
-{
-	AlarmCommon,
-	ValidKey,
-	InvalidKey,
-} Indication_t;
-
-void IndicationStart(Indication_t indicType);
-void IndicationStop();
 
 extern volatile uint8_t indicWaitCnt;
 extern volatile uint8_t indicWaitMax;
@@ -92,6 +80,11 @@ extern volatile uint8_t gerkonState;
 extern volatile uint16_t protectionDelayCnt;
 extern volatile uint16_t protectionDelayMax;
 
+void IndicationStart(Indication_t indicType);
+void IndicationStop(void);
+
+
+void HandleEvent(void);
 
 uint8_t IsKeyActive(void);
 

@@ -10,7 +10,7 @@
 #include "skud_algo.h"
 #include "ibutton.h"
 
-#define TM_PRSM_RESET TM00
+#define TM_READ_GERKON TM00
 #define TM_PROTECTION_DELAY TM01
 #define TM_ALARM_TIMEOUT TM10
 #define TM_READ_KEY TM16
@@ -18,8 +18,8 @@
 
 // для F_CPU = 8 МГц
 
-#define TM_PRSM_RESET_PERIOD 250 // раз 5 мс
-#define TM_PRSM_RESET_PRESCALER 160
+#define TM_READ_GERKON_PERIOD 250 // раз 5 мс
+#define TM_READ_GERKON_PRESCALER 160
 
 #define TM_PROTECTION_DELAY_PERIOD 250 // раз в 5 мс
 #define TM_PROTECTION_DELAY_PRESCALER 160
@@ -32,6 +32,35 @@
 
 #define TM_INDICATION_PERIOD 50000u // раз в 100 мс
 #define TM_INDICATION_PRESCALER 16
+
+
+//----------------------------------------------------------------------------------------
+// Миллисекундный delay
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE void delay_ms(uint32_t time) 
+{
+	for (uint32_t i = 0; i < time * 1000; i++)
+	{
+		__NOP();
+		__NOP();
+		__NOP();
+		__NOP();
+	}
+}
+
+//----------------------------------------------------------------------------------------
+// Микросекундный delay
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE void delay_us(uint32_t time)
+{
+	for (uint32_t i = 0; i < time; i++)
+	{
+		__NOP();
+		__NOP();
+		__NOP();
+		__NOP();
+	}
+}
 
 void TIM00_Callback(void);
 void TIM01_Callback(void);

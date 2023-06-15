@@ -1,11 +1,8 @@
 #include "timers.h"
 
-
 // T = 5 ms
-void TIM00_Callback (void) // TM_PRSM_RESET
+void TIM00_Callback (void) // TM_READ_GERKON
 {
-	// Попробовать TM10->CNT.W = 0 и вкл/выкл
-	
 	// возможно изменить на проверки
 	
 	if (GERKON_PIN == 0) // если дверь открылась
@@ -28,13 +25,11 @@ void TIM00_Callback (void) // TM_PRSM_RESET
 	{
 		oldGerkonState = gerkonState;
 		putEvent(eDoorOpened);
-//		currentEvent = eDoorOpened;	
 	}
 	else if (oldGerkonState == 1 && gerkonState == 0)
 	{
 		oldGerkonState = gerkonState;
 		putEvent(eDoorClosed);
-//		currentEvent = eDoorClosed;	
 	}
 	
 	// Каждый новый байт сбрасывает счетчик usUsart в 1
@@ -50,18 +45,17 @@ void TIM00_Callback (void) // TM_PRSM_RESET
 }
 	
 // T = 5 ms
-void TIM01_Callback (void)
+void TIM01_Callback (void) // TM_PROTECTION_DELAY
 {
 	if (protectionDelayCnt++ == protectionDelayMax)
 	{
 		TM_Timer_Cmd(TM_PROTECTION_DELAY, DISABLE);
 		protectionDelayCnt = 0;
 		putEvent(eProtectionRestored);
-//		currentEvent = eAlarmTimeout;
 	}
 }
 
-// Счетчик аларма T = 100 ms
+// T = 100 ms
 void TIM10_Callback (void)
 {
 	if (alarmTimeoutCnt++ == alarmTimeoutMax)
@@ -69,30 +63,24 @@ void TIM10_Callback (void)
 		TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
 		alarmTimeoutCnt = 0;
 		putEvent(eAlarmTimeout);
-//		currentEvent = eAlarmTimeout;
 	}
 }
 
 // T = 100 ms
-// TM_READ_KEY
-void TIM16_Callback (void)
+void TIM16_Callback (void) // TM_READ_KEY
 {
 	if (DS1990A_GetKeyID() == KEY_ON_LINE)  
-	{
-		TM_Timer_Cmd(TM_READ_KEY, DISABLE);
+	{		
+		TM_Timer_Cmd(TM_READ_KEY, DISABLE); // отключаем чтение ключа до проверки
 
-		if (IsKeyActive())
+		if (IsKeyActive()) // если ключ подошел
 		{
 			putEvent(eEnteredValidKey);
 		}
-		else
+		else  // если ключ не подошел
 		{
 			putEvent(eEnteredInvalidKey);
 		}
-		
-//			currentEvent = eEnteredValidKey;
-//		else
-//			currentEvent = eEnteredInvalidKey;
 	}
 }
 
@@ -109,7 +97,6 @@ void TIM36_Callback (void)
 	{
 		TM_Timer_Cmd(TM_INDICATION, DISABLE);
 		putEvent(eIndicationEnded);
-//		currentEvent = eIndicationEnded; 
 		return;
 	}
 	
@@ -124,46 +111,17 @@ void TIM36_Callback (void)
 	}
 }
 
-//----------------------------------------------------------------------------------------
-// Миллисекундный delay
-//----------------------------------------------------------------------------------------
-void delay_ms(uint32_t time) 
-{
-	for (uint32_t i = 0; i < time * 1000; i++)
-	{
-		__NOP();
-		__NOP();
-		__NOP();
-		__NOP();
-	}
-}
-
-//----------------------------------------------------------------------------------------
-// Микросекундный delay
-//----------------------------------------------------------------------------------------
-void delay_us(uint32_t time)
-{
-	for (uint32_t i = 0; i < time; i++)
-	{
-		__NOP();
-		__NOP();
-		__NOP();
-		__NOP();
-	}
-}
-
 void TIM_Config()
 {
 	TM_TimeBaseInitTypeDef TM_TimeBase_InitStruct;
     TM_TimeBaseStruct_Init(&TM_TimeBase_InitStruct);
 	
-	// TM_PRSM_RESET
-    TM_TimeBase_InitStruct.TM_Period = TM_PRSM_RESET_PERIOD - 1; 
-    TM_TimeBase_InitStruct.TM_Prescaler = TM_PRSM_RESET_PRESCALER - 1;
-    TM_TimeBase_Init(TM_PRSM_RESET, &TM_TimeBase_InitStruct);
-	TM_IT_Config(TM_PRSM_RESET, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
-	TM_ITEA_Cmd(TM_PRSM_RESET, ENABLE); // включаем общие прерывания таймера
-	TM_ClearFlag(TM_PRSM_RESET, TMx_TOF);
+	// TM_READ_GERKON
+    TM_TimeBase_InitStruct.TM_Period = TM_READ_GERKON_PERIOD - 1; 
+    TM_TimeBase_InitStruct.TM_Prescaler = TM_READ_GERKON_PRESCALER - 1;
+    TM_TimeBase_Init(TM_READ_GERKON, &TM_TimeBase_InitStruct);
+	TM_IT_Config(TM_READ_GERKON, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
+	TM_ITEA_Cmd(TM_READ_GERKON, ENABLE); // включаем общие прерывания таймера
 	
 	// TM_PROTECTION_DELAY
     TM_TimeBase_InitStruct.TM_Period = TM_PROTECTION_DELAY_PERIOD - 1; 
@@ -171,7 +129,6 @@ void TIM_Config()
     TM_TimeBase_Init(TM_PROTECTION_DELAY, &TM_TimeBase_InitStruct);
 	TM_IT_Config(TM_PROTECTION_DELAY, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_PROTECTION_DELAY, ENABLE); // включаем общие прерывания таймера
-	TM_ClearFlag(TM_PROTECTION_DELAY, TMx_TOF);
 
 	// TM_ALARM_TIMEOUT
     TM_TimeBase_InitStruct.TM_Period = TM_ALARM_TIMEOUT_PERIOD - 1; 
@@ -179,13 +136,11 @@ void TIM_Config()
     TM_TimeBase_Init(TM_ALARM_TIMEOUT, &TM_TimeBase_InitStruct);
 	TM_IT_Config(TM_ALARM_TIMEOUT, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_ALARM_TIMEOUT, ENABLE); // включаем общие прерывания таймера
-	TM_ClearFlag(TM_ALARM_TIMEOUT, TMx_TOF);
 	
 	// TM_READ_KEY
     TM_TimeBase_InitStruct.TM_Period = TM_READ_KEY_PERIOD - 1; 
     TM_TimeBase_InitStruct.TM_Prescaler = TM_READ_KEY_PRESCALER - 1;
     TM_TimeBase_Init(TM_READ_KEY, &TM_TimeBase_InitStruct);
-	TM_ClearFlag(TM_READ_KEY, TMx_TOF);
 	TM_IT_Config(TM_READ_KEY, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_READ_KEY, ENABLE); // включаем общие прерывания таймера
 
@@ -193,13 +148,12 @@ void TIM_Config()
     TM_TimeBase_InitStruct.TM_Period = TM_INDICATION_PERIOD - 1; 
     TM_TimeBase_InitStruct.TM_Prescaler = TM_INDICATION_PRESCALER - 1;
     TM_TimeBase_Init(TM_INDICATION, &TM_TimeBase_InitStruct);
-	TM_ClearFlag(TM_INDICATION, TMx_TOF);
 	TM_IT_Config(TM_INDICATION, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_INDICATION, ENABLE); // включаем общие прерывания таймера
 		
-	// TM_PRSM_RESET и TM_PROTECTION_DELAY
+	// TM_READ_GERKON и TM_PROTECTION_DELAY
 	NVIC_EnableIRQ(TM0x_IRQn); 
-	NVIC_SetPriority(TM0x_IRQn, 0);
+	NVIC_SetPriority(TM0x_IRQn, 1);
 	
 	// TM_ALARM_TIMEOUT
 	NVIC_EnableIRQ(TM10_IRQn); 
@@ -207,7 +161,7 @@ void TIM_Config()
 	
 	// TM_READ_KEY
 	NVIC_EnableIRQ(TM1x_IRQn);
-	NVIC_SetPriority(TM1x_IRQn, 1);
+	NVIC_SetPriority(TM1x_IRQn, 0);
 	
 	// TM_INDICATION
 	NVIC_EnableIRQ(TM3x_IRQn);
@@ -219,54 +173,39 @@ void TIM_Config()
 //----------------------------------------------------------------------------------------
 void TM0x_IRQHandler(void)
 {
+	// прерывание по переполнению таймера 00 (только оно разрешено)
 	if(__DRV_EXIC_GET_ID12_SOURCE() & EXIC_SRC3_ID12_tm00_b0)
 	{
-		// прерывание по переполнению таймера
-		if (TM_GetSingleFlagStatus(TM00, TMx_TOF) == DRV_Happened)
-		{
-			TIM00_Callback();
-			TM_ClearFlag (TM00, TMx_TOF);
-		}	
+		TIM00_Callback();
+		TM_ClearFlag (TM00, TMx_TOF);
 	}		
-		
+	// прерывание по переполнению таймера 01 (только оно разрешено)
 	else if(__DRV_EXIC_GET_ID12_SOURCE() & EXIC_SRC3_ID12_tm01_b0)
-		// прерывание по переполнению таймера
 	{
-		if (TM_GetSingleFlagStatus(TM01, TMx_TOF) == DRV_Happened)
-		{
-			TIM01_Callback();
-			TM_ClearFlag (TM01, TMx_TOF);
-		}		
+		TIM01_Callback();
+		TM_ClearFlag (TM01, TMx_TOF);		
 	}
 }
 
 void TM10_IRQHandler(void)
 {
-	// прерывание по переполнению таймера
-    if (TM_GetSingleFlagStatus(TM10, TMx_TOF) == DRV_Happened)
-    {
-        TIM10_Callback();
-        TM_ClearFlag (TM10, TMx_TOF);
-    }
+	// прерывание по переполнению таймера 10 (только оно разрешено)
+	TIM10_Callback();
+	TM_ClearFlag (TM10, TMx_TOF);
 }
 
 void TM1x_IRQHandler(void)
 {
-	// прерывание по переполнению таймера
-    if (TM_GetSingleFlagStatus(TM16, TMx_TOF) == DRV_Happened)
-    {
-        TIM16_Callback();
-        TM_ClearFlag (TM16, TMx_TOF);
-    }
+	// прерывание по переполнению таймера 16 (только оно разрешено)
+	TIM16_Callback();
+	TM_ClearFlag (TM16, TMx_TOF);
 }
 
 void TM3x_IRQHandler(void)
 {
-	// прерывание по переполнению таймера
-    if (TM_GetSingleFlagStatus(TM36, TMx_TOF) == DRV_Happened)
-    {
-        TIM36_Callback();
-        TM_ClearFlag (TM36, TMx_TOF);
-    }
+	// прерывание по переполнению таймера 36 (только оно разрешено)
+	TIM36_Callback();
+	TM_ClearFlag (TM36, TMx_TOF);
+
 }
 

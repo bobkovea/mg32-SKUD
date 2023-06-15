@@ -377,15 +377,11 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 			}
 			
 			fpage.word[TotalKeys.indexOnPage] = ++TotalKeys.value;
-			
-//			URT_Write(0xAA);
-//			URT_Write(ActiveKeys.value);
+
 			break;
 		
 		case KEY_STATUS_DEACTIVATED:
-			
-//			URT_Write(0xBB);
-//			URT_Write(ActiveKeys.value);
+
 			if (activationType == ACTKEY_ACTIVATE)
 			{
 				fpage.byte[keyIndex] = KEY_STATUS_ACTIVATED;
@@ -394,9 +390,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 			break;
 		
 		case KEY_STATUS_ACTIVATED:
-			
-//			URT_Write(0xCC);
-//			URT_Write(ActiveKeys.value);
+
 			if (activationType == ACTKEY_DEACTIVATE)
 			{
 				fpage.byte[keyIndex] = KEY_STATUS_DEACTIVATED;

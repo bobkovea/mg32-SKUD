@@ -24,12 +24,15 @@ int main()
 	WDT_Config(); 
 	
 	URT_Cmd(URTX, ENABLE); // включаем UART0
- 
-	TM_Timer_Cmd(TM_PRSM_RESET, ENABLE);  
-	__enable_irq();
-
-	RS485_CONFIG_RECEIVE();
+	
+	TM_Timer_Cmd(TM_READ_GERKON, ENABLE); // начинаем мониторить состояние двери
+	
+	RS485_CONFIG_RECEIVE();	
 //	RS485_CONFIG_TRANSMIT();
+
+	wdt_enable(WDTO_1S); // включаем watchdog на 1с
+	
+	__enable_irq();
 	
     while(1) 
 	{

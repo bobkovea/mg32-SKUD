@@ -66,9 +66,6 @@ void PRSM3_ParseMessage(void)
     DecryptedMessageLen = 0;
     iptr = 0;
 	parsingStatus = STATUS_COLLECTING_BYTES;
-	
-	// Задержка до отправки ответа
-	delay_ms(2);
 
 	// Проверка адреса 
 	if ((RecBytes[ADDRMSB_POS] != DEVICE_ADDRESS_MSB) ||
@@ -280,9 +277,6 @@ void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизироват
 	
 	// Считаем и добавляем CRC в посылку-ответ
     RecBytes[CommandSize - 1] = Do_CRC(RecBytes, CommandSize - 1);
-
-	// Запускаем wdt на ~1с (на случай, если отправка зависнет)
-    wdt_enable(WDTO_1S);
 	
 	// Отправляем посылку-ответ, дожидаемся завершения передачи
 	URT_Print(RecBytes, CommandSize);
@@ -290,7 +284,7 @@ void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизироват
 	RS485_CONFIG_RECEIVE(); // ADM485 на прием
 }
 
-void PRSM3_clearBuffer() // что-то непонятное
+void PRSM3_clearBuffer()
 {
     iptr = 0;
     DecryptedMessageLen = 0;
