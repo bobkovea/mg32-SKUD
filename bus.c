@@ -1,11 +1,11 @@
-#include "prsm3.h"
+#include "bus.h"
 
 // текущий номер байта
 uint8_t iptr = 0;
 // совместный буфер для принимаемой посылки и посылки-ответа
 uint8_t RecBytes[RX_BUFFER_SIZE];
 // длина посылки (полученная при приеме и расшифрованная)
-uint8_t	DecryptedMessageLen = 0;
+uint8_t	MessLen = 0;
 // массив с длинами посылок
 uint8_t MessageLenArr[4] = { 4, 6, 9, 24 };
 // длина посылки (фактическая)
@@ -20,31 +20,29 @@ uint32_t operStatus;
 //----------------------------------------------------------------------------------------
 // Функция вызывается при приеме каждого нового байта
 //----------------------------------------------------------------------------------------
-void PRSM3_AddNewByte(void) // вызывается когда пришел очередной байт
+void Bus_AddNewByte(void) // вызывается когда пришел очередной байт
 {
+	usUsart = 1; // защита от случая, когда прием завис
+	
 	// после конца посылки вычитываем приходящие "лишние байты"
-    if ((parsingStatus == STATUS_PARSE_WAITING) || (iptr >= RX_BUFFER_SIZE))
-	{
-		URT_GetRXData(URT0); // проверить, можно ли обойтись без этого
+    if (parsingStatus == STATUS_PARSE_WAITING || iptr == RX_BUFFER_SIZE)
+	{ 
+		URT_GetRXData(URT0);
 		return;
     }
-					
 	// пока массив-буфер не переполнен, кладем туда по байту
 	RecBytes[iptr] = URT_GetRXData(URT0);
-	
+
 	// в третьем байте зашифрована длина посылки
     if (iptr++ == FCODE_POS)
-		DecryptedMessageLen = MessageLenArr[(RecBytes[FCODE_POS] >> 3) & 3];
+		MessLen = MessageLenArr[(RecBytes[FCODE_POS] >> 3) & 3]; // & 0b11
 	
 	// дошли по конца посылки, переходим к её парсингу
-    if (DecryptedMessageLen != 0)
+	if (iptr == MessLen && MessLen != 0)
 	{
-        if (iptr == DecryptedMessageLen)
-		{
-            parsingStatus = STATUS_PARSE_WAITING;
-			PRSM3_ParseMessage();
-        }
-    }
+		parsingStatus = STATUS_PARSE_WAITING; // переходим в состояние парсинга
+		Bus_ParseMessage(); // разбираем входящую посылку
+	}
 }  
 
 //----------------------------------------------------------------------------------------
@@ -52,20 +50,10 @@ void PRSM3_AddNewByte(void) // вызывается когда пришел оч
 // На основе принятой посылки формирует посылку-ответ
 // Посылка-ответ записывается в тот же массив RecBytes
 //----------------------------------------------------------------------------------------
-void PRSM3_ParseMessage(void)
+void Bus_ParseMessage(void)
 {
-	usUsart = 0;
-	
-	// Отключаем таймер
-	TM_Timer_Cmd(TM01, DISABLE); 
-	
 	// Сколько было фактически принято байт
 	CommandSize = iptr;
-
-    // обнуляем всё
-    DecryptedMessageLen = 0;
-    iptr = 0;
-	parsingStatus = STATUS_COLLECTING_BYTES;
 
 	// Проверка адреса 
 	if ((RecBytes[ADDRMSB_POS] != DEVICE_ADDRESS_MSB) ||
@@ -73,39 +61,39 @@ void PRSM3_ParseMessage(void)
 		return;
 	
 	// Расшифровываем код функции
-	uint8_t FunctionCode = RecBytes[FCODE_POS] & 0x1F;
+	uint8_t FunctionCode = RecBytes[FCODE_POS] & 0x1F; // & 0b11111
 	
 	switch (FunctionCode)
 	{
 		case FCODE_WRITE9:
-			PRSM3_ParseWriteRequest9();
+			Bus_ParseWriteRequest9();
 			break;
 		
 		case FCODE_WRITE24:
-			PRSM3_ParseWriteRequest24();
+			Bus_ParseWriteRequest24();
 			break;
 		
 		case FCODE_READ6:
-			PRSM3_ParseReadRequest();
+			Bus_ParseReadRequest();
 			break;
 		
 		default:
-			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE9);
+			Bus_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE9);
 	}
 }
 
-void PRSM3_ParseWriteRequest9(void)
+void Bus_ParseWriteRequest9(void)
 {
 	if (CommandSize != 9) // как это возможно исходя из логики?
 	{
-		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
+		Bus_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
 		return;
 	}
 
 	// Проверка контрольной суммы
 	if (CRCisWrong(RecBytes, CommandSize))
 	{
-		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
+		Bus_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
 		return;
 	}
 	
@@ -131,29 +119,29 @@ void PRSM3_ParseWriteRequest9(void)
 		
 		default:
 			CommandSize = 4;
-			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
+			Bus_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
 			return;
     }
 	CommandSize = 4;
 	if (operStatus == FAILURE)
-		PRSM3_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
+		Bus_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
 	else 
-		PRSM3_ReturnReply(FCODE_WRITE4);
+		Bus_ReturnReply(FCODE_WRITE4);
 	return;
 }
 
-void PRSM3_ParseWriteRequest24(void)
+void Bus_ParseWriteRequest24(void)
 {
 	if (CommandSize != 24)
 	{
-		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
+		Bus_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
 		return;
 	}
 
 	// Проверка контрольной суммы
 	if (CRCisWrong(RecBytes, CommandSize))
 	{
-		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
+		Bus_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
 		return;
 	}
 	
@@ -173,29 +161,29 @@ void PRSM3_ParseWriteRequest24(void)
 			break;
 
 		default:
-			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
+			Bus_ReturnReply(ECODE_WRONG_FUNC | FCODE_WRITE4);
 			return;
 	}
 
 		if (operStatus == FAILURE)
-			PRSM3_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
+			Bus_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
 		else 
-			PRSM3_ReturnReply(FCODE_WRITE4);
+			Bus_ReturnReply(FCODE_WRITE4);
 		return;
 }
 
-void PRSM3_ParseReadRequest(void)
+void Bus_ParseReadRequest(void)
 {
 	if (CommandSize != 6)
 	{
-		PRSM3_ReturnReply(ECODE_WRONG_LEN | FCODE_READ9);
+		Bus_ReturnReply(ECODE_WRONG_LEN | FCODE_READ9);
 		return;
 	}
 
 	// Проверка контрольной суммы
 	if (CRCisWrong(RecBytes, CommandSize))
 	{
-		PRSM3_ReturnReply(ECODE_WRONG_CRC | FCODE_READ9);
+		Bus_ReturnReply(ECODE_WRONG_CRC | FCODE_READ9);
 		return;
 	}
 	
@@ -210,7 +198,7 @@ void PRSM3_ParseReadRequest(void)
 			if (var == FAILURE)
 			{
 				CommandSize = 9;
-				PRSM3_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
+				Bus_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
 				return;
 			}
 		
@@ -218,7 +206,7 @@ void PRSM3_ParseReadRequest(void)
 			RecBytes[READVAR1_VALUE_MSB_POS] = var >> 8;
 		
 			CommandSize = 9;
-			PRSM3_ReturnReply(FCODE_READ9);
+			Bus_ReturnReply(FCODE_READ9);
 			break;
 		
 		case SCODE_READVARM:
@@ -238,17 +226,17 @@ void PRSM3_ParseReadRequest(void)
 			}
 			
 			CommandSize = 24;
-			PRSM3_ReturnReply(FCODE_READ24);
+			Bus_ReturnReply(FCODE_READ24);
 			break;
 	
 		default:
 			CommandSize = 9;
-			PRSM3_ReturnReply(ECODE_WRONG_FUNC | FCODE_READ9);
+			Bus_ReturnReply(ECODE_WRONG_FUNC | FCODE_READ9);
 			return;
     }
 }
 
-void PRSM3_EventResponse(MainEvent_t *event)
+void Bus_EventResponse(MainEvent_t *event)
 {
 	RecBytes[SCODE_POS] 			 = event->eventNum;
 	RecBytes[EVENT_STATUS_POS] 		 = event->status << 7 |
@@ -258,7 +246,7 @@ void PRSM3_EventResponse(MainEvent_t *event)
 	RecBytes[EVENT_KEYINDEX_MSB_POS] = event->keyIndex >> 8;
 	
 	CommandSize = 9;
-	PRSM3_ReturnReply(FCODE_EVENT9);
+	Bus_ReturnReply(FCODE_EVENT9);
 	return;
 }
 
@@ -268,7 +256,7 @@ void PRSM3_EventResponse(MainEvent_t *event)
 // |Байт адреса1|Байт адреса2|Код команды с ошибкой| Команда | CRC |
 // CommandSize должна содержать полное число байт посылки
 //----------------------------------------------------------------------------------------
-void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизировать
+void Bus_ReturnReply(uint8_t RetCode) // можно минимизировать
 {
 	RS485_CONFIG_TRANSMIT(); // ADM485 на передачу
 	
@@ -284,11 +272,11 @@ void PRSM3_ReturnReply(uint8_t RetCode) // можно минимизироват
 	RS485_CONFIG_RECEIVE(); // ADM485 на прием
 }
 
-void PRSM3_clearBuffer()
+void Bus_ClearBuffer()
 {
     iptr = 0;
-    DecryptedMessageLen = 0;
-    usUsart = 0;
+    MessLen = 0;
 	parsingStatus = STATUS_COLLECTING_BYTES;
+	usUsart = 0;
 	RS485_CONFIG_RECEIVE();
 }

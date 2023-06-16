@@ -389,9 +389,9 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>prsm3.c</FileName>
+              <FileName>bus.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\prsm3.c</FilePath>
+              <FilePath>.\bus.c</FilePath>
             </File>
             <File>
               <FileName>timers.c</FileName>
@@ -484,9 +484,9 @@
               <FilePath>.\device_config.h</FilePath>
             </File>
             <File>
-              <FileName>prsm3.h</FileName>
+              <FileName>bus.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\prsm3.h</FilePath>
+              <FilePath>.\bus.h</FilePath>
             </File>
             <File>
               <FileName>timers.h</FileName>

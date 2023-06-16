@@ -33,25 +33,13 @@ int main()
 	wdt_enable(WDTO_1S); // включаем watchdog на 1с
 	
 	__enable_irq();
-	
+		
     while(1) 
 	{
 		HandleEvent();
 		wdt_reset();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

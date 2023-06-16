@@ -5,8 +5,7 @@
 //----------------------------------------------------------------------------------------
 void URT_Rx_Callback(void)
 {
-	usUsart = 1;
-	PRSM3_AddNewByte();
+	Bus_AddNewByte();
 	
 }
 

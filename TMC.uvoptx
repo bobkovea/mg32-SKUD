@@ -199,8 +199,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\prsm3.c</PathWithFileName>
-      <FilenameWithoutPath>prsm3.c</FilenameWithoutPath>
+      <PathWithFileName>.\bus.c</PathWithFileName>
+      <FilenameWithoutPath>bus.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -423,8 +423,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\prsm3.h</PathWithFileName>
-      <FilenameWithoutPath>prsm3.h</FilenameWithoutPath>
+      <PathWithFileName>.\bus.h</PathWithFileName>
+      <FilenameWithoutPath>bus.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -1,6 +1,6 @@
 --cpu Cortex-M0
 ".\objects\main.o"
-".\objects\prsm3.o"
+".\objects\bus.o"
 ".\objects\timers.o"
 ".\objects\crc.o"
 ".\objects\usart.o"

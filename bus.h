@@ -1,5 +1,5 @@
-#ifndef PRSM3_H
-#define PRSM3_H
+#ifndef BUS_H
+#define BUS_H
 
 #include "timers.h"
 #include "crc.h"
@@ -32,13 +32,13 @@ extern uint8_t CommandSize;
 extern uint8_t usUsart;
 extern uint8_t parsingStatus;
 
-void PRSM3_AddNewByte(void);
-void PRSM3_ParseMessage(void);
-void PRSM3_ReturnReply(uint8_t RetCode);
-void PRSM3_clearBuffer(void); 
+void Bus_AddNewByte(void);
+void Bus_ParseMessage(void);
+void Bus_ReturnReply(uint8_t RetCode);
+void Bus_ClearBuffer(void); 
 
-void PRSM3_ParseWriteRequest9(void);
-void PRSM3_ParseWriteRequest24(void);
-void PRSM3_ParseReadRequest(void);
-#endif // PRSM3_H
+void Bus_ParseWriteRequest9(void);
+void Bus_ParseWriteRequest24(void);
+void Bus_ParseReadRequest(void);
+#endif // BUS_H
 

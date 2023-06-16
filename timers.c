@@ -39,8 +39,8 @@ void TIM00_Callback (void) // TM_READ_GERKON
 	if (usUsart >= 1)
 	{
 		usUsart++;
-		if (usUsart > 16)
-			PRSM3_clearBuffer();
+		if (usUsart > 10)
+			Bus_ClearBuffer();
 	}
 }
 	
