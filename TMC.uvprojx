@@ -10,7 +10,7 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6140001::V6.14.1::ARMCLANG</pCCUsed>
+      <pCCUsed>6190000::V6.19::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -186,6 +186,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -313,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -414,21 +415,6 @@
               <FilePath>.\gpio.c</FilePath>
             </File>
             <File>
-              <FileName>wdt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\wdt.c</FilePath>
-            </File>
-            <File>
-              <FileName>iap.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\iap.c</FilePath>
-            </File>
-            <File>
-              <FileName>onewire.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\onewire.c</FilePath>
-            </File>
-            <File>
               <FileName>keys.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\keys.c</FilePath>
@@ -459,9 +445,9 @@
               <FilePath>.\ibutton.c</FilePath>
             </File>
             <File>
-              <FileName>md5.c</FileName>
+              <FileName>buffer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\md5.c</FilePath>
+              <FilePath>.\buffer.c</FilePath>
             </File>
             <File>
               <FileName>tests.c</FileName>
@@ -469,9 +455,24 @@
               <FilePath>.\tests.c</FilePath>
             </File>
             <File>
-              <FileName>buffer.c</FileName>
+              <FileName>onewire.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\buffer.c</FilePath>
+              <FilePath>.\onewire.c</FilePath>
+            </File>
+            <File>
+              <FileName>md5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\md5.c</FilePath>
+            </File>
+            <File>
+              <FileName>iap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\iap.c</FilePath>
+            </File>
+            <File>
+              <FileName>wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\wdt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -514,21 +515,6 @@
               <FilePath>.\gpio.h</FilePath>
             </File>
             <File>
-              <FileName>wdt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\wdt.h</FilePath>
-            </File>
-            <File>
-              <FileName>iap.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\iap.h</FilePath>
-            </File>
-            <File>
-              <FileName>onewire.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\onewire.h</FilePath>
-            </File>
-            <File>
               <FileName>keys.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\keys.h</FilePath>
@@ -564,6 +550,11 @@
               <FilePath>.\ibutton.h</FilePath>
             </File>
             <File>
+              <FileName>onewire.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\onewire.h</FilePath>
+            </File>
+            <File>
               <FileName>md5.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\md5.h</FilePath>
@@ -572,6 +563,16 @@
               <FileName>buffer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\buffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>wdt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\wdt.h</FilePath>
+            </File>
+            <File>
+              <FileName>iap.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\iap.h</FilePath>
             </File>
           </Files>
         </Group>

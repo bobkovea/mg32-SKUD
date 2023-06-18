@@ -1,5 +1,4 @@
 #include "ibutton.h"
-#include "usart.h"
 
 uint8_t DS1990A_GetKeyID (void)	
 {	

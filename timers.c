@@ -34,12 +34,11 @@ void TIM00_Callback (void) // TM_READ_GERKON
 	
 	// Каждый новый байт сбрасывает счетчик usUsart в 1
 	// Через 80 мс после прихода последнего байта все переменные очищаются
-	// (в случае, если посылка зависла)
-	
+	// и можно вновь принимать посылку
 	if (usUsart >= 1)
 	{
 		usUsart++;
-		if (usUsart > 10)
+		if (usUsart > 16)
 			Bus_ClearBuffer();
 	}
 }
@@ -56,7 +55,7 @@ void TIM01_Callback (void) // TM_PROTECTION_DELAY
 }
 
 // T = 100 ms
-void TIM10_Callback (void)
+void TIM10_Callback (void) // TM_ALARM_TIMEOUT
 {
 	if (alarmTimeoutCnt++ == alarmTimeoutMax)
 	{
@@ -85,7 +84,7 @@ void TIM16_Callback (void) // TM_READ_KEY
 }
 
 // T = 100 ms
-void TIM36_Callback (void)
+void TIM36_Callback (void) // TM_INDICAION
 {
 	if (indicWaitCnt < indicWaitMax)
 	{
@@ -151,21 +150,21 @@ void TIM_Config()
 	TM_IT_Config(TM_INDICATION, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_INDICATION, ENABLE); // включаем общие прерывания таймера
 		
-	// TM_READ_GERKON и TM_PROTECTION_DELAY
-	NVIC_EnableIRQ(TM0x_IRQn); 
-	NVIC_SetPriority(TM0x_IRQn, 1);
+	// TM_READ_KEY
+	NVIC_EnableIRQ(TM1x_IRQn);
+	NVIC_SetPriority(TM1x_IRQn, 0); // программный one-wire не должен прерываться
+
+	// TM_INDICATION
+	NVIC_EnableIRQ(TM3x_IRQn);
+	NVIC_SetPriority(TM3x_IRQn, 2);
 	
 	// TM_ALARM_TIMEOUT
 	NVIC_EnableIRQ(TM10_IRQn); 
 	NVIC_SetPriority(TM10_IRQn, 3);
 	
-	// TM_READ_KEY
-	NVIC_EnableIRQ(TM1x_IRQn);
-	NVIC_SetPriority(TM1x_IRQn, 0);
-	
-	// TM_INDICATION
-	NVIC_EnableIRQ(TM3x_IRQn);
-	NVIC_SetPriority(TM3x_IRQn, 2);
+	// TM_READ_GERKON и TM_PROTECTION_DELAY
+	NVIC_EnableIRQ(TM0x_IRQn); 
+	NVIC_SetPriority(TM0x_IRQn, 4); 
 }
 
 //----------------------------------------------------------------------------------------

@@ -2,7 +2,10 @@
 #define SKUD_ALGO_H
 #include "stdint.h"
 #include "buffer.h"
-	
+#include "gpio.h"
+#include "timers.h"
+#include "md5.h"
+
 // перерыв в индикации до смены на другой тип индикации
 #define INDIC_WAIT_MAX 1 // 100 мс
 
@@ -23,6 +26,7 @@
 #define ALARM_TIMEOUT_MAX 20 // 2 секунды
 #define PROTECTION_DELAY_MAX 1000 // 5 секунд
 
+// типы индикации
 typedef enum
 {
 	AlarmCommon,
@@ -30,7 +34,7 @@ typedef enum
 	InvalidKey,
 } Indication_t;
 
-// s - state
+// s - state, состояния системы
 typedef enum 
 {
 	sNoAccessSleep = 0,
@@ -38,7 +42,7 @@ typedef enum
 	sAccessGiven = 2,
 } State_t; 
 
-// e - event
+// e - event, события системы
 typedef enum 
 {
 	eDoorOpened = 0,
@@ -48,6 +52,7 @@ typedef enum
 	eDoorClosed = 4,
 	eProtectionRestored = 5,
 	eIndicationEnded = 6,
+	eBusMessage = 7,
 	eNoEvent = 255
 } Event_t;
 

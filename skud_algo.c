@@ -1,8 +1,5 @@
 #include "skud_algo.h"
-#include "stdint.h"
-#include "gpio.h"
-#include "timers.h"
-#include "md5.h"
+
 
 State_t currentState = sNoAccessSleep;
 
@@ -23,7 +20,7 @@ volatile uint8_t oldGerkonState = 0;
 volatile uint8_t gerkonState = 0;
 
 volatile uint16_t protectionDelayCnt = 0;
-volatile uint16_t protectionDelayMax = PROTECTION_DELAY_MAX; // 5 секунд
+volatile uint16_t protectionDelayMax = PROTECTION_DELAY_MAX;
 
 void IndicationStart(Indication_t indicType)
 {
@@ -153,11 +150,15 @@ void hDoorOpenedNoAccess(State_t state, Event_t event)
 {
 	ReadingKeyEnable(); // возобновляем чтение ключа
 	UnmuteBuzzer(); // опять включаем звук в дополнение к световой индикации
+	
+	// возможно опять вкл.
 }
 
 void hSendAlarmEvent(State_t state, Event_t event)
 {
-	// 
+	MuteBuzzer(); // если закрыть и открыть опять дверь, то бесконечно опять будет пищать
+	// доработать
+	
 }
 
 void hIndicationStop(State_t state, Event_t event)
@@ -165,10 +166,15 @@ void hIndicationStop(State_t state, Event_t event)
 	IndicationStop();
 }
 
+void hParseBusMessage(State_t state, Event_t event)
+{
+	Bus_ParseMessage();
+}
+
 // 	таблица состояний - FSMTable[кол-во состояний][кол-во событий] =
 // 	[текущее состояние][возникшее событие] 		= { новое состояние, функция-обработчик }
 
-Transition_t FSMTable[3][7] =
+Transition_t FSMTable[3][8] =
 {
 	[sNoAccessSleep][eDoorOpened] 				= { sNoAccessWaitingKey, hSleepToWaiting },
 	[sNoAccessSleep][eDoorClosed] 				= { sNoAccessSleep, NULL },
@@ -177,6 +183,7 @@ Transition_t FSMTable[3][7] =
 	[sNoAccessSleep][eAlarmTimeout] 			= { sNoAccessSleep, NULL },
 	[sNoAccessSleep][eProtectionRestored] 		= { sNoAccessSleep, NULL },
 	[sNoAccessSleep][eIndicationEnded] 			= { sNoAccessSleep, NULL },
+	[sNoAccessSleep][eBusMessage] 				= { sNoAccessSleep, hParseBusMessage },
 	
 	[sNoAccessWaitingKey][eDoorOpened] 			= { sNoAccessWaitingKey, hDoorOpenedNoAccess },
 	[sNoAccessWaitingKey][eDoorClosed] 			= { sNoAccessWaitingKey, hDoorClosedNoAccess },
@@ -185,18 +192,18 @@ Transition_t FSMTable[3][7] =
 	[sNoAccessWaitingKey][eAlarmTimeout] 		= { sNoAccessWaitingKey, hSendAlarmEvent },
 	[sNoAccessWaitingKey][eProtectionRestored] 	= { sNoAccessWaitingKey, NULL }, 
 	[sNoAccessWaitingKey][eIndicationEnded] 	= { sNoAccessWaitingKey, hReadingKeyResume },
-	
+	[sNoAccessWaitingKey][eBusMessage] 			= { sNoAccessWaitingKey, hParseBusMessage },
+		
 	[sAccessGiven][eDoorOpened] 				= { sAccessGiven, NULL },
 	[sAccessGiven][eDoorClosed] 				= { sAccessGiven, NULL },
 	[sAccessGiven][eEnteredValidKey] 			= { sAccessGiven, NULL },
 	[sAccessGiven][eEnteredInvalidKey] 			= { sAccessGiven, NULL },
 	[sAccessGiven][eAlarmTimeout] 				= { sAccessGiven, NULL },
 	[sAccessGiven][eProtectionRestored] 		= { sNoAccessSleep, hAccessToSleep },
-	[sAccessGiven][eIndicationEnded] 			= { sAccessGiven, hIndicationStop }
-	
+	[sAccessGiven][eIndicationEnded] 			= { sAccessGiven, hIndicationStop },
+	[sAccessGiven][eBusMessage] 				= { sAccessGiven, hParseBusMessage },
 	// если один аларм сработал, и дверь после этого закрыта,  то перейти в сон?
 	// если один аларм сработал, и дверь открыта, то состояние не меняем, но ?
-
 };
 
 // буфер событий предотвращает потерю информации о переходе к другому состоянию 

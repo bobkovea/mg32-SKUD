@@ -7,7 +7,7 @@
 #define FAILURE UINT32_MAX
 #define SUCCESS 0
 
-#define IAP_PAGE_COUNT 19
+#define IAP_PAGE_COUNT 10
 #define IAP_SIZE (IAP_PAGE_COUNT * IAP_PAGE_SIZE)
 
 uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB);
