@@ -213,7 +213,7 @@ void Bus_ParseReadRequest(void)
 	
 			tmpAddr = &RecBytes[READVARM_VALUE_1ST_POS];
 
-			for (uint8_t varNum = 0; varNum < VAR_COUNT; varNum++)
+			for (uint8_t varNum = 0; varNum < VAR_TOTAL_COUNT; varNum++)
 			{
 				var = variables[varNum]->value;
 				
@@ -228,26 +228,36 @@ void Bus_ParseReadRequest(void)
 			CommandSize = 24;
 			Bus_ReturnReply(FCODE_READ24);
 			break;
+			
+		case SCODE_READVALIDKEY:
+
+			if (ValidKeyIndex.value != ValidKeyIndex.factoryValue)
+			{	
+				RecBytes[4] = 0x00;
+				RecBytes[5] = (uint8_t) (ValidKeyIndex.value >> 8);
+				RecBytes[6] = (uint8_t) ValidKeyIndex.value;
+				memcpy(&RecBytes[7], KeyEncrypted, KEY_ENCRYPTED_SIZE);
+				
+				CommandSize = 24;
+				Bus_ReturnReply(FCODE_READ24);
+
+				ValidKeyIndex.value = ValidKeyIndex.factoryValue;
+				CopyVariablesPage0ToFlash();
+				return;
+			}
+			else 
+			{
+				RecBytes[4] = RecBytes[5] = RecBytes[6] = RecBytes[7] = 0x00;
+				CommandSize = 9;
+				Bus_ReturnReply(FCODE_READ9);
+			}
+			break;
 	
 		default:
 			CommandSize = 9;
 			Bus_ReturnReply(ECODE_WRONG_FUNC | FCODE_READ9);
 			return;
     }
-}
-
-void Bus_EventResponse(MainEvent_t *event)
-{
-	RecBytes[SCODE_POS] 			 = event->eventNum;
-	RecBytes[EVENT_STATUS_POS] 		 = event->status << 7 |
-									   event->repetitionCount;
-	RecBytes[EVENT_TIME_POS] 		 = event->time;
-	RecBytes[EVENT_KEYINDEX_LSB_POS] = event->keyIndex;
-	RecBytes[EVENT_KEYINDEX_MSB_POS] = event->keyIndex >> 8;
-	
-	CommandSize = 9;
-	Bus_ReturnReply(FCODE_EVENT9);
-	return;
 }
 
 //----------------------------------------------------------------------------------------

@@ -2,13 +2,11 @@
 #include "keys.h"
 #include "variables.h"
 #include "usart.h"
-#include "events.h"
+#include "md5.h"
 
 // отделить запись и чтение из флеша от записи ответной посылки в массив RecBytes
 
 flash_block_t fpage;
-
-#include "md5.h"
 
 void FlashTestFill(void)
 {
@@ -23,7 +21,6 @@ void FlashTestFill(void)
 //	
 //	MD5_MakeHash(key_em_2, KEY_RAW_SIZE, KeyEncrypted);
 //	AddKey(ACTKEY_ACTIVATE, 3, 0, KeyEncrypted);
-
 }
 
 //----------------------------------------------------------------------------------------
@@ -40,53 +37,35 @@ void FlashFirstInit(void)
 	if (IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
 	{
 		// копируем переменные из флеша в ОЗУ
-		for (uint8_t varNum = 0; varNum < VAR_COUNT_WRITABLE; varNum++)
-			variables[varNum]->value = IAP_ReadWord(PAGE_NUMBER_VARS, variables[varNum]->indexOnPage); 
+		for (uint8_t i = 0; i < VAR_PAGE0_COUNT; i++)
+			variables[i]->value = IAP_ReadWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage); 
 		
 		TotalKeys.value = IAP_ReadWord(PAGE_NUMBER_KEYSTATUS, TotalKeys.indexOnPage); 
 		ActiveKeys.value = IAP_ReadWord(PAGE_NUMBER_KEYSTATUS, ActiveKeys.indexOnPage);
 		
 		// кол-во перезаписей флеша = максимальное кол-во со всех страниц
 		FlashResourse.value = GetMaxFlashResource();
-		
-		// копируем события из флеша в ОЗУ
-		for (uint32_t i = 0; i < EVENT_COUNT; i++)
-		{
-			events[i]->time = IAP_ReadWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 0); 
-			events[i]->status = IAP_ReadWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 1); 
-			events[i]->repetitionCount = IAP_ReadWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 2); 
-		}
 	}
 	
 	else // если включение первое
 	{
+		// выставляем флаг первой записи флеша
+		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
+		
 		// количество перезаписей на всех страницах (кроме ключей) = 1
 		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
-		IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, FLASH_RESOURCE_POS, __FLASH_RESOURCE);
 		
 		// копируем значения переменных по умолчанию из ОЗУ во флеш
-		for (uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+		for (uint8_t i = 0; i < VAR_PAGE0_COUNT; i++)
 			IAP_WriteSingleWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage, variables[i]->factoryValue);
-
+		
 		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, TotalKeys.indexOnPage, TotalKeys.factoryValue);
 		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, ActiveKeys.indexOnPage, ActiveKeys.factoryValue);
-		
-		// копируем значения событий по умолчанию из ОЗУ во флеш
-		for (uint8_t i = 0; i < EVENT_COUNT; i++)
-		{
-			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 0, events[i]->time); 
-			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 1, events[i]->status); 
-			IAP_WriteSingleWord(PAGE_NUMBER_EVENTS, events[i]->eventNum * 10 + 2, events[i]->repetitionCount); 
-		}
-		
-		// выставляем флаг первой записи флеша
-		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
 		
 		// + добавим ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
 		FlashTestFill(); 
 	}
-
 } 
 
 //----------------------------------------------------------------------------------------
@@ -98,7 +77,7 @@ void FlashFirstInit(void)
 
 uint32_t GetVariable(uint8_t varNumber)
 {
-	if (varNumber > VAR_COUNT) return FAILURE;
+	if (varNumber > VAR_TOTAL_COUNT) return FAILURE;
 	return variables[varNumber]->value;
 }
 
@@ -113,7 +92,7 @@ uint32_t GetVariable(uint8_t varNumber)
 
 uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
 {
-	if (varNumber > VAR_COUNT_WRITABLE) return FAILURE;
+	if (varNumber > VAR_WRITABLE_COUNT) return FAILURE;
 	
 	uint16_t varNew = varValueLSB | varValueMSB << 8;
 	
@@ -144,7 +123,7 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 	uint8_t *tmpAddr = packStartAddr;
 	
 	// если передаваемые значения идентичны существующим, то не нужно перезаписывать флеш
-	for(uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+	for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
 	{
 		varNew = 0;
 			
@@ -155,7 +134,7 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 			break;
 		else 
 		{
-			if (i == VAR_COUNT_WRITABLE - 1)
+			if (i == VAR_WRITABLE_COUNT - 1)
 					return SUCCESS;
 		}
 	}
@@ -165,7 +144,7 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 				
 	tmpAddr = packStartAddr;
 				
-	for (uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+	for (uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
 	{
 		// отделяем двухбайтные переменные от однобайтных
 		varNew = 0;
@@ -286,7 +265,7 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 		case COMM_FACTORY_NUM: // к дефолтным значениям
 			
 			// если уже и так значения дефолтные, то сброс не нужен
-			for(uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+			for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
             {
                 if (variables[i]->value != variables[i]->factoryValue)
 				{
@@ -295,14 +274,14 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 
 				else 
 				{
-					if (i == VAR_COUNT_WRITABLE - 1)
+					if (i == VAR_WRITABLE_COUNT - 1)
 						return SUCCESS;
 				}
             }
 			
 			CopyFlashPageToRAM(PAGE_NUMBER_VARS);
 			
-			for(uint8_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+			for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
 				fpage.word[variables[i]->indexOnPage] = variables[i]->value = variables[i]->factoryValue; // --> ram & iap
 			
 			fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
@@ -430,10 +409,11 @@ uint32_t GetKeyStatus(uint16_t keyIndex)
 
 uint32_t GetMaxFlashResource(void)
 {
+	/* для произвольного кол-ва страниц */
 	uint32_t curFlashResource = 0;
 	uint32_t maxFlashResource = 0;
 	
-	for (uint8_t pageNum = 0; pageNum < 3; pageNum++)
+	for (uint8_t pageNum = 0; pageNum < 2; pageNum++)
     {
 		curFlashResource = IAP_ReadWord(pageNum, FLASH_RESOURCE_POS);
 		
@@ -441,6 +421,8 @@ uint32_t GetMaxFlashResource(void)
 			maxFlashResource = curFlashResource;
     }
 	return maxFlashResource;
+	
+	/* для первых двух страниц */
 }
 
 //----------------------------------------------------------------------------------------
@@ -485,4 +467,15 @@ uint32_t CopyFlashPageToRAM(uint8_t pageNumber)
 uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
 {
 	return IAP_WriteMultipleWord(pageNumber, 0, &fpage, IAP_PAGE_SIZE / 4);
+}
+
+void CopyVariablesPage0ToFlash(void)
+{
+	IAP_Erase_OnePage(PAGE_NUMBER_VARS); 
+	
+	IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
+	IAP_WriteSingleWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS, FlashResourse.value);
+	
+	for (uint8_t i = 0; i < VAR_PAGE0_COUNT; i++)
+		IAP_WriteSingleWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage, variables[i]->value);
 }

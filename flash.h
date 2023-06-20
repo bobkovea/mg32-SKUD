@@ -41,53 +41,38 @@ typedef union
 // Номера страниц
 //----------------------------------------------------------------------------------------
 #define PAGE_NUMBER_VARS 0
-#define PAGE_NUMBER_EVENTS 1
-#define PAGE_NUMBER_KEYSTATUS 2
-#define PAGE_NUMBER_KEYS_0 3
+#define PAGE_NUMBER_KEYSTATUS 1
+#define PAGE_NUMBER_KEYS_0 2
 
 //----------------------------------------------------------------------------------------
 // Позиции переменных в памяти
 //----------------------------------------------------------------------------------------
 
-// Страница 0: Внутренние переменные
+#define FLASH_RESOURCE_POS 255
+
+/* Страница 0: Внутренние переменные */
 
 #define FIRST_WRITE_VALUE_POS 0
 
-#define FLASH_RESOURCE_POS 255
-
 #define GERKON_FILT_TIME_POS 10
-#define SEND_ALARM_TIME_POS 11
-#define REACTIVATE_ALARM_TIME_POS 12
-#define BUZZER_OFF_TIME_POS 13
-#define SEND_OFFLINE_EVENTS_POS 14
-#define FREE_ACCESS_POS 15
-#define MASTER_SLAVE_POS 16
+#define PROTECTION_DELAY_TIME_POS 11
+#define BUZZER_OFF_TIME_POS 12
+#define CHECK_KEY_DISABLED_POS 13
+#define ACCESS_IS_GIVEN_POS 14
+#define VALID_KEY_INDEX_POS 15
+ 
+/* Страница 1: Статус ключей доступа */
+
+// позиции с 0 до 999
 
 #define TOTAL_KEYS_POS 253
 #define ACTIVE_KEYS_POS 254
 
-// Страница 1: Архив событий
-
-#define EVENT_DOOR_STATUS 0
-#define EVENT_DOOR_TIME 1
-#define EVENT_DOOR_COUNT 2
-
-#define EVENT_ACCESS_STATUS 10
-#define EVENT_ACCESS_TIME 11
-#define EVENT_ACCESS_COUNT 12
-#define EVENT_ACCESS_KEYINDEX 13
-
-#define EVENT_ALARM_STATUS 20
-#define EVENT_ALARM_TIME 21
-#define EVENT_ALARM_COUNT 22
- 
-// Страница 2: Статус ключей доступа
-
-// позиции с 0 до 1023
-
-
-// Страницы 3-19: Ключи доступа
+/* Страницы 2-17: Ключи доступа */
 
 // позиции с 0 до 63
+
+
+void CopyVariablesPage0ToFlash(void);
 
 #endif // FLASH_H

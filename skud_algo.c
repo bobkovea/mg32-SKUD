@@ -1,7 +1,9 @@
 #include "skud_algo.h"
 
 
-State_t currentState = sNoAccessSleep;
+//State_t currentState = sNoAccessSleep;
+
+State_t currentState;
 
 volatile uint8_t indicWaitCnt = 0;
 volatile uint8_t indicWaitMax = INDIC_WAIT_MAX;
@@ -91,6 +93,11 @@ void ProtectionDelayEnable()
 	TM_Timer_Cmd(TM_PROTECTION_DELAY, ENABLE); 
 };
 
+void ProtectionDelayDisable()
+{
+	TM_Timer_Cmd(TM_PROTECTION_DELAY, DISABLE); 
+};
+
 void MuteBuzzer()
 {
 	buzzerMuted = TRUE;
@@ -103,27 +110,68 @@ void UnmuteBuzzer()
 	buzzerMuted = FALSE;
 }
 
+void DefineInitialState()
+{
+	if (CheckKeyDisabled.value) // если включен режим доступа без ключа
+	{ 
+		currentState = sAccessGiven; // переходим 
+		AccessIsGiven.value = 1; // так, для виду
+	}
+	
+	else if (AccessIsGiven.value) 
+	{
+		currentState = sAccessGiven;
+		ProtectionDelayEnable(); // и запускаем отсчет времени доступа
+	}
+	else
+	{
+		currentState = sNoAccessSleep;
+	}
+}
+
+//void ProvideAccessForever()
+//{
+//	IndicationStop();
+//	ReadingKeyDisable();
+//	ProtectionDelayDisable(); 
+//}
+
+
+
 // h - handler
 /* **************************** */
 
+// переход из состояния сна в состояние ожидания ввода ключа
 void hSleepToWaiting(State_t state, Event_t event)
 {
-	// ... // отправляем сигнал об открытии двери
 	AlarmCountdownEnable(); // отсчет до тревоги запущен
 	ReadingKeyEnable(); // чтение ключей начато
 	IndicationStart(AlarmCommon); // начинаем проигрывать сигнал, требуя ввести ключ
 }
 
+// переход из состояния ожидания ввода ключа в состояние после ввода верного ключа
 void hWaitingToAccess(State_t state, Event_t event)
 {
+	AccessIsGiven.value = 1;
+	ValidKeyIndex.value = CurKeyIndex; 
+	CopyVariablesPage0ToFlash();  // записываем во флеш
+	
+	RS485_CONFIG_TRANSMIT();
+
+	URT_Print(KeyEncrypted, sizeof(KeyEncrypted)); 
+	
+	RS485_CONFIG_RECEIVE();
+	
 	AlarmCountdownDisable(); // отсчет до тревоги остановлен
 	ReadingKeyDisable(); // чтение ключей остановлено
 	ProtectionDelayEnable(); // чтение ключей остановлено
-	IndicationStart(ValidKey); // прогрываем сигнал верного ключа
+	IndicationStart(ValidKey); // проигрываем сигнал верного ключа
 }
-
+// переход из состояния после ввода верного ключа в состояние сна
 void hAccessToSleep(State_t state, Event_t event)
 {
+	AccessIsGiven.value = 0;
+	CopyVariablesPage0ToFlash();
 	oldGerkonState = 0; // в случае, если дверь открыта, то это приведет к тревоге
 }
 
@@ -238,22 +286,25 @@ void HandleEvent()
 	}
 }
 
-uint8_t IsKeyActive(void)
+uint8_t IsKeyValid(void)
 {
-	// зашифровываем ключ в MD5
+	// зашифровываем поднесенный ключ в MD5
 	MD5_MakeHash(KeyRaw, KEY_RAW_SIZE, KeyEncrypted);
 	
-	// Проверяем наличие ключа в базе (зашифрованного). Только среди активированных
-	for (uint16_t keyIndex = 0; keyIndex < TotalKeys.value /*KEYS_COUNT*/; keyIndex++)
+	// Проверяем наличие ключа в базе (зашифрованного)
+	// Ищем только среди активированных
+	for (uint16_t keyIndex = 0; keyIndex < TotalKeys.value; keyIndex++)
     {
 		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
 		{
-			//if(IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyRaw, KEY_RAW_SIZE))
 			if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyEncrypted, KEY_ENCRYPTED_SIZE))
 			{
+				CurKeyIndex = keyIndex;
 				return KEY_STATUS_ACTIVATED;
 			}
 		}
     }
 	return KEY_STATUS_DEACTIVATED;
+	
+	// как-то получить KeyIndex
 }

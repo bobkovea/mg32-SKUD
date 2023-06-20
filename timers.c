@@ -57,12 +57,12 @@ void TIM01_Callback (void) // TM_PROTECTION_DELAY
 // T = 100 ms
 void TIM10_Callback (void) // TM_ALARM_TIMEOUT
 {
-	if (alarmTimeoutCnt++ == alarmTimeoutMax)
-	{
-		TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
-		alarmTimeoutCnt = 0;
-		putEvent(eAlarmTimeout);
-	}
+//	if (alarmTimeoutCnt++ == alarmTimeoutMax)
+//	{
+//		TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
+//		alarmTimeoutCnt = 0;
+//		putEvent(eAlarmTimeout);
+//	}
 }
 
 // T = 100 ms
@@ -72,7 +72,7 @@ void TIM16_Callback (void) // TM_READ_KEY
 	{		
 		TM_Timer_Cmd(TM_READ_KEY, DISABLE); // отключаем чтение ключа до проверки
 
-		if (IsKeyActive()) // если ключ подошел
+		if (IsKeyValid()) // если ключ подошел
 		{
 			putEvent(eEnteredValidKey);
 		}

@@ -1,10 +1,11 @@
 #ifndef SKUD_ALGO_H
 #define SKUD_ALGO_H
 #include "stdint.h"
-#include "buffer.h"
+#include "ring_buffer.h"
 #include "gpio.h"
 #include "timers.h"
 #include "md5.h"
+#include "keys.h"
 
 // перерыв в индикации до смены на другой тип индикации
 #define INDIC_WAIT_MAX 1 // 100 мс
@@ -24,7 +25,7 @@
 #define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
 
 #define ALARM_TIMEOUT_MAX 20 // 2 секунды
-#define PROTECTION_DELAY_MAX 1000 // 5 секунд
+#define PROTECTION_DELAY_MAX 4000 // 20 секунд
 
 // типы индикации
 typedef enum
@@ -72,7 +73,7 @@ extern volatile uint32_t indicTimeCnt;
 extern volatile uint32_t indicTimeMax;
 extern volatile uint8_t indicSpeed;
 extern volatile uint8_t indicationPhase;
-extern volatile uint8_t buzzerMuted; // buzzerMuted?
+extern volatile uint8_t buzzerMuted;
 
 extern volatile uint32_t alarmTimeoutCnt;
 extern volatile uint32_t alarmTimeoutMax;
@@ -85,12 +86,9 @@ extern volatile uint8_t gerkonState;
 extern volatile uint16_t protectionDelayCnt;
 extern volatile uint16_t protectionDelayMax;
 
-void IndicationStart(Indication_t indicType);
-void IndicationStop(void);
-
-
+void DefineInitialState(void);
 void HandleEvent(void);
 
-uint8_t IsKeyActive(void);
+uint8_t IsKeyValid(void); // перенести в другой файл
 
 #endif // SKUD_ALGO_H

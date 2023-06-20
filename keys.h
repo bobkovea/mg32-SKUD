@@ -31,4 +31,6 @@ extern uint8_t key1[8];
 
 //extern uint8_t *keys[5];
 
+extern uint16_t CurKeyIndex;
+
 #endif // KEYS_H

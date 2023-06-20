@@ -16,12 +16,12 @@
 //////////////////////////////////////////////////////////////
 // ТЕСТ ЗАПИСИ ПАКА
 
-//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//	for (uint32_t i = 0; i < VAR_WRITABLE_COUNT; i++)
 //		URT_WriteWord(GetVariable(i));
 
 //	SetVariablePack(varPackage); 
 //	
-//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//	for (uint32_t i = 0; i < VAR_WRITABLE_COUNT; i++)
 //		URT_WriteWord(GetVariable(i));
 
 //////////////////////////////////////////////////////////////
@@ -74,13 +74,13 @@
 
 //	SetVariablePack(varPackage);
 //	
-//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//	for (uint32_t i = 0; i < VAR_WRITABLE_COUNT; i++)
 //		URT_WriteWord(GetVariable(i));
 
 //	DoCommand(COMM_FACTORY_NUM, 0);
 //	
 //	delay_ms(1000);
-//	for (uint32_t i = 0; i < VAR_COUNT_WRITABLE; i++)
+//	for (uint32_t i = 0; i < VAR_WRITABLE_COUNT; i++)
 //		URT_WriteWord(GetVariable(i));
 
 //////////////////////////////////////////////////////////////

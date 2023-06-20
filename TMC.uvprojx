@@ -390,6 +390,11 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
+              <FileName>skud_algo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\skud_algo.c</FilePath>
+            </File>
+            <File>
               <FileName>bus.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\bus.c</FilePath>
@@ -420,19 +425,9 @@
               <FilePath>.\keys.c</FilePath>
             </File>
             <File>
-              <FileName>skud_algo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\skud_algo.c</FilePath>
-            </File>
-            <File>
               <FileName>flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>events.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\events.c</FilePath>
             </File>
             <File>
               <FileName>variables.c</FileName>
@@ -445,9 +440,9 @@
               <FilePath>.\ibutton.c</FilePath>
             </File>
             <File>
-              <FileName>buffer.c</FileName>
+              <FileName>ring_buffer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\buffer.c</FilePath>
+              <FilePath>.\ring_buffer.c</FilePath>
             </File>
             <File>
               <FileName>tests.c</FileName>
@@ -485,6 +480,11 @@
               <FilePath>.\device_config.h</FilePath>
             </File>
             <File>
+              <FileName>skud_algo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\skud_algo.h</FilePath>
+            </File>
+            <File>
               <FileName>bus.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\bus.h</FilePath>
@@ -505,11 +505,6 @@
               <FilePath>.\usart.h</FilePath>
             </File>
             <File>
-              <FileName>main.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\main.h</FilePath>
-            </File>
-            <File>
               <FileName>gpio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\gpio.h</FilePath>
@@ -518,11 +513,6 @@
               <FileName>keys.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\keys.h</FilePath>
-            </File>
-            <File>
-              <FileName>skud_algo.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\skud_algo.h</FilePath>
             </File>
             <File>
               <FileName>flash.h</FileName>
@@ -540,11 +530,6 @@
               <FilePath>.\variables.h</FilePath>
             </File>
             <File>
-              <FileName>events.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\events.h</FilePath>
-            </File>
-            <File>
               <FileName>ibutton.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ibutton.h</FilePath>
@@ -560,9 +545,9 @@
               <FilePath>.\md5.h</FilePath>
             </File>
             <File>
-              <FileName>buffer.h</FileName>
+              <FileName>ring_buffer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\buffer.h</FilePath>
+              <FilePath>.\ring_buffer.h</FilePath>
             </File>
             <File>
               <FileName>wdt.h</FileName>
@@ -573,6 +558,11 @@
               <FileName>iap.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\iap.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\main.h</FilePath>
             </File>
           </Files>
         </Group>

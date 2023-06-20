@@ -9,7 +9,6 @@
 #include "flash.h"
 #include "keys.h"
 #include "variables.h"
-#include "events.h"
 
 // настроить ADM485 на прием
 #define RS485_CONFIG_RECEIVE() REDE_PIN = 0
@@ -24,10 +23,10 @@
 #define STATUS_COLLECTING_BYTES 0x00
 #define STATUS_PARSE_WAITING 0x01
 
+// вроде extern не нужны
 extern uint8_t RecBytes[RX_BUFFER_SIZE];
 extern uint8_t MessageLen[4];
 extern uint8_t iptr;
-extern uint8_t DecryptedMessageLen;
 extern uint8_t CommandSize;
 extern uint8_t usUsart;
 extern uint8_t parsingStatus;

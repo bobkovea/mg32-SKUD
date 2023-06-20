@@ -1,6 +1,5 @@
 #ifndef PACKAGES_H
 #define PACKAGES_H
-#include "MG32x02z_DRV.h"
 
 // макросы для разных посылок
 
@@ -15,13 +14,15 @@
 #define COMM_ALLKEYACT 0x00
 #define COMM_FACTORY_NUM 0x01
 
+
+/* доделать  */
 #define GERKON_FILT_TIME_CODE 0x00
-#define SEND_ALARM_TIME_CODE 0x01
-#define REACTIVATE_ALARM_TIME_CODE 0x02
+
+
 #define BUZZER_OFF_TIME_CODE 0x03
-#define SEND_OFFLINE_EVENTS_CODE 0x04
-#define FREE_ACCESS_CODE 0x05
-#define MASTER_SLAVE_CODE 0x06
+
+
+
 #define TOTAL_KEYS_CODE 0x07
 #define ACTIVE_KEYS_CODE 0x08
 #define FLASH_RESOURCE_CODE 0x09
@@ -45,8 +46,6 @@
 #define FCODE_READ9 0x13
 #define FCODE_READ24 0x1D
 
-#define FCODE_EVENT9 0x18
-
 /* Коды подфункций (SCODE) */
 
 #define SCODE_ACTKEY 0x00
@@ -58,24 +57,18 @@
 
 #define SCODE_READVAR1 0x00
 #define SCODE_READVARM 0x01
-
-#define SCODE_EVENT_DOOR 0x00
-#define SCODE_EVENT_ACCESS 0x01
-#define SCODE_EVENT_ALARM 0x02
-
+#define SCODE_READVALIDKEY 0x02
 /* Номера переменных */
 
+/* доделать  */
 #define GERKON_FILT_TIME_NUM 0x00
-#define SEND_ALARM_TIME_NUM 0x01
-#define REACTIVATE_ALARM_TIME_NUM 0x02
-#define BUZZER_OFF_TIME_NUM 0x03
-#define SEND_OFFLINE_EVENTS_NUM 0x04
-#define FREE_ACCESS_NUM 0x05
-#define MASTER_SLAVE_NUM 0x06
+#define PROTECTION_DELAY_TIME_NUM 0x01
+#define BUZZER_OFF_TIME_NUM 0x02
+#define CHECK_KEY_DISABLED_NUM 0x03
+
 #define TOTAL_KEYS_NUM 0x07
 #define ACTIVE_KEYS_NUM 0x08
 #define FLASH_RESOURCE_NUM 0x09
-
 
 /* Позиций байтов посылок по протоколу */
 
@@ -139,11 +132,5 @@
 // Ответ:
 #define READVARM_VALUE_1ST_POS 4
 
-	/* III События внутри шкафа (EVENT)*/
-
-#define EVENT_STATUS_POS 4
-#define EVENT_TIME_POS 5
-#define EVENT_KEYINDEX_LSB_POS 6
-#define EVENT_KEYINDEX_MSB_POS 7
 
 #endif // PACKAGES_H

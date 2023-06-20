@@ -18,6 +18,7 @@ uint8_t key_em_5[8] = { 0x01, 0xD9, 0xC1, 0xD2, 0x00, 0x4C, 0x00, 0x50 };
 
 uint8_t KeyEncrypted[KEY_ENCRYPTED_SIZE];
 uint8_t KeyRaw[KEY_RAW_SIZE]; 
+uint16_t CurKeyIndex = 0;
 	
 //uint32_t EncryptKey(uint8_t *keySrc, uint8_t *keyDest)
 //{

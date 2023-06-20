@@ -3,23 +3,27 @@
 #include "stdint.h"
 #include "flash.h"
 
-#define VAR_COUNT_WRITABLE 7
-#define VAR_COUNT 10
+#define VAR_WRITABLE_COUNT 4
+#define VAR_PAGE0_COUNT 6
+#define VAR_TOTAL_COUNT 9
+
+#define HWORD 2
+#define BYTE 1
 
 // значения по умолчанию
 #define __FIRST_WRITE_VALUE 0xAA
-#define __GERKON_FILT_TIME 3
-#define __SEND_ALARM_TIME 30
-#define __REACTIVATE_ALARM_TIME 5
-#define __BUZZER_OFF_TIME 600
-#define __SEND_OFFLINE_EVENTS 0
-#define __FREE_ACCESS 0
-#define __MASTER_SLAVE 0
+
+#define __GERKON_FILT_TIME 100
+#define __PROTECTION_DELAY_TIME 1 // 60
+#define __BUZZER_OFF_TIME 1 // 5
+#define __CHECK_KEY_DISABLED 0
+
+#define __ACCESS_IS_GIVEN 0
+#define __VALID_KEY_INDEX 0xFFFF
 
 #define __TOTAL_KEYS 0
 #define __ACTIVE_KEYS 0
 #define __FLASH_RESOURCE 1
-
 
 typedef struct 
 {
@@ -29,18 +33,22 @@ typedef struct
 	const uint8_t indexOnPage;
 } Variable_t;
 
-extern Variable_t GerkonFiltTime;
-extern Variable_t SendAlarmTimePos;
-extern Variable_t ReactivateAlarmTime;
-extern Variable_t BuzzerOffTime;
-extern Variable_t SendOfflineEvents;
-extern Variable_t FreeAccess;
-extern Variable_t MasterSlave;
+// изменяемые непосредственно по запросу
+extern Variable_t GerkonFiltTime; // время фильтрации открытия дверцы
+extern Variable_t ProtectionDelayTime; // время предоставления доступа к шкафу после ввода верного ключа
+extern Variable_t BuzzerOffTime; // время отключения звуковой сигнализации
+extern Variable_t CheckKeyDisabled; // при == 1 система приводится к состоянию "sAccessGiven" и более не выводится из него
+
+// изменяемые косвенно в процессе работы
+extern Variable_t AccessIsGiven; // если == 1, то мы находимся в состоянии "sAccessGiven"
+								 // и по истечении "ProtectionDelayTime" перейдем в состояние "sNoAccessSleep"
+extern Variable_t ValidKeyIndex; // если != 0xFFFF, то необходимо отправить открывший ключ, после этого сбрасывается
+
 extern Variable_t TotalKeys;
 extern Variable_t ActiveKeys;
 extern Variable_t FlashResourse;
 
-extern Variable_t *variables[VAR_COUNT];
+extern Variable_t *variables[VAR_TOTAL_COUNT];
 
 #endif // VARIABLES_H
 
