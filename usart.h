@@ -1,27 +1,71 @@
 #ifndef USART_H
 #define USART_H
+
 #include "MG32x02z_URT_DRV.h"
 #include "MG32x02z_CSC_Init.h"
-#include "bus.h"
 #include "device_config.h"
+#include "isr.h"
 
 #define URTX URT0
 
-typedef enum {
-	TxBusy = 0,
-	TxReady = 1
-} URT_Status;
-
-
-void URT0_IRQHandler(void);
-void URT_Rx_Callback(void);
-void URT_Tx_Callback(void);
-
-void URT_Write(uint8_t c);
-void URT_WriteWord(uint32_t w);
-void URT_PrintString(const char *str);
-void URT_Print(uint8_t *arr, uint8_t size);
 void USART_Config();
-URT_Status URT_IsTxReady();
-URT_Status URT_IsTxEndTransmission();
+
+//----------------------------------------------------------------------------------------
+// Проверка флага TXF (готовность передачи USART)
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE uint8_t URT_IsTxReady()
+{
+	return URT0->STA.MBIT.TXF;
+}
+
+//----------------------------------------------------------------------------------------
+// Проверка флага TCF (окончание передачи USART)
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE uint8_t URT_IsTxEndTransmission()
+{
+	return URT0->STA.MBIT.TCF;
+}
+
+
+//----------------------------------------------------------------------------------------
+// Функция записывает 1 байт в USART
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE void URT_Write(uint8_t b)
+{
+	while(!URT_IsTxReady());
+	URT_SetTXData(URT0, 1, b);
+		;
+}
+
+//----------------------------------------------------------------------------------------
+// Функция записывает слово (4 байта) в USART
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE void URT_WriteWord(uint32_t w)
+{
+	while(!URT_IsTxReady());
+	URT_SetTXData(URT0, 4, w);
+		;
+}
+
+//----------------------------------------------------------------------------------------
+// Функция записывает строку с 0-символом в конце в USART
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE void URT_PrintString(const char *sz)
+{
+	while (*sz)
+		URT_Write(*sz++);
+	while(!URT_IsTxEndTransmission());
+}
+
+//----------------------------------------------------------------------------------------
+// Функция записывает байтовый массив произвольной длины в USART
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE void URT_Print(uint8_t *arr, uint8_t size)
+{
+	while(size--)
+		URT_Write(*arr++);
+	
+	while(!URT_IsTxEndTransmission());
+}
+
 #endif // USART_H

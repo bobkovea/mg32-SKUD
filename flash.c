@@ -24,16 +24,14 @@ void FlashTestFill(void)
 }
 
 //----------------------------------------------------------------------------------------
-// Функция единократно вызывается после первого старта микроконтроллера
+// Функция вызывается сразу после старта микроконтроллера
 // Если включение первое, копируем значения переменных по умолчанию во флеш
 // Если включение не первое, то наиборот копируем значения переменных из флеша в ОЗУ
 //----------------------------------------------------------------------------------------
 
-void FlashFirstInit(void)
+void PowerOnHandle(void)
 {
-	IAP_Init(IAP_PAGE_SIZE * 5); // потом заменить на нужное число
-	
-	// если включение не первое
+	// если включение НЕ ПЕРВОЕ
 	if (IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
 	{
 		// копируем переменные из флеша в ОЗУ
@@ -45,9 +43,13 @@ void FlashFirstInit(void)
 		
 		// кол-во перезаписей флеша = максимальное кол-во со всех страниц
 		FlashResourse.value = GetMaxFlashResource();
+		
+		// если не успели отправить ключ до отключения питания (и если он вообще был, конечно же)
+		if ( ValidKeyIndex.value != ValidKeyIndex.factoryValue)
+			CopyKeyByIndex(ValidKeyIndex.value, KeyEncrypted);
 	}
 	
-	else // если включение первое
+	else // если включение ПЕРВОЕ
 	{
 		// выставляем флаг первой записи флеша
 		IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
@@ -66,7 +68,14 @@ void FlashFirstInit(void)
 		// + добавим ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
 		FlashTestFill(); 
 	}
-} 
+	
+	/* Перевод передаваемых величин во внутренние переменные таймеров */
+	gerkonFilterMax = GerkonFiltTime.value / 5; // т.к. период таймера = 5 мс и ед.изм. - мс
+	protectionDelayMax = ProtectionDelayTime.value * 60000 / 5; // т.к. период таймера = 5 мс и ед.изм. - мин
+	alarmTimeoutMax = BuzzerOffTime.value * 60000 / 100; // т.к. период таймера = 100 мс и ед.изм. - мин
+}
+
+
 
 //----------------------------------------------------------------------------------------
 // Функция извлекает из IAP значение переменной по её порядковому номеру в протоколе
@@ -77,8 +86,41 @@ void FlashFirstInit(void)
 
 uint32_t GetVariable(uint8_t varNumber)
 {
-	if (varNumber > VAR_TOTAL_COUNT) return FAILURE;
+	if (varNumber > VAR_TOTAL_COUNT - 1) return FAILURE;
 	return variables[varNumber]->value;
+}
+
+//----------------------------------------------------------------------------------------
+// Функция извлекает из IAP значение переменной по её порядковому номеру в протоколе
+// И копирует его по переданному адресу
+// Args: 	varNumber - порядковый номер переменной по протоколу
+// 			dest - адрес, по какому будет лежать скопированная переменная
+// Returns: 0 (успех); 
+//			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------
+
+uint32_t CopyVariable(uint8_t varNumber, void *dest)
+{
+	if (varNumber > VAR_TOTAL_COUNT - 1) return FAILURE;
+	*(uint16_t *)dest = variables[varNumber]->value;
+	return SUCCESS;
+}
+
+uint32_t CopyVariablePack(void *dest)
+{
+	uint8_t *tmpAddr = dest;
+	uint16_t var;
+	for (uint8_t varNum = 0; varNum < VAR_TOTAL_COUNT; varNum++)
+	{
+		var = variables[varNum]->value;
+	
+		// отделяем двухбайтные переменные от однобайтных
+		for (uint8_t byteNum = 0; byteNum < variables[varNum]->byteSize; byteNum++)
+		{
+			*tmpAddr++ = var >> (8 * byteNum);
+		}
+	}
+	return SUCCESS;
 }
 
 //----------------------------------------------------------------------------------------
@@ -99,13 +141,23 @@ uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB
 	if (varNew == variables[varNumber]->value)
 		return SUCCESS;
 	
+	variables[varNumber]->value = varNew;
+	
+	CopyVariablesPage0ToFlash();
+	
+	/* Перевод передаваемых величин во внутренние переменные таймеров */
+	gerkonFilterMax = GerkonFiltTime.value / 5; // т.к. период таймера = 5 мс и ед.изм. - мс
+	protectionDelayMax = ProtectionDelayTime.value * 60000 / 5; // т.к. период таймера = 5 мс и ед.изм. - мин
+	alarmTimeoutMax = BuzzerOffTime.value * 60000 / 100; // т.к. период таймера = 100 мс и ед.изм. - мин
+	
+	/*
 	CopyFlashPageToRAM(PAGE_NUMBER_VARS);
 	fpage.word[variables[varNumber]->indexOnPage] = variables[varNumber]->value = varNew; // -->ram & iap
 	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 	
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
 	CopyRAMToFlashPage(PAGE_NUMBER_VARS);
-	
+	*/
 	return SUCCESS;
 }
 
@@ -400,6 +452,22 @@ uint32_t GetKeyStatus(uint16_t keyIndex)
 	return IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex);
 }
 
+//----------------------------------------------------------------------------------------
+// Функция копирует ключ из IAP в указанное место в ОЗУ
+// Args: keyIndex - индекс ключа в IAP
+// Returns: SUCCESS / FAILURE
+//----------------------------------------------------------------------------------------
+
+uint32_t CopyKeyByIndex(uint16_t keyIndex, void *dest)
+{
+//	if (keyIndex > TotalKeys.value) return FAILURE;
+	
+	memcpy(dest,
+		   (void *)(IAP_START_ADDRESS + PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + KEY_ENCRYPTED_SIZE * keyIndex), 
+		   KEY_ENCRYPTED_SIZE);
+		
+	return SUCCESS;
+}
 
 //----------------------------------------------------------------------------------------
 // Функция определяет максимальное значение количества перезаписей среди всех страниц IAP
@@ -409,20 +477,24 @@ uint32_t GetKeyStatus(uint16_t keyIndex)
 
 uint32_t GetMaxFlashResource(void)
 {
-	/* для произвольного кол-ва страниц */
-	uint32_t curFlashResource = 0;
-	uint32_t maxFlashResource = 0;
-	
-	for (uint8_t pageNum = 0; pageNum < 2; pageNum++)
-    {
-		curFlashResource = IAP_ReadWord(pageNum, FLASH_RESOURCE_POS);
-		
-		if (curFlashResource > maxFlashResource)
-			maxFlashResource = curFlashResource;
-    }
-	return maxFlashResource;
+//	/* для произвольного кол-ва страниц */
+//	uint32_t curFlashResource = 0;
+//	uint32_t maxFlashResource = 0;
+//	
+//	for (uint8_t pageNum = 0; pageNum < 2; pageNum++)
+//    {
+//		curFlashResource = IAP_ReadWord(pageNum, FLASH_RESOURCE_POS);
+//		
+//		if (curFlashResource > maxFlashResource)
+//			maxFlashResource = curFlashResource;
+//    }
+//	return maxFlashResource;
 	
 	/* для первых двух страниц */
+	
+	uint32_t flashResourcePage0 = IAP_ReadWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS);
+	uint32_t flashResourcePage1 = IAP_ReadWord(PAGE_NUMBER_KEYSTATUS, FLASH_RESOURCE_POS);
+	return flashResourcePage0 > flashResourcePage1 ? flashResourcePage0 : flashResourcePage1;
 }
 
 //----------------------------------------------------------------------------------------
@@ -432,10 +504,13 @@ uint32_t GetMaxFlashResource(void)
 //----------------------------------------------------------------------------------------
 uint32_t UpdateFlashResource(uint8_t pageNumber)
 {
+	// получаем значение перезаписей страницы, которую планируем обновлять
 	uint16_t curPageResource = IAP_ReadWord(pageNumber, FlashResourse.indexOnPage);
 	
+	// предположим, мы перезаписали страницу
 	++curPageResource;
 	
+	// если значение получилось больше максимального количества перезаписей по всем страницам
 	if (curPageResource > FlashResourse.value)
 	{
 		FlashResourse.value = curPageResource;
@@ -471,11 +546,20 @@ uint32_t CopyRAMToFlashPage(uint8_t pageNumber)
 
 void CopyVariablesPage0ToFlash(void)
 {
+	// увеличиваем количество перезаписей, записываем это временное значение во FlashResourse (ну да, такой костыль)
+	FlashResourse.value = IAP_ReadWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS);
+	FlashResourse.value++;
+	
+	// стираем страницу
 	IAP_Erase_OnePage(PAGE_NUMBER_VARS); 
 	
+	// восстанавливаем все переменные во флеш
 	IAP_WriteSingleWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS, __FIRST_WRITE_VALUE);
 	IAP_WriteSingleWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS, FlashResourse.value);
 	
 	for (uint8_t i = 0; i < VAR_PAGE0_COUNT; i++)
 		IAP_WriteSingleWord(PAGE_NUMBER_VARS, variables[i]->indexOnPage, variables[i]->value);
+	
+	// возвращаем значение FlashResourse к максимальному из двух страниц (ну да, такой костыль)
+	FlashResourse.value = GetMaxFlashResource();
 }

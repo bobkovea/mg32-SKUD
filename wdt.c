@@ -6,7 +6,7 @@
 void WDT_Config()
 {
 	UnProtectModuleReg(RSTprotect); // разблокировать изменения в регистрах RST
-    RST_CRstSource_Config(RST_IWDT_WE, ENABLE);
+    RST_CRstSource_Config(RST_IWDT_WE, ENABLE); // конфигурируем WDT как источник горячего сброса
     ProtectModuleReg(RSTprotect); // заблокировать изменения в регистрах RST
 }
 
@@ -19,13 +19,6 @@ void wdt_enable(IWDT_DIVS_TypeDef divider)
     IWDT_Divider_Select(divider); // изменить предделитель IWDT                             
     IWDT_Cmd(ENABLE); // запустить IWDT                                            
     ProtectModuleReg(IWDTprotect); // разблокировать изменения в регистрах IWDT
-}
-//----------------------------------------------------------------------------------------
-// Функция перезапускает сторожевой таймер
-//----------------------------------------------------------------------------------------
-void wdt_reset(void)
-{
-    IWDT_RefreshCounter();                    
 }
 
 //----------------------------------------------------------------------------------------

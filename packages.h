@@ -123,9 +123,9 @@
 #define READVAR1_NUM_POS 4
 
 // Ответ
+#define READVAR1_VALUE_MSB_POS 5
+#define READVAR1_VALUE_LSB_POS 6
 
-#define READVAR1_VALUE_LSB_POS 5
-#define READVAR1_VALUE_MSB_POS 6
 
 // 2) Запрос значения пакета переменных (READVARM)
 

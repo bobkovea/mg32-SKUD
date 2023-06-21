@@ -8,8 +8,8 @@
  *   
  * @par         Project
  *              MG32x02z
- * @version     V1.15
- * @date        2023/03/17
+ * @version     V1.14
+ * @date        2022/12/19
  * @author      Megawin Software Center
  * @copyright   Copyright (c) 2017 MegaWin Technology Co., Ltd.
  *              All rights reserved.
@@ -104,14 +104,6 @@
 
 #ifdef MG32x02z_ConfigerWizard_I2C	// "Manage Run-Time Enviroment" enable I2C wizard
     #include "MG32x02z_I2C_Init.h"  // include "MG32x02z_I2C_Init.h" file
-#endif
-
-#ifdef MG32x02z_ConfigerWizard_WWDT	// "Manage Run-Time Enviroment" enable WWDT wizard
-    #include "MG32x02z_WWDT_Init.h" // include "MG32x02z_WWDT_Init.h" file
-#endif
-
-#ifdef MG32x02z_ConfigerWizard_IWDT	// "Manage Run-Time Enviroment" enable WWDT wizard
-    #include "MG32x02z_IWDT_Init.h" // include "MG32x02z_IWDT_Init.h" file
 #endif
 
 #include "MG32x02z_SYS.h"

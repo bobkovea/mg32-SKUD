@@ -16,6 +16,14 @@ void InitPinPPO(Pin_Struct* PINX)
 	GPIO_PinFunction_Select(PINX, 0);
 }
 
+void InitPinDI(Pin_Struct* PINX, PullupState_t Pullup_Mode)
+{
+	GPIO_PinMode_Select(PINX, PINX_Mode_Digital_I);
+	GPIO_PinPUResister_Cmd(PINX, (FunctionalState)Pullup_Mode);
+	InitPinBase(PINX);
+	GPIO_PinFunction_Select(PINX, 0);
+}
+
 void InitPinUsartTx(Pin_Struct* PINX)
 {	
 	GPIO_PinMode_Select(PINX, PINX_Mode_PushPull_O);
@@ -32,13 +40,7 @@ void InitPinUsartRx(Pin_Struct* PINX)
 	GPIO_PinFunction_Select(PINX, ALTER_FUNC_PC0_RX0);
 }
 
-void InitPinDI(Pin_Struct* PINX, PullupState_t Pullup_Mode)
-{
-	GPIO_PinMode_Select(PINX, PINX_Mode_Digital_I);
-	GPIO_PinPUResister_Cmd(PINX, (FunctionalState)Pullup_Mode);
-	InitPinBase(PINX);
-	GPIO_PinFunction_Select(PINX, 0);
-}
+
 
 void GPIO_Config()
 {

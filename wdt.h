@@ -19,7 +19,14 @@
 
 void wdt_enable(IWDT_DIVS_TypeDef divider);
 void wdt_disable(void);
-void wdt_reset(void);
 void WDT_Config();
+
+//----------------------------------------------------------------------------------------
+// Функция перезапускает сторожевой таймер
+//----------------------------------------------------------------------------------------
+__STATIC_FORCEINLINE void wdt_reset(void)
+{
+    IWDT_RefreshCounter();                    
+}
 
 #endif // IWDT_H

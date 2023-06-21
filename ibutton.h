@@ -2,6 +2,7 @@
 #define IBUTTON_H
 #include "onewire.h"
 #include "crc.h"
+#include "keys.h"
 
 #define NO_KEY 0
 #define KEY_ON_LINE 1

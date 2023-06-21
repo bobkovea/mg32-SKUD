@@ -8,8 +8,8 @@
  *
  * @par         Project
  *              MG32x02z
- * @version     V1.21
- * @date        2023/04/06
+ * @version     V1.20
+ * @date        2022/12/19
  * @author      Megawin Software Center
  * @copyright   Copyright (c) 2017 MegaWin Technology Co., Ltd.
  *              All rights reserved.
@@ -143,19 +143,9 @@ void ChipInit(void)
         
     // SPI ConfigerWizard Table
     #ifdef MG32x02z_ConfigerWizard_SPI
-        SPI_Init();
+        SPI_Init(SPI0);
     #endif
 		
-    // WWDT ConfigerWizard Table
-    #ifdef MG32x02z_ConfigerWizard_WWDT	
-        WWDT_Init();
-    #endif
-		
-    // IWDT ConfigerWizard Table
-    #ifdef MG32x02z_ConfigerWizard_IWDT	
-        IWDT_Init();
-    #endif
-
     // ============= Enable SYS's IEA for SYS interrupt =============
     // Unconditionally enable IEA for SYS in MG32x02z_ChipInit.c
     SYS->INT.B[0] = SYS_INT_IEA_enable_b0;

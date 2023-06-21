@@ -1,21 +1,20 @@
 #include "bus.h"
 
 // текущий номер байта
-uint8_t iptr = 0;
+uint8_t volatile iptr = 0;
 // совместный буфер для принимаемой посылки и посылки-ответа
 uint8_t RecBytes[RX_BUFFER_SIZE];
 // длина посылки (полученная при приеме и расшифрованная)
-uint8_t	MessLen = 0;
+uint8_t	volatile MessLen = 0;
 // массив с длинами посылок
 uint8_t MessageLenArr[4] = { 4, 6, 9, 24 };
 // длина посылки (фактическая)
-uint8_t	CommandSize = 0;
+uint8_t	volatile CommandSize = 0;
 // счетчик ожидания очистки буфера после приема последнего байта посылки
-uint8_t usUsart = 0; 
+uint8_t volatile usUsart = 0; 
 // приняли все байты (а посылки) или еще нет
-uint8_t parsingStatus = STATUS_COLLECTING_BYTES; 
-// статус успеха операции
-uint32_t operStatus;
+uint8_t volatile parsingStatus = STATUS_COLLECTING_BYTES; 
+
 
 //----------------------------------------------------------------------------------------
 // Функция вызывается при приеме каждого нового байта
@@ -84,6 +83,8 @@ void Bus_ParseMessage(void)
 
 void Bus_ParseWriteRequest9(void)
 {
+	uint32_t operStatus; // статус успеха операции
+	
 	if (CommandSize != 9) // как это возможно исходя из логики?
 	{
 		Bus_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
@@ -123,6 +124,7 @@ void Bus_ParseWriteRequest9(void)
 			return;
     }
 	CommandSize = 4;
+	
 	if (operStatus == FAILURE)
 		Bus_ReturnReply(ECODE_READ_WRITE | FCODE_WRITE4);
 	else 
@@ -132,6 +134,8 @@ void Bus_ParseWriteRequest9(void)
 
 void Bus_ParseWriteRequest24(void)
 {
+	uint32_t operStatus; // статус успеха операции
+	
 	if (CommandSize != 24)
 	{
 		Bus_ReturnReply(ECODE_WRONG_LEN | FCODE_WRITE4);
@@ -151,9 +155,9 @@ void Bus_ParseWriteRequest24(void)
 	{
 		case SCODE_ADDKEY:
 			operStatus = AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
-						 RecBytes[ADDKEY_INDEX_LSB_POS], 
-						 RecBytes[ADDKEY_INDEX_MSB_POS], 
-						 &RecBytes[ADDKEY_KEY_MSB_POS]);
+								RecBytes[ADDKEY_INDEX_LSB_POS], 
+								RecBytes[ADDKEY_INDEX_MSB_POS], 
+								&RecBytes[ADDKEY_KEY_MSB_POS]);
 			break;
 		
 		case SCODE_WRITEVARM:
@@ -187,50 +191,35 @@ void Bus_ParseReadRequest(void)
 		return;
 	}
 	
+	uint32_t operStatus; // статус успеха операции
+	
 	switch (RecBytes[SCODE_POS])
 	{
-		uint32_t var;
-		uint8_t *tmpAddr;
-		
 		case SCODE_READVAR1:
 			
-			var = GetVariable(RecBytes[READVAR1_NUM_POS]);
-			if (var == FAILURE)
+			operStatus = CopyVariable(RecBytes[READVAR1_NUM_POS],
+									  &RecBytes[READVAR1_VALUE_MSB_POS]);
+			if (operStatus == FAILURE)
 			{
 				CommandSize = 9;
 				Bus_ReturnReply(ECODE_WRONG_PARAM | FCODE_READ9);
 				return;
 			}
 		
-			RecBytes[READVAR1_VALUE_LSB_POS] = var;
-			RecBytes[READVAR1_VALUE_MSB_POS] = var >> 8;
-		
 			CommandSize = 9;
 			Bus_ReturnReply(FCODE_READ9);
 			break;
 		
 		case SCODE_READVARM:
-	
-			tmpAddr = &RecBytes[READVARM_VALUE_1ST_POS];
-
-			for (uint8_t varNum = 0; varNum < VAR_TOTAL_COUNT; varNum++)
-			{
-				var = variables[varNum]->value;
-				
-				// отделяем двухбайтные переменные от однобайтных
-				
-				for (uint8_t byteNum = 0; byteNum < variables[varNum]->byteSize; byteNum++)
-				{
-					*tmpAddr++ = var >> (8 * byteNum);
-				}
-			}
 			
+			CopyVariablePack(&RecBytes[READVARM_VALUE_1ST_POS]);
+
 			CommandSize = 24;
 			Bus_ReturnReply(FCODE_READ24);
 			break;
 			
 		case SCODE_READVALIDKEY:
-
+				
 			if (ValidKeyIndex.value != ValidKeyIndex.factoryValue)
 			{	
 				RecBytes[4] = 0x00;

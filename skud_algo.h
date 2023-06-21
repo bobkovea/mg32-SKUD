@@ -1,11 +1,15 @@
 #ifndef SKUD_ALGO_H
 #define SKUD_ALGO_H
+
 #include "stdint.h"
 #include "ring_buffer.h"
 #include "gpio.h"
 #include "timers.h"
 #include "md5.h"
 #include "keys.h"
+#include "onewire.h"
+#include "variables.h"
+#include "bus.h"
 
 // перерыв в индикации до смены на другой тип индикации
 #define INDIC_WAIT_MAX 1 // 100 мс
@@ -24,8 +28,9 @@
 #define INDIC_CNT_VALID_KEY (INDIC_PEECNT_VALID_KEY * INDIC_SPEED_VALID_KEY * 2)
 #define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
 
-#define ALARM_TIMEOUT_MAX 20 // 2 секунды
-#define PROTECTION_DELAY_MAX 4000 // 20 секунд
+#define GERKON_FILTER_MAX 20 // 100 мс
+#define ALARM_TIMEOUT_MAX 20 // 2 сек
+#define PROTECTION_DELAY_MAX 4000 // 20 сек
 
 // типы индикации
 typedef enum
@@ -78,13 +83,12 @@ extern volatile uint8_t buzzerMuted;
 extern volatile uint32_t alarmTimeoutCnt;
 extern volatile uint32_t alarmTimeoutMax;
 
-extern volatile uint8_t gerkonFilterCnt;
-extern volatile uint8_t gerkonFilterMax;
-extern volatile uint8_t oldGerkonState;
-extern volatile uint8_t gerkonState;
+extern volatile uint32_t gerkonFilterCnt;
+extern volatile uint32_t gerkonFilterMax;
+extern volatile uint8_t doorIsOpened;
 
-extern volatile uint16_t protectionDelayCnt;
-extern volatile uint16_t protectionDelayMax;
+extern volatile uint32_t protectionDelayCnt;
+extern volatile uint32_t protectionDelayMax;
 
 void DefineInitialState(void);
 void HandleEvent(void);

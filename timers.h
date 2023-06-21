@@ -2,13 +2,8 @@
 #define TIMER_H
 
 #include "MG32x02z_TM_DRV.h"
-#include "device_config.h"
-#include "gpio.h"
-#include "bus.h"
-#include "variables.h"
-#include "usart.h"
-#include "skud_algo.h"
-#include "ibutton.h"
+#include "MG32x02z_EXIC_DRV.h" // для прерываний TM00/01
+#include "isr.h"
 
 #define TM_READ_GERKON TM00
 #define TM_PROTECTION_DELAY TM01
@@ -37,7 +32,7 @@
 //----------------------------------------------------------------------------------------
 // Миллисекундный delay
 //----------------------------------------------------------------------------------------
-__STATIC_FORCEINLINE void delay_ms(uint32_t time) 
+__STATIC_INLINE void delay_ms(uint32_t time) 
 {
 	for (uint32_t i = 0; i < time * 1000; i++)
 	{
@@ -51,7 +46,7 @@ __STATIC_FORCEINLINE void delay_ms(uint32_t time)
 //----------------------------------------------------------------------------------------
 // Микросекундный delay
 //----------------------------------------------------------------------------------------
-__STATIC_FORCEINLINE void delay_us(uint32_t time)
+__STATIC_INLINE void delay_us(uint32_t time)
 {
 	for (uint32_t i = 0; i < time; i++)
 	{
@@ -62,18 +57,5 @@ __STATIC_FORCEINLINE void delay_us(uint32_t time)
 	}
 }
 
-void TIM00_Callback(void);
-void TIM01_Callback(void);
-void TIM10_Callback(void); 
-void TIM16_Callback(void);
-void TIM36_Callback(void);
-
-void TM0x_IRQHandler(void);
-void TM10_IRQHandler(void);
-void TM1x_IRQHandler(void);
-void TM3x_IRQHandler(void);
-
 void TIM_Config();
-void delay_ms(uint32_t time);
-void delay_us(uint32_t time);
 #endif // TIMER_H

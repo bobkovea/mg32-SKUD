@@ -1,8 +1,5 @@
 #include "skud_algo.h"
 
-
-//State_t currentState = sNoAccessSleep;
-
 State_t currentState;
 
 volatile uint8_t indicWaitCnt = 0;
@@ -16,13 +13,12 @@ volatile uint8_t indicationPhase = 1;
 volatile uint32_t alarmTimeoutCnt = 0;
 volatile uint32_t alarmTimeoutMax = ALARM_TIMEOUT_MAX;
 
-volatile uint8_t gerkonFilterCnt = 0;
-volatile uint8_t gerkonFilterMax = 20;
-volatile uint8_t oldGerkonState = 0;
-volatile uint8_t gerkonState = 0;
+volatile uint32_t gerkonFilterCnt = 0;
+volatile uint32_t gerkonFilterMax = GERKON_FILTER_MAX;
+volatile uint8_t doorIsOpened = 0;
 
-volatile uint16_t protectionDelayCnt = 0;
-volatile uint16_t protectionDelayMax = PROTECTION_DELAY_MAX;
+volatile uint32_t protectionDelayCnt = 0;
+volatile uint32_t protectionDelayMax = PROTECTION_DELAY_MAX;
 
 void IndicationStart(Indication_t indicType)
 {
@@ -153,14 +149,8 @@ void hSleepToWaiting(State_t state, Event_t event)
 void hWaitingToAccess(State_t state, Event_t event)
 {
 	AccessIsGiven.value = 1;
-	ValidKeyIndex.value = CurKeyIndex; 
-	CopyVariablesPage0ToFlash();  // записываем во флеш
-	
-	RS485_CONFIG_TRANSMIT();
-
-	URT_Print(KeyEncrypted, sizeof(KeyEncrypted)); 
-	
-	RS485_CONFIG_RECEIVE();
+	ValidKeyIndex.value = CurKeyIndex; // 
+	CopyVariablesPage0ToFlash();  // обновляем первую страницу флеша с переменными
 	
 	AlarmCountdownDisable(); // отсчет до тревоги остановлен
 	ReadingKeyDisable(); // чтение ключей остановлено
@@ -172,7 +162,9 @@ void hAccessToSleep(State_t state, Event_t event)
 {
 	AccessIsGiven.value = 0;
 	CopyVariablesPage0ToFlash();
-	oldGerkonState = 0; // в случае, если дверь открыта, то это приведет к тревоге
+	// если дверь открыта, то сразу тревога
+	if (doorIsOpened)
+		putEvent(eDoorOpened);		
 }
 
 // логика разрешения чтения ключей жестко связана с логикой индикации, но здесь это оправдано
@@ -184,7 +176,7 @@ void hReadingKeySuspend(State_t state, Event_t event)
 
 void hReadingKeyResume(State_t state, Event_t event)
 {	
-	if (gerkonState == 1) ReadingKeyEnable(); // если дверь открыта, то возобновляем чтение ключа
+	if (doorIsOpened == 1) ReadingKeyEnable(); // если дверь открыта, то возобновляем чтение ключа
 	IndicationStart(AlarmCommon); // если дверь открыта, то возобновляем чтение ключа
 }
 
