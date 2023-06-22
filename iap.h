@@ -78,14 +78,14 @@ __STATIC_FORCEINLINE uint32_t IAP_ReadWord(uint8_t pageNumber, uint32_t wordInde
 
 //----------------------------------------------------------------------------------------
 // Функция записывает слово (4 байта) по индексу слова на странице
-// pageNumber - номер страницы в IAP
-// wordIndexOnPage - индекс записываемого слова на странице в IAP (от 0 до IAP_SIZE / 4)
+// pageNumber - номер страницы в IAP;
+// wordIndexOnPage - индекс записываемого слова на странице в IAP (< IAP_PAGE_SIZE / 4);
 // startAddrInRAM - указатель на копируемый участок в ОЗУ;
 // wordsCount - количество записываемых слов
 //----------------------------------------------------------------------------------------
-__STATIC_FORCEINLINE uint8_t IAP_WriteSingleWord(uint8_t pageNumber, uint8_t wordIndexOnPage, uint32_t wordValue)
+__STATIC_FORCEINLINE void IAP_WriteSingleWord(uint8_t pageNumber, uint8_t wordIndexOnPage, uint32_t wordValue)
 {
-	return IAP_Single_Write(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE 
+	IAP_Single_Write(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE 
 		+ (wordIndexOnPage * 4), wordValue);
 } 
 
@@ -97,31 +97,55 @@ __STATIC_FORCEINLINE uint8_t IAP_WriteSingleWord(uint8_t pageNumber, uint8_t wor
 // wordsCount - количество записываемых слов
 //----------------------------------------------------------------------------------------
 
-__STATIC_FORCEINLINE uint8_t IAP_WriteMultipleWord(uint8_t pageNumber, uint8_t startWordIndexOnPage, void *startAddrInRAM, uint32_t wordsCount)
+__STATIC_FORCEINLINE void IAP_WriteMultipleWord(uint8_t pageNumber, uint8_t startWordIndexOnPage, void *startAddrInRAM, uint32_t wordsCount)
 {
-	return IAP_Multiple_Write(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
+	IAP_Multiple_Write(IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
 		+ (startWordIndexOnPage * 4), (uint32_t)startAddrInRAM, wordsCount);
 }
 
-//----------------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------------------
 // Функция копирует данные из IAP в структуру ОЗУ
-// pageNumber - номер страницы в IAP
-// startByteIndexOnPage -  стартовый индекс байта на странице в IAP 
-// startAddrInRAM - указатель на копируемый участок в ОЗУ;
-// bytesCount - количество копируемых байтов
-
-__STATIC_FORCEINLINE void IAP_CopyFromIAPToRAM(uint8_t pageNumber, uint32_t startByteIndexOnPage, void *startAddrInRAM, uint32_t bytesCount)  
+// Args:	pageNumber - номер страницы в IAP
+// 			startByteIndexOnPage - стартовый индекс байта на странице в IAP  (< IAP_PAGE_SIZE - 1);
+// 			startAddrInRAM - указатель на копируемый участок в ОЗУ;
+// 			bytesCount - количество копируемых байтов.
+-----------------------------------------------------------------------------------------*/
+__STATIC_FORCEINLINE void IAP_CopyFromIAPToRAM(uint8_t pageNumber, uint16_t startByteIndexOnPage, void *startAddrInRAM, uint32_t bytesCount)  
 { 	
 	memcpy(startAddrInRAM, (uint8_t*) (IAP_START_ADDRESS + pageNumber * IAP_PAGE_SIZE
 		+ startByteIndexOnPage), bytesCount);
 }
 
 //----------------------------------------------------------------------------------------
-// Функция сравнивает состояние участка в IAP с участком в ОЗУ
-// startByteIndex - стартовый индекс байта в IAP;
-// structInRAMPointer - указатель на структуру с данными;
-// structInRAMSize - размер структуры в байтах.
+// Функция копирует страницу IAP в массив-буфер в ОЗУ
+// Args:	pageNumber - порядковый номер страницы в IAP;
+//			dest - указатель на массив-буфер в ОЗУ.
 //----------------------------------------------------------------------------------------
+
+__STATIC_FORCEINLINE void IAP_CopyFlashPageToRAM(uint8_t pageNumber, void *dest)
+{
+	IAP_CopyFromIAPToRAM(pageNumber, 0, dest, IAP_PAGE_SIZE);
+}
+
+/*----------------------------------------------------------------------------------------
+// Функция копирует массив-буфер в ОЗУ на страницу IAP
+// Args:	pageNumber - порядковый номер страницы в IAP;
+//			src - указатель на массив-буфер в ОЗУ.
+----------------------------------------------------------------------------------------*/
+
+__STATIC_FORCEINLINE void IAP_CopyRAMToFlashPage(uint8_t pageNumber, void *src)
+{
+	IAP_WriteMultipleWord(pageNumber, 0, src, IAP_PAGE_SIZE / 4);
+}
+
+/*----------------------------------------------------------------------------------------
+// Функция проверяет на равенство участки памяти в IAP и ОЗУ
+// Args:	startByteIndex - стартовый индекс байта в IAP;
+// 			startAddrInRAM - адрес начала проверяемой области в ОЗУ;
+// 			bytesCount - размер сравниваемой области в байтах.
+// Returns: 1 (участки равны)
+			0 (участки не равны)
+----------------------------------------------------------------------------------------*/
 __STATIC_FORCEINLINE uint8_t IAP_IsEqualToRAM(uint32_t startByteIndex, void *startAddrInRAM, uint32_t bytesCount) 
 {
 	return !memcmp((void *) (IAP_START_ADDRESS + startByteIndex), 

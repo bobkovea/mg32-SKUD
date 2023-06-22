@@ -219,7 +219,7 @@ void Bus_ParseReadRequest(void)
 			break;
 			
 		case SCODE_READVALIDKEY:
-				
+			
 			if (ValidKeyIndex.value != ValidKeyIndex.factoryValue)
 			{	
 				RecBytes[4] = 0x00;

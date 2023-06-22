@@ -3,9 +3,11 @@
 #include "MG32x02z_DRV.h"
 #include "iap.h"
 #include "packages.h"
-
-#define FAILURE UINT32_MAX
-#define SUCCESS 0
+#include "keys.h"
+#include "variables.h"
+#include "usart.h"
+#include "md5.h"
+#include "api.h"
 
 #define IAP_PAGE_COUNT 10
 
@@ -44,27 +46,6 @@
 
 // позиции с 0 до 63
 
-uint32_t ActivateKey(uint8_t operationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB);
-uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB);
-uint32_t DoCommand(uint8_t commNum, uint8_t commArg);
-
-uint32_t AddKey(uint8_t newStatus, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyMSB);
-uint32_t SetVariablePack(uint8_t *packStartAddr);
-
-uint32_t GetVariable(uint8_t varNumber);
-uint32_t CopyVariable(uint8_t varNumber, void *dest);
-uint32_t CopyVariablePack(void *dest);
-
-uint32_t GetKeyStatus(uint16_t keyIndex);
-uint32_t CopyKeyByIndex(uint16_t keyIndex, void *dest);
-	
-uint32_t GetMaxFlashResource(void);
-uint32_t UpdateFlashResource(uint8_t curPageNumber);
-
-
-	
-uint32_t CopyFlashPageToRAM(uint8_t pageNumber);
-uint32_t CopyRAMToFlashPage(uint8_t pageNumber);
 	
 void PowerOnHandle(void);
 
@@ -74,9 +55,9 @@ typedef union
 {
 	uint8_t byte[IAP_PAGE_SIZE];
 	uint32_t word[IAP_PAGE_SIZE / 4];
-} flash_block_t;
+} FlashPage_t;
 
-
+extern FlashPage_t fpage;
 
 void CopyVariablesPage0ToFlash(void);
 
