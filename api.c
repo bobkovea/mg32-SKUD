@@ -24,7 +24,7 @@ uint32_t API_GetVariable(uint8_t varNumber)
 
 uint32_t API_CopyVariable(uint8_t varNumber, void *dest)
 {
-	if (varNumber > VAR_TOTAL_COUNT - 1) return FAILURE;
+	if (varNumber > VAR_TOTAL_COUNT - 1) return FAILURE; // если номер переменной неверный, то ошибка
 	*(uint16_t *)dest = variables[varNumber]->value;
 	return SUCCESS;
 }
@@ -33,14 +33,17 @@ uint32_t API_CopyVariablePack(void *dest)
 {
 	uint8_t *tmpAddr = dest;
 	uint16_t var;
+	
 	for (uint8_t varNum = 0; varNum < VAR_TOTAL_COUNT; varNum++)
 	{
-		var = variables[varNum]->value;
-	
-		// отделяем двухбайтные переменные от однобайтных
-		for (uint8_t byteNum = 0; byteNum < variables[varNum]->byteSize; byteNum++)
+		if (variables[varNum]->byteSize == HWORD)  // если переменная 2-байтная
 		{
-			*tmpAddr++ = var >> (8 * byteNum);
+			*tmpAddr++ = variables[varNum]->value >> 8;
+			*tmpAddr++ = variables[varNum]->value;
+		} 
+		else // если переменная 1-байтная
+		{
+			*tmpAddr++ = variables[varNum]->value;
 		}
 	}
 	return SUCCESS;
@@ -86,7 +89,6 @@ uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValu
 	return SUCCESS;
 }
 
-
 /*----------------------------------------------------------------------------------------
 // Функция устанавливает значение всех переменных в IAP по протоколу 
 // Args: 	packStartAddr - указатель на начало массива с переменными
@@ -94,47 +96,57 @@ uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValu
 //			UINT32_MAX (ошибка)
 ----------------------------------------------------------------------------------------*/
 
-uint32_t API_SetVariablePack(uint8_t *packStartAddr)
+uint32_t API_SetVariablePack(void *packStartAddr)
 {		
 	uint16_t varNew;
 	uint8_t *tmpAddr = packStartAddr;
 	
-	// если передаваемые значения идентичны существующим, то не нужно перезаписывать флеш
-	for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
+	//	// если передаваемые значения идентичны существующим, то не нужно перезаписывать флеш
+//	for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
+//	{
+//		varNew = 0;
+//		
+//		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
+//			varNew |= *tmpAddr++ << (8 * byteNum);
+//		
+//		if (variables[i]->value != varNew)
+//			break;
+//		else 
+//		{
+//			if (i == VAR_WRITABLE_COUNT - 1)
+//					return SUCCESS;
+//		}
+//	}
+	
+	for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
 	{
-		varNew = 0;
-			
-		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
-			varNew |= *tmpAddr++ << (8 * byteNum);
-			
-		if (variables[i]->value != varNew)
-			break;
-		else 
+		if (variables[varNum]->byteSize == HWORD)  // если переменная 2-байтная
 		{
-			if (i == VAR_WRITABLE_COUNT - 1)
-					return SUCCESS;
+			variables[varNum]->value = *(uint16_t *)tmpAddr++;
+		} 
+		else // если переменная 1-байтная
+		{
+			variables[varNum]->value = *tmpAddr++;
 		}
 	}
 	
-	// собственно функция
-	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
-				
-	tmpAddr = packStartAddr;
-				
-	for (uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
-	{
-		// отделяем двухбайтные переменные от однобайтных
-		varNew = 0;
-		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
-			varNew |= *tmpAddr++ << (8 * byteNum);
-		
-		fpage.word[variables[i]->indexOnPage] = variables[i]->value = varNew; // --> ram & iap
-	}
 	
-	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
+//	// собственно функция
+//	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
+//	
+//	tmpAddr = packStartAddr;
+//				
+//	for (uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
+//	{
+//		
+//		
+//		fpage.word[variables[i]->indexOnPage] = variables[i]->value = varNew; // --> ram & iap
+//	}
+//	
+//	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 
-	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
-	IAP_CopyRAMToFlashPage(PAGE_NUMBER_VARS, &fpage);
+//	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
+//	IAP_CopyRAMToFlashPage(PAGE_NUMBER_VARS, &fpage);
 	
 	return SUCCESS;
 }
@@ -195,28 +207,30 @@ uint32_t API_ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t ke
 	return SUCCESS;
 }
 
-//----------------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------------------
 // Функция реализует выполнение общих команд по протоколу
 // Args:	commNum - порядковый номер команды по протоколу
 // 			commArg - аргумент команды по протоколу; 
 // Returns: 0 (успех); 
 //			UINT32_MAX (ошибка)
-//----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------*/
 
 uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 {
 	switch (commNum)
 	{		
 		case COMM_ALLKEYACT: // (де)активация всех ключей
-			
-			// если передан недопустимый аргумент, то ошибка
+			 // если передан недопустимый аргумент, то ошибка
 			if (commArg > 0x01) return FAILURE;
+		
 			// если ключей нет (нечего активировать), то ошибка
-			if (TotalKeys.value == 0)
+			if (TotalKeys.value == 0) 
 				return FAILURE;
+			
 			// если мы активируем ключи, а они все уже активированы то ничего не делаем
-			if (ActiveKeys.value == TotalKeys.value && commArg == ACTKEY_ACTIVATE)
+			if (ActiveKeys.value == TotalKeys.value && commArg == ACTKEY_ACTIVATE) 	
 				return SUCCESS;
+			
 			// если мы деактивируем ключи, а они все уже деактивированы то ничего не делаем
 			if (ActiveKeys.value == 0 && commArg == ACTKEY_DEACTIVATE)
 				return SUCCESS;
@@ -242,28 +256,34 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 			
 			break;
 		
-		case COMM_FACTORY_NUM: // к дефолтным значениям
+		case COMM_FACTORY_NUM: // вернуть переменные к дефолтным значениям
 			
 			// если уже и так значения дефолтные, то сброс не нужен
-			for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
+
+			for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
             {
-                if (variables[i]->value != variables[i]->factoryValue)
+                if (variables[varNum]->value != variables[varNum]->factoryValue)
 				{
 					break;
 				}
-
+				
 				else 
 				{
-					if (i == VAR_WRITABLE_COUNT - 1)
+					// если все переменные уже равны дефолтным значениям, то ничего не делаем
+					if (varNum == VAR_WRITABLE_COUNT - 1)
 						return SUCCESS;
 				}
             }
 			
+			// использовать page0 функцию?
+			
 			IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
 			
-			for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
-				fpage.word[variables[i]->indexOnPage] = variables[i]->value = variables[i]->factoryValue; // --> ram & iap
-			
+			for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
+			{
+				fpage.word[variables[varNum]->indexOnPage] = variables[varNum]->factoryValue; // --> ram & iap
+				variables[varNum]->value = variables[varNum]->factoryValue;
+			}
 			fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 				
 			IAP_Erase_OnePage(PAGE_NUMBER_VARS);
@@ -291,12 +311,12 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 
 uint32_t API_AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
 {
-	// если неверный аргумент
+	// если неверный аргумент, но ошибка
 	if (activationType > 0x02) return FAILURE;
 	
 	uint16_t keyIndex = keyIndexLSB | keyIndexMSB << 8;
 
-	// если слишком большой индекс ключа
+	// если слишком большой индекс ключа, то ошибка
 	if (keyIndex > KEYS_MAX_INDEX) return FAILURE;
 	
 	/* добавляем/меняем сам ключ */
@@ -393,10 +413,10 @@ uint32_t API_CopyKeyByIndex(uint16_t keyIndex, void *dest)
 {
 //	if (keyIndex > TotalKeys.value) return FAILURE;
 	
-	memcpy(dest,
+	memcpy(dest, 
 		   (void *)(IAP_START_ADDRESS + PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + KEY_ENCRYPTED_SIZE * keyIndex), 
 		   KEY_ENCRYPTED_SIZE);
-		
+		   
 	return SUCCESS;
 }
 

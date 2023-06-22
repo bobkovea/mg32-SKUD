@@ -69,9 +69,9 @@ void PowerOnHandle(void)
 	gerkonFilterMax = GerkonFiltTime.value / 5; // т.к. период таймера = 5 мс и ед.изм. - мс
 	protectionDelayMax = ProtectionDelayTime.value * 60000 / 5; // т.к. период таймера = 5 мс и ед.изм. - мин
 	alarmTimeoutMax = BuzzerOffTime.value * 60000 / 100; // т.к. период таймера = 100 мс и ед.изм. - мин
+	
+	DefineInitialState();
 }
-
-
 
 
 //----------------------------------------------------------------------------------------
@@ -107,7 +107,6 @@ uint32_t UpdateFlashResource(uint8_t pageNumber)
 	}
 	
 	return curPageResource;
-
 }
 
 

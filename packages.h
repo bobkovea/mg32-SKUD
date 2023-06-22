@@ -13,6 +13,7 @@
 #define TOTAL_KEYS_CODE 0x06
 #define ACTIVE_KEYS_CODE 0x07
 #define FLASH_RESOURSE_CODE 0x08
+/* 		*/
 
 // макросы для разных посылок
 
@@ -59,7 +60,6 @@
 #define ECODE_WRONG_LEN 0x80 // Неверная длина посылки для данной функции
 #define ECODE_WRONG_FUNC 0xA0 // Контроллер не поддерживает такой функции
 #define ECODE_WRONG_CRC 0xE0 // Контроллер получил пакет с ошибкой (неверная CRC)
-
 
 
 /* Позиций байтов посылок по протоколу */

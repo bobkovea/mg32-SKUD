@@ -14,7 +14,7 @@ uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValu
 uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg);
 
 uint32_t API_AddKey(uint8_t newStatus, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyMSB);
-uint32_t API_SetVariablePack(uint8_t *packStartAddr);
+uint32_t API_SetVariablePack(void *packStartAddr);
 
 uint32_t API_GetVariable(uint8_t varNumber);
 uint32_t API_CopyVariable(uint8_t varNumber, void *dest);

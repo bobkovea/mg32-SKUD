@@ -22,9 +22,8 @@ int main()
 	USART_Config();
 	WDT_Config(); 
 	IAP_Init(IAP_PAGE_COUNT);
-	PowerOnHandle(); // первичная проверка конфиг. данных во флеше 
 	
-	DefineInitialState();
+	PowerOnHandle(); // первичная проверка конфиг. данных во флеше 
 	
 	RS485_CONFIG_RECEIVE();	
 //	RS485_CONFIG_TRANSMIT();
@@ -39,7 +38,7 @@ int main()
 
     while(1) 
 	{
-		HandleEvent();
+		HandleEvent(); 
 		wdt_reset();
     }
 }
