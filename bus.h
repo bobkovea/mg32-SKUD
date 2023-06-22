@@ -11,15 +11,11 @@
 #include "variables.h"
 #include "ring_buffer.h"
 
-// настроить ADM485 на прием
-#define RS485_CONFIG_RECEIVE() REDE_PIN = 0
-// настроить ADM485 на передачу
-#define RS485_CONFIG_TRANSMIT() REDE_PIN = 1
 
-#define RX_BUFFER_SIZE 30
+#define RS485_CONFIG_RECEIVE() REDE_PIN = 0 // настроить ADM485 на прием
+#define RS485_CONFIG_TRANSMIT() REDE_PIN = 1 // настроить ADM485 на передачу
 
-#define DEVICE_ADDRESS_MSB 0x43
-#define DEVICE_ADDRESS_LSB 0x10
+#define RX_BUFFER_SIZE 30 // Размер буфера приема/передачи
 
 #define STATUS_COLLECTING_BYTES 0x00
 #define STATUS_PARSE_WAITING 0x01

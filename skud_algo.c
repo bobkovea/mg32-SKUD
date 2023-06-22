@@ -7,7 +7,7 @@ volatile uint8_t indicWaitMax = INDIC_WAIT_MAX;
 volatile uint32_t indicTimeCnt = 1;
 volatile uint32_t indicTimeMax = INDIC_CNT_ALARM;
 volatile uint8_t indicSpeed = INDIC_SPEED_ALARM;
-volatile uint8_t buzzerMuted = 0;
+volatile uint8_t buzzerIsMuted = 0;
 volatile uint8_t indicationPhase = 1;
 
 volatile uint32_t alarmTimeoutCnt = 0;
@@ -57,7 +57,7 @@ void IndicationStop()
 //	TM_Timer_Cmd(TM_INDICATION, DISABLE);
 	BUZZER_OFF();
 	STALED_OFF();
-	buzzerMuted = 0;
+	buzzerIsMuted = 0;
 	indicTimeCnt = 1;
 	indicationPhase = 1;
 };
@@ -96,14 +96,14 @@ void ProtectionDelayDisable()
 
 void MuteBuzzer()
 {
-	buzzerMuted = TRUE;
+	buzzerIsMuted = TRUE;
 	BUZZER_OFF();
 }
 
 void UnmuteBuzzer()
 {
 	BACKL_PIN = !indicationPhase;
-	buzzerMuted = FALSE;
+	buzzerIsMuted = FALSE;
 }
 
 void DefineInitialState()
@@ -150,7 +150,7 @@ void hWaitingToAccess(State_t state, Event_t event)
 {
 	AccessIsGiven.value = 1;
 	ValidKeyIndex.value = CurKeyIndex; // 
-	CopyVariablesPage0ToFlash();  // обновляем первую страницу флеша с переменными
+	API_CopyVariablesPage0ToFlash();  // обновляем первую страницу флеша с переменными
 	
 	AlarmCountdownDisable(); // отсчет до тревоги остановлен
 	ReadingKeyDisable(); // чтение ключей остановлено
@@ -161,7 +161,7 @@ void hWaitingToAccess(State_t state, Event_t event)
 void hAccessToSleep(State_t state, Event_t event)
 {
 	AccessIsGiven.value = 0;
-	CopyVariablesPage0ToFlash();
+	API_CopyVariablesPage0ToFlash();
 	// если дверь открыта, то сразу тревога
 	if (doorIsOpened)
 		putEvent(eDoorOpened);		
@@ -276,27 +276,4 @@ void HandleEvent()
 //		URT_PrintString("*********");
 //		URT_PrintString("\r\n");
 	}
-}
-
-uint8_t IsKeyValid(void)
-{
-	// зашифровываем поднесенный ключ в MD5
-	MD5_MakeHash(KeyRaw, KEY_RAW_SIZE, KeyEncrypted);
-	
-	// Проверяем наличие ключа в базе (зашифрованного)
-	// Ищем только среди активированных
-	for (uint16_t keyIndex = 0; keyIndex < TotalKeys.value; keyIndex++)
-    {
-		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
-		{
-			if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyEncrypted, KEY_ENCRYPTED_SIZE))
-			{
-				CurKeyIndex = keyIndex;
-				return KEY_STATUS_ACTIVATED;
-			}
-		}
-    }
-	return KEY_STATUS_DEACTIVATED;
-	
-	// как-то получить KeyIndex
 }

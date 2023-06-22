@@ -7,16 +7,16 @@ FlashPage_t fpage;
 void FlashTestFill(void)
 {
 	MD5_MakeHash(key1, KEY_RAW_SIZE, KeyEncrypted);
-	AddKey(ACTKEY_ACTIVATE, 0, 0, KeyEncrypted); 
+	API_AddKey(ACTKEY_ACTIVATE, 0, 0, KeyEncrypted); 
 //	
 //	MD5_MakeHash(key2, KEY_RAW_SIZE, KeyEncrypted);
-//	AddKey(ACTKEY_ACTIVATE, 1, 0, KeyEncrypted);
+//	API_AddKey(ACTKEY_ACTIVATE, 1, 0, KeyEncrypted);
 //	
 //	MD5_MakeHash(key_em_1, KEY_RAW_SIZE, KeyEncrypted);
-//	AddKey(ACTKEY_ACTIVATE, 2, 0, KeyEncrypted);
+//	API_AddKey(ACTKEY_ACTIVATE, 2, 0, KeyEncrypted);
 //	
 //	MD5_MakeHash(key_em_2, KEY_RAW_SIZE, KeyEncrypted);
-//	AddKey(ACTKEY_ACTIVATE, 3, 0, KeyEncrypted);
+//	API_AddKey(ACTKEY_ACTIVATE, 3, 0, KeyEncrypted);
 }
 
 //----------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ void PowerOnHandle(void)
 		
 		// если не успели отправить ключ до отключения питания (и если он вообще был, конечно же)
 		if ( ValidKeyIndex.value != ValidKeyIndex.factoryValue)
-			CopyKeyByIndex(ValidKeyIndex.value, KeyEncrypted);
+			API_CopyKeyByIndex(ValidKeyIndex.value, KeyEncrypted);
 	}
 	
 	else // если включение ПЕРВОЕ
@@ -112,7 +112,7 @@ uint32_t UpdateFlashResource(uint8_t pageNumber)
 
 
 
-void CopyVariablesPage0ToFlash(void)
+void API_CopyVariablesPage0ToFlash(void)
 {
 	// увеличиваем количество перезаписей, записываем это временное значение во FlashResourse (ну да, такой костыль)
 	FlashResourse.value = IAP_ReadWord(PAGE_NUMBER_VARS, FLASH_RESOURCE_POS);

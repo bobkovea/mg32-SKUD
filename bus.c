@@ -101,21 +101,21 @@ void Bus_ParseWriteRequest9(void)
 	switch (RecBytes[SCODE_POS])
 	{
 		case SCODE_ACTKEY:
-			operStatus = ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], 
-									 RecBytes[ACTKEY_KEYINDEX_LSB_POS], 
-									 RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
+			operStatus = API_ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], 
+										 RecBytes[ACTKEY_KEYINDEX_LSB_POS], 
+										 RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
 			break;
 		
 		case SCODE_WRITEVAR1:
-			operStatus = SetVariable(RecBytes[WRITEVAR1_NUM_POS], 
-									 RecBytes[WRITEVAR1_VALUE_LSB_POS], 
-									 RecBytes[WRITEVAR1_VALUE_MSB_POS]);
+			operStatus = API_SetVariable(RecBytes[WRITEVAR1_NUM_POS], 
+										 RecBytes[WRITEVAR1_VALUE_LSB_POS], 
+										 RecBytes[WRITEVAR1_VALUE_MSB_POS]);
 			break;
 		
 		case SCODE_COMM:
 			
-			operStatus = DoCommand(RecBytes[COMM_NUM_POS], 
-								   RecBytes[COMM_ARG_POS]);
+			operStatus = API_DoCommand(RecBytes[COMM_NUM_POS], 
+									   RecBytes[COMM_ARG_POS]);
 			break;
 		
 		default:
@@ -153,15 +153,15 @@ void Bus_ParseWriteRequest24(void)
 	
 	switch (RecBytes[SCODE_POS])
 	{
-		case SCODE_ADDKEY:
-			operStatus = AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
-								RecBytes[ADDKEY_INDEX_LSB_POS], 
-								RecBytes[ADDKEY_INDEX_MSB_POS], 
-								&RecBytes[ADDKEY_KEY_MSB_POS]);
+		case SCODE_API_AddKey:
+			operStatus = API_AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
+									RecBytes[ADDKEY_INDEX_LSB_POS], 
+									RecBytes[ADDKEY_INDEX_MSB_POS], 
+									&RecBytes[ADDKEY_KEY_MSB_POS]);
 			break;
 		
 		case SCODE_WRITEVARM:
-			operStatus = SetVariablePack(&RecBytes[WRITEVARM_VALUE_1ST_POS]);
+			operStatus = API_SetVariablePack(&RecBytes[WRITEVARM_VALUE_1ST_POS]);
 			break;
 
 		default:
@@ -197,8 +197,8 @@ void Bus_ParseReadRequest(void)
 	{
 		case SCODE_READVAR1:
 			
-			operStatus = CopyVariable(RecBytes[READVAR1_NUM_POS],
-									  &RecBytes[READVAR1_VALUE_MSB_POS]);
+			operStatus = API_CopyVariable(RecBytes[READVAR1_NUM_POS],
+										  &RecBytes[READVAR1_VALUE_MSB_POS]);
 			if (operStatus == FAILURE)
 			{
 				CommandSize = 9;
@@ -212,7 +212,7 @@ void Bus_ParseReadRequest(void)
 		
 		case SCODE_READVARM:
 			
-			CopyVariablePack(&RecBytes[READVARM_VALUE_1ST_POS]);
+			API_CopyVariablePack(&RecBytes[READVARM_VALUE_1ST_POS]);
 
 			CommandSize = 24;
 			Bus_ReturnReply(FCODE_READ24);
@@ -231,7 +231,7 @@ void Bus_ParseReadRequest(void)
 				Bus_ReturnReply(FCODE_READ24);
 
 				ValidKeyIndex.value = ValidKeyIndex.factoryValue;
-				CopyVariablesPage0ToFlash();
+				API_CopyVariablesPage0ToFlash();
 				return;
 			}
 			else 
@@ -250,12 +250,14 @@ void Bus_ParseReadRequest(void)
 }
 
 //----------------------------------------------------------------------------------------
-// Функция вычисляет CRC и возвращает посылку-ответ
+// Функция вычисляет CRC и оправляет посылку-ответ
 // Посылка хранится в массиве RecBytes
 // |Байт адреса1|Байт адреса2|Код команды с ошибкой| Команда | CRC |
 // CommandSize должна содержать полное число байт посылки
 //----------------------------------------------------------------------------------------
-void Bus_ReturnReply(uint8_t RetCode) // можно минимизировать
+
+//void Bus_ReturnReply(uint8_t RetCode, void *txBuffer, uint8_t commandSize)
+void Bus_ReturnReply(uint8_t RetCode)
 {
 	RS485_CONFIG_TRANSMIT(); // ADM485 на передачу
 	
@@ -265,7 +267,7 @@ void Bus_ReturnReply(uint8_t RetCode) // можно минимизировать
 	// Считаем и добавляем CRC в посылку-ответ
     RecBytes[CommandSize - 1] = Do_CRC(RecBytes, CommandSize - 1);
 	
-	// Отправляем посылку-ответ, дожидаемся завершения передачи
+	// Отправляем посылку-ответ, дожидаемся окончания передачи
 	URT_Print(RecBytes, CommandSize);
 	
 	RS485_CONFIG_RECEIVE(); // ADM485 на прием

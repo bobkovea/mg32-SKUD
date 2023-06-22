@@ -1,3 +1,5 @@
+#ifndef ISR_H
+#define ISR_H
 
 #include "timers.h"
 #include "usart.h"
@@ -12,3 +14,5 @@ void TIM16_Callback(void);
 void TIM36_Callback(void);
 
 void URT_Rx_Callback(void);
+
+#endif // ISR_H

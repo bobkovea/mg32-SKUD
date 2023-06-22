@@ -1,8 +1,5 @@
 #include "isr.h"
 
-#ifndef ISR_H
-#define ISR_H
-
 //----------------------------------------------------------------------------------------
 // Обработчик прерывания USART по приему байта
 //----------------------------------------------------------------------------------------
@@ -92,7 +89,7 @@ void TIM16_Callback (void) // TM_READ_KEY
 	{		
 		TM_Timer_Cmd(TM_READ_KEY, DISABLE); // отключаем чтение ключа до проверки
 
-		if (IsKeyValid()) // если ключ подошел
+		if (API_IsKeyValid()) // если ключ подошел
 		{
 			putEvent(eEnteredValidKey);
 		}
@@ -122,11 +119,10 @@ void TIM36_Callback (void) // TM_INDICAION
 	if (indicTimeCnt++ % indicSpeed == 0) // indicTimeCnt изначально уже = 1
 	{
 		indicationPhase = !indicationPhase;
-		if (buzzerMuted == 0) 
+		if (buzzerIsMuted == 0) 
 		{
 			BACKL_PIN = !indicationPhase; // изначально = 0
 		}
 		STALED_PIN = indicationPhase;
 	}
 }
-#endif // ISR_H

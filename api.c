@@ -7,7 +7,7 @@
 //			UINT32_MAX (ошибка, нет такой переменной)
 //----------------------------------------------------------------------------------------
 
-uint32_t GetVariable(uint8_t varNumber)
+uint32_t API_GetVariable(uint8_t varNumber)
 {
 	if (varNumber > VAR_TOTAL_COUNT - 1) return FAILURE;
 	return variables[varNumber]->value;
@@ -22,14 +22,14 @@ uint32_t GetVariable(uint8_t varNumber)
 //			UINT32_MAX (ошибка, нет такой переменной)
 //----------------------------------------------------------------------------------------
 
-uint32_t CopyVariable(uint8_t varNumber, void *dest)
+uint32_t API_CopyVariable(uint8_t varNumber, void *dest)
 {
 	if (varNumber > VAR_TOTAL_COUNT - 1) return FAILURE;
 	*(uint16_t *)dest = variables[varNumber]->value;
 	return SUCCESS;
 }
 
-uint32_t CopyVariablePack(void *dest)
+uint32_t API_CopyVariablePack(void *dest)
 {
 	uint8_t *tmpAddr = dest;
 	uint16_t var;
@@ -55,18 +55,20 @@ uint32_t CopyVariablePack(void *dest)
 //			UINT32_MAX (ошибка, нет такой переменной для изменения)
 //----------------------------------------------------------------------------------------
 
-uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
+uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
 {
-	if (varNumber > VAR_WRITABLE_COUNT) return FAILURE;
+	// если нет такого номера переменной для изменения, то ошибка
+	if (varNumber > VAR_WRITABLE_COUNT) return FAILURE; 
 	
 	uint16_t varNew = varValueLSB | varValueMSB << 8;
 	
+	// если переменная не изменилась, то ничего не делать
 	if (varNew == variables[varNumber]->value)
 		return SUCCESS;
 	
 	variables[varNumber]->value = varNew;
 	
-	CopyVariablesPage0ToFlash();
+	API_CopyVariablesPage0ToFlash();
 	
 	/* Перевод передаваемых величин во внутренние переменные таймеров */
 	gerkonFilterMax = GerkonFiltTime.value / 5; // т.к. период таймера = 5 мс и ед.изм. - мс
@@ -85,14 +87,14 @@ uint32_t SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB
 }
 
 
-//----------------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------------------
 // Функция устанавливает значение всех переменных в IAP по протоколу 
 // Args: 	packStartAddr - указатель на начало массива с переменными
 // Returns: 0 (успех); 
 //			UINT32_MAX (ошибка)
-//----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------*/
 
-uint32_t SetVariablePack(uint8_t *packStartAddr)
+uint32_t API_SetVariablePack(uint8_t *packStartAddr)
 {		
 	uint16_t varNew;
 	uint8_t *tmpAddr = packStartAddr;
@@ -137,16 +139,16 @@ uint32_t SetVariablePack(uint8_t *packStartAddr)
 	return SUCCESS;
 }
 
-//----------------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------------------
 // Функция устанавливает статус ключа в IAP
-// Args:	operationType - тип операции (деактивация или активация)
+// Args:	activationType - тип операции (деактивация или активация)
 // 			keyIndexLSB - младший байт индекса ключа; 
 // 			keyIndexMSB - старший байт индекса ключа
 // Returns: 0 (успех); 
-//			UINT32_MAX (ошибка, см. в коде)
-//----------------------------------------------------------------------------------------
+//			UINT32_MAX (ошибка, см. в коде функции)
+----------------------------------------------------------------------------------------*/
 
-uint32_t ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
+uint32_t API_ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
 {
 	// если неверный аргумент, то ошибка
 	if (activationType > 0x01) return FAILURE;
@@ -160,7 +162,7 @@ uint32_t ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyInd
 	if (keyIndex > KEYS_MAX_INDEX) return FAILURE;
 	
 	// получаем текущий статус (де)активируемого ключа
-	uint8_t curKeyIndexStatus = GetKeyStatus(keyIndex);
+	uint8_t curKeyIndexStatus = API_GetKeyStatus(keyIndex);
 	
 	// если ключа нет под данным индексом, то ошибка
 	if (curKeyIndexStatus == KEY_STATUS_FREE)
@@ -201,7 +203,7 @@ uint32_t ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyInd
 //			UINT32_MAX (ошибка)
 //----------------------------------------------------------------------------------------
 
-uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
+uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 {
 	switch (commNum)
 	{		
@@ -287,7 +289,7 @@ uint32_t DoCommand(uint8_t commNum, uint8_t commArg)
 //			UINT32_MAX (ошибка)
 //----------------------------------------------------------------------------------------
 
-uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
+uint32_t API_AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
 {
 	// если неверный аргумент
 	if (activationType > 0x02) return FAILURE;
@@ -312,7 +314,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 	
 	/* изменяем статус активности ключа и переменные-счетчики */
 	
-	uint8_t oldKeyStatus = GetKeyStatus(keyIndex);
+	uint8_t oldKeyStatus = API_GetKeyStatus(keyIndex);
 	
 	if (activationType == oldKeyStatus)
 		return SUCCESS;
@@ -374,7 +376,7 @@ uint32_t AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB
 // Returns: статус активации ключа по протоколу (0 / 1)
 //----------------------------------------------------------------------------------------
 
-uint32_t GetKeyStatus(uint16_t keyIndex)
+uint32_t API_GetKeyStatus(uint16_t keyIndex)
 {
 	//	if (keyIndex > TotalKeys.value) return FAILURE;
 	
@@ -387,7 +389,7 @@ uint32_t GetKeyStatus(uint16_t keyIndex)
 // Returns: SUCCESS / FAILURE
 //----------------------------------------------------------------------------------------
 
-uint32_t CopyKeyByIndex(uint16_t keyIndex, void *dest)
+uint32_t API_CopyKeyByIndex(uint16_t keyIndex, void *dest)
 {
 //	if (keyIndex > TotalKeys.value) return FAILURE;
 	
@@ -396,4 +398,26 @@ uint32_t CopyKeyByIndex(uint16_t keyIndex, void *dest)
 		   KEY_ENCRYPTED_SIZE);
 		
 	return SUCCESS;
+}
+
+
+uint8_t API_IsKeyValid()
+{
+	// зашифровываем поднесенный ключ в MD5
+	MD5_MakeHash(KeyRaw, KEY_RAW_SIZE, KeyEncrypted);
+	
+	// Проверяем наличие ключа в базе (зашифрованного)
+	// Ищем только среди активированных
+	for (uint16_t keyIndex = 0; keyIndex < TotalKeys.value; keyIndex++)
+    {
+		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
+		{
+			if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyEncrypted, KEY_ENCRYPTED_SIZE))
+			{
+				CurKeyIndex = keyIndex;
+				return KEY_STATUS_ACTIVATED;
+			}
+		}
+    }
+	return KEY_STATUS_DEACTIVATED;
 }

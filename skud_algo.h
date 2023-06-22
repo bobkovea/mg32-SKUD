@@ -10,6 +10,7 @@
 #include "onewire.h"
 #include "variables.h"
 #include "bus.h"
+#include "api.h"
 
 // перерыв в индикации до смены на другой тип индикации
 #define INDIC_WAIT_MAX 1 // 100 мс
@@ -35,32 +36,33 @@
 // типы индикации
 typedef enum
 {
-	AlarmCommon,
-	ValidKey,
-	InvalidKey,
+	AlarmCommon, // тип индикации: обычная  
+	ValidKey, // тип индикации: введен верный ключ
+	InvalidKey, // тип индикации: введен неверный ключ
 } Indication_t;
 
 // s - state, состояния системы
 typedef enum 
 {
-	sNoAccessSleep = 0,
-	sNoAccessWaitingKey = 1,
-	sAccessGiven = 2,
+	sNoAccessSleep = 0, // состояние сна: ждем открытие двери шкафа
+	sNoAccessWaitingKey = 1, // состояние ожидания ввода ключа: работает индикация
+	sAccessGiven = 2, // состояние снятой сигнализации
 } State_t; 
 
 // e - event, события системы
 typedef enum 
 {
-	eDoorOpened = 0,
-	eEnteredValidKey = 1,
-	eEnteredInvalidKey = 2,
-	eAlarmTimeout = 3,
-	eDoorClosed = 4,
-	eProtectionRestored = 5,
-	eIndicationEnded = 6,
-	eBusMessage = 7,
-	eNoEvent = 255
+	eDoorOpened = 0, // событие: дверь открылась
+	eEnteredValidKey = 1, // событие: введен верный ключ
+	eEnteredInvalidKey = 2, // событие: введен неверный ключ
+	eAlarmTimeout = 3, // событие: время индикации при открытой двери без доступа прошло
+	eDoorClosed = 4, // событие: дверь закрылась
+	eProtectionRestored = 5, // событие: истекло время доступа введенного ключа
+	eIndicationEnded = 6, // событие: цикл индикации завершился
+	eBusMessage = 7, // событие: пришла посылка от Контроллера
+	eNoEvent = 255 // событие: нет события
 } Event_t;
+
 
 typedef void (*TransitionCallback_t)(State_t state, Event_t event);
 
@@ -78,7 +80,7 @@ extern volatile uint32_t indicTimeCnt;
 extern volatile uint32_t indicTimeMax;
 extern volatile uint8_t indicSpeed;
 extern volatile uint8_t indicationPhase;
-extern volatile uint8_t buzzerMuted;
+extern volatile uint8_t buzzerIsMuted;
 
 extern volatile uint32_t alarmTimeoutCnt;
 extern volatile uint32_t alarmTimeoutMax;
@@ -93,6 +95,6 @@ extern volatile uint32_t protectionDelayMax;
 void DefineInitialState(void);
 void HandleEvent(void);
 
-uint8_t IsKeyValid(void); // перенести в другой файл
+uint8_t API_IsKeyValid(void); // перенести в другой файл
 
 #endif // SKUD_ALGO_H

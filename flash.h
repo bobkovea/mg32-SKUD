@@ -59,6 +59,6 @@ typedef union
 
 extern FlashPage_t fpage;
 
-void CopyVariablesPage0ToFlash(void);
+void API_CopyVariablesPage0ToFlash(void);
 
 #endif // FLASH_H

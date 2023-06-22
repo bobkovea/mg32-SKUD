@@ -9,7 +9,7 @@
  * Примечания:
 	- настройка адреса в сети RS-485 и скорости обмена устройства по UART производится в файле "device_config.h";
 	- настройка источника и частоты тактирования микроконтроллера производится в файле
-	"MG32x02z_CSC_Init.h" в разделе "Configuration Wizard";
+	"MG32x02z_CSC_Init.h" на вкладке "Configuration Wizard";
  -------------------------------------------------------------------------------------*/
  
 int main()
@@ -30,12 +30,12 @@ int main()
 //	RS485_CONFIG_TRANSMIT();
 
 	URT_Cmd(URT0, ENABLE); // включаем UART0
-
+	
+	TM_Timer_Cmd(TM_READ_GERKON, ENABLE); // начинаем мониторить состояние двери
+	
 	wdt_enable(WDTO_1S); // включаем watchdog на 1с
 	
 	__enable_irq();
-
-	TM_Timer_Cmd(TM_READ_GERKON, ENABLE); // начинаем мониторить состояние двери
 
     while(1) 
 	{
