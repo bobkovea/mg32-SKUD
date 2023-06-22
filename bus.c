@@ -61,7 +61,7 @@ void Bus_ParseMessage(void)
 	
 	// Расшифровываем код функции
 	uint8_t FunctionCode = RecBytes[FCODE_POS] & 0x1F; // & 0b11111
-	
+
 	switch (FunctionCode)
 	{
 		case FCODE_WRITE9:
@@ -83,6 +83,7 @@ void Bus_ParseMessage(void)
 
 void Bus_ParseWriteRequest9(void)
 {
+
 	uint32_t operStatus; // статус успеха операции
 	
 	if (CommandSize != 9) // как это возможно исходя из логики?
@@ -134,6 +135,9 @@ void Bus_ParseWriteRequest9(void)
 
 void Bus_ParseWriteRequest24(void)
 {
+		
+
+	
 	uint32_t operStatus; // статус успеха операции
 	
 	if (CommandSize != 24)
@@ -148,7 +152,7 @@ void Bus_ParseWriteRequest24(void)
 		Bus_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
 		return;
 	}
-	
+
 	CommandSize = 4;
 	
 	switch (RecBytes[SCODE_POS])
@@ -275,6 +279,8 @@ void Bus_ReturnReply(uint8_t RetCode)
 
 void Bus_ClearBuffer()
 {
+
+	
     iptr = 0;
     MessLen = 0;
 	parsingStatus = STATUS_COLLECTING_BYTES;

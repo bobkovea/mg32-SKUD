@@ -118,37 +118,64 @@ uint32_t API_SetVariablePack(void *packStartAddr)
 //		}
 //	}
 	
+	// если ни одна переменная не поменялась, то ничего не делаем
+	
+	/* починить */
+	/*
 	for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
 	{
 		if (variables[varNum]->byteSize == HWORD)  // если переменная 2-байтная
 		{
-			variables[varNum]->value = *(uint16_t *)tmpAddr++;
+			if (variables[varNum]->value != *(uint16_t *)tmpAddr) 
+			{
+				break;
+			}
+			++tmpAddr;
+			++tmpAddr;
 		} 
-		else // если переменная 1-байтная
+		else
 		{
-			variables[varNum]->value = *tmpAddr++;
+			if (variables[varNum]->value != *tmpAddr++) break;
 		}
+
+		if (varNum == VAR_WRITABLE_COUNT - 1) return SUCCESS;
+	}
+	*/
+	
+	for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
+	{
+		if (variables[varNum]->byteSize == HWORD)  // если переменная 2-байтная
+		{
+			variables[varNum]->value = *tmpAddr << 8;
+			variables[varNum]->value |= *(++tmpAddr);
+		} 
+		else
+		{
+			variables[varNum]->value = *tmpAddr;
+		}
+		
+		++tmpAddr;
+	}
+
+	
+	/*
+	// собственно функция
+	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
+	
+	tmpAddr = packStartAddr;
+				
+	for (uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
+	{
+
+		fpage.word[variables[i]->indexOnPage] = variables[i]->value = varNew; // --> ram & iap
 	}
 	
-	
-//	// собственно функция
-//	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
-//	
-//	tmpAddr = packStartAddr;
-//				
-//	for (uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
-//	{
-//		
-//		
-//		fpage.word[variables[i]->indexOnPage] = variables[i]->value = varNew; // --> ram & iap
-//	}
-//	
-//	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
+	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 
-//	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
-//	IAP_CopyRAMToFlashPage(PAGE_NUMBER_VARS, &fpage);
+	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
+	IAP_CopyRAMToFlashPage(PAGE_NUMBER_VARS, &fpage);
 	
-	return SUCCESS;
+	return SUCCESS;*/
 }
 
 /*----------------------------------------------------------------------------------------
