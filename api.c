@@ -311,6 +311,32 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 	return SUCCESS;
 }
 
+
+
+
+//uint32_t API_AddKeyLastPos(uint8_t activationType, uint8_t *keyStartAddr)
+//{
+//	// ищем копии
+//	for (uint16_t keyIndex; keyIndex < TotalKeys.value;  keyIndex++)
+//	{
+//		{
+//		
+//		
+//		}
+//		if (IAP_IsEqualToRAM(1,  keyStartAddr , KEY_ENCRYPTED_SIZE)
+//		{
+//			API_GetKeyStatus(keyIndex);
+//			activationType
+//		}
+//			return SUCCESS;
+//	}
+
+//	
+//	return API_AddKey(activationType, TotalKeys.value, TotalKeys.value >> 8, keyStartAddr);
+//}
+
+
+
 //----------------------------------------------------------------------------------------
 // Функция реализует операцию добавления/изменения ключей доступа по индексу
 // Args:	activationType - новый статус активации ключа после выполнения операции
@@ -411,7 +437,7 @@ uint32_t API_AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyInde
 
 uint32_t API_GetKeyStatus(uint16_t keyIndex)
 {
-	//	if (keyIndex > TotalKeys.value) return FAILURE;
+//	if (keyIndex > TotalKeys.value) return FAILURE;
 	
 	return IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex);
 }
@@ -434,11 +460,10 @@ uint32_t API_CopyKeyByIndex(uint16_t keyIndex, void *dest)
 }
 
 //----------------------------------------------------------------------------------------
-// Функция проверяет незашифрованный ключ 
-// Args: keyIndex - индекс ключа в IAP
-// Returns: SUCCESS / FAILURE
+// Функция проверяет незашифрованный ключ на правильность
+// Returns: подходит / не подходит
 //----------------------------------------------------------------------------------------
-uint8_t API_IsKeyValid()
+uint8_t API_IsRawKeyValid()
 {
 	// зашифровываем поднесенный ключ в MD5
 	MD5_MakeHash(KeyRaw, KEY_RAW_SIZE, KeyEncrypted);
@@ -449,7 +474,9 @@ uint8_t API_IsKeyValid()
     {
 		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
 		{
-			if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, KeyEncrypted, KEY_ENCRYPTED_SIZE))
+			if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, 
+								 KeyEncrypted, 
+								 KEY_ENCRYPTED_SIZE))
 			{
 				CurKeyIndex = keyIndex;
 				return KEY_STATUS_ACTIVATED;

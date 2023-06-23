@@ -89,7 +89,7 @@ void TIM16_Callback (void) // TM_READ_KEY
 	{		
 		TM_Timer_Cmd(TM_READ_KEY, DISABLE); // отключаем чтение ключа до проверки
 
-		if (API_IsKeyValid()) // если ключ подошел
+		if (API_IsRawKeyValid()) // если ключ подошел
 		{
 			putEvent(eEnteredValidKey);
 		}

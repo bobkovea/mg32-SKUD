@@ -107,8 +107,6 @@ uint32_t UpdateFlashResource(uint8_t pageNumber)
 	return curPageResource;
 }
 
-
-
 void API_CopyVariablesPage0ToFlash(void)
 {
 	// увеличиваем количество перезаписей, записываем это временное значение во FlashResourse (ну да, такой костыль)

@@ -157,7 +157,7 @@ void Bus_ParseWriteRequest24(void)
 	
 	switch (RecBytes[SCODE_POS])
 	{
-		case SCODE_API_AddKey:
+		case SCODE_ADDKEY:
 			operStatus = API_AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
 									RecBytes[ADDKEY_INDEX_LSB_POS], 
 									RecBytes[ADDKEY_INDEX_MSB_POS], 

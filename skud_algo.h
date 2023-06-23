@@ -95,6 +95,6 @@ extern volatile uint32_t protectionDelayMax;
 void DefineInitialState(void);
 void HandleEvent(void);
 
-uint8_t API_IsKeyValid(void); // перенести в другой файл
+uint8_t API_IsRawKeyValid(void); // перенести в другой файл
 
 #endif // SKUD_ALGO_H

@@ -13,11 +13,9 @@
 // начальный адрес IAP
 #define IAP_START_ADDRESS 0x1A000000UL
 
-
 DRV_Return IAP_Erase_Page(uint32_t StartPageAddress, uint32_t PageQuantity);
 DRV_Return IAP_Single_Write(uint32_t IAPStartAddress, uint32_t ProgramData);
 DRV_Return IAP_Multiple_Write(uint32_t IAPStartAddress, uint32_t DataStartAddress, uint32_t Length);
-
 
 /* Пользовательские функции */
 

@@ -26,6 +26,6 @@ uint32_t API_CopyKeyByIndex(uint16_t keyIndex, void *dest);
 uint32_t GetMaxFlashResource(void);
 uint32_t UpdateFlashResource(uint8_t curPageNumber);
 
-uint8_t API_IsKeyValid();
+uint8_t API_IsRawKeyValid();
 
 #endif // API_H

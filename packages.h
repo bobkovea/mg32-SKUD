@@ -44,7 +44,7 @@
 #define SCODE_WRITEVAR1 0x01
 #define SCODE_COMM 0x02
 
-#define SCODE_API_AddKey 0x00
+#define SCODE_ADDKEY 0x00
 #define SCODE_WRITEVARM 0x01
 
 #define SCODE_READVAR1 0x00
