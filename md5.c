@@ -219,20 +219,20 @@ void MD5_Final(uint8_t *result, void *ctxBuf)
 
 void MD5_MakeHash(uint8_t *srcArr, uint32_t srcArrSize, uint8_t* destHash)
 {
-  MD5_CTX context;
-  MD5_Init(&context);
-  MD5_Update(&context, srcArr, srcArrSize);
-  MD5_Final(destHash, &context);
+	MD5_CTX context;
+	MD5_Init(&context);
+	MD5_Update(&context, srcArr, srcArrSize);
+	MD5_Final(destHash, &context);
 }
 
-//void MD5_MakeDigest16(const uint8_t *hash, char *digest)
-//{
-//  static const char hexits[17] = "0123456789abcdef";
+void MD5_MakeDigest16(const uint8_t *hash, char *digest)
+{
+	static const char hexits[17] = "0123456789abcdef";
 
-//  for (uint8_t i = 0; i < 16; i++) {
-//    digest[i * 2]       = hexits[hash[i] >> 4];
-//    digest[(i * 2) + 1] = hexits[hash[i] &  0x0F];
-//  }
-//  digest[33] = '\0';
-//}
+	for (uint8_t i = 0; i < 16; i++) {
+		digest[i * 2]       = hexits[hash[i] >> 4];
+		digest[(i * 2) + 1] = hexits[hash[i] &  0x0F];
+	}
+	digest[33] = '\0';
+}
 

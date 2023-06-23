@@ -97,57 +97,42 @@ uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValu
 ----------------------------------------------------------------------------------------*/
 
 uint32_t API_SetVariablePack(void *packStartAddr)
-{		
+{
 	uint16_t varNew;
-	uint8_t *tmpAddr = packStartAddr;
+	uint8_t *tmpAddr;
+
+	tmpAddr = packStartAddr;
 	
-	//	// если передаваемые значения идентичны существующим, то не нужно перезаписывать флеш
-//	for(uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
-//	{
-//		varNew = 0;
-//		
-//		for (uint8_t byteNum = 0; byteNum < variables[i]->byteSize; byteNum++)
-//			varNew |= *tmpAddr++ << (8 * byteNum);
-//		
-//		if (variables[i]->value != varNew)
-//			break;
-//		else 
-//		{
-//			if (i == VAR_WRITABLE_COUNT - 1)
-//					return SUCCESS;
-//		}
-//	}
+	/* проверка на то, изменяем ли мы переменные, или нет*/
 	
 	// если ни одна переменная не поменялась, то ничего не делаем
-	
-	/* починить */
-	/*
 	for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
 	{
 		if (variables[varNum]->byteSize == HWORD)  // если переменная 2-байтная
 		{
-			if (variables[varNum]->value != *(uint16_t *)tmpAddr) 
-			{
-				break;
-			}
-			++tmpAddr;
-			++tmpAddr;
-		} 
-		else
-		{
-			if (variables[varNum]->value != *tmpAddr++) break;
+			varNew = *tmpAddr++ << 8;
+			varNew |= *tmpAddr++;
 		}
-
-		if (varNum == VAR_WRITABLE_COUNT - 1) return SUCCESS;
+		else  // если переменная 2-байтная
+		{
+			varNew = *tmpAddr++;
+		}
+		// если хоть одна переменная поменялась, то будем писать во флеш
+		if (variables[varNum]->value != varNew) 
+			break;
+		// если дошли до конца, и ни одна переменная не поменялась, то ничего не делаем
+		if (varNum == VAR_WRITABLE_COUNT - 1)
+			return SUCCESS;
 	}
-	*/
+	
+	tmpAddr = packStartAddr;
 	
 	for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
 	{
 		if (variables[varNum]->byteSize == HWORD)  // если переменная 2-байтная
 		{
 			variables[varNum]->value = *tmpAddr << 8;
-			variables[varNum]->value |= *(++tmpAddr);
+			variables[varNum]->value |= *(++tmpAddr); // проверить работу с постфиксным
 		} 
 		else
 		{
@@ -156,27 +141,28 @@ uint32_t API_SetVariablePack(void *packStartAddr)
 		
 		++tmpAddr;
 	}
+	
+	API_CopyVariablesPage0ToFlash();
+	
+// собственно функция
+//	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
+//	
+//	tmpAddr = packStartAddr;
+//				
+//	for (uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
+//	{
 
-	
-	/*
-	// собственно функция
-	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
-	
-	tmpAddr = packStartAddr;
-				
-	for (uint8_t i = 0; i < VAR_WRITABLE_COUNT; i++)
-	{
+//		fpage.word[variables[i]->indexOnPage] = variables[i]->value = varNew; // --> ram & iap
+//	}
+//	
+//	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
 
-		fpage.word[variables[i]->indexOnPage] = variables[i]->value = varNew; // --> ram & iap
-	}
+//	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
+//	IAP_CopyRAMToFlashPage(PAGE_NUMBER_VARS, &fpage);
 	
-	fpage.word[FlashResourse.indexOnPage] = UpdateFlashResource(PAGE_NUMBER_VARS);
-
-	IAP_Erase_OnePage(PAGE_NUMBER_VARS);
-	IAP_CopyRAMToFlashPage(PAGE_NUMBER_VARS, &fpage);
-	
-	return SUCCESS;*/
+	return SUCCESS;
 }
+
 
 /*----------------------------------------------------------------------------------------
 // Функция устанавливает статус ключа в IAP
@@ -447,7 +433,11 @@ uint32_t API_CopyKeyByIndex(uint16_t keyIndex, void *dest)
 	return SUCCESS;
 }
 
-
+//----------------------------------------------------------------------------------------
+// Функция проверяет незашифрованный ключ 
+// Args: keyIndex - индекс ключа в IAP
+// Returns: SUCCESS / FAILURE
+//----------------------------------------------------------------------------------------
 uint8_t API_IsKeyValid()
 {
 	// зашифровываем поднесенный ключ в MD5

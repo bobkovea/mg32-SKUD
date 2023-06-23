@@ -132,8 +132,6 @@ void DefineInitialState()
 //	ProtectionDelayDisable(); 
 //}
 
-
-
 // h - handler
 /* **************************** */
 

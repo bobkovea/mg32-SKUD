@@ -46,7 +46,6 @@
 
 // позиции с 0 до 63
 
-	
 void PowerOnHandle(void);
 
 void FlashTestFill(void);
@@ -57,7 +56,9 @@ typedef union
 	uint32_t word[IAP_PAGE_SIZE / 4];
 } FlashPage_t;
 
-extern FlashPage_t fpage;
+// массив-копия страницы флеша. Нужен для удобной перезаписи данных во флеш
+// для удобства обращения к нему представлен в виде объединения выше
+extern FlashPage_t fpage; 
 
 void API_CopyVariablesPage0ToFlash(void);
 
