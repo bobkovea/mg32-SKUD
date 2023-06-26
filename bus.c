@@ -95,6 +95,7 @@ void Bus_ParseWriteRequest9(void)
 	// Проверка контрольной суммы
 	if (CRCisWrong(RecBytes, CommandSize))
 	{
+		CommandSize = 9;
 		Bus_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
 		return;
 	}
@@ -103,14 +104,14 @@ void Bus_ParseWriteRequest9(void)
 	{
 		case SCODE_ACTKEY:
 			operStatus = API_ActivateKey(RecBytes[ACTKEY_OPTYPE_POS], 
-										 RecBytes[ACTKEY_KEYINDEX_LSB_POS], 
-										 RecBytes[ACTKEY_KEYINDEX_MSB_POS]);
+										 RecBytes[ACTKEY_KEYINDEX_MSB_POS], 
+										 RecBytes[ACTKEY_KEYINDEX_LSB_POS]);
 			break;
 		
 		case SCODE_WRITEVAR1:
 			operStatus = API_SetVariable(RecBytes[WRITEVAR1_NUM_POS], 
-										 RecBytes[WRITEVAR1_VALUE_LSB_POS], 
-										 RecBytes[WRITEVAR1_VALUE_MSB_POS]);
+										 RecBytes[WRITEVAR1_VALUE_MSB_POS], 
+										 RecBytes[WRITEVAR1_VALUE_LSB_POS]);
 			break;
 		
 		case SCODE_COMM:
@@ -135,9 +136,6 @@ void Bus_ParseWriteRequest9(void)
 
 void Bus_ParseWriteRequest24(void)
 {
-		
-
-	
 	uint32_t operStatus; // статус успеха операции
 	
 	if (CommandSize != 24)
@@ -149,6 +147,7 @@ void Bus_ParseWriteRequest24(void)
 	// Проверка контрольной суммы
 	if (CRCisWrong(RecBytes, CommandSize))
 	{
+		CommandSize = 4;
 		Bus_ReturnReply(ECODE_WRONG_CRC | FCODE_WRITE4);
 		return;
 	}
@@ -159,8 +158,8 @@ void Bus_ParseWriteRequest24(void)
 	{
 		case SCODE_ADDKEY:
 			operStatus = API_AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
-									RecBytes[ADDKEY_INDEX_LSB_POS], 
 									RecBytes[ADDKEY_INDEX_MSB_POS], 
+									RecBytes[ADDKEY_INDEX_LSB_POS], 
 									&RecBytes[ADDKEY_KEY_MSB_POS]);
 			break;
 		
@@ -191,6 +190,7 @@ void Bus_ParseReadRequest(void)
 	// Проверка контрольной суммы
 	if (CRCisWrong(RecBytes, CommandSize))
 	{
+		CommandSize = 9;
 		Bus_ReturnReply(ECODE_WRONG_CRC | FCODE_READ9);
 		return;
 	}

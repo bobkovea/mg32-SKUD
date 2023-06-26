@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>MG32F02A032</Device>
           <Vendor>Megawin</Vendor>
-          <PackID>Megawin.CM0_DFP.3.6.0</PackID>
+          <PackID>Megawin.CM0_DFP.4.1.0</PackID>
           <PackURL>http://www.megawin.com.tw/upload/media/MCU32/megawinDFP/</PackURL>
           <Cpu>IRAM(0x20000000,0x1000) IROM(0x00000000,0x8000) CPUTYPE("Cortex-M0") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>

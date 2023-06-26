@@ -7,8 +7,8 @@
 #define VAR_PAGE0_COUNT 6
 #define VAR_TOTAL_COUNT 9
 
-#define HWORD 2
 #define BYTE 1
+#define HWORD 2
 
 // значения по умолчанию
 #define __FIRST_WRITE_VALUE 0xAA

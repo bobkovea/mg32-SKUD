@@ -8,13 +8,13 @@ void FlashTestFill(void)
 	API_AddKey(ACTKEY_ACTIVATE, 0, 0, KeyEncrypted); 
 //	
 //	MD5_MakeHash(key2, KEY_RAW_SIZE, KeyEncrypted);
-//	API_AddKey(ACTKEY_ACTIVATE, 1, 0, KeyEncrypted);
+//	API_AddKey(ACTKEY_ACTIVATE, 0, 1, KeyEncrypted);
 //	
 //	MD5_MakeHash(key_em_1, KEY_RAW_SIZE, KeyEncrypted);
-//	API_AddKey(ACTKEY_ACTIVATE, 2, 0, KeyEncrypted);
+//	API_AddKey(ACTKEY_ACTIVATE, 0, 2, KeyEncrypted);
 //	
 //	MD5_MakeHash(key_em_2, KEY_RAW_SIZE, KeyEncrypted);
-//	API_AddKey(ACTKEY_ACTIVATE, 3, 0, KeyEncrypted);
+//	API_AddKey(ACTKEY_ACTIVATE, 0, 3, KeyEncrypted);
 }
 
 /*----------------------------------------------------------------------------------------

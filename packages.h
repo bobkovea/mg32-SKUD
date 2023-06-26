@@ -13,7 +13,7 @@
 #define TOTAL_KEYS_CODE 0x06
 #define ACTIVE_KEYS_CODE 0x07
 #define FLASH_RESOURSE_CODE 0x08
-/* 		*/
+
 
 // макросы для разных посылок
 
@@ -82,8 +82,8 @@
 */
 
 #define ACTKEY_OPTYPE_POS 4
-#define ACTKEY_KEYINDEX_LSB_POS 5
-#define ACTKEY_KEYINDEX_MSB_POS 6
+#define ACTKEY_KEYINDEX_MSB_POS 5
+#define ACTKEY_KEYINDEX_LSB_POS 6
 
 /* 
 2) Установление значения одной переменной (WRITEVAR1)
@@ -105,8 +105,8 @@
 */
 
 #define ADDKEY_ACT_STAT_POS 4
-#define ADDKEY_INDEX_LSB_POS 5
-#define ADDKEY_INDEX_MSB_POS 6
+#define ADDKEY_INDEX_MSB_POS 5
+#define ADDKEY_INDEX_LSB_POS 6
 #define ADDKEY_KEY_MSB_POS 7
 
 /* 

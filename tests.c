@@ -35,10 +35,10 @@
 //	delay_ms(2000);
 //	
 //	URT_WriteWord(API_ActivateKey(ACTKEY_DEACTIVATE, 0, 0));
-//	URT_WriteWord(API_ActivateKey(ACTKEY_ACTIVATE, 1, 0));
-//	URT_WriteWord(API_ActivateKey(ACTKEY_NOACTION, 2, 0)); // error
-//	URT_WriteWord(API_ActivateKey(ACTKEY_NOACTION, 3, 0)); // error
-//	URT_WriteWord(API_ActivateKey(ACTKEY_ACTIVATE, 4, 0));
+//	URT_WriteWord(API_ActivateKey(ACTKEY_ACTIVATE, 0, 1));
+//	URT_WriteWord(API_ActivateKey(ACTKEY_NOACTION, 0, 2)); // error
+//	URT_WriteWord(API_ActivateKey(ACTKEY_NOACTION, 0, 3)); // error
+//	URT_WriteWord(API_ActivateKey(ACTKEY_ACTIVATE, 0, 4));
 
 //	delay_ms(2000);
 //	for (uint32_t i = 0; i < 5; i++)
@@ -47,10 +47,10 @@
 //	}
 //	
 ////	API_AddKey(ACTKEY_ACTIVATE, 0, 0, key1);
-////	API_AddKey(ACTKEY_DEACTIVATE, 1, 0, key2);
-////	API_AddKey(ACTKEY_NOACTION, 2, 0, key3);
-////	API_AddKey(ACTKEY_DEACTIVATE, 3, 0, key4);
-////	API_AddKey(ACTKEY_NOACTION, 4, 0, key5);
+////	API_AddKey(ACTKEY_DEACTIVATE, 0, 1, key2);
+////	API_AddKey(ACTKEY_NOACTION, 0, 2, key3);
+////	API_AddKey(ACTKEY_DEACTIVATE, 0, 3, key4);
+////	API_AddKey(ACTKEY_NOACTION, 0, 4, key5);
 
 //////////////////////////////////////////////////////////////
 
@@ -88,13 +88,13 @@
 // ТЕСТ КОМАНДЫ ДОБАВЛЕНИЕ/ИЗМЕНЕНИЕ КЛЮЧЕЙ
 
 //	API_AddKey(ACTKEY_DEACTIVATE, 0, 0, key_test);
-//	API_AddKey(ACTKEY_DEACTIVATE, 1, 0, keys[0]);
-//	API_AddKey(ACTKEY_NOACTION, 2, 0, key_test);
-//	API_AddKey(ACTKEY_NOACTION, 3, 0, keys[1]);
-//	API_AddKey(ACTKEY_DEACTIVATE, 10, 0, key_test);
-//	API_AddKey(ACTKEY_ACTIVATE, 20, 0, keys[2]);
-//	API_AddKey(ACTKEY_NOACTION, 30, 0, key_test);
-//	API_AddKey(ACTKEY_NOACTION, 40, 0, keys[3]);
+//	API_AddKey(ACTKEY_DEACTIVATE, 0, 1, keys[0]);
+//	API_AddKey(ACTKEY_NOACTION, 0, 2, key_test);
+//	API_AddKey(ACTKEY_NOACTION, 0, 3, keys[1]);
+//	API_AddKey(ACTKEY_DEACTIVATE, 0, 10, key_test);
+//	API_AddKey(ACTKEY_ACTIVATE, 0, 20, keys[2]);
+//	API_AddKey(ACTKEY_NOACTION, 0, 30, key_test);
+//	API_AddKey(ACTKEY_NOACTION, 0, 40, keys[3]);
 
 //	for (uint32_t i = 0; i < 180; i++)
 //	{

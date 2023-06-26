@@ -25,14 +25,15 @@ uint32_t API_GetVariable(uint8_t varNumber)
 uint32_t API_CopyVariable(uint8_t varNumber, void *dest)
 {
 	if (varNumber > VAR_TOTAL_COUNT - 1) return FAILURE; // если номер переменной неверный, то ошибка
-	*(uint16_t *)dest = variables[varNumber]->value;
+	uint8_t* tmp = dest;
+	*tmp++ = variables[varNumber]->value >> 8;
+	*tmp = variables[varNumber]->value;
 	return SUCCESS;
 }
 
 uint32_t API_CopyVariablePack(void *dest)
 {
 	uint8_t *tmpAddr = dest;
-	uint16_t var;
 	
 	for (uint8_t varNum = 0; varNum < VAR_TOTAL_COUNT; varNum++)
 	{
@@ -40,7 +41,7 @@ uint32_t API_CopyVariablePack(void *dest)
 		{
 			*tmpAddr++ = variables[varNum]->value >> 8;
 			*tmpAddr++ = variables[varNum]->value;
-		} 
+		}
 		else // если переменная 1-байтная
 		{
 			*tmpAddr++ = variables[varNum]->value;
@@ -58,7 +59,7 @@ uint32_t API_CopyVariablePack(void *dest)
 //			UINT32_MAX (ошибка, нет такой переменной для изменения)
 //----------------------------------------------------------------------------------------
 
-uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueLSB, uint8_t varValueMSB)
+uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueMSB, uint8_t varValueLSB)
 {
 	// если нет такого номера переменной для изменения, то ошибка
 	if (varNumber > VAR_WRITABLE_COUNT) return FAILURE; 
@@ -173,7 +174,7 @@ uint32_t API_SetVariablePack(void *packStartAddr)
 //			UINT32_MAX (ошибка, см. в коде функции)
 ----------------------------------------------------------------------------------------*/
 
-uint32_t API_ActivateKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB)
+uint32_t API_ActivateKey(uint8_t activationType, uint8_t keyIndexMSB, uint8_t keyIndexLSB)
 {
 	// если неверный аргумент, то ошибка
 	if (activationType > 0x01) return FAILURE;
@@ -332,7 +333,7 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 //	}
 
 //	
-//	return API_AddKey(activationType, TotalKeys.value, TotalKeys.value >> 8, keyStartAddr);
+//	return API_AddKey(activationType, TotalKeys.value >> 8, TotalKeys.value, keyStartAddr);
 //}
 
 
@@ -348,12 +349,12 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 //			UINT32_MAX (ошибка)
 //----------------------------------------------------------------------------------------
 
-uint32_t API_AddKey(uint8_t activationType, uint8_t keyIndexLSB, uint8_t keyIndexMSB, uint8_t *keyStartAddr)
+uint32_t API_AddKey(uint8_t activationType, uint8_t keyIndexMSB, uint8_t keyIndexLSB, uint8_t *keyStartAddr)
 {
 	// если неверный аргумент, но ошибка
 	if (activationType > 0x02) return FAILURE;
 	
-	uint16_t keyIndex = keyIndexLSB | keyIndexMSB << 8;
+	uint16_t keyIndex = keyIndexMSB << 8 | keyIndexLSB;
 
 	// если слишком большой индекс ключа, то ошибка
 	if (keyIndex > KEYS_MAX_INDEX) return FAILURE;
