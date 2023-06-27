@@ -26,7 +26,9 @@ void FlashTestFill(void)
 void PowerOnHandle(void)
 {
 	// если включение НЕ ПЕРВОЕ
-	if (IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS) == __FIRST_WRITE_VALUE)
+	uint32_t magicWord = IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS);
+	
+	if (magicWord == __FIRST_WRITE_VALUE)
 	{
 		// копируем переменные из флеша в ОЗУ
 		for (uint8_t i = 0; i < VAR_PAGE0_COUNT; i++)
@@ -66,7 +68,7 @@ void PowerOnHandle(void)
 	/* Перевод передаваемых величин во внутренние переменные таймеров */
 	gerkonFilterMax = GerkonFiltTime.value / 5; // т.к. период таймера = 5 мс и ед.изм. - мс
 	protectionDelayMax = ProtectionDelayTime.value * 60000 / 5; // т.к. период таймера = 5 мс и ед.изм. - мин
-	alarmTimeoutMax = BuzzerOffTime.value * 60000 / 100; // т.к. период таймера = 100 мс и ед.изм. - мин
+	muteTimeoutMax = BuzzerOffTime.value * 60000 / 100; // т.к. период таймера = 100 мс и ед.изм. - мин
 	
 	// определяем начальное состояние системы
 	DefineInitialState();

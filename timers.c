@@ -19,12 +19,12 @@ void TIM_Config()
 	TM_IT_Config(TM_PROTECTION_DELAY, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
 	TM_ITEA_Cmd(TM_PROTECTION_DELAY, ENABLE); // включаем общие прерывания таймера
 
-	// TM_ALARM_TIMEOUT
-    TM_TimeBase_InitStruct.TM_Period = TM_ALARM_TIMEOUT_PERIOD - 1; 
-    TM_TimeBase_InitStruct.TM_Prescaler = TM_ALARM_TIMEOUT_PRESCALER - 1;
-    TM_TimeBase_Init(TM_ALARM_TIMEOUT, &TM_TimeBase_InitStruct);
-	TM_IT_Config(TM_ALARM_TIMEOUT, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
-	TM_ITEA_Cmd(TM_ALARM_TIMEOUT, ENABLE); // включаем общие прерывания таймера
+	// TM_MUTE_SOUND
+    TM_TimeBase_InitStruct.TM_Period = TM_MUTE_SOUND_PERIOD - 1; 
+    TM_TimeBase_InitStruct.TM_Prescaler = TM_MUTE_SOUND_PRESCALER - 1;
+    TM_TimeBase_Init(TM_MUTE_SOUND, &TM_TimeBase_InitStruct);
+	TM_IT_Config(TM_MUTE_SOUND, TMx_TIE_IE, ENABLE); // включаем прерывание таймера по переполнению
+	TM_ITEA_Cmd(TM_MUTE_SOUND, ENABLE); // включаем общие прерывания таймера
 	
 	// TM_READ_KEY
     TM_TimeBase_InitStruct.TM_Period = TM_READ_KEY_PERIOD - 1; 
@@ -48,7 +48,7 @@ void TIM_Config()
 	NVIC_EnableIRQ(TM3x_IRQn);
 	NVIC_SetPriority(TM3x_IRQn, 2);
 	
-	// TM_ALARM_TIMEOUT
+	// TM_MUTE_SOUND
 	NVIC_EnableIRQ(TM10_IRQn); 
 	NVIC_SetPriority(TM10_IRQn, 3);
 	

@@ -15,8 +15,7 @@ void URT_Rx_Callback(void)
 // T = 5 ms
 void TIM00_Callback (void) // TM_READ_GERKON
 {
-	// если дверь закрыта
-	if (!doorIsOpened)
+	if (!doorIsOpened) // если дверь закрыта
 	{
 		if (!GERKON_PIN) // если дверь открылась
 		{
@@ -72,14 +71,14 @@ void TIM01_Callback (void) // TM_PROTECTION_DELAY
 }
 
 // T = 100 ms
-void TIM10_Callback (void) // TM_ALARM_TIMEOUT
+void TIM10_Callback (void) // TM_MUTE_SOUND
 {
-//	if (alarmTimeoutCnt++ == alarmTimeoutMax)
-//	{
-//		TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE);
-//		alarmTimeoutCnt = 0;
-//		putEvent(eAlarmTimeout);
-//	}
+	if (muteTimeoutCnt++ == muteTimeoutMax)
+	{
+		TM_Timer_Cmd(TM_MUTE_SOUND, DISABLE);
+		muteTimeoutCnt = 0;
+		putEvent(eAlarmTimeout);
+	}
 }
 
 // T = 100 ms
@@ -111,7 +110,6 @@ void TIM36_Callback (void) // TM_INDICAION
 	
 	if (indicTimeCnt == indicTimeMax)
 	{
-		TM_Timer_Cmd(TM_INDICATION, DISABLE);
 		putEvent(eIndicationEnded);
 		return;
 	}

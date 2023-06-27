@@ -5,12 +5,11 @@
 #include "ring_buffer.h"
 #include "gpio.h"
 #include "timers.h"
-#include "md5.h"
 #include "keys.h"
-#include "onewire.h"
 #include "variables.h"
 #include "bus.h"
 #include "api.h"
+#include "onewire.h"
 
 // перерыв в индикации до смены на другой тип индикации
 #define INDIC_WAIT_MAX 1 // 100 мс
@@ -30,7 +29,7 @@
 #define INDIC_CNT_INVALID_KEY (INDIC_PEECNT_INVALID_KEY * INDIC_SPEED_INVALID_KEY * 2)
 
 #define GERKON_FILTER_MAX 20 // 100 мс
-#define ALARM_TIMEOUT_MAX 20 // 2 сек
+#define MUTE_SOUND_MAX 20 // 2 сек
 #define PROTECTION_DELAY_MAX 4000 // 20 сек
 
 // типы индикации
@@ -82,8 +81,8 @@ extern volatile uint8_t indicSpeed;
 extern volatile uint8_t indicationPhase;
 extern volatile uint8_t buzzerIsMuted;
 
-extern volatile uint32_t alarmTimeoutCnt;
-extern volatile uint32_t alarmTimeoutMax;
+extern volatile uint32_t muteTimeoutCnt;
+extern volatile uint32_t muteTimeoutMax;
 
 extern volatile uint32_t gerkonFilterCnt;
 extern volatile uint32_t gerkonFilterMax;
@@ -94,6 +93,7 @@ extern volatile uint32_t protectionDelayMax;
 
 void DefineInitialState(void);
 void HandleEvent(void);
+void SetVariableCallback(uint8_t varNumber);
 
 uint8_t API_IsRawKeyValid(void); // перенести в другой файл
 

@@ -83,7 +83,6 @@ void Bus_ParseMessage(void)
 
 void Bus_ParseWriteRequest9(void)
 {
-
 	uint32_t operStatus; // статус успеха операции
 	
 	if (CommandSize != 9) // как это возможно исходя из логики?
@@ -157,10 +156,18 @@ void Bus_ParseWriteRequest24(void)
 	switch (RecBytes[SCODE_POS])
 	{
 		case SCODE_ADDKEY:
-			operStatus = API_AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
-									RecBytes[ADDKEY_INDEX_MSB_POS], 
-									RecBytes[ADDKEY_INDEX_LSB_POS], 
-									&RecBytes[ADDKEY_KEY_MSB_POS]);
+			if (RecBytes[ADDKEY_INDEX_MSB_POS] == 0xFF && RecBytes[ADDKEY_INDEX_LSB_POS] == 0xFF)
+			{
+				operStatus = API_AddKeySmart(RecBytes[ADDKEY_ACT_STAT_POS],
+											 &RecBytes[ADDKEY_KEY_MSB_POS]);
+			}
+			else
+			{
+				operStatus = API_AddKey(RecBytes[ADDKEY_ACT_STAT_POS], 
+										RecBytes[ADDKEY_INDEX_MSB_POS], 
+										RecBytes[ADDKEY_INDEX_LSB_POS], 
+										&RecBytes[ADDKEY_KEY_MSB_POS]);
+			}
 			break;
 		
 		case SCODE_WRITEVARM:
@@ -279,8 +286,6 @@ void Bus_ReturnReply(uint8_t RetCode)
 
 void Bus_ClearBuffer()
 {
-
-	
     iptr = 0;
     MessLen = 0;
 	parsingStatus = STATUS_COLLECTING_BYTES;

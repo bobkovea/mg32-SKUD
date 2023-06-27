@@ -10,8 +10,8 @@ volatile uint8_t indicSpeed = INDIC_SPEED_ALARM;
 volatile uint8_t buzzerIsMuted = 0;
 volatile uint8_t indicationPhase = 1;
 
-volatile uint32_t alarmTimeoutCnt = 0;
-volatile uint32_t alarmTimeoutMax = ALARM_TIMEOUT_MAX;
+volatile uint32_t muteTimeoutCnt = 0;
+volatile uint32_t muteTimeoutMax = MUTE_SOUND_MAX;
 
 volatile uint32_t gerkonFilterCnt = 0;
 volatile uint32_t gerkonFilterMax = GERKON_FILTER_MAX;
@@ -20,6 +20,35 @@ volatile uint8_t doorIsOpened = 0;
 volatile uint32_t protectionDelayCnt = 0;
 volatile uint32_t protectionDelayMax = PROTECTION_DELAY_MAX;
 
+void ProvideAccessForever();
+void ProtectionDelayEnable(); 
+
+void SetVariableCallback(uint8_t varNumber)
+{
+	/* Перевод передаваемых величин во внутренние переменные таймеров */
+	switch (varNumber)
+	{
+		case 0x00:
+		gerkonFilterMax = GerkonFiltTime.value / 5; // т.к. период таймера = 5 мс и ед.изм. - мс
+		break;
+		
+		case 0x01:
+		protectionDelayMax = ProtectionDelayTime.value * 60000 / 5; // т.к. период таймера = 5 мс и ед.изм. - мин	
+		break;
+		
+		case 0x02:
+		muteTimeoutMax = BuzzerOffTime.value * 60000 / 100; // т.к. период таймера = 100 мс и ед.изм. - мин	
+		break;
+					
+		case 0x03:
+		if (CheckKeyDisabled.value)
+			ProvideAccessForever();
+		else 
+			ProtectionDelayEnable(); 
+		break;
+	}
+}
+	
 void IndicationStart(Indication_t indicType)
 {
 	BUZZER_OFF();
@@ -54,7 +83,7 @@ void IndicationStart(Indication_t indicType)
 
 void IndicationStop()
 {
-//	TM_Timer_Cmd(TM_INDICATION, DISABLE);
+	TM_Timer_Cmd(TM_INDICATION, DISABLE);
 	BUZZER_OFF();
 	STALED_OFF();
 	buzzerIsMuted = 0;
@@ -62,15 +91,15 @@ void IndicationStop()
 	indicationPhase = 1;
 };
 
-void AlarmCountdownEnable() // -static inline
+void MuteBuzzerCountdownEnable()
 {
-	TM_Timer_Cmd(TM_ALARM_TIMEOUT, ENABLE); 
+	muteTimeoutCnt = 0;
+	TM_Timer_Cmd(TM_MUTE_SOUND, ENABLE); 
 }
 
-void AlarmCountdownDisable()
+void MuteBuzzerCountdownDisable()
 {
-	TM_Timer_Cmd(TM_ALARM_TIMEOUT, DISABLE); 
-	alarmTimeoutCnt = 0;
+	TM_Timer_Cmd(TM_MUTE_SOUND, DISABLE); 
 }
 
 void ReadingKeyEnable()
@@ -102,7 +131,7 @@ void MuteBuzzer()
 
 void UnmuteBuzzer()
 {
-	BACKL_PIN = !indicationPhase;
+	BACKL_PIN = !indicationPhase; // изменить BACKL_PIN
 	buzzerIsMuted = FALSE;
 }
 
@@ -110,27 +139,28 @@ void DefineInitialState()
 {
 	if (CheckKeyDisabled.value) // если включен режим доступа без ключа
 	{ 
-		currentState = sAccessGiven; // переходим 
-		AccessIsGiven.value = 1; // так, для виду
+		currentState = sAccessGiven; // переходим в состояние доступа до выключения режима доступа без ключа
 	}
 	
-	else if (AccessIsGiven.value) 
+	else if (AccessIsGiven.value) // если до этого был введен верный ключ
 	{
-		currentState = sAccessGiven;
+		currentState = sAccessGiven; // переходим в состояние доступа
 		ProtectionDelayEnable(); // и запускаем отсчет времени доступа
 	}
 	else
 	{
-		currentState = sNoAccessSleep;
+		currentState = sNoAccessSleep; // переходим в состояние сна (нормальная ситуация)
 	}
 }
 
-//void ProvideAccessForever()
-//{
-//	IndicationStop();
-//	ReadingKeyDisable();
-//	ProtectionDelayDisable(); 
-//}
+void ProvideAccessForever()
+{
+	IndicationStop();
+	ReadingKeyDisable();
+	ProtectionDelayDisable(); 
+	MuteBuzzerCountdownDisable();
+	currentState = sAccessGiven; // переходим 
+}
 
 // h - handler
 /* **************************** */
@@ -138,7 +168,7 @@ void DefineInitialState()
 // переход из состояния сна в состояние ожидания ввода ключа
 void hSleepToWaiting(State_t state, Event_t event)
 {
-	AlarmCountdownEnable(); // отсчет до тревоги запущен
+	MuteBuzzerCountdownEnable(); // отсчет до заглушения индикации начат
 	ReadingKeyEnable(); // чтение ключей начато
 	IndicationStart(AlarmCommon); // начинаем проигрывать сигнал, требуя ввести ключ
 }
@@ -146,19 +176,21 @@ void hSleepToWaiting(State_t state, Event_t event)
 // переход из состояния ожидания ввода ключа в состояние после ввода верного ключа
 void hWaitingToAccess(State_t state, Event_t event)
 {
-	AccessIsGiven.value = 1;
-	ValidKeyIndex.value = CurKeyIndex; // 
+	AccessIsGiven.value = 1; // запоминаем, что доступ был выдан
+	ValidKeyIndex.value = CurKeyIndex; // запоминаем индекс открывшего ключа
 	API_CopyVariablesPage0ToFlash();  // обновляем первую страницу флеша с переменными
 	
-	AlarmCountdownDisable(); // отсчет до тревоги остановлен
 	ReadingKeyDisable(); // чтение ключей остановлено
-	ProtectionDelayEnable(); // чтение ключей остановлено
+	ProtectionDelayEnable(); // запускаем отсчет времени доступа
+	
+	MuteBuzzerCountdownDisable(); // отсчет до заглушения индикации остановлен
+	UnmuteBuzzer(); // включаем пищалку, если вдруг звук был заглушен по таймеру
 	IndicationStart(ValidKey); // проигрываем сигнал верного ключа
 }
 // переход из состояния после ввода верного ключа в состояние сна
 void hAccessToSleep(State_t state, Event_t event)
 {
-	AccessIsGiven.value = 0;
+	AccessIsGiven.value = 0; // запоминаем, что доступ закончился
 	API_CopyVariablesPage0ToFlash();
 	// если дверь открыта, то сразу тревога
 	if (doorIsOpened)
@@ -168,7 +200,10 @@ void hAccessToSleep(State_t state, Event_t event)
 // логика разрешения чтения ключей жестко связана с логикой индикации, но здесь это оправдано
 void hReadingKeySuspend(State_t state, Event_t event)
 {
-	ReadingKeyDisable(); // прекращаем чтение ключа на интервал времени
+	ReadingKeyDisable(); // прекращаем чтение ключа на время проигрывания индикации
+	
+	UnmuteBuzzer(); // если вдруг звук заглушен по таймеру, то включаем вновь
+	MuteBuzzerCountdownEnable(); // запускаем отсчет заглушения пищалки
 	IndicationStart(InvalidKey); // прогрываем сигнал неверного ключа
 }
 
@@ -180,23 +215,23 @@ void hReadingKeyResume(State_t state, Event_t event)
 
 void hDoorClosedNoAccess(State_t state, Event_t event)
 {	
-	ReadingKeyDisable(); // прекращаем чтение ключа пока дверь не откроют
+	ReadingKeyDisable(); // прекращаем чтение ключа пока дверь вновь не откроют
+	
+	MuteBuzzerCountdownDisable(); // дверь закрылась раньше таймера - убираем отсчет заглушения пищалки
 	MuteBuzzer(); // оставляем только световую индикацию
 }
 
 void hDoorOpenedNoAccess(State_t state, Event_t event)
 {
 	ReadingKeyEnable(); // возобновляем чтение ключа
-	UnmuteBuzzer(); // опять включаем звук в дополнение к световой индикации
 	
-	// возможно опять вкл.
+	UnmuteBuzzer(); // опять включаем звук в дополнение к световой индикации
+	MuteBuzzerCountdownEnable(); // вновь запускаем отсчет заглушения пищалки
 }
 
-void hSendAlarmEvent(State_t state, Event_t event)
+void hMuteBuzzer(State_t state, Event_t event)
 {
-	MuteBuzzer(); // если закрыть и открыть опять дверь, то бесконечно опять будет пищать
-	// доработать
-	
+	MuteBuzzer();	
 }
 
 void hIndicationStop(State_t state, Event_t event)
@@ -227,7 +262,7 @@ Transition_t FSMTable[3][8] =
 	[sNoAccessWaitingKey][eDoorClosed] 			= { sNoAccessWaitingKey, hDoorClosedNoAccess },
 	[sNoAccessWaitingKey][eEnteredValidKey] 	= { sAccessGiven, hWaitingToAccess },
 	[sNoAccessWaitingKey][eEnteredInvalidKey] 	= { sNoAccessWaitingKey, hReadingKeySuspend },
-	[sNoAccessWaitingKey][eAlarmTimeout] 		= { sNoAccessWaitingKey, hSendAlarmEvent },
+	[sNoAccessWaitingKey][eAlarmTimeout] 		= { sNoAccessWaitingKey, hMuteBuzzer },
 	[sNoAccessWaitingKey][eProtectionRestored] 	= { sNoAccessWaitingKey, NULL }, 
 	[sNoAccessWaitingKey][eIndicationEnded] 	= { sNoAccessWaitingKey, hReadingKeyResume },
 	[sNoAccessWaitingKey][eBusMessage] 			= { sNoAccessWaitingKey, hParseBusMessage },
@@ -251,13 +286,6 @@ void HandleEvent()
 	Event_t newEvent = getEvent(); // получаем новый ивент из буфера
 	if (newEvent != eNoEvent)
 	{
-//		URT_PrintString("Event: ");
-//		URT_Write(newEvent + '0');
-//		URT_PrintString("\r\n");
-//		URT_PrintString("CurState: ");
-//		URT_Write(currentState + '0');
-//		URT_PrintString("\r\n");
-		
 		// реакция на событие в зависимости от текущего состояния
 		// почему это работает?
 		TransitionCallback_t worker = FSMTable[currentState][newEvent].worker;
@@ -267,11 +295,6 @@ void HandleEvent()
 		}
 		
 		currentState = FSMTable[currentState][newEvent].newState; // переходим в новое состояние
-		
-//		URT_PrintString("NewState: ");
-//		URT_Write(currentState + '0');
-//		URT_PrintString("\r\n");
-//		URT_PrintString("*********");
-//		URT_PrintString("\r\n");
+
 	}
 }

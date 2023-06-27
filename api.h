@@ -13,6 +13,7 @@ uint32_t API_ActivateKey(uint8_t operationType, uint8_t keyIndexMSB, uint8_t key
 uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueMSB, uint8_t varValueLSB);
 uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg);
 
+uint32_t API_AddKeySmart(uint8_t newStatus, uint8_t *keyMSB);
 uint32_t API_AddKey(uint8_t newStatus, uint8_t keyIndexMSB, uint8_t keyIndexLSB, uint8_t *keyMSB);
 uint32_t API_SetVariablePack(void *packStartAddr);
 

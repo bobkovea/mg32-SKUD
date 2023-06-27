@@ -74,10 +74,8 @@ uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueMSB, uint8_t varValu
 	
 	API_CopyVariablesPage0ToFlash();
 	
-	/* Перевод передаваемых величин во внутренние переменные таймеров */
-	gerkonFilterMax = GerkonFiltTime.value / 5; // т.к. период таймера = 5 мс и ед.изм. - мс
-	protectionDelayMax = ProtectionDelayTime.value * 60000 / 5; // т.к. период таймера = 5 мс и ед.изм. - мин
-	alarmTimeoutMax = BuzzerOffTime.value * 60000 / 100; // т.к. период таймера = 100 мс и ед.изм. - мин
+	SetVariableCallback(varNumber); 
+
 	
 	/*
 	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS);
@@ -125,7 +123,7 @@ uint32_t API_SetVariablePack(void *packStartAddr)
 		if (varNum == VAR_WRITABLE_COUNT - 1)
 			return SUCCESS;
 	}
-	
+
 	tmpAddr = packStartAddr;
 	
 	for(uint8_t varNum = 0; varNum < VAR_WRITABLE_COUNT; varNum++)
@@ -140,12 +138,15 @@ uint32_t API_SetVariablePack(void *packStartAddr)
 			variables[varNum]->value = *tmpAddr;
 		}
 		
+		SetVariableCallback(varNum); 
+		
 		++tmpAddr;
 	}
 	
 	API_CopyVariablesPage0ToFlash();
 	
-// собственно функция
+	
+	
 //	IAP_CopyFlashPageToRAM(PAGE_NUMBER_VARS, &fpage);
 //	
 //	tmpAddr = packStartAddr;
@@ -168,10 +169,10 @@ uint32_t API_SetVariablePack(void *packStartAddr)
 /*----------------------------------------------------------------------------------------
 // Функция устанавливает статус ключа в IAP
 // Args:	activationType - тип операции (деактивация или активация)
-// 			keyIndexLSB - младший байт индекса ключа; 
-// 			keyIndexMSB - старший байт индекса ключа
+ 			keyIndexLSB - младший байт индекса ключа; 
+ 			keyIndexMSB - старший байт индекса ключа
 // Returns: 0 (успех); 
-//			UINT32_MAX (ошибка, см. в коде функции)
+			UINT32_MAX (ошибка, см. в коде функции)
 ----------------------------------------------------------------------------------------*/
 
 uint32_t API_ActivateKey(uint8_t activationType, uint8_t keyIndexMSB, uint8_t keyIndexLSB)
@@ -224,9 +225,9 @@ uint32_t API_ActivateKey(uint8_t activationType, uint8_t keyIndexMSB, uint8_t ke
 /*----------------------------------------------------------------------------------------
 // Функция реализует выполнение общих команд по протоколу
 // Args:	commNum - порядковый номер команды по протоколу
-// 			commArg - аргумент команды по протоколу; 
+ 			commArg - аргумент команды по протоколу; 
 // Returns: 0 (успех); 
-//			UINT32_MAX (ошибка)
+			UINT32_MAX (ошибка)
 ----------------------------------------------------------------------------------------*/
 
 uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
@@ -312,42 +313,34 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 	return SUCCESS;
 }
 
+uint32_t API_AddKeySmart(uint8_t activationType, uint8_t *keyStartAddr)
+{
+	// проверка дубликатов среди всех ключей в памяти
+	for (uint16_t keyIndex; keyIndex < TotalKeys.value; keyIndex++)
+	{
+		// если найден дубликат, то только меняем его статус активации на переданный
+		if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE,  
+							 keyStartAddr,
+							 KEY_ENCRYPTED_SIZE))
+		{
+			return API_ActivateKey(activationType, keyIndex >> 8, keyIndex);
+		}
+	}
+	
+	// если дубликаты не найдены, то записываем ключ на последнее место
+	return API_AddKey(activationType, TotalKeys.value >> 8, TotalKeys.value, keyStartAddr);
+}
 
-
-
-//uint32_t API_AddKeyLastPos(uint8_t activationType, uint8_t *keyStartAddr)
-//{
-//	// ищем копии
-//	for (uint16_t keyIndex; keyIndex < TotalKeys.value;  keyIndex++)
-//	{
-//		{
-//		
-//		
-//		}
-//		if (IAP_IsEqualToRAM(1,  keyStartAddr , KEY_ENCRYPTED_SIZE)
-//		{
-//			API_GetKeyStatus(keyIndex);
-//			activationType
-//		}
-//			return SUCCESS;
-//	}
-
-//	
-//	return API_AddKey(activationType, TotalKeys.value >> 8, TotalKeys.value, keyStartAddr);
-//}
-
-
-
-//----------------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------------------
 // Функция реализует операцию добавления/изменения ключей доступа по индексу
 // Args:	activationType - новый статус активации ключа после выполнения операции
-// 			keyIndexLSB - младший байт индекса ключа; 
-// 			keyIndexMSB - старший байт индекса ключа;
-//			keyStartAddr - указатель на первый байт ключа в массиве
-//			
+ 			keyIndexLSB - младший байт индекса ключа; 
+ 			keyIndexMSB - старший байт индекса ключа;
+			keyStartAddr - указатель на первый байт ключа в массиве
+			
 // Returns: 0 (успех); 
-//			UINT32_MAX (ошибка)
-//----------------------------------------------------------------------------------------
+			UINT32_MAX (ошибка)
+//----------------------------------------------------------------------------------------*/
 
 uint32_t API_AddKey(uint8_t activationType, uint8_t keyIndexMSB, uint8_t keyIndexLSB, uint8_t *keyStartAddr)
 {
