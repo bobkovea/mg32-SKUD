@@ -308,7 +308,7 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 		
 		default:
 			return FAILURE;
-	}
+	} 
 	
 	return SUCCESS;
 }
@@ -316,16 +316,16 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg)
 uint32_t API_AddKeySmart(uint8_t activationType, uint8_t *keyStartAddr)
 {
 	// проверка дубликатов среди всех ключей в памяти
-	for (uint16_t keyIndex; keyIndex < TotalKeys.value; keyIndex++)
+	for (uint16_t keyIndex = 0; keyIndex < TotalKeys.value; keyIndex++)
 	{
-		// если найден дубликат, то только меняем его статус активации на переданный
-		if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE,  
-							 keyStartAddr,
-							 KEY_ENCRYPTED_SIZE))
+		// если найден дубликат, то только лишь меняем его статус активации на переданный
+		if (API_IsKeyEqual(keyIndex, keyStartAddr))
 		{
 			return API_ActivateKey(activationType, keyIndex >> 8, keyIndex);
 		}
 	}
+	// если вся память заполнена, то ничего не пишем
+	if (TotalKeys.value == KEYS_MAX_INDEX + 1) return FAILURE; 
 	
 	// если дубликаты не найдены, то записываем ключ на последнее место
 	return API_AddKey(activationType, TotalKeys.value >> 8, TotalKeys.value, keyStartAddr);
@@ -431,8 +431,6 @@ uint32_t API_AddKey(uint8_t activationType, uint8_t keyIndexMSB, uint8_t keyInde
 
 uint32_t API_GetKeyStatus(uint16_t keyIndex)
 {
-//	if (keyIndex > TotalKeys.value) return FAILURE;
-	
 	return IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex);
 }
 
@@ -444,13 +442,20 @@ uint32_t API_GetKeyStatus(uint16_t keyIndex)
 
 uint32_t API_CopyKeyByIndex(uint16_t keyIndex, void *dest)
 {
-//	if (keyIndex > TotalKeys.value) return FAILURE;
+	if (keyIndex > TotalKeys.value) return FAILURE;
 	
 	memcpy(dest, 
 		   (void *)(IAP_START_ADDRESS + PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + KEY_ENCRYPTED_SIZE * keyIndex), 
 		   KEY_ENCRYPTED_SIZE);
 		   
 	return SUCCESS;
+}
+
+uint8_t API_IsKeyEqual(uint16_t keyIndex, uint8_t *checkingKey) // static
+{
+	return IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, 
+							checkingKey, 
+							KEY_ENCRYPTED_SIZE);
 }
 
 //----------------------------------------------------------------------------------------
@@ -466,16 +471,16 @@ uint8_t API_IsRawKeyValid()
 	// Ищем только среди активированных
 	for (uint16_t keyIndex = 0; keyIndex < TotalKeys.value; keyIndex++)
     {
-		if (IAP_ReadByte(PAGE_NUMBER_KEYSTATUS, keyIndex) == KEY_STATUS_ACTIVATED)
+		if (API_GetKeyStatus(keyIndex) == KEY_STATUS_ACTIVATED)
 		{
-			if (IAP_IsEqualToRAM(PAGE_NUMBER_KEYS_0 * IAP_PAGE_SIZE + keyIndex * KEY_ENCRYPTED_SIZE, 
-								 KeyEncrypted, 
-								 KEY_ENCRYPTED_SIZE))
+			if (API_IsKeyEqual(keyIndex, KeyEncrypted))
 			{
 				CurKeyIndex = keyIndex;
-				return KEY_STATUS_ACTIVATED;
+				return KEY_IS_VALID;
 			}
 		}
     }
-	return KEY_STATUS_DEACTIVATED;
+	return KEY_IS_INVALID;
 }
+
+

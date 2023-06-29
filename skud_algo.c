@@ -23,6 +23,7 @@ volatile uint32_t protectionDelayMax = PROTECTION_DELAY_MAX;
 void ProvideAccessForever();
 void ProtectionDelayEnable(); 
 
+// Реакция на изменение значения переменной по протоколу
 void SetVariableCallback(uint8_t varNumber)
 {
 	/* Перевод передаваемых величин во внутренние переменные таймеров */

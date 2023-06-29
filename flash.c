@@ -62,7 +62,9 @@ void PowerOnHandle(void)
 		IAP_WriteSingleWord(PAGE_NUMBER_KEYSTATUS, ActiveKeys.indexOnPage, ActiveKeys.factoryValue);
 		
 		// + добавим ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
+
 		FlashTestFill(); 
+
 	}
 	
 	/* Перевод передаваемых величин во внутренние переменные таймеров */
@@ -72,6 +74,8 @@ void PowerOnHandle(void)
 	
 	// определяем начальное состояние системы
 	DefineInitialState();
+	
+	
 }
 
 

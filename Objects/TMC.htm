@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\TMC.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\TMC.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Tue Jun 27 16:01:29 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Thu Jun 29 11:39:22 2023
 <BR><P>
 <H3>Maximum Stack Usage =        372 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -199,14 +199,14 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[3f]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseReadRequest
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
-<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyKeyByIndex
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyKeyByIndex
 <LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
 </UL>
 
 <P><STRONG><a name="[3a]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_ActivateKey
 </UL>
 
@@ -229,7 +229,7 @@ Global Symbols
 
 <P><STRONG><a name="[6d]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_Final
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
 </UL>
 
 <P><STRONG><a name="[9b]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
@@ -238,10 +238,11 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
 
-<P><STRONG><a name="[47]"></a>memcmp</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, memcmp.o(.text))
+<P><STRONG><a name="[41]"></a>memcmp</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, memcmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = memcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_IsRawKeyValid
+<BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKeySmart
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_IsRawKeyValid
 </UL>
 
 <P><STRONG><a name="[9c]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, uidiv_div0.o(.text), UNUSED)
@@ -296,6 +297,7 @@ Global Symbols
 <LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseWriteRequest9
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKeySmart
 </UL>
 
 <P><STRONG><a name="[3e]"></a>API_AddKey</STRONG> (Thumb, 268 bytes, Stack size 40 bytes, api.o(.text.API_AddKey))
@@ -312,15 +314,17 @@ Global Symbols
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerOnHandle
 </UL>
 
-<P><STRONG><a name="[40]"></a>API_AddKeySmart</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, api.o(.text.API_AddKeySmart))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
+<P><STRONG><a name="[40]"></a>API_AddKeySmart</STRONG> (Thumb, 160 bytes, Stack size 24 bytes, api.o(.text.API_AddKeySmart))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
+<LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_ActivateKey
+<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseWriteRequest24
 </UL>
 
-<P><STRONG><a name="[41]"></a>API_CopyKeyByIndex</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, api.o(.text.API_CopyKeyByIndex))
+<P><STRONG><a name="[42]"></a>API_CopyKeyByIndex</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, api.o(.text.API_CopyKeyByIndex))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = API_CopyKeyByIndex
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
@@ -340,10 +344,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseReadRequest
 </UL>
 
-<P><STRONG><a name="[42]"></a>API_CopyVariablesPage0ToFlash</STRONG> (Thumb, 88 bytes, Stack size 24 bytes, flash.o(.text.API_CopyVariablesPage0ToFlash))
+<P><STRONG><a name="[43]"></a>API_CopyVariablesPage0ToFlash</STRONG> (Thumb, 88 bytes, Stack size 24 bytes, flash.o(.text.API_CopyVariablesPage0ToFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = API_CopyVariablesPage0ToFlash &rArr; IAP_Erase_Page
 </UL>
-<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Single_Write
+<BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Single_Write
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Erase_Page
 </UL>
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseReadRequest
@@ -353,7 +357,7 @@ Global Symbols
 <LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hWaitingToAccess
 </UL>
 
-<P><STRONG><a name="[44]"></a>API_DoCommand</STRONG> (Thumb, 244 bytes, Stack size 24 bytes, api.o(.text.API_DoCommand))
+<P><STRONG><a name="[45]"></a>API_DoCommand</STRONG> (Thumb, 244 bytes, Stack size 24 bytes, api.o(.text.API_DoCommand))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = API_DoCommand &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Multiple_Write
@@ -364,11 +368,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseWriteRequest9
 </UL>
 
-<P><STRONG><a name="[45]"></a>API_IsRawKeyValid</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, api.o(.text.API_IsRawKeyValid))
+<P><STRONG><a name="[46]"></a>API_IsRawKeyValid</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, api.o(.text.API_IsRawKeyValid))
 <BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = API_IsRawKeyValid &rArr; MD5_MakeHash &rArr; MD5_Final &rArr; body
 </UL>
-<BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
-<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
+<BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
+<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM16_Callback
 </UL>
@@ -376,7 +380,7 @@ Global Symbols
 <P><STRONG><a name="[48]"></a>API_SetVariable</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, api.o(.text.API_SetVariable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = API_SetVariable &rArr; API_CopyVariablesPage0ToFlash &rArr; IAP_Erase_Page
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariableCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseWriteRequest9
@@ -385,7 +389,7 @@ Global Symbols
 <P><STRONG><a name="[4a]"></a>API_SetVariablePack</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, api.o(.text.API_SetVariablePack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = API_SetVariablePack &rArr; API_CopyVariablesPage0ToFlash &rArr; IAP_Erase_Page
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetVariableCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseWriteRequest24
@@ -405,7 +409,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[4e]"></a>Bus_ParseMessage</STRONG> (Thumb, 148 bytes, Stack size 24 bytes, bus.o(.text.Bus_ParseMessage))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = Bus_ParseMessage &rArr; Bus_ParseWriteRequest24 &rArr; API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = Bus_ParseMessage &rArr; Bus_ParseWriteRequest24 &rArr; API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_SetTXData
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
@@ -425,14 +429,14 @@ Global Symbols
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablePack
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariable
-<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseMessage
 </UL>
 
 <P><STRONG><a name="[51]"></a>Bus_ParseWriteRequest24</STRONG> (Thumb, 444 bytes, Stack size 24 bytes, bus.o(.text.Bus_ParseWriteRequest24))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = Bus_ParseWriteRequest24 &rArr; API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = Bus_ParseWriteRequest24 &rArr; API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRCisWrong
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_SetTXData
@@ -450,7 +454,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRCisWrong
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;URT_SetTXData
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Do_CRC
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_ActivateKey
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_SetVariable
 </UL>
@@ -595,23 +599,23 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = IAP_Erase_Page
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_ActivateKey
-<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
 </UL>
 
 <P><STRONG><a name="[3d]"></a>IAP_Multiple_Write</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, iap.o(.text.IAP_Multiple_Write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = IAP_Multiple_Write
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_ActivateKey
 </UL>
 
-<P><STRONG><a name="[43]"></a>IAP_Single_Write</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, iap.o(.text.IAP_Single_Write))
+<P><STRONG><a name="[44]"></a>IAP_Single_Write</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, iap.o(.text.IAP_Single_Write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = IAP_Single_Write
 </UL>
-<BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
+<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerOnHandle
 </UL>
 
@@ -634,10 +638,10 @@ Global Symbols
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
+<BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
 </UL>
 
-<P><STRONG><a name="[46]"></a>MD5_MakeHash</STRONG> (Thumb, 108 bytes, Stack size 176 bytes, md5.o(.text.MD5_MakeHash))
+<P><STRONG><a name="[47]"></a>MD5_MakeHash</STRONG> (Thumb, 108 bytes, Stack size 176 bytes, md5.o(.text.MD5_MakeHash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 332<LI>Call Chain = MD5_MakeHash &rArr; MD5_Final &rArr; body
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_Final
@@ -645,7 +649,7 @@ Global Symbols
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_IsRawKeyValid
+<BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_IsRawKeyValid
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerOnHandle
 </UL>
 
@@ -705,9 +709,9 @@ Global Symbols
 <P><STRONG><a name="[73]"></a>PowerOnHandle</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, flash.o(.text.PowerOnHandle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = PowerOnHandle &rArr; MD5_MakeHash &rArr; MD5_Final &rArr; body
 </UL>
-<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Single_Write
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
-<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyKeyByIndex
+<BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Single_Write
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyKeyByIndex
 <LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DefineInitialState
 </UL>
@@ -769,7 +773,7 @@ Global Symbols
 <P><STRONG><a name="[78]"></a>TIM16_Callback</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, isr.o(.text.TIM16_Callback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = TIM16_Callback &rArr; API_IsRawKeyValid &rArr; MD5_MakeHash &rArr; MD5_Final &rArr; body
 </UL>
-<BR>[Calls]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_IsRawKeyValid
+<BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_IsRawKeyValid
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;putEvent
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
@@ -934,7 +938,7 @@ Global Symbols
 
 <P><STRONG><a name="[3b]"></a>UpdateFlashResource</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, flash.o(.text.UpdateFlashResource))
 <BR><BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_DoCommand
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_ActivateKey
 </UL>
 
@@ -952,7 +956,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = body
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_Final
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
 </UL>
 
 <P><STRONG><a name="[69]"></a>getEvent</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, ring_buffer.o(.text.getEvent))
@@ -962,7 +966,7 @@ Global Symbols
 <P><STRONG><a name="[8]"></a>hAccessToSleep</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, skud_algo.o(.text.hAccessToSleep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = hAccessToSleep &rArr; API_CopyVariablesPage0ToFlash &rArr; IAP_Erase_Page
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;putEvent
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> skud_algo.o(.data.FSMTable)
@@ -993,7 +997,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> skud_algo.o(.data.FSMTable)
 </UL>
 <P><STRONG><a name="[1]"></a>hParseBusMessage</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, skud_algo.o(.text.hParseBusMessage))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = hParseBusMessage &rArr; Bus_ParseMessage &rArr; Bus_ParseWriteRequest24 &rArr; API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = hParseBusMessage &rArr; Bus_ParseMessage &rArr; Bus_ParseWriteRequest24 &rArr; API_AddKeySmart &rArr; API_AddKey &rArr; IAP_Multiple_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseMessage
 </UL>
@@ -1024,7 +1028,7 @@ Global Symbols
 <P><STRONG><a name="[3]"></a>hWaitingToAccess</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, skud_algo.o(.text.hWaitingToAccess))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = hWaitingToAccess &rArr; API_CopyVariablesPage0ToFlash &rArr; IAP_Erase_Page
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyVariablesPage0ToFlash
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OneWire_SetDirection
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TM_Timer_Cmd
 </UL>

@@ -23,10 +23,10 @@ uint32_t API_CopyVariablePack(void *dest);
 
 uint32_t API_GetKeyStatus(uint16_t keyIndex);
 uint32_t API_CopyKeyByIndex(uint16_t keyIndex, void *dest);
-
+	
 uint32_t GetMaxFlashResource(void);
 uint32_t UpdateFlashResource(uint8_t curPageNumber);
 
 uint8_t API_IsRawKeyValid();
-
+uint8_t API_IsKeyEqual(uint16_t keyIndex, uint8_t *checkingKey);
 #endif // API_H

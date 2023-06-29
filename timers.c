@@ -1,5 +1,7 @@
 #include "timers.h"
 
+// инициализация таймеров
+
 void TIM_Config()
 {
 	TM_TimeBaseInitTypeDef TM_TimeBase_InitStruct;
