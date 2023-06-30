@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\TMC.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\TMC.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Thu Jun 29 11:39:22 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Fri Jun 30 13:35:49 2023
 <BR><P>
 <H3>Maximum Stack Usage =        372 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -311,7 +311,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseWriteRequest24
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKeySmart
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerOnHandle
 </UL>
 
 <P><STRONG><a name="[40]"></a>API_AddKeySmart</STRONG> (Thumb, 160 bytes, Stack size 24 bytes, api.o(.text.API_AddKeySmart))
@@ -322,6 +321,7 @@ Global Symbols
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bus_ParseWriteRequest24
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerOnHandle
 </UL>
 
 <P><STRONG><a name="[42]"></a>API_CopyKeyByIndex</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, api.o(.text.API_CopyKeyByIndex))
@@ -706,13 +706,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DS1990A_GetKeyID
 </UL>
 
-<P><STRONG><a name="[73]"></a>PowerOnHandle</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, flash.o(.text.PowerOnHandle))
+<P><STRONG><a name="[73]"></a>PowerOnHandle</STRONG> (Thumb, 244 bytes, Stack size 24 bytes, flash.o(.text.PowerOnHandle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = PowerOnHandle &rArr; MD5_MakeHash &rArr; MD5_Final &rArr; body
 </UL>
 <BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IAP_Single_Write
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MD5_MakeHash
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_CopyKeyByIndex
-<LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKey
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;API_AddKeySmart
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DefineInitialState
 </UL>
 <BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main

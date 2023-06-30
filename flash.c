@@ -4,17 +4,11 @@ FlashPage_t fpage; // копия страницы флеша, размер ра�
 
 void FlashTestFill(void)
 {
-	MD5_MakeHash(key1, KEY_RAW_SIZE, KeyEncrypted);
-	API_AddKey(ACTKEY_ACTIVATE, 0, 0, KeyEncrypted); 
-//	
-//	MD5_MakeHash(key2, KEY_RAW_SIZE, KeyEncrypted);
-//	API_AddKey(ACTKEY_ACTIVATE, 0, 1, KeyEncrypted);
-//	
-//	MD5_MakeHash(key_em_1, KEY_RAW_SIZE, KeyEncrypted);
-//	API_AddKey(ACTKEY_ACTIVATE, 0, 2, KeyEncrypted);
-//	
-//	MD5_MakeHash(key_em_2, KEY_RAW_SIZE, KeyEncrypted);
-//	API_AddKey(ACTKEY_ACTIVATE, 0, 3, KeyEncrypted);
+//	MD5_MakeHash(key1, KEY_RAW_SIZE, KeyEncrypted);
+//	API_AddKey(ACTKEY_ACTIVATE, 0, 0, KeyEncrypted); 
+
+	MD5_MakeHash(key_em_1, KEY_RAW_SIZE, KeyEncrypted);
+	API_AddKeySmart(ACTKEY_ACTIVATE, KeyEncrypted);
 }
 
 /*----------------------------------------------------------------------------------------
@@ -25,9 +19,10 @@ void FlashTestFill(void)
 
 void PowerOnHandle(void)
 {
-	// если включение НЕ ПЕРВОЕ
+	
 	uint32_t magicWord = IAP_ReadWord(PAGE_NUMBER_VARS, FIRST_WRITE_VALUE_POS);
 	
+	// если включение НЕ ПЕРВОЕ
 	if (magicWord == __FIRST_WRITE_VALUE)
 	{
 		// копируем переменные из флеша в ОЗУ
@@ -64,7 +59,6 @@ void PowerOnHandle(void)
 		// + добавим ключи по умолчанию и их статусы (мб т.н. мастер-ключ)
 
 		FlashTestFill(); 
-
 	}
 	
 	/* Перевод передаваемых величин во внутренние переменные таймеров */
