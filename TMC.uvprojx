@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -387,97 +387,97 @@
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
+              <FilePath>.\src\main.c</FilePath>
             </File>
             <File>
               <FileName>isr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\isr.c</FilePath>
+              <FilePath>.\src\isr.c</FilePath>
             </File>
             <File>
               <FileName>skud_algo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\skud_algo.c</FilePath>
+              <FilePath>.\src\skud_algo.c</FilePath>
             </File>
             <File>
               <FileName>api.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\api.c</FilePath>
+              <FilePath>.\src\api.c</FilePath>
             </File>
             <File>
               <FileName>bus.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\bus.c</FilePath>
+              <FilePath>.\src\bus.c</FilePath>
             </File>
             <File>
               <FileName>timers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\timers.c</FilePath>
+              <FilePath>.\src\timers.c</FilePath>
             </File>
             <File>
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\gpio.c</FilePath>
+              <FilePath>.\src\gpio.c</FilePath>
             </File>
             <File>
               <FileName>keys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\keys.c</FilePath>
+              <FilePath>.\src\keys.c</FilePath>
             </File>
             <File>
               <FileName>flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\flash.c</FilePath>
+              <FilePath>.\src\flash.c</FilePath>
             </File>
             <File>
               <FileName>variables.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\variables.c</FilePath>
+              <FilePath>.\src\variables.c</FilePath>
             </File>
             <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\usart.c</FilePath>
+              <FilePath>.\src\usart.c</FilePath>
             </File>
             <File>
               <FileName>crc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\crc.c</FilePath>
+              <FilePath>.\src\crc.c</FilePath>
             </File>
             <File>
               <FileName>ibutton.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ibutton.c</FilePath>
+              <FilePath>.\src\ibutton.c</FilePath>
             </File>
             <File>
               <FileName>ring_buffer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ring_buffer.c</FilePath>
+              <FilePath>.\src\ring_buffer.c</FilePath>
             </File>
             <File>
               <FileName>tests.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\tests.c</FilePath>
+              <FilePath>.\tests\tests.c</FilePath>
             </File>
             <File>
               <FileName>onewire.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\onewire.c</FilePath>
+              <FilePath>.\src\onewire.c</FilePath>
             </File>
             <File>
               <FileName>md5.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\md5.c</FilePath>
+              <FilePath>.\src\md5.c</FilePath>
             </File>
             <File>
               <FileName>iap.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\iap.c</FilePath>
+              <FilePath>.\src\iap.c</FilePath>
             </File>
             <File>
               <FileName>wdt.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\wdt.c</FilePath>
+              <FilePath>.\src\wdt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -487,102 +487,102 @@
             <File>
               <FileName>device_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\device_config.h</FilePath>
+              <FilePath>.\inc\device_config.h</FilePath>
             </File>
             <File>
               <FileName>isr.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\isr.h</FilePath>
+              <FilePath>.\inc\isr.h</FilePath>
             </File>
             <File>
               <FileName>skud_algo.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\skud_algo.h</FilePath>
+              <FilePath>.\inc\skud_algo.h</FilePath>
             </File>
             <File>
               <FileName>api.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\api.h</FilePath>
+              <FilePath>.\inc\api.h</FilePath>
             </File>
             <File>
               <FileName>bus.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\bus.h</FilePath>
+              <FilePath>.\inc\bus.h</FilePath>
             </File>
             <File>
               <FileName>timers.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\timers.h</FilePath>
+              <FilePath>.\inc\timers.h</FilePath>
             </File>
             <File>
               <FileName>crc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\crc.h</FilePath>
+              <FilePath>.\inc\crc.h</FilePath>
             </File>
             <File>
               <FileName>usart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\usart.h</FilePath>
+              <FilePath>.\inc\usart.h</FilePath>
             </File>
             <File>
               <FileName>gpio.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\gpio.h</FilePath>
+              <FilePath>.\inc\gpio.h</FilePath>
             </File>
             <File>
               <FileName>keys.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\keys.h</FilePath>
+              <FilePath>.\inc\keys.h</FilePath>
             </File>
             <File>
               <FileName>flash.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\flash.h</FilePath>
+              <FilePath>.\inc\flash.h</FilePath>
             </File>
             <File>
               <FileName>packages.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\packages.h</FilePath>
+              <FilePath>.\inc\packages.h</FilePath>
             </File>
             <File>
               <FileName>variables.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\variables.h</FilePath>
+              <FilePath>.\inc\variables.h</FilePath>
             </File>
             <File>
               <FileName>ibutton.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ibutton.h</FilePath>
+              <FilePath>.\inc\ibutton.h</FilePath>
             </File>
             <File>
               <FileName>onewire.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\onewire.h</FilePath>
+              <FilePath>.\inc\onewire.h</FilePath>
             </File>
             <File>
               <FileName>md5.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\md5.h</FilePath>
+              <FilePath>.\inc\md5.h</FilePath>
             </File>
             <File>
               <FileName>ring_buffer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ring_buffer.h</FilePath>
+              <FilePath>.\inc\ring_buffer.h</FilePath>
             </File>
             <File>
               <FileName>wdt.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\wdt.h</FilePath>
+              <FilePath>.\inc\wdt.h</FilePath>
             </File>
             <File>
               <FileName>iap.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\iap.h</FilePath>
+              <FilePath>.\inc\iap.h</FilePath>
             </File>
             <File>
               <FileName>main.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\main.h</FilePath>
+              <FilePath>.\inc\main.h</FilePath>
             </File>
           </Files>
         </Group>
