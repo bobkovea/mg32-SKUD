@@ -24,11 +24,11 @@
 ```c++
 Transition_t FSMTable[3][8] =
 {
-	[sNoAccessSleep][eDoorOpened] 				= { sNoAccessWaitingKey, hSleepToWaiting },
-	[sNoAccessSleep][eDoorClosed] 				= { sNoAccessSleep, NULL },
+	[sNoAccessSleep][eDoorOpened] 		= { sNoAccessWaitingKey, hSleepToWaiting },
+	[sNoAccessSleep][eDoorClosed] 		= { sNoAccessSleep, NULL },
  ...
-	[sAccessGiven][eIndicationEnded] 			= { sAccessGiven, hIndicationStop },
-	[sAccessGiven][eBusMessage] 			        = { sAccessGiven, hParseBusMessage },
+	[sAccessGiven][eIndicationEnded] 	= { sAccessGiven, hIndicationStop },
+	[sAccessGiven][eBusMessage] 		= { sAccessGiven, hParseBusMessage },
 }
 ```
   + обработка состояния двери шкафа управления (сухой контакт)
