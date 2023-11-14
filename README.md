@@ -46,11 +46,12 @@ uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg);
 ```
 Печатная плата устройства
 
-![плата_top](https://github.com/bobkovea/mg32-SKUD/assets/52193810/e7921a8e-56d3-485b-8935-77139d90294c)
-![плата_bot](https://github.com/bobkovea/mg32-SKUD/assets/52193810/da3d5485-feb0-40c6-93dd-cbba72628bb1)
+![Безымянный1](https://github.com/bobkovea/mg32-SKUD/assets/52193810/58d41889-ffa7-403e-9c5a-f72720ca7a7c)
+![Безымянный](https://github.com/bobkovea/mg32-SKUD/assets/52193810/2f6be876-40dd-4d8d-b54e-74343aceaee2)
 
 Ключи контактные и бесконтактный считыватель
-![считыватель](https://github.com/bobkovea/mg32-SKUD/assets/52193810/ceaace7d-561b-4039-a0f7-7998bfedb36b)
+
+![Безымянный3](https://github.com/bobkovea/mg32-SKUD/assets/52193810/1228b96b-bd96-402a-8cb1-0eb0a4c1ec83)
 
 
 
