@@ -44,6 +44,12 @@ uint32_t API_SetVariable(uint8_t varNumber, uint8_t varValueMSB, uint8_t varValu
 uint32_t API_DoCommand(uint8_t commNum, uint8_t commArg);
 ...
 ```
+
+Также к устройству дополнительно прилагается симпатичный терминал для его тестирования. Можно изменять/считывать внутренние переменные и работать с ключами доступа. Написан на C#/WinForms, код смотреть в проекте STerminal, класс TMC.
+
+![Безымянный333](https://github.com/bobkovea/mg32-SKUD/assets/52193810/f5e29e70-5787-4ea8-bf51-1b6fa2a28f68)
+![image](https://github.com/bobkovea/mg32-SKUD/assets/52193810/595b2c50-e29f-42c7-9bf6-576420783a6b)
+
 Печатная плата устройства
 
 ![Безымянный1](https://github.com/bobkovea/mg32-SKUD/assets/52193810/58d41889-ffa7-403e-9c5a-f72720ca7a7c)
